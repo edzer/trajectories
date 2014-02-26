@@ -6,9 +6,9 @@ Authors@R:
 	c(person("Edzer", "Pebesma", role = c("cre", "aut"),
 		 email = "edzer.pebesma@uni-muenster.de"),
 	person("Benedikt", "Klus", role = "aut"))
-Depends: R (>= 2.14.0)
+Depends: R (>= 2.14.0), rgdal
 Imports: methods, spacetime (>= 1.0-0), sp (>= 1.0-14), lattice, rgeos
-Suggests: rgl, OpenStreetMap, RCurl, rjson
+Suggests: rgl, OpenStreetMap, RCurl, rjson, adehabitatLT
 LazyData: no
 Description: classes and methods for trajectory data
 License: GPL (>= 2)

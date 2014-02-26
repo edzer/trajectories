@@ -35,6 +35,8 @@
 \alias{aggregate,TracksCollection-method}
 \alias{plot,TracksCollection,ANY-method}
 \alias{stplot,TracksCollection-method}
+\alias{segPanel}
+\alias{tracksPanel}
 
 \title{Classes "Track", "Tracks", and "TracksCollection"}
 \description{ Classes for representing sets of trajectory data, 
