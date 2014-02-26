@@ -1,0 +1,33 @@
+import(methods)
+import(sp)
+import(spacetime)
+import(rgeos)
+import(lattice)
+# importFrom(stats, aggregate, na.omit, time, start, end)
+importFrom(utils, stack, unstack)
+# importFrom(rgl, plot3d, lines3d, surface3d)
+# importFrom(OpenStreetMap, openmap, openproj)
+
+exportClasses(
+	Track, Tracks, TracksCollection, segments
+)
+
+export(
+	Track, Tracks, TracksCollection, segPanel, tracksPanel
+)
+
+exportMethods(
+	generalize,
+	stbox,
+	stcube
+)
+
+S3method(dim, Track)
+S3method(dim, Tracks)
+S3method(dim, TracksCollection)
+S3method(print, summary.Track)
+S3method(print, summary.Tracks)
+S3method(print, summary.TracksCollection)
+S3method(stack, TracksCollection)
+S3method(unstack, TracksCollection)
+S3method(c, Tracks)
