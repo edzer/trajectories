@@ -8,7 +8,7 @@
 \usepackage{graphicx}
 \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
 \usepackage{Sweave}
-\SweaveOpts{keep.source=true}
+
 \newcommand{\code}[1]{{\tt #1}}
 
 \title{Analysing Trajectory Data in R} 
@@ -24,12 +24,6 @@ Benedikt Klus \and
 % Modify figure width.
 \setkeys{Gin}{width=0.5\textwidth}
 
-<<eval=TRUE, echo=FALSE, results=hide>>=
-# Wrap R commands. Use together with Sweave option "keep.source=false".
-# options(width = 60)
-# Load library "rgl" to allow for using "rgl" graphics with Sweave.
-library("rgl")
-@
 
 \maketitle
 
@@ -43,11 +37,13 @@ library("rgl")
 
 This vignette describes classes and methods which have initially been added to package \emph{spacetime} \cite{pebesma12, bivand13} and moved to the new package \emph{trajectories}. They aim to improve the overall handling of trajectory data in R. To date, R is missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. One of the more comprehensive works dedicated to trajectories is the one of Calenge which he released as package \emph{adehabitatLT} on CRAN during his PhD, but which is restricted to animal trajectory analysis \cite{calenge06}. The classes and methods presented below are an attempt to address the lack of a broader range of utilities to deal with trajectory data in R and integrate tightly with the classes and methods provided by package \emph{spacetime}. To start trajectory'ing, load the package (and optionally its examples) with:
 
-<<eval=TRUE, echo=TRUE, results=hide>>=
-library("spacetime")
-library("trajectories")
-example("Track")
-@
+\begin{Schunk}
+\begin{Sinput}
+> library("spacetime")
+> library("trajectories")
+> example("Track")
+\end{Sinput}
+\end{Schunk}
 
 % Classes
 % ==================================================
@@ -61,9 +57,11 @@ The update implements four data classes for trajectory representation: \code{Tra
 
 The class \code{Track} represents a single track followed by a person, animal or object. Instances of this class are meant to hold a series of consecutive location/time stamps that are not interrupted by another activity. The class contains five slots, four of which are inherited from class \code{STIDF}: \code{@sp} to store the geometry, \code{@time} to store the time, \code{@endtime} to store the end time when having generalised line geometries with one value per attribute for a set of points (otherwise, defaults to the time defined in \code{@time}), \code{@data} to store the attributes and \code{@connections} to keep a record of attribute data between points (e.g., distance, duration and speed). A \code{Track} object can be created out of an \code{STIDF} object like so:
 
-<<eval=TRUE, echo=TRUE, results=hide>>=
-Track(stidf)
-@
+\begin{Schunk}
+\begin{Sinput}
+> Track(stidf)
+\end{Sinput}
+\end{Schunk}
 
 By default, distance, duration, speed and direction are computed as the connections data. Optionally, a data frame containing additional connections data and/or a custom function for calculating the data of segments between consecutive points can be passed. Please refer to the documentation for detailed information.
 
@@ -73,9 +71,11 @@ By default, distance, duration, speed and direction are computed as the connecti
 
 The class \code{Tracks} embodies a collection of tracks followed by a single person, animal or object. The class contains two slots: \code{@tracks} to store the tracks as objects of class \code{Track} and \code{@tracksData} to hold a summary record for each particular track (e.g., minimum and maximum time, total distance and average speed). A \code{Tracks} object can be created by:
 
-<<eval=TRUE, echo=TRUE, results=hide>>=
-Tracks(list(A1 = A1, A2 = A2))
-@
+\begin{Schunk}
+\begin{Sinput}
+> Tracks(list(A1 = A1, A2 = A2))
+\end{Sinput}
+\end{Schunk}
 
 \dots{} with \code{A1} and \code{A2} being instances of class \code{Track}. By default, the minimum and maximum coordinates and time, the total number of geometries, the total distance as well as the average speed are computed as the summary information data. Same to the \code{Track} method presented above, a data frame and/or a custom function can be passed to expand the default data.
 
@@ -85,9 +85,11 @@ Tracks(list(A1 = A1, A2 = A2))
 
 Finally, the class \code{TracksCollection} represents a collection of tracks followed by many persons, animals or objects. The class contains two slots: \code{@tracksCollection} to store the tracks as objects of class \code{Tracks} and \code{@tracksCollectionData} to hold summary information about each particular person, animal or object (e.g., the total number of tracks). A \code{TracksCollection} object can be created by:
 
-<<eval=TRUE, echo=TRUE, results=hide>>=
-TracksCollection(list(A = A, B = B))
-@
+\begin{Schunk}
+\begin{Sinput}
+> TracksCollection(list(A = A, B = B))
+\end{Sinput}
+\end{Schunk}
 
 \dots{} with \code{A} and \code{B} being objects of class \code{Tracks}. By default, the total number of tracks as well as the minimum and maximum coordinates and time are computed as the summary information data. Same to the \code{Track} and \code{Tracks} methods outlined above, a data frame and/or a custom function can be passed to expand the default data.
 
@@ -109,31 +111,119 @@ A wealth of methods has been implemented to cover the most frequently used use c
 
 The update implements the base methods \code{dim} and \code{summary} to retrieve the dimension and get summaries of \code{Track}, \code{Tracks} and \code{TracksCollection} objects.
 
-<<eval=TRUE, echo=TRUE, results=verbatim>>=
-dim(Tr)
-summary(Tr)
-@
+\begin{Schunk}
+\begin{Sinput}
+> dim(Tr)
+\end{Sinput}
+\begin{Soutput}
+       IDs     tracks geometries 
+         2          4         24 
+\end{Soutput}
+\begin{Sinput}
+> summary(Tr)
+\end{Sinput}
+\begin{Soutput}
+Object of class TracksCollection
+ with Dimensions (IDs, tracks, geometries): (2, 4, 24)
+[[Spatial:]]
+Object of class SpatialPoints
+Coordinates:
+  min max
+x   1   7
+y   1   7
+Is projected: FALSE 
+proj4string : [+proj=longlat +ellps=WGS84]
+Number of points: 24
+[[Temporal:]]
+     Index                       timeIndex    
+ Min.   :2013-09-30 02:00:07   Min.   :1.000  
+ 1st Qu.:2013-09-30 02:02:29   1st Qu.:2.000  
+ Median :2013-09-30 02:04:28   Median :3.500  
+ Mean   :2013-09-30 02:04:58   Mean   :3.542  
+ 3rd Qu.:2013-09-30 02:07:35   3rd Qu.:5.000  
+ Max.   :2013-09-30 02:10:06   Max.   :7.000  
+[[Data attributes:]]
+      co2         
+ Min.   :-1.5006  
+ 1st Qu.:-0.6010  
+ Median : 0.3848  
+ Mean   : 0.1652  
+ 3rd Qu.: 0.7413  
+ Max.   : 1.5917  
+[[Connections:]]
+    distance        duration          speed          direction    
+ Min.   :110.4   Min.   : 4.785   Min.   : 2.262   Min.   :  0.0  
+ 1st Qu.:110.4   1st Qu.:10.849   1st Qu.: 3.393   1st Qu.:123.8  
+ Median :111.0   Median :24.384   Median : 4.972   Median :180.0  
+ Mean   :126.7   Mean   :25.173   Mean   : 9.487   Mean   :173.2  
+ 3rd Qu.:156.4   3rd Qu.:34.270   3rd Qu.:14.009   3rd Qu.:224.9  
+ Max.   :156.7   Max.   :59.482   Max.   :27.506   Max.   :315.2  
+\end{Soutput}
+\end{Schunk}
 
 Furthermore, the methods \code{proj4string}, \code{coordinates}, \code{coordnames} and \code{bbox} of package \code{sp} \cite{pebesma05, bivand13} have been implemented to get back the same results for trajectories.
 
-<<eval=TRUE, echo=TRUE, results=verbatim>>=
-proj4string(B)
-coordinates(A1)
-coordnames(Tr)
-bbox(A)
-@
+\begin{Schunk}
+\begin{Sinput}
+> proj4string(B)
+\end{Sinput}
+\begin{Soutput}
+[1] "+proj=longlat +ellps=WGS84"
+\end{Soutput}
+\begin{Sinput}
+> coordinates(A1)
+\end{Sinput}
+\begin{Soutput}
+     x y
+[1,] 7 7
+[2,] 6 7
+[3,] 5 6
+[4,] 5 5
+[5,] 4 5
+[6,] 3 6
+[7,] 3 7
+\end{Soutput}
+\begin{Sinput}
+> coordnames(Tr)
+\end{Sinput}
+\begin{Soutput}
+[1] "x" "y"
+\end{Soutput}
+\begin{Sinput}
+> bbox(A)
+\end{Sinput}
+\begin{Soutput}
+  min max
+x   3   7
+y   3   7
+\end{Soutput}
+\end{Schunk}
 
 \code{spacetime} has been added a slightly modified version of the \code{bbox} method which does not constrain to space, but also considers time. Compare \dots
 
-<<eval=TRUE, echo=TRUE, results=verbatim>>=
-bbox(Tr)
-@
+\begin{Schunk}
+\begin{Sinput}
+> bbox(Tr)
+\end{Sinput}
+\begin{Soutput}
+  min max
+x   1   7
+y   1   7
+\end{Soutput}
+\end{Schunk}
 
 \dots{} to:
 
-<<eval=TRUE, echo=TRUE, results=verbatim>>=
-stbox(Tr)
-@
+\begin{Schunk}
+\begin{Sinput}
+> stbox(Tr)
+\end{Sinput}
+\begin{Soutput}
+    x y                time
+min 1 1 2013-09-30 02:00:07
+max 7 7 2013-09-30 02:10:06
+\end{Soutput}
+\end{Schunk}
 
 % Selection
 % ==================================================
@@ -143,52 +233,119 @@ Retrieving and replacing attribute data of \code{Track}, \code{Tracks} and \code
 
 Select the first two \code{Tracks} objects of a \code{TracksCollection},
 return an object of class \code{TracksCollection}:
-<<eval=TRUE, echo=TRUE, results=hide>>=
-class(Tr[1:2])
-dim(Tr[1:2])
-@
+\begin{Schunk}
+\begin{Sinput}
+> class(Tr[1:2])
+> dim(Tr[1:2])
+\end{Sinput}
+\end{Schunk}
 Select the second \code{Tracks} object of a tracks collection. Returns an
 object of class \code{Tracks}:
-<<eval=TRUE, echo=TRUE>>=
-class(Tr[2])
-dim(Tr[2])
-@
+\begin{Schunk}
+\begin{Sinput}
+> class(Tr[2])
+\end{Sinput}
+\begin{Soutput}
+[1] "Tracks"
+attr(,"package")
+[1] "trajectories"
+\end{Soutput}
+\begin{Sinput}
+> dim(Tr[2])
+\end{Sinput}
+\begin{Soutput}
+    tracks geometries 
+         2         12 
+\end{Soutput}
+\end{Schunk}
 Select the first track of the second \code{Tracks} object of a 
 \code{TracksCollection}. Returns an object of class \code{Track}:
-<<eval=TRUE, echo=TRUE>>=
-class(Tr[2][1])
-dim(Tr[2][1])
-@
+\begin{Schunk}
+\begin{Sinput}
+> class(Tr[2][1])
+\end{Sinput}
+\begin{Soutput}
+[1] "Track"
+attr(,"package")
+[1] "trajectories"
+\end{Soutput}
+\begin{Sinput}
+> dim(Tr[2][1])
+\end{Sinput}
+\begin{Soutput}
+geometries 
+         6 
+\end{Soutput}
+\end{Schunk}
 Select tracks 1 and 2 of the first \code{Tracks} object as well as track
 2 of the second \code{Tracks} object of a \code{TracksCollection},
 return an object of class \code{TracksCollection}.
-<<eval=TRUE, echo=TRUE>>=
-class(Tr[list(1:2, 2)])
-dim(Tr[list(1:2, 2)])
-@
+\begin{Schunk}
+\begin{Sinput}
+> class(Tr[list(1:2, 2)])
+\end{Sinput}
+\begin{Soutput}
+[1] "TracksCollection"
+attr(,"package")
+[1] "trajectories"
+\end{Soutput}
+\begin{Sinput}
+> dim(Tr[list(1:2, 2)])
+\end{Sinput}
+\begin{Soutput}
+       IDs     tracks geometries 
+         2          3         18 
+\end{Soutput}
+\end{Schunk}
 Select any tracks of a tracks collection that intersect \code{Spatial} 
 object \code{Muenster}.
-<<eval=FALSE, echo=TRUE>>=
-Tr[Muenster]
-@
+\begin{Schunk}
+\begin{Sinput}
+> Tr[Muenster]
+\end{Sinput}
+\end{Schunk}
 Select attribute \code{co2} of a \code{TracksCollection}, either by 
-<<eval=TRUE, echo=TRUE>>=
-class(Tr[["co2"]])
-length(Tr[["co2"]])
-@
+\begin{Schunk}
+\begin{Sinput}
+> class(Tr[["co2"]])
+\end{Sinput}
+\begin{Soutput}
+[1] "numeric"
+\end{Soutput}
+\begin{Sinput}
+> length(Tr[["co2"]])
+\end{Sinput}
+\begin{Soutput}
+[1] 24
+\end{Soutput}
+\end{Schunk}
 or by
-<<eval=TRUE, echo=TRUE>>=
-class(Tr$co2)
-length(Tr$co2)
-@
+\begin{Schunk}
+\begin{Sinput}
+> class(Tr$co2)
+\end{Sinput}
+\begin{Soutput}
+[1] "numeric"
+\end{Soutput}
+\begin{Sinput}
+> length(Tr$co2)
+\end{Sinput}
+\begin{Soutput}
+[1] 24
+\end{Soutput}
+\end{Schunk}
 Add or replace an attribute of a tracks collection, by 
-<<eval=TRUE, echo=TRUE>>=
-Tr[["distance"]] = Tr[["distance"]] * 1000
-@
+\begin{Schunk}
+\begin{Sinput}
+> Tr[["distance"]] = Tr[["distance"]] * 1000
+\end{Sinput}
+\end{Schunk}
 or by
-<<eval=TRUE, echo=TRUE>>=
-Tr$distance = Tr$distance * 1000
-@
+\begin{Schunk}
+\begin{Sinput}
+> Tr$distance = Tr$distance * 1000
+\end{Sinput}
+\end{Schunk}
 
 % Coercion
 % ==================================================
@@ -226,18 +383,24 @@ Tracks can be plotted using either the \code{plot}, the \code{stplot} or the \co
 
 \begin{figure}[H]
 \centering
-<<fig=TRUE, echo=TRUE>>=
-plot(Tr, col = 2, axes = TRUE)
-@
+\begin{Schunk}
+\begin{Sinput}
+> plot(Tr, col = 2, axes = TRUE)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{tracks-019}
 \caption{Spatial Distribution of a Tracks Collection}
 \label{fig:spatialdistributionofatrackscollection}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-<<fig=TRUE, echo=TRUE, height = 4>>=
-stplot(Tr, attr = "co2", arrows = TRUE, lwd = 3, by = "IDs")
-@
+\begin{Schunk}
+\begin{Sinput}
+> stplot(Tr, attr = "co2", arrows = TRUE, lwd = 3, by = "IDs")
+\end{Sinput}
+\end{Schunk}
+\includegraphics{tracks-020}
 \caption{CO2 Consumption Over Time}
 \label{fig:co2consumptionovertime}
 \end{figure}
@@ -248,22 +411,24 @@ stplot(Tr, attr = "co2", arrows = TRUE, lwd = 3, by = "IDs")
 
 The update implements the methods \code{over} and \code{aggregate} for \code{Track}, \code{Tracks} and \code{TracksCollection} objects to provide the same functionality as is provided by packages \code{sp} and \code{spacetime}. In addition, a further method has been added to allow for generalising tracks by either space, time or a freely selectable number of segments. The points of a segment are wrapped up in a \code{SpatialLines} object with \code{time} and \code{endTime} reflecting the start and end time of the segment. The attributes are aggregated per segment. The following code snippet depicts the main options:
 
-<<eval=FALSE, echo=TRUE, results=hide>>=
-# Generalise a track into 5 minute intervals. Use max() as the
-# aggregation function.
-generalize(B, max, timeInterval = "2 min")
-# Generalise a track into 200 distance units (usually metres).
-generalize(A2, distance = 200)
-# Generalise a track into n segments with each segment consisting of
-# two points.
-generalize(Tr, min, n = 2)
-# Simplify the given geometries using the Douglas–Peucker algorithm
-# with tolerance value 2.
-generalize(A, timeInterval = "3 min", tol = 2)
-# Keep the middle point of each segment rather than generalising to
-# objects of class "SpatialLines".
-generalize(A1, n = 3, toPoints = TRUE)
-@
+\begin{Schunk}
+\begin{Sinput}
+> # Generalise a track into 5 minute intervals. Use max() as the
+> # aggregation function.
+> generalize(B, max, timeInterval = "2 min")
+> # Generalise a track into 200 distance units (usually metres).
+> generalize(A2, distance = 200)
+> # Generalise a track into n segments with each segment consisting of
+> # two points.
+> generalize(Tr, min, n = 2)
+> # Simplify the given geometries using the Douglas–Peucker algorithm
+> # with tolerance value 2.
+> generalize(A, timeInterval = "3 min", tol = 2)
+> # Keep the middle point of each segment rather than generalising to
+> # objects of class "SpatialLines".
+> generalize(A1, n = 3, toPoints = TRUE)
+\end{Sinput}
+\end{Schunk}
 
 % Demo
 % ==================================================
@@ -271,59 +436,30 @@ generalize(A1, n = 3, toPoints = TRUE)
 
 The package ships with two demos looking at trajectories while using two different datasets. The \emph{Tracks} demo is based on the Geolife GPS trajectory dataset, which emerged from the (Microsoft Research Asia) Geolife project \cite{zheng08, zheng09, zheng10}. The \emph{stcube} demo, instead, uses trajectories of the enviroCar project at \url{www.envirocar.org} and plots them in a space-time cube. The demos can be loaded as follows:
 
-<<eval=FALSE, echo=TRUE, results=hide>>=
-demo("Track")
-demo("stcube")
-@
+\begin{Schunk}
+\begin{Sinput}
+> demo("Track")
+> demo("stcube")
+\end{Sinput}
+\end{Schunk}
 
 Below, a small snippet of the \emph{stcube} demo is shown:
 
-<<eval=TRUE, echo=FALSE, results=hide>>=
-# Import enviroCar track.
-importEnviroCar = function(trackID, url = "https://envirocar.org/api/stable/tracks/") {
-	require(RCurl)
-	require(rgdal)
-	require(rjson)
-	url = getURL(paste(url, trackID, sep = ""), 
-		.opts = list(ssl.verifypeer = FALSE)) # .opts needed for Windows
-	# Read data into spatial object.
-	spdf = readOGR(dsn = url, layer = "OGRGeoJSON", verbose = FALSE)
-	# Convert time from factor to POSIXct.
-	time = as.POSIXct(spdf$time, format = "%Y-%m-%dT%H:%M:%SZ")
-	# Convert phenomena from JSON to data frame.
-	phenomena = lapply(as.character(spdf$phenomenons), fromJSON)
-	values = lapply(phenomena, function(x) as.data.frame(lapply(x, function(y) y$value)))
-	# Get a list of all phenomena for which values exist.
-	names = vector()
-	for(i in values)
-		names = union(names, names(i))
-	# Make sure that each data frame has the same number of columns.
-	values = lapply(values, function(x) {
-		xNames = names(x)
-		# Get the symmetric difference.
-		diff = setdiff(union(names, xNames), intersect(names, xNames))
-		if(length(diff) > 0)
-			x[diff] = NA
-		x
-	})
-	# Bind values together.
-	data = do.call(rbind, values)
-	sp = SpatialPoints(coords = coordinates(spdf), proj4string = CRS("+proj=longlat"))
-	stidf = STIDF(sp = sp, time = time, data = data)
-	Track(track = stidf)
-}
-@
 
 A space-time cube can be shown by either
-<<eval=FALSE>>=
-A3 = importEnviroCar("528cf1a3e4b0a727145df093")
-stcube(A3, showMap = TRUE, col = "red")
-@
+\begin{Schunk}
+\begin{Sinput}
+> A3 = importEnviroCar("528cf1a3e4b0a727145df093")
+> stcube(A3, showMap = TRUE, col = "red")
+\end{Sinput}
+\end{Schunk}
 or, avoiding loading the data from the web site
-<<eval=FALSE>>=
-data(A3)
-stcube(A3, showMap = TRUE, col = "red")
-@
+\begin{Schunk}
+\begin{Sinput}
+> data(A3)
+> stcube(A3, showMap = TRUE, col = "red")
+\end{Sinput}
+\end{Schunk}
 
 %<<eval=TRUE,echo=FALSE,fig=TRUE, pdf=FALSE, grdevice=rgl.Sweave, height=5, width=5, resolution=100>>=
 %data(A3)

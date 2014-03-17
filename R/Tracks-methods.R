@@ -79,14 +79,14 @@ setAs("Tracks", "Lines",
 	}
 )
 
-setAs("Tracks", "SpatialLines", 
-	function(from) {
-		l = lapply(from@tracks, function(x) as(x, "Lines"))
-		for (i in seq_along(l))
-			l[[i]]@ID = paste("ID", i, sep="")
-		SpatialLines(l, CRS(proj4string(from)))
-	}
-)
+setAsWithID <- function(from, ID=NA) {
+  l = lapply(from@tracks, function(x) as(x, "Lines"))
+  for (i in seq_along(l))
+    l[[i]]@ID = paste(switch(is.na(ID),"ID",ID), "_", i, sep="")
+  SpatialLines(l, CRS(proj4string(from)))
+}
+
+setAs("Tracks", "SpatialLines", function(from) setAsWithID(from))
 
 setAs("Tracks", "SpatialLinesDataFrame", 
 	function(from) SpatialLinesDataFrame(as(from, "SpatialLines"), 
@@ -94,9 +94,23 @@ setAs("Tracks", "SpatialLinesDataFrame",
 )
 
 setAs("TracksCollection", "SpatialLines", 
-	function(from) SpatialLines(lapply(from@tracksCollection, 
-		function(x) as(x, "Lines")), CRS(proj4string(from)))
-)
+      function(from) {
+        l <- lapply(from@tracksCollection, function(tracksObj) as(tracksObj, "Lines"))
+
+        if (is.null(rownames(from@tracksCollectionData))) 
+          tracksIDs <- paste("ID", 1:length(from@tracksCollection), sep="")
+        else 
+          tracksIDs <- rownames(from@tracksCollectionData)
+        
+        trackIDs <- rep(tracksIDs, sapply(from@tracksCollection, length))
+        
+        for (i in seq_along(l)) {
+          l[[i]]@ID <- paste(trackIDs[i], l[[i]]@ID, sep="_")
+        }
+
+        SpatialLines(l, CRS(proj4string(from)))
+      })
+
 
 setAs("TracksCollection", "SpatialLinesDataFrame", 
 	function(from) SpatialLinesDataFrame(as(from, "SpatialLines"),

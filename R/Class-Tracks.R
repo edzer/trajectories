@@ -108,7 +108,7 @@ TrackSummary = function(track) {
 
 Tracks = function(tracks, 
 		tracksData = data.frame(row.names=names(tracks)), fn = TrackSummary) {
-	if (is.null(names(tracks)))
+	if (is.null(names(tracks)) && length(tracks) > 0)
 		names(tracks) = paste("Track", 1:length(tracks), sep = "")
 	new("Tracks", tracks = tracks, 
 		tracksData = cbind(tracksData, do.call(rbind, lapply(tracks, fn))))
@@ -130,6 +130,16 @@ setClass("TracksCollection",
 		return(TRUE)
 	}
 )
+
+# unTracksCollection <- function(x, recursive=TRUE, use.names=TRUE) {
+#   
+#   TracksCollection(Tracks(lapply(x@tracksCollection,
+#                                  function(tracksObj) {
+#                                    unlist(tracksObj@tracks)
+#                                  })))
+#   
+# }
+
 
 TracksSummary = function(tracksCollection) {
 	tc = tracksCollection
