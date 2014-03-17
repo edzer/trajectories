@@ -35,7 +35,7 @@ Benedikt Klus \and
 % ==================================================
 \section{Introduction}
 
-This vignette describes classes and methods which have recently been added to package \emph{spacetime} \cite{pebesma12, bivand13} and aim to improve the overall handling of trajectory data in R. To date, R is missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. One of the more comprehensive works dedicated to trajectories is the one of Calenge which he released as package \emph{adehabitatLT} on CRAN during his PhD, but which is restricted to animal trajectory analysis \cite{calenge06}. The classes and methods presented below are an attempt to address the lack of a broader range of utilities to deal with trajectory data in R and integrate tightly with the classes and methods provided by package \emph{spacetime}. The work is included in package \emph{spacetime} version 1.1-0 and upwards. To start trajectory'ing, load the package (and optionally its examples) with:
+This vignette describes classes and methods which have initially been added to package \emph{spacetime} \cite{pebesma12, bivand13} and moved to the new package \emph{trajectories}. They aim to improve the overall handling of trajectory data in R. To date, R is missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. One of the more comprehensive works dedicated to trajectories is the one of Calenge which he released as package \emph{adehabitatLT} on CRAN during his PhD, but which is restricted to animal trajectory analysis \cite{calenge06}. The classes and methods presented below are an attempt to address the lack of a broader range of utilities to deal with trajectory data in R and integrate tightly with the classes and methods provided by package \emph{spacetime}. To start trajectory'ing, load the package (and optionally its examples) with:
 
 \begin{Schunk}
 \begin{Sinput}
@@ -136,28 +136,28 @@ proj4string : [+proj=longlat +ellps=WGS84]
 Number of points: 24
 [[Temporal:]]
      Index                       timeIndex    
- Min.   :2013-09-30 02:00:59   Min.   :1.000  
- 1st Qu.:2013-09-30 02:03:49   1st Qu.:2.000  
- Median :2013-09-30 02:06:19   Median :3.500  
- Mean   :2013-09-30 02:06:44   Mean   :3.542  
- 3rd Qu.:2013-09-30 02:09:50   3rd Qu.:5.000  
- Max.   :2013-09-30 02:13:42   Max.   :7.000  
+ Min.   :2013-09-30 02:00:07   Min.   :1.000  
+ 1st Qu.:2013-09-30 02:02:29   1st Qu.:2.000  
+ Median :2013-09-30 02:04:28   Median :3.500  
+ Mean   :2013-09-30 02:04:58   Mean   :3.542  
+ 3rd Qu.:2013-09-30 02:07:35   3rd Qu.:5.000  
+ Max.   :2013-09-30 02:10:06   Max.   :7.000  
 [[Data attributes:]]
       co2         
- Min.   :-1.0653  
- 1st Qu.:-0.6120  
- Median : 0.2598  
- Mean   : 0.1506  
- 3rd Qu.: 0.7072  
- Max.   : 2.3852  
+ Min.   :-1.5006  
+ 1st Qu.:-0.6010  
+ Median : 0.3848  
+ Mean   : 0.1652  
+ 3rd Qu.: 0.7413  
+ Max.   : 1.5917  
 [[Connections:]]
     distance        duration          speed          direction    
- Min.   :110.4   Min.   : 4.747   Min.   : 2.040   Min.   :  0.0  
- 1st Qu.:110.4   1st Qu.:25.320   1st Qu.: 2.632   1st Qu.:123.8  
- Median :111.0   Median :32.795   Median : 3.688   Median :180.0  
- Mean   :126.7   Mean   :34.446   Mean   : 5.506   Mean   :173.2  
- 3rd Qu.:156.4   3rd Qu.:44.716   3rd Qu.: 4.863   3rd Qu.:224.9  
- Max.   :156.7   Max.   :57.599   Max.   :32.997   Max.   :315.2  
+ Min.   :110.4   Min.   : 4.785   Min.   : 2.262   Min.   :  0.0  
+ 1st Qu.:110.4   1st Qu.:10.849   1st Qu.: 3.393   1st Qu.:123.8  
+ Median :111.0   Median :24.384   Median : 4.972   Median :180.0  
+ Mean   :126.7   Mean   :25.173   Mean   : 9.487   Mean   :173.2  
+ 3rd Qu.:156.4   3rd Qu.:34.270   3rd Qu.:14.009   3rd Qu.:224.9  
+ Max.   :156.7   Max.   :59.482   Max.   :27.506   Max.   :315.2  
 \end{Soutput}
 \end{Schunk}
 
@@ -220,8 +220,8 @@ y   1   7
 \end{Sinput}
 \begin{Soutput}
     x y                time
-min 1 1 2013-09-30 02:00:59
-max 7 7 2013-09-30 02:13:42
+min 1 1 2013-09-30 02:00:07
+max 7 7 2013-09-30 02:10:06
 \end{Soutput}
 \end{Schunk}
 
