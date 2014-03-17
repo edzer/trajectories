@@ -96,8 +96,18 @@ setAs("Tracks", "SpatialLinesDataFrame",
 setAs("TracksCollection", "SpatialLines", 
       function(from) {
         l <- lapply(from@tracksCollection, function(tracksObj) as(tracksObj, "Lines"))
-        for (i in seq_along(l))
-          l[[i]]@ID = paste("ID", i, sep="")
+
+        if (is.null(rownames(from@tracksCollectionData))) 
+          tracksIDs <- paste("ID", 1:length(from@tracksCollection), sep="")
+        else 
+          tracksIDs <- rownames(from@tracksCollectionData)
+        
+        trackIDs <- rep(tracksIDs, sapply(from@tracksCollection, length))
+        
+        for (i in seq_along(l)) {
+          l[[i]]@ID <- paste(trackIDs[i], l[[i]]@ID, sep="_")
+        }
+
         SpatialLines(l, CRS(proj4string(from)))
       })
 

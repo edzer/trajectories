@@ -131,14 +131,14 @@ setClass("TracksCollection",
 	}
 )
 
-unTracksCollection <- function(x, recursive=TRUE, use.names=TRUE) {
-  
-  TracksCollection(Tracks(lapply(x@tracksCollection,
-                                 function(tracksObj) {
-                                   unlist(tracksObj@tracks)
-                                 })))
-  
-}
+# unTracksCollection <- function(x, recursive=TRUE, use.names=TRUE) {
+#   
+#   TracksCollection(Tracks(lapply(x@tracksCollection,
+#                                  function(tracksObj) {
+#                                    unlist(tracksObj@tracks)
+#                                  })))
+#   
+# }
 
 
 TracksSummary = function(tracksCollection) {
