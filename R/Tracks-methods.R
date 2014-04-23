@@ -245,22 +245,21 @@ map3d = function(map, z, ...) {
 	ymax = map$tiles[[1]]$bbox$p2[2]
 	xc = seq(xmin, xmax, len = ny)
 	yc = seq(ymin, ymax, len = nx)
-	col = matrix(data = map$tiles[[1]]$colorData, nrow = ny, ncol = nx)
-	m = matrix(data = z, nrow = ny, ncol = nx)
-	surface3d(x = xc, y = yc, z = m, col = col, ...)
+	colMat = matrix(data = map$tiles[[1]]$colorData, nrow = ny, 
+	                ncol = nx)[,nx:1]
+	m = matrix(z, nrow = ny, ncol = nx)
+	persp3d(xc, rev(yc), m, col=colMat, lit=F, add=T)
 }
 
-normalize = function(time, by = "week", origin) {
-	tn = as.numeric(time)
-	if (by == "day")
-		tn = (tn %% (3600 * 24)) / 3600 # decimal hours
-	else if (by == "week")
-		tn = (tn %% (3600 * 24 * 7)) / (3600 * 24) # decimal days
-	else 
-		stop(paste("unknown value for by: ",by))
-	if (missing(origin))
-		origin = as.POSIXct("1970-01-01")
-	as.POSIXct(tn, origin = origin)
+normalize <- function (time, by = "min", origin) {
+  tn = as.numeric(time)
+  switch(by,
+         sec  = tn %% 1,
+         min  = (tn %% 60) / 60,
+         hour = (tn %% 3600) / 3600,
+         day  = (tn %% (3600 * 24)) / (3600 * 24),
+         week = (tn %% (3600 * 24 * 7)) / (3600 * 24 * 7),
+         stop(paste("unknown value for by: ", by)))
 }
 
 if(!isGeneric("stcube"))
@@ -357,8 +356,8 @@ setMethod("stcube", signature(x = "TracksCollection"),
 		coordsAll = do.call(rbind, lapply(x@tracksCollection,
 			function(x) do.call(rbind, lapply(x@tracks, function(y) coordinates(y@sp)))))
 		timeAll = normalize(do.call(c, lapply(x@tracksCollection,
-			function(x) do.call(c, lapply(x@tracks,
-				function(y) index(y@time))))), normalizeBy)
+                                          function(x) do.call(c, lapply(x@tracks,
+                                                                        function(y) index(y@time))))), normalizeBy)
 		col = rainbow(length(x@tracksCollection))
 		if(missing(aspect))
 			# mapasp() processes objects of class Spatial* only.
@@ -369,6 +368,8 @@ setMethod("stcube", signature(x = "TracksCollection"),
 			ylim = range(coordsAll[, 2])
 		if(missing(zlim))
 			zlim = range(timeAll)
+		if(missing(zlab))
+		  zlab <- paste("dec. time [",normalizeBy,"]", sep="")
 		# If the basemap is to be shown, fetch map tile first to allow for
 		# rendering everything in one go.
 		if(showMap) {
@@ -389,7 +390,7 @@ setMethod("stcube", signature(x = "TracksCollection"),
 				tracks = x@tracksCollection[[tz]]@tracks
 			for(t in seq_along(tracks)) {
 				coords = coordinates(tracks[[t]]@sp)
-				time = normalize(index(tracks[[t]]@time), normalizeBy, timeAll[1])
+				time = normalize(index(tracks[[t]]@time), normalizeBy)
 				lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[tz])
 			}
 		}
