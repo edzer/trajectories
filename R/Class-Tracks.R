@@ -43,6 +43,8 @@ TrackStats = function(track) {
 		cc = coordinates(track@sp)
 		ll = identical(is.projected(track), FALSE)
 		distance = LineLength(cc, ll, FALSE)
+		if (ll) # distance is in km, transform to m:
+			distance = distance * 1000.0
 		duration = diff(as.numeric(index(track@time))) # seconds
 		if (any(duration == 0)) {
 			print(track)
