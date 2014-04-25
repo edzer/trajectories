@@ -49,6 +49,8 @@ TrackStats = function(track) {
 			stop("zero duration interval(s) detected")
 		}
 		speed = distance / duration # per second
+		if (ll) # distance is in km, transform to m:
+			speed = speed * 1000
 		direction = directions_ll(cc, ll)
 		df = data.frame(distance = distance, duration = duration, 
 			speed = speed, direction = direction)
