@@ -3,6 +3,7 @@
 # setwd("~/Downloads/Geolife Trajectories 1.3")
 library(sp)
 library(spacetime)
+library(trajectories)
 sel = 1:20
 #sel = TRUE
 i = j = 1
