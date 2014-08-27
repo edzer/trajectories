@@ -20,14 +20,13 @@ Type 'q()' to quit R.
 > library(sp)
 > library(spacetime)
 > library(trajectories)
-Loading required package: rgdal
+> library(rgdal)
 rgdal: version: 0.9-1, (SVN revision 463)
 Geospatial Data Abstraction Library extensions to R successfully loaded
 Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
 Path to GDAL shared files: /usr/local/share/gdal
 Loaded PROJ.4 runtime: Rel. 4.9.0, 27 October 2013, [PJ_VERSION: 490]
 Path to PROJ.4 shared files: (autodetected)
-> library(rgdal)
 > 
 > # Create test objects. Do not change! Changes to the test objects are likely to
 > # have an impact on the test results. It is primarily validated against class
@@ -5400,4 +5399,4 @@ B 2    1    4    1    5 2013-09-30 02:06:55 2013-09-30 02:12:59
 > 
 > proc.time()
    user  system elapsed 
-  3.567   0.235   3.847 
+  3.528   0.219   3.749 

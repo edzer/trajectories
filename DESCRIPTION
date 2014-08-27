@@ -6,8 +6,8 @@ Authors@R:
 	c(person("Edzer", "Pebesma", role = c("cre", "aut"),
 		 email = "edzer.pebesma@uni-muenster.de"),
 	person("Benedikt", "Klus", role = "aut"))
-Depends: R (>= 2.14.0), rgdal
-Imports: methods, lattice, sp (>= 1.0-14), spacetime (>= 1.0-0), rgeos
+Depends: R (>= 2.14.0)
+Imports: methods, lattice, sp (>= 1.0-14), spacetime (>= 1.0-0), rgdal, rgeos
 Suggests: rgl, OpenStreetMap, RCurl, rjson, adehabitatLT
 LazyData: no
 Description: Classes and methods for trajectory data, with nested classes for individual trips, and collections for different entities. Methods include selection, generalization, aggregation, intersection, and plotting.
