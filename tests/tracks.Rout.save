@@ -15,6 +15,7 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
+> Sys.setenv(TZ = "Europe/Berlin")
 > # Load required libraries.
 > 
 > library(sp)
@@ -5399,4 +5400,4 @@ B 2    1    4    1    5 2013-09-30 02:06:55 2013-09-30 02:12:59
 > 
 > proc.time()
    user  system elapsed 
-  3.528   0.219   3.749 
+  3.545   0.231   3.792 
