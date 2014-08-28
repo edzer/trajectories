@@ -206,30 +206,36 @@ setMethod("proj4string", signature(obj = "TracksCollection"),
 # Provide plot methods. TODO Make more generic.
 
 setMethod("plot", "TracksCollection",
-	function(x, y, ..., type = 'l', xlim = stbox(x)[,1],
-			ylim = stbox(x)[,2], col = 1, lwd = 1, lty =
-			1, axes = TRUE, Arrows = FALSE, Segments = FALSE, add = FALSE) {
-		sp = x@tracksCollection[[1]]@tracks[[1]]@sp
-		if (! add)
-			plot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
-		if (axes == FALSE)
-			box()
-		if (Arrows || Segments) {
-			df = as(x, "segments")
-			args = list(x0 = df$x0, y0 = df$y0, x1 = df$x1, y1 = df$y1, 
-				col = col, lwd = lwd, lty = lty, ...)
-			if (Arrows)
-				do.call(arrows, args)
-			else
-				do.call(segments, args)
-		} else {
-			df = as(x, "data.frame") 
-			cn = coordnames(x)
-			lines(df[[cn[1]]], df[[cn[2]]], col = col, 
-				lwd = lwd, lty = lty, ...)
-		}
-	}
-)
+          function(x, y, ..., type = 'l', xlim = stbox(x)[,1],
+                   ylim = stbox(x)[,2], col = 1, lwd = 1, lty = 1, axes = TRUE,
+                   Arrows = FALSE, Segments = FALSE, add = FALSE) {
+              sp = x@tracksCollection[[1]]@tracks[[1]]@sp
+              if (! add) {
+                a <- as.list (match.call ())
+                a <- a [which (names (a) %in% 
+                               names (c (par (), formals (plot.default))))]
+                a <- a [3:length (a)] # [[1]]=the call, [[2]]=x
+                a <- c (as (x, "Spatial"), a)
+                do.call (plot, a)
+                #plot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
+              }
+              if (axes == FALSE) box()
+              if (Arrows || Segments) {
+                df = as(x, "segments")
+                args = list(x0 = df$x0, y0 = df$y0, x1 = df$x1, y1 = df$y1, 
+                          col = col, lwd = lwd, lty = lty, ...)
+                if (Arrows)
+                    do.call(arrows, args)
+                else
+                    do.call(segments, args)
+              } else {
+                df = as(x, "data.frame") 
+                cn = coordnames(x)
+                lines(df[[cn[1]]], df[[cn[2]]], col = col, lwd = lwd, 
+                      lty = lty, ...)
+              }
+          }
+          )
 
 # Provide stcube methods.
 
