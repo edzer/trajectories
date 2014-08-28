@@ -1,0 +1,98 @@
+commit 000f0f3dcd7b597fc41239b535fa8be4dd41ff37
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Aug 28 12:38:32 2014 +0200
+
+    change require() into requireNamespace()
+
+commit f36d4200638b995466ab16adb1cbb91ac71aa46a
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Aug 28 11:37:46 2014 +0200
+
+    test now check under different TZ
+
+commit d1f08baa97c8dac2045f295d447d43da53d952d1
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Aug 27 23:35:07 2014 +0200
+
+    add library(trajectories)
+
+commit 6c63a7056efe52287b5dce6cec1cb3765c431f04
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Aug 27 23:20:52 2014 +0200
+
+    cran submission
+
+commit 65733c3f7d0f71f3f655bddeb5eb20cc1fc16b00
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Aug 27 22:58:05 2014 +0200
+
+    remove traj, update tracks output, add description
+
+commit 7d9fa5170cf624927812d9d671cd5d3392baaf8d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Apr 25 15:22:01 2014 +0200
+
+    now distance also in m, if longlat
+
+commit dc467c63b14675ad1bd041713f180db070e70be2
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Apr 25 15:19:09 2014 +0200
+
+    if longlat, compute speed in m/s instead of km/s
+
+commit f1f5f6b16cd578b215d2edc483b62dfbdfdc3c17
+Merge: a6b4bf0 86c8ee4
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Mon Mar 17 15:19:41 2014 +0100
+
+    Merge pull request #1 from BenGraeler/master
+    
+    coercen from TracksCollection to SpatilaLines broke on non-unique IDs
+
+commit 86c8ee4ccfb761d84f2a5a733e9b7db2089ba913
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Mon Mar 17 14:35:16 2014 +0100
+
+    - re-use existing IDs to coerce from  TracksCollection to SpatialLines
+
+commit 2c57a410bc0667c7086e359b0fccf5a5fac2cddf
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Mon Mar 17 11:23:48 2014 +0100
+
+    - added breakout from spacetime to trajectories in vignette
+
+commit 90fc1aaf47f0c2af322e1f483dcb85576c52afae
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Mon Mar 17 10:34:10 2014 +0100
+
+    - ignore update
+
+commit 059e17d818bd170dfe7b6829ca06bf6a523d83dc
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Fri Mar 14 16:44:40 2014 +0100
+
+    - unique IDs for TracksCollection to SpatialLines
+
+commit a6b4bf0827f9ea56c1f6a8527a254bbb9083024d
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Feb 26 17:49:36 2014 +0100
+
+    make R CMD check run clean
+
+commit e27170452d9292e01bc887c7c459fa484e2e55a4
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Feb 26 12:59:25 2014 +0100
+
+    wrong file
+
+commit 2d91dccec03af256cfa94a06767af2dff8bfc54b
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Feb 26 12:58:55 2014 +0100
+
+    initial commit, some clean up still needed
+
+commit b67ce78c0727882c7c587e0eecadd5e23d2924a9
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Wed Feb 26 02:07:24 2014 -0800
+
+    Initial commit
