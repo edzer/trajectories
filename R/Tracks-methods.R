@@ -210,8 +210,15 @@ setMethod("plot", "TracksCollection",
 			ylim = stbox(x)[,2], col = 1, lwd = 1, lty =
 			1, axes = TRUE, Arrows = FALSE, Segments = FALSE, add = FALSE) {
 		sp = x@tracksCollection[[1]]@tracks[[1]]@sp
-		if (! add)
-			plot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
+		if (! add) {
+                        a <- as.list (match.call ())
+                        a <- a [which (names (a) %in% 
+                                       names (c (par (), formals (plot.default))))]
+                        a <- a [3:length (a)] # [[1]]=the call, [[2]]=x
+                        a <- c (as (x, "Spatial"), a)
+                        do.call (plot, a)
+			#plot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
+                }
 		if (axes == FALSE)
 			box()
 		if (Arrows || Segments) {
