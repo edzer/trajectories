@@ -212,7 +212,7 @@ setMethod("plot", "TracksCollection",
 		sp = x@tracksCollection[[1]]@tracks[[1]]@sp
                 # Submitting arrows formals to plot prompts warnings, so they
                 # are removed here.
-                aplot <- function (..., length, angle, code) plot (...)
+		aplot <- function (..., length, angle, code) plot (...)
 		if (! add)
 			aplot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
 		if (axes == FALSE)
