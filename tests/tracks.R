@@ -1,3 +1,4 @@
+Sys.setenv(TZ = "Europe/Berlin")
 # Load required libraries.
 
 library(sp)

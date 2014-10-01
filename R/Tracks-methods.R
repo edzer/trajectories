@@ -210,8 +210,11 @@ setMethod("plot", "TracksCollection",
 			ylim = stbox(x)[,2], col = 1, lwd = 1, lty =
 			1, axes = TRUE, Arrows = FALSE, Segments = FALSE, add = FALSE) {
 		sp = x@tracksCollection[[1]]@tracks[[1]]@sp
+                # Submitting arrows formals to plot prompts warnings, so they
+                # are removed here.
+		aplot <- function (..., length, angle, code) plot (...)
 		if (! add)
-			plot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
+			aplot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
 		if (axes == FALSE)
 			box()
 		if (Arrows || Segments) {
@@ -234,7 +237,8 @@ setMethod("plot", "TracksCollection",
 # Provide stcube methods.
 
 map3d = function(map, z, ...) {
-	require(rgl)
+	if (!requireNamespace("rgl", quietly = TRUE))
+		stop("rgl required")
 	if(length(map$tiles) != 1)
 		stop("Pass single map tile only.")
 	nx = map$tiles[[1]]$xres
@@ -245,10 +249,16 @@ map3d = function(map, z, ...) {
 	ymax = map$tiles[[1]]$bbox$p2[2]
 	xc = seq(xmin, xmax, len = ny)
 	yc = seq(ymin, ymax, len = nx)
+<<<<<<< HEAD
 	colMat = matrix(data = map$tiles[[1]]$colorData, nrow = ny, 
 	                ncol = nx)[,nx:1]
 	m = matrix(z, nrow = ny, ncol = nx)
 	persp3d(xc, rev(yc), m, col=colMat, lit=F, add=T)
+=======
+	col = matrix(data = map$tiles[[1]]$colorData, nrow = ny, ncol = nx)
+	m = matrix(data = z, nrow = ny, ncol = nx)
+	rgl::surface3d(x = xc, y = yc, z = m, col = col, ...)
+>>>>>>> 0f2589f372c91dfb01dcc6d17ae968bef29773da
 }
 
 normalize <- function (time, by = "min", origin) {
@@ -271,8 +281,10 @@ setMethod("stcube", signature(x = "Track"),
 		ylim, zlim, showMap = FALSE, mapType = "osm", ..., y, z) {
 		# "y" and "z" are ignored, but included in the method signature to avoid
 		# passing them twice to plot3d().
-		require(rgl)
-		require(OpenStreetMap)
+		if (!requireNamespace("rgl", quietly = TRUE))
+			stop("rgl required")
+		if (!requireNamespace("OpenStreetMap", quietly = TRUE))
+			stop("OpenStreetMap required")
 		coords = coordinates(x@sp)
 		time = index(x@time)
 		if(missing(aspect))
@@ -287,15 +299,17 @@ setMethod("stcube", signature(x = "Track"),
 		# rendering everything in one go.
 		if(showMap) {
 			# Required by openmap().
-			require(raster)
-			map = openmap(upperLeft = c(ylim[2], xlim[1]),
+			if (!requireNamespace("raster", quietly = TRUE))
+				stop("raster required")
+			# require(raster)
+			map = OpenStreetMap::openmap(upperLeft = c(ylim[2], xlim[1]),
 				lowerRight = c(ylim[1], xlim[2]), type = mapType)
-			map = openproj(x = map, projection = proj4string(x))
+			map = OpenStreetMap::openproj(x = map, projection = proj4string(x))
 		}
-		plot3d(x = coords[, 1], y = coords[, 2], z = time, xlab = xlab,
+		rgl::plot3d(x = coords[, 1], y = coords[, 2], z = time, xlab = xlab,
 			ylab = ylab, zlab = zlab, type = type, aspect = aspect, xlim = xlim,
 			ylim = ylim, zlim = zlim, ...)
-		if(showMap)
+		if (showMap)
 			map3d(map = map, z = time[1])
 	}
 )
@@ -305,8 +319,10 @@ setMethod("stcube", signature(x = "Tracks"),
 		ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z, col) {
 		# "y", "z" and "col" are ignored, but included in the method signature
 		# to avoid passing them twice to plot3d().
-		require(rgl)
-		require(OpenStreetMap)
+		if (!requireNamespace("rgl", quietly = TRUE))
+			stop("rgl required")
+		if (!requireNamespace("OpenStreetMap", quietly = TRUE))
+			stop("OpenStreetMap required")
 		dim = dim(x@tracks[[1]])["geometries"]
 		coordsAll = do.call(rbind, lapply(x@tracks, function(x) coordinates(x@sp)))
 		timeAll = normalize(do.call(c, lapply(x@tracks,
@@ -325,12 +341,13 @@ setMethod("stcube", signature(x = "Tracks"),
 		# rendering everything in one go.
 		if(showMap) {
 			# Required by openmap().
-			require(raster)
-			map = openmap(upperLeft = c(ylim[2], xlim[1]),
+			if (!requireNamespace("raster", quietly = TRUE))
+				stop("raster required")
+			map = OpenStreetMap::openmap(upperLeft = c(ylim[2], xlim[1]),
 				lowerRight = c(ylim[1], xlim[2]), type = mapType)
-			map = openproj(x = map, projection = proj4string(x))
+			map = OpenStreetMap::openproj(x = map, projection = proj4string(x))
 		}
-		plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
+		rgl::plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
 			z = timeAll[1:dim], xlab = xlab, ylab = ylab, zlab = zlab,
 			type = type, col = col[1], aspect = aspect, xlim = xlim,
 			ylim = ylim, zlim = zlim, ...)
@@ -338,7 +355,7 @@ setMethod("stcube", signature(x = "Tracks"),
 		for(t in seq_along(tracks)) {
 			coords = coordinates(tracks[[t]]@sp)
 			time = normalize(index(tracks[[t]]@time), normalizeBy, timeAll[1])
-			lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[t+1])
+			rgl::lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[t+1])
 		}
 		if(showMap)
 			map3d(map = map, z = timeAll[1])
@@ -350,8 +367,10 @@ setMethod("stcube", signature(x = "TracksCollection"),
 		ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z, col) {
 		# "y", "z" and "col" are ignored, but included in the method signature
 		# to avoid passing them twice to plot3d().
-		require(rgl)
-		require(OpenStreetMap)
+		if (!requireNamespace("rgl", quietly = TRUE))
+			stop("rgl required")
+		if (!requireNamespace("OpenStreetMap", quietly = TRUE))
+			stop("OpenStreetMap required")
 		dim = dim(x@tracksCollection[[1]]@tracks[[1]])["geometries"]
 		coordsAll = do.call(rbind, lapply(x@tracksCollection,
 			function(x) do.call(rbind, lapply(x@tracks, function(y) coordinates(y@sp)))))
@@ -374,12 +393,13 @@ setMethod("stcube", signature(x = "TracksCollection"),
 		# rendering everything in one go.
 		if(showMap) {
 			# Required by openmap().
-			require(raster)
-			map = openmap(upperLeft = c(ylim[2], xlim[1]),
+			if (!requireNamespace("raster", quietly = TRUE))
+				stop("raster required")
+			map = OpenStreetMap::openmap(upperLeft = c(ylim[2], xlim[1]),
 				lowerRight = c(ylim[1], xlim[2]), type = mapType)
-			map = openproj(x = map, projection = proj4string(x))
+			map = OpenStreetMap::openproj(x = map, projection = proj4string(x))
 		}
-		plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
+		rgl::plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
 			z = timeAll[1:dim], xlab = xlab, ylab = ylab, zlab = zlab,
 			type = type, col = col[1], aspect = aspect, xlim = xlim,
 			ylim = ylim, zlim = zlim, ...)
@@ -390,8 +410,13 @@ setMethod("stcube", signature(x = "TracksCollection"),
 				tracks = x@tracksCollection[[tz]]@tracks
 			for(t in seq_along(tracks)) {
 				coords = coordinates(tracks[[t]]@sp)
+<<<<<<< HEAD
 				time = normalize(index(tracks[[t]]@time), normalizeBy)
 				lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[tz])
+=======
+				time = normalize(index(tracks[[t]]@time), normalizeBy, timeAll[1])
+				rgl::lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[tz])
+>>>>>>> 0f2589f372c91dfb01dcc6d17ae968bef29773da
 			}
 		}
 		if(showMap)
@@ -461,78 +486,84 @@ if(!isGeneric("generalize"))
 	setGeneric("generalize", function(t, FUN = mean, ...)
 		standardGeneric("generalize"))
 
-setMethod("generalize", signature(t = "Track"),
-	function(t, FUN = mean, ..., timeInterval, distance, n, tol, toPoints) {
-		if (sum(!c(missing(timeInterval), missing(distance), missing(n))) != 1)
-			stop("exactly one parameter from (timeInterval, distance, n) has to be specified")
-		if(!missing(timeInterval)) {
-			origin = index(t@time)
-			cut = cut(origin, timeInterval)
-			segmentLengths = rle(as.numeric(cut))$lengths
-		} 
-		if (!missing(distance)) {
-			# Total distances from each point to the first one.
-			origin = c(0, cumsum(t@connections$distance))
-			cut = floor(origin / distance)
-			segmentLengths = rle(cut)$lengths
-		} 
-		if (!missing(n)) {
-			dim = dim(t)["geometries"]
-			if(n != 1 && dim / n > 1) {
-				rep = floor((dim-n)/(n-1) + 1)
-				mod = (dim-n) %% (n-1)
-				if(mod == 0)
-					segmentLengths = rep(n, rep)
-				else
-					segmentLengths = c(rep(n, rep), mod + 1)
-			} else
-				segmentLengths = dim
-		} 
-		# Update segment lengths to consider all segments for generalisation. In
-		# case the cut-point falls between two points of the track to be
-		# generalised, attach the next point to the current segment. If the cut-
-		# point matches a point of the track, leave everything as is.
-		toIndex = cumsum(segmentLengths)
-		segmentLengths_ = integer()
-		for(i in seq_along(segmentLengths)) {
-			if (i == length(segmentLengths)
-				|| (!missing(timeInterval) && origin[toIndex[i]] %in% seq(origin[1], origin[length(origin)], timeInterval))
-				|| (!missing(distance) && origin[toIndex[i]] > 0 && origin[toIndex[i]] %% distance == 0)
-				|| (!missing(n)))
-				segmentLengths_[i] = segmentLengths[i]
-			else { 
-				segmentLengths_[i] = segmentLengths[i] + 1
-				if(i == length(segmentLengths) - 1 && segmentLengths[i+1] == 1)
-					break()
-			}
+generalize.Track <- function(t, FUN = mean, ..., timeInterval, distance, n, tol, toPoints) {
+	if (sum(!c(missing(timeInterval), missing(distance), missing(n))) != 1)
+		stop("exactly one parameter from (timeInterval, distance, n) has to be specified")
+	if(!missing(timeInterval)) {
+		origin = index(t@time)
+		cut = cut(origin, timeInterval)
+		segmentLengths = rle(as.numeric(cut))$lengths
+	} 
+	if (!missing(distance)) {
+		# Total distances from each point to the first one.
+		origin = c(0, cumsum(t@connections$distance))
+		cut = floor(origin / distance)
+		segmentLengths = rle(cut)$lengths
+	} 
+	if (!missing(n)) {
+		dim = dim(t)["geometries"]
+		if(n != 1 && dim / n > 1) {
+			rep = floor((dim-n)/(n-1) + 1)
+			mod = (dim-n) %% (n-1)
+			if(mod == 0)
+				segmentLengths = rep(n, rep)
+			else
+				segmentLengths = c(rep(n, rep), mod + 1)
+		} else
+			segmentLengths = dim
+	} 
+	# Update segment lengths to consider all segments for generalisation. In
+	# case the cut-point falls between two points of the track to be
+	# generalised, attach the next point to the current segment. If the cut-
+	# point matches a point of the track, leave everything as is.
+	toIndex = cumsum(segmentLengths)
+	segmentLengths_ = integer()
+	for(i in seq_along(segmentLengths)) {
+		if (i == length(segmentLengths)
+			|| (!missing(timeInterval) && origin[toIndex[i]] %in% seq(origin[1], origin[length(origin)], timeInterval))
+			|| (!missing(distance) && origin[toIndex[i]] > 0 && origin[toIndex[i]] %% distance == 0)
+			|| (!missing(n)))
+			segmentLengths_[i] = segmentLengths[i]
+		else { 
+			segmentLengths_[i] = segmentLengths[i] + 1
+			if(i == length(segmentLengths) - 1 && segmentLengths[i+1] == 1)
+				break()
 		}
-		segmentLengths = segmentLengths_
-		# Aggregate over each segment.
-		stidfs = list()
-		endTime = numeric(0)
-		for(i in seq_along(segmentLengths)) {
-			from = if(i == 1) 1 else tail(cumsum(segmentLengths[1:(i-1)]), n = 1) - (i-2)
-			to = from + segmentLengths[i] - 1
-			if(!missing(toPoints) && toPoints) {
-				sp = t@sp[(from+to)/2]
-			} else {
-				l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
-				sp = SpatialLines(list(l), proj4string = CRS(proj4string(t)))
-				if(!missing(tol) && nrow(coordinates(sp)[[1]][[1]]) > 1)
-					sp = gSimplify(spgeom = sp, tol = tol, topologyPreserve = TRUE)
-			}
-			time = t@time[from]
-			endTime = if(length(endTime) == 0) t@endTime[to] else c(endTime, t@endTime[to])
-			data = data.frame(lapply(t@data[from:to, , drop = FALSE], FUN, ...)) # EP added ...
-			stidfs = c(stidfs, STIDF(sp, time, data))
-		}
-		stidf = do.call(rbind, stidfs)
-		# Provide a workaround, since rbind'ing objects of class POSIXct as used
-		# in the "endTime" slot of STIDF objects does not work properly.
-		stidf@endTime = endTime
-		Track(stidf)
 	}
-)
+	segmentLengths = segmentLengths_
+	# Aggregate over each segment.
+	stidfs = list()
+	endTime = NULL
+	for(i in seq_along(segmentLengths)) {
+		from = if(i == 1) 1 else tail(cumsum(segmentLengths[1:(i-1)]), n = 1) - (i-2)
+		to = from + segmentLengths[i] - 1
+		if(!missing(toPoints) && toPoints)
+			sp = t@sp[(from+to)/2]
+		else {
+			l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
+			sp = SpatialLines(list(l), proj4string = CRS(proj4string(t)))
+			if(!missing(tol) && nrow(coordinates(sp)[[1]][[1]]) > 1)
+				sp = gSimplify(spgeom = sp, tol = tol, topologyPreserve = TRUE)
+		}
+		time = t@time[from]
+		if (is.null(endTime)) {
+			endTime = t@endTime[to]
+			tz = attr(endTime, "tzone")
+		} else
+			endTime = c(endTime, t@endTime[to])
+		data = data.frame(lapply(t@data[from:to, , drop = FALSE], FUN, ...)) # EP added ...
+		#stidfs = c(stidfs, STIDF(sp, time, data, t@endTime[to]))
+		stidfs = c(stidfs, STIDF(sp, time, data))
+	}
+	stidf = do.call(rbind, stidfs)
+	# Provide a workaround, since rbind'ing objects of class POSIXct as used
+	# in the "endTime" slot of STIDF objects does not work properly.
+	attr(endTime, "tzone") = tz
+	stidf@endTime = endTime
+	Track(stidf)
+}
+
+setMethod("generalize", signature(t = "Track"), generalize.Track)
 
 setMethod("generalize", signature(t = "Tracks"),
 	function(t, FUN = mean, ...) {
