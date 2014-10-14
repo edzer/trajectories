@@ -1,26 +1,14 @@
 Package: trajectories
-<<<<<<< HEAD
-Version: 0.1-0
-Date: 2014-04-23
-Title: classes and methods for trajectory data
-Authors@R: 
-	c(person("Edzer", "Pebesma", role = c("cre", "aut"),
-		 email = "edzer.pebesma@uni-muenster.de"),
-	person("Benedikt", "Klus", role = "aut"),
-  person("Benedikt", "Graeler", role = "ctb"))
-Depends: R (>= 2.14.0), rgdal
-Imports: methods, spacetime (>= 1.0-0), sp (>= 1.0-14), lattice, rgeos
-=======
-Version: 0.1-1
-Date: 2014-08-28
+Version: 0.1-2
+Date: 2014-10-06
 Title: Classes and methods for trajectory data
 Authors@R: 
 	c(person("Edzer", "Pebesma", role = c("cre", "aut"),
 		 email = "edzer.pebesma@uni-muenster.de"),
-	person("Benedikt", "Klus", role = "aut"))
+	person("Benedikt", "Klus", role = "aut"),
+	person("Benedikt", "Graeler", role = "ctb"))
 Depends: R (>= 2.14.0)
 Imports: methods, lattice, sp (>= 1.0-14), spacetime (>= 1.0-0), rgdal, rgeos
->>>>>>> 0f2589f372c91dfb01dcc6d17ae968bef29773da
 Suggests: rgl, OpenStreetMap, RCurl, rjson, adehabitatLT
 LazyData: no
 Description: Classes and methods for trajectory data, with nested classes for individual trips, and collections for different entities. Methods include selection, generalization, aggregation, intersection, and plotting.
