@@ -164,8 +164,11 @@ TracksCollection = function(tracksCollection, tracksCollectionData = NULL,
 	if (is.null(names(tracksCollection)))
 		names(tracksCollection) = paste("Tracks", 1:length(tracksCollection), 
 		sep = "")
+	ts = TracksSummary(tracksCollection)
 	if (is.null(tracksCollectionData))
-		tracksCollectionData = TracksSummary(tracksCollection)
+		tracksCollectionData = ts
+	else
+		tracksCollectionData = cbind(tracksCollectionData, ts)
 	new("TracksCollection", tracksCollection = tracksCollection, 
 		tracksCollectionData = tracksCollectionData)
 }

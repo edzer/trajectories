@@ -205,34 +205,34 @@ setMethod("proj4string", signature(obj = "TracksCollection"),
 
 # Provide plot methods. TODO Make more generic.
 
-setMethod("plot", "TracksCollection",
-	function(x, y, ..., type = 'l', xlim = stbox(x)[,1],
-			ylim = stbox(x)[,2], col = 1, lwd = 1, lty =
-			1, axes = TRUE, Arrows = FALSE, Segments = FALSE, add = FALSE) {
-		sp = x@tracksCollection[[1]]@tracks[[1]]@sp
-                # Submitting arrows formals to plot prompts warnings, so they
-                # are removed here.
-		aplot <- function (..., length, angle, code) plot (...)
-		if (! add)
-			aplot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
-		if (axes == FALSE)
-			box()
-		if (Arrows || Segments) {
-			df = as(x, "segments")
-			args = list(x0 = df$x0, y0 = df$y0, x1 = df$x1, y1 = df$y1, 
-				col = col, lwd = lwd, lty = lty, ...)
-			if (Arrows)
-				do.call(arrows, args)
-			else
-				do.call(segments, args)
-		} else {
-			df = as(x, "data.frame") 
-			cn = coordnames(x)
-			lines(df[[cn[1]]], df[[cn[2]]], col = col, 
-				lwd = lwd, lty = lty, ...)
-		}
+plot.TracksCollection <- function(x, y, ..., type = 'l', xlim = stbox(x)[,1],
+		ylim = stbox(x)[,2], col = 1, lwd = 1, lty =
+		1, axes = TRUE, Arrows = FALSE, Segments = FALSE, add = FALSE) {
+	sp = x@tracksCollection[[1]]@tracks[[1]]@sp
+	# Submitting arrows() and lines() formals to plot prompts warnings, 
+	# so they are absorbed here by localPlot() formals.
+	localPlot <- function (..., length, angle, code, xpd, lend, ljoin, lmitre)
+		plot (...)
+	if (! add)
+		localPlot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
+	if (axes == FALSE)
+		box()
+	if (Arrows || Segments) {
+		df = as(x, "segments")
+		args = list(x0 = df$x0, y0 = df$y0, x1 = df$x1, y1 = df$y1, 
+			col = col, lwd = lwd, lty = lty, ...)
+		if (Arrows)
+			do.call(arrows, args)
+		else
+			do.call(segments, args)
+	} else {
+		df = as(x, "data.frame") 
+		cn = coordnames(x)
+		lines(df[[cn[1]]], df[[cn[2]]], col = col, 
+			lwd = lwd, lty = lty, ...)
 	}
-)
+}
+setMethod("plot", "TracksCollection", plot.TracksCollection)
 
 # Provide stcube methods.
 
