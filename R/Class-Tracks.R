@@ -20,7 +20,7 @@ directions_ll = function(cc, ll) {
 	# cc a 2-column matrix with points, [x y] or [long lat]
 	# ll a boolean, indicating longlat (TRUE) or not (FALSE)
 	if (! ll) {
-		dcc = apply(cc, 2, diff)
+		dcc = matrix(apply(cc, 2, diff), ncol = ncol(cc))
 		((atan2(dcc[,1], dcc[,2]) / pi * 180) + 360) %% 360
 	} else {
 		# longlat:
@@ -39,29 +39,34 @@ directions_ll = function(cc, ll) {
 }
 
 TrackStats = function(track) {
+	duration = diff(as.numeric(index(track@time))) # seconds
+	stopifnot(!any(duration == 0))
 	if(class(track@sp)[1] == "SpatialPoints") {
 		cc = coordinates(track@sp)
 		ll = identical(is.projected(track), FALSE)
 		distance = LineLength(cc, ll, FALSE)
 		if (ll) # distance is in km, transform to m:
 			distance = distance * 1000.0
-		duration = diff(as.numeric(index(track@time))) # seconds
-		if (any(duration == 0)) {
-			print(track)
-			stop("zero duration interval(s) detected")
-		}
 		speed = distance / duration # per second
 		direction = directions_ll(cc, ll)
-		df = data.frame(distance = distance, duration = duration, 
-			speed = speed, direction = direction)
-	} else {
-		df = data.frame(matrix(nrow = length(track@sp) - 1, ncol = 0))
-	}
+		data.frame(distance = distance, duration = duration, speed = speed, direction = direction)
+	} else
+		data.frame(matrix(nrow = length(track@sp) - 1, ncol = 0))
 }
 
 # Computes segment lengths.
 
 Track = function(track, df = NULL, fn = TrackStats) {
+	duration = diff(as.numeric(index(track@time))) # seconds
+	if (any(duration == 0)) {
+		#print(track)
+		sel = (c(1, duration) != 0)
+		n = sum(!sel)
+		warning(paste("deselecting", n, "secondary point(s) of zero duration interval(s)"))
+		if (sum(sel) < 2)
+			stop("less than two unique time instances")
+		track = Track(as(track, "STIDF")[sel,])
+	}
 	if (!is.null(fn)) {
 		stats = TrackStats(track)
 		if (is.null(df))
