@@ -1,5 +1,4 @@
-require(XML)
-library(trajectories)
+require(XML); library(sp); library(spacetime); library(trajectories)
 extract.track=function(year = 2012, p = TRUE) {
 # based on # ARTHUR CHARPENTIER # http://freakonometrics.hypotheses.org/17113
 	loc <- paste("http://weather.unisys.com/hurricane/atlantic/",year,"/index.php",sep="")
@@ -40,7 +39,6 @@ for(y in 2012:2009)
 		TOTTRACK[as.character(y)] = x
 
 trColl = TracksCollection(TOTTRACK)
-
 
 library(maps)
 map("world",xlim=c(-80,-40),ylim=c(10,50),col="light yellow",fill=TRUE)
