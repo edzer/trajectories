@@ -237,6 +237,7 @@ setMethod("plot", "TracksCollection",
 # Provide stcube methods.
 
 map3d = function(map, z, ...) {
+#   cat(z,"\n")
   if (!requireNamespace("rgl", quietly = TRUE))
     stop("rgl required")
   if(length(map$tiles) != 1)
@@ -249,6 +250,10 @@ map3d = function(map, z, ...) {
   ymax = map$tiles[[1]]$bbox$p2[2]
   xc = seq(xmin, xmax, len = ny)
   yc = seq(ymin, ymax, len = nx)
+#   colMat = matrix(data = map$tiles[[1]]$colorData, nrow = ny, 
+#                   ncol = nx)[,nx:1]
+#   m = matrix(z, nrow = ny, ncol = nx)
+#   rgl::persp3d(xc, rev(yc), m, col=colMat, lit=F, add=T)  
   col = matrix(data = map$tiles[[1]]$colorData, nrow = ny, ncol = nx)
   m = matrix(data = z, nrow = ny, ncol = nx)
   rgl::surface3d(x = xc, y = yc, z = m, col = col, lit=F, ...)
@@ -279,6 +284,7 @@ setMethod("stcube", signature(x = "Track"),
               stop("OpenStreetMap required")
             coords = coordinates(x@sp)
             time = index(x@time)
+            time <- time - min(time) # seconds from start
             if(missing(aspect))
               aspect = if((asp = mapasp(x@sp)) == "iso") "iso" else c(1, asp, 1)
             if(missing(xlim))
@@ -308,7 +314,8 @@ setMethod("stcube", signature(x = "Track"),
 
 setMethod("stcube", signature(x = "Tracks"),
           function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", aspect, xlim,
-                   ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z, col) {
+                   ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week",
+                   mapZoom=NULL, ..., y, z, col) {
             # "y", "z" and "col" are ignored, but included in the method signature
             # to avoid passing them twice to plot3d().
             if (!requireNamespace("rgl", quietly = TRUE))
@@ -336,7 +343,8 @@ setMethod("stcube", signature(x = "Tracks"),
               if (!requireNamespace("raster", quietly = TRUE))
                 stop("raster required")
               map = OpenStreetMap::openmap(upperLeft = c(ylim[2], xlim[1]),
-                                           lowerRight = c(ylim[1], xlim[2]), type = mapType)
+                                           lowerRight = c(ylim[1], xlim[2]),
+                                           zoom=mapZoom, type = mapType)
               map = OpenStreetMap::openproj(x = map, projection = proj4string(x))
             }
             rgl::plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
@@ -356,7 +364,8 @@ setMethod("stcube", signature(x = "Tracks"),
 
 setMethod("stcube", signature(x = "TracksCollection"),
           function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", aspect, xlim,
-                   ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week", mapZoom=NULL, ..., y, z, col) {
+                   ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week",
+                   mapZoom=NULL, ..., y, z, col) {
             # "y", "z" and "col" are ignored, but included in the method signature
             # to avoid passing them twice to plot3d().
             if (!requireNamespace("rgl", quietly = TRUE))

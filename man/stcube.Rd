@@ -14,10 +14,10 @@
 	aspect, xlim, ylim, zlim, showMap = FALSE, mapType = "osm", ..., y, z)
 \S4method{stcube}{Tracks}(x, xlab = "x", ylab = "y", zlab = "t", type = "l",
 	aspect, xlim, ylim, zlim, showMap = FALSE, mapType = "osm",
-	normalizeBy = "week", ..., y, z, col)
+	normalizeBy = "week", mapZoom = NULL, ..., y, z, col)
 \S4method{stcube}{TracksCollection}(x, xlab = "x", ylab = "y", zlab = "t",
 	type = "l", aspect, xlim, ylim, zlim, showMap = FALSE, mapType = "osm",
-	normalizeBy = "week", ..., y, z, col)}
+	normalizeBy = "week", mapZoom = NULL, ..., y, z, col)}
 
 \arguments{
 \item{x}{An object of class \code{Track}, \code{Tracks} or \code{TracksCollection}.}
@@ -25,6 +25,7 @@
 \item{showMap}{Flag if a basemap is to be shown on the xy plane.}
 \item{mapType}{The tile server from which to get the map. Passed as \code{type} to openmap() of package \code{OpenStreetMap}.}
 \item{normalizeBy}{An abstract time period (either \code{week} or \code{day}) to be normalized by.}
+\item{mapZoom}{Set a zoom level for the map used as background. Null will use the osm package default strategie.}
 \item{y, z, col}{Ignored, but included in the method signature for implementation reasons.}
 \item{...}{Additional arguments passed to plot3d() of package \code{rgl}.}}
 
