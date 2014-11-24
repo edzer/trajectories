@@ -163,9 +163,9 @@ setAs("Tracks", "Spatial",
 )
 
 setAs("TracksCollection", "Spatial",
-      function(from)
-        do.call(rbind, lapply(from@tracksCollection, 
-                              function(x) as(x, "Spatial")))
+	function(from)
+		do.call(rbind, lapply(from@tracksCollection, 
+			function(x) as(x, "Spatial")))
 )
 
 # Coerce to SpatialPointsDataFrame.
@@ -173,66 +173,66 @@ setAs("TracksCollection", "Spatial",
 setAs("Track", "SpatialPointsDataFrame", function(from) as(from, "Spatial"))
 setAs("Tracks", "SpatialPointsDataFrame", function(from) as(from, "Spatial"))
 setAs("TracksCollection", 
-      "SpatialPointsDataFrame", function(from) as(from, "Spatial"))
+	"SpatialPointsDataFrame", function(from) as(from, "Spatial"))
 
 # Provide coordinates methods.
 
 setMethod("coordinates", "Track",
-          function(obj) coordinates(obj@sp)
+	function(obj) coordinates(obj@sp)
 )
 
 setMethod("coordinates", "Tracks",
-          function(obj) do.call(rbind, lapply(obj@tracks,
-                                              function(x) coordinates(x)))
+	function(obj) do.call(rbind, lapply(obj@tracks,
+		function(x) coordinates(x)))
 )
 
 setMethod("coordinates", "TracksCollection",
-          function(obj) do.call(rbind, lapply(obj@tracksCollection,
-                                              function(x) coordinates(x)))
+	function(obj) do.call(rbind, lapply(obj@tracksCollection,
+		function(x) coordinates(x)))
 )
 
 # Provide proj4string methods.
 
 setMethod("proj4string", signature(obj = "Track"),
-          function(obj) proj4string(obj@sp)
+	function(obj) proj4string(obj@sp)
 )
 setMethod("proj4string", signature(obj = "Tracks"),
-          function(obj) proj4string(obj@tracks[[1]])
+	function(obj) proj4string(obj@tracks[[1]])
 )
 setMethod("proj4string", signature(obj = "TracksCollection"),
-          function(obj) proj4string(obj@tracksCollection[[1]])
+	function(obj) proj4string(obj@tracksCollection[[1]])
 )
 
 # Provide plot methods. TODO Make more generic.
 
-setMethod("plot", "TracksCollection",
-          function(x, y, ..., type = 'l', xlim = stbox(x)[,1],
-                   ylim = stbox(x)[,2], col = 1, lwd = 1, lty =
-                     1, axes = TRUE, Arrows = FALSE, Segments = FALSE, add = FALSE) {
-            sp = x@tracksCollection[[1]]@tracks[[1]]@sp
-            # Submitting arrows formals to plot prompts warnings, so they
-            # are removed here.
-            aplot <- function (..., length, angle, code) plot (...)
-            if (! add)
-              aplot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
-            if (axes == FALSE)
-              box()
-            if (Arrows || Segments) {
-              df = as(x, "segments")
-              args = list(x0 = df$x0, y0 = df$y0, x1 = df$x1, y1 = df$y1, 
-                          col = col, lwd = lwd, lty = lty, ...)
-              if (Arrows)
-                do.call(arrows, args)
-              else
-                do.call(segments, args)
-            } else {
-              df = as(x, "data.frame") 
-              cn = coordnames(x)
-              lines(df[[cn[1]]], df[[cn[2]]], col = col, 
-                    lwd = lwd, lty = lty, ...)
-            }
-          }
-)
+plot.TracksCollection <- function(x, y, ..., type = 'l', xlim = stbox(x)[,1],
+		ylim = stbox(x)[,2], col = 1, lwd = 1, lty =
+		1, axes = TRUE, Arrows = FALSE, Segments = FALSE, add = FALSE) {
+	sp = x@tracksCollection[[1]]@tracks[[1]]@sp
+	# Submitting arrows() and lines() formals to plot prompts warnings, 
+	# so they are absorbed here by localPlot() formals.
+	localPlot <- function (..., length, angle, code, xpd, lend, ljoin, lmitre)
+		plot (...)
+	if (! add)
+		localPlot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
+	if (axes == FALSE)
+		box()
+	if (Arrows || Segments) {
+		df = as(x, "segments")
+		args = list(x0 = df$x0, y0 = df$y0, x1 = df$x1, y1 = df$y1, 
+			col = col, lwd = lwd, lty = lty, ...)
+		if (Arrows)
+			do.call(arrows, args)
+		else
+			do.call(segments, args)
+	} else {
+		df = as(x, "data.frame") 
+		cn = coordnames(x)
+		lines(df[[cn[1]]], df[[cn[2]]], col = col, 
+			lwd = lwd, lty = lty, ...)
+	}
+}
+setMethod("plot", "TracksCollection", plot.TracksCollection)
 
 # Provide stcube methods.
 
@@ -250,17 +250,16 @@ map3d = function(map, z, ...) {
   ymax = map$tiles[[1]]$bbox$p2[2]
   xc = seq(xmin, xmax, len = ny)
   yc = seq(ymin, ymax, len = nx)
-#   colMat = matrix(data = map$tiles[[1]]$colorData, nrow = ny, 
-#                   ncol = nx)[,nx:1]
-#   m = matrix(z, nrow = ny, ncol = nx)
-#   rgl::persp3d(xc, rev(yc), m, col=colMat, lit=F, add=T)  
   col = matrix(data = map$tiles[[1]]$colorData, nrow = ny, ncol = nx)
   m = matrix(data = z, nrow = ny, ncol = nx)
+
   rgl::surface3d(x = xc, y = yc, z = m, col = col, lit=F, ...)
 }
 
+
 normalize = function(time, by = "week") {
   tn = as.numeric(time)
+
   switch(by,
          minute = (tn %% 60),
          hour = (tn %% 3600) / 60 , # decimal minute of the hour
@@ -364,6 +363,7 @@ setMethod("stcube", signature(x = "Tracks"),
 
 setMethod("stcube", signature(x = "TracksCollection"),
           function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", aspect, xlim,
+
                    ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week",
                    mapZoom=NULL, ..., y, z, col) {
             # "y", "z" and "col" are ignored, but included in the method signature
@@ -395,6 +395,7 @@ setMethod("stcube", signature(x = "TracksCollection"),
               if (!requireNamespace("raster", quietly = TRUE))
                 stop("raster required")
               map = OpenStreetMap::openmap(upperLeft = c(ylim[2], xlim[1]), 
+
                                            lowerRight = c(ylim[1], xlim[2]), 
                                            zoom=mapZoom, type = mapType)
               map = OpenStreetMap::openproj(x = map, projection = proj4string(x))
@@ -410,11 +411,13 @@ setMethod("stcube", signature(x = "TracksCollection"),
                 tracks = x@tracksCollection[[tz]]@tracks
               for(t in seq_along(tracks)) {
                 coords = coordinates(tracks[[t]]@sp)
+
                 time = normalize(index(tracks[[t]]@time), normalizeBy)
                 rgl::lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[tz])
               }
             }
             if(showMap)
+
               map3d(map = map, z = zlim[1])
           }
 )
@@ -930,4 +933,5 @@ c.Tracks = function(...)
 unstack.TracksCollection = function(x, form, ...) {
   TracksCollection(lapply(split(x@tracksCollection, form), 
                           function(x) do.call(c, x)))
+
 }
