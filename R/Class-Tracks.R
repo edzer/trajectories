@@ -6,6 +6,7 @@
 # can now be used to build such an object from its components. The slot
 # "connections" contains data about the segments between consecutive ST points.
 
+
 setClass("Track",
   contains = "STIDF", # Locations, times and attribute data about the points.
   representation(connections = "data.frame"), 

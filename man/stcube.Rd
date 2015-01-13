@@ -9,7 +9,7 @@
 
 \description{Draw a space-time cube.}
 
-\usage{%
+\usage{%%
 \S4method{stcube}{Track}(x, xlab = "x", ylab = "y", zlab = "t", type = "l",
 	aspect, xlim, ylim, zlim, showMap = FALSE, mapType = "osm", ..., y, z)
 \S4method{stcube}{Tracks}(x, xlab = "x", ylab = "y", zlab = "t", type = "l",

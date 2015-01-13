@@ -1,4 +1,5 @@
-tracksPanel = function(x, y, sp.layout, ...) {
+
+ tracksPanel = function(x, y, sp.layout, ...) {
     sp.panel.layout(sp.layout, panel.number())
 	panel.xyplot(x, y, ...)
 }
