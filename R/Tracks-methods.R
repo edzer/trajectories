@@ -4,7 +4,6 @@
 setClass("segments", contains = "data.frame")
 
 # Coerce to segments.
-
 setAs("Track", "segments", 
 	function(from) {
 		cc = coordinates(from@sp)
