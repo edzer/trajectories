@@ -156,10 +156,14 @@ TracksSummary = function(tracksCollection) {
 	df$ymin = sapply(tc, function(x) min(x@tracksData$ymin))
 	df$ymax = sapply(tc, function(x) max(x@tracksData$ymax))
 	df$tmin = sapply(tc, function(x) min(x@tracksData$tmin))
-	df$tmin = do.call(c, 
-		lapply(lapply(tc, function(x) x@tracksData$tmin), min))
-	df$tmax = do.call(c, 
-		lapply(lapply(tc, function(x) x@tracksData$tmax), max))
+	df$tmin = as.POSIXct(unlist(lapply(lapply(tc, function(x) x@tracksData$tmin), min)),
+                       origin = "1970-01-01", 
+                       tz=attr(tc[[1]]@tracks[[1]]@time, "tz"))
+#     do.call(c, lapply(lapply(tc, function(x) x@tracksData$tmin), min)) # reported by RH
+	df$tmax = as.POSIXct(unlist(lapply(lapply(tc, function(x) x@tracksData$tmax), max)),
+	                     origin = "1970-01-01", 
+	                     tz=attr(tc[[1]]@tracks[[1]]@time, "tz"))
+#   do.call(c, lapply(lapply(tc, function(x) x@tracksData$tmax), max))  # reported by RH
 	row.names(df) = names(tracksCollection)
 	df
 }
