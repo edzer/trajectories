@@ -340,21 +340,21 @@ setMethod("stcube", signature(x = "Tracks"),
 				stop("raster required")
 			map = OpenStreetMap::openmap(upperLeft = c(ylim[2], xlim[1]),
 				lowerRight = c(ylim[1], xlim[2]), zoom=mapZoom, type = mapType)
-              map = OpenStreetMap::openproj(x = map, projection = proj4string(x))
-            }
-            rgl::plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
-                        z = timeAll[1:dim], xlab = xlab, ylab = ylab, zlab = zlab,
-                        type = type, col = col[1], aspect = aspect, xlim = xlim,
-                        ylim = ylim, zlim = zlim, ...)
-            tracks = x@tracks[-1]
-            for(t in seq_along(tracks)) {
-              coords = coordinates(tracks[[t]]@sp)
-              time = normalize(index(tracks[[t]]@time), normalizeBy)
-              rgl::lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[t+1])
-            }
-            if(showMap)
-              map3d(map = map, z = timeAll[1])
-          }
+			map = OpenStreetMap::openproj(x = map, projection = proj4string(x))
+		}
+		rgl::plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
+			z = timeAll[1:dim], xlab = xlab, ylab = ylab, zlab = zlab,
+			type = type, col = col[1], aspect = aspect, xlim = xlim,
+			ylim = ylim, zlim = zlim, ...)
+		tracks = x@tracks[-1]
+		for(t in seq_along(tracks)) {
+			coords = coordinates(tracks[[t]]@sp)
+			time = normalize(index(tracks[[t]]@time), normalizeBy)
+			rgl::lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[t+1])
+		}
+		if(showMap)
+			map3d(map = map, z = timeAll[1])
+	}
 )
 
 setMethod("stcube", signature(x = "TracksCollection"),
