@@ -237,7 +237,6 @@ setMethod("plot", "TracksCollection", plot.TracksCollection)
 # Provide stcube methods.
 
 map3d = function(map, z, ...) {
-#   cat(z,"\n")
   if (!requireNamespace("rgl", quietly = TRUE))
     stop("rgl required")
   if(length(map$tiles) != 1)
