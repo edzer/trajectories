@@ -1,5 +1,5 @@
 
-R version 3.1.1 (2014-07-10) -- "Sock it to Me"
+R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -22,7 +22,7 @@ Type 'q()' to quit R.
 > library(spacetime)
 > library(trajectories)
 > library(rgdal)
-rgdal: version: 0.9-1, (SVN revision 463)
+rgdal: version: 0.9-1, (SVN revision 518)
 Geospatial Data Abstraction Library extensions to R successfully loaded
 Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
 Path to GDAL shared files: /usr/local/share/gdal
@@ -225,7 +225,7 @@ max 7 7 2013-09-30 02:12:59
 [[1]]
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
        co2
@@ -346,7 +346,7 @@ Slot "endTime":
 [[3]]
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
        co2
@@ -415,7 +415,7 @@ Slot "endTime":
 [[4]]
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
         co2
@@ -487,7 +487,7 @@ Slot "tracks":
 $A1
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
        co2
@@ -621,7 +621,7 @@ Slot "tracks":
 $B1
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
        co2
@@ -690,7 +690,7 @@ Slot "endTime":
 $B2
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
         co2
@@ -775,7 +775,7 @@ Slot "tracks":
 $A1
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
        co2
@@ -909,7 +909,7 @@ Slot "tracks":
 $B1
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
        co2
@@ -978,7 +978,7 @@ Slot "endTime":
 $B2
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
         co2
@@ -4113,7 +4113,7 @@ B 2    1    4    1    5 2013-09-30 02:06:55 2013-09-30 02:12:59
 [[1]]
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
          co2
@@ -4327,7 +4327,7 @@ Slot "tracks":
 $A1
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
          co2
@@ -4567,7 +4567,7 @@ Slot "tracks":
 $A1
 An object of class "Track"
 Slot "connections":
-data frame with 0 columns and 1 rows
+data frame with 0 columns and 1 row
 
 Slot "data":
          co2
@@ -5400,4 +5400,4 @@ B 2    1    4    1    5 2013-09-30 02:06:55 2013-09-30 02:12:59
 > 
 > proc.time()
    user  system elapsed 
-  3.545   0.231   3.792 
+  4.171   0.211   4.527 
