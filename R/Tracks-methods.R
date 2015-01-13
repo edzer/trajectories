@@ -80,10 +80,10 @@ setAs("Tracks", "Lines",
 )
 
 setAsWithID <- function(from, ID=NA) {
-  l = lapply(from@tracks, function(x) as(x, "Lines"))
-  for (i in seq_along(l))
-    l[[i]]@ID = paste(switch(is.na(ID),"ID",ID), "_", i, sep="")
-  SpatialLines(l, CRS(proj4string(from)))
+	l = lapply(from@tracks, function(x) as(x, "Lines"))
+	for (i in seq_along(l))
+		l[[i]]@ID = paste(switch(is.na(ID),"ID",ID), "_", i, sep="")
+	SpatialLines(l, CRS(proj4string(from)))
 }
 
 setAs("Tracks", "SpatialLines", function(from) setAsWithID(from))
@@ -94,22 +94,22 @@ setAs("Tracks", "SpatialLinesDataFrame",
 )
 
 setAs("TracksCollection", "SpatialLines", 
-      function(from) {
-        l <- lapply(from@tracksCollection, function(tracksObj) as(tracksObj, "Lines"))
+	function(from) {
+		l <- lapply(from@tracksCollection, function(tracksObj) as(tracksObj, "Lines"))
 
-        if (is.null(rownames(from@tracksCollectionData))) 
-          tracksIDs <- paste("ID", 1:length(from@tracksCollection), sep="")
-        else 
-          tracksIDs <- rownames(from@tracksCollectionData)
-        
-        trackIDs <- rep(tracksIDs, sapply(from@tracksCollection, length))
-        
-        for (i in seq_along(l)) {
-          l[[i]]@ID <- paste(trackIDs[i], l[[i]]@ID, sep="_")
-        }
-
-        SpatialLines(l, CRS(proj4string(from)))
-      })
+		if (is.null(rownames(from@tracksCollectionData))) 
+			tracksIDs <- paste("ID", 1:length(from@tracksCollection), sep="")
+		else 
+		tracksIDs <- rownames(from@tracksCollectionData)
+		
+		trackIDs <- rep(tracksIDs, sapply(from@tracksCollection, length))
+		
+		for (i in seq_along(l)) {
+			l[[i]]@ID <- paste(trackIDs[i], l[[i]]@ID, sep="_")
+		}
+		
+		SpatialLines(l, CRS(proj4string(from)))
+	})
 
 
 setAs("TracksCollection", "SpatialLinesDataFrame", 
@@ -172,8 +172,7 @@ setAs("TracksCollection", "Spatial",
 
 setAs("Track", "SpatialPointsDataFrame", function(from) as(from, "Spatial"))
 setAs("Tracks", "SpatialPointsDataFrame", function(from) as(from, "Spatial"))
-setAs("TracksCollection", 
-	"SpatialPointsDataFrame", function(from) as(from, "Spatial"))
+setAs("TracksCollection", "SpatialPointsDataFrame", function(from) as(from, "Spatial"))
 
 # Provide coordinates methods.
 
@@ -251,20 +250,19 @@ map3d = function(map, z, ...) {
 	yc = seq(ymin, ymax, len = nx)
 	col = matrix(data = map$tiles[[1]]$colorData, nrow = ny, ncol = nx)
 	m = matrix(data = z, nrow = ny, ncol = nx)
-	rgl::surface3d(x = xc, y = yc, z = m, col = col, ...)
+	
+	rgl::surface3d(x = xc, y = yc, z = m, col = col, lit=F, ...)
 }
 
-normalize = function(time, by = "week", origin) {
+normalize = function(time, by = "week") {
 	tn = as.numeric(time)
-	if (by == "day")
-		tn = (tn %% (3600 * 24)) / 3600 # decimal hours
-	else if (by == "week")
-		tn = (tn %% (3600 * 24 * 7)) / (3600 * 24) # decimal days
-	else 
-		stop(paste("unknown value for by: ",by))
-	if (missing(origin))
-		origin = as.POSIXct("1970-01-01")
-	as.POSIXct(tn, origin = origin)
+
+	switch(by,
+		minute = (tn %% 60),
+		hour = (tn %% 3600) / 60 , # decimal minute of the hour
+		day = (tn %% (3600 * 24)) / 3600, # decimal hour of the day
+		week = (tn %% (3600 * 24 * 7)) / 24 / 3600, # decimal day of the week
+		stop(paste("unknown value for by: ", by)))
 }
 
 if(!isGeneric("stcube"))
@@ -282,6 +280,7 @@ setMethod("stcube", signature(x = "Track"),
 			stop("OpenStreetMap required")
 		coords = coordinates(x@sp)
 		time = index(x@time)
+		time <- time - min(time) # seconds from start
 		if(missing(aspect))
 			aspect = if((asp = mapasp(x@sp)) == "iso") "iso" else c(1, asp, 1)
 		if(missing(xlim))
@@ -311,7 +310,8 @@ setMethod("stcube", signature(x = "Track"),
 
 setMethod("stcube", signature(x = "Tracks"),
 	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", aspect, xlim,
-		ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z, col) {
+		ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week",
+		mapZoom=NULL, ..., y, z, col) {
 		# "y", "z" and "col" are ignored, but included in the method signature
 		# to avoid passing them twice to plot3d().
 		if (!requireNamespace("rgl", quietly = TRUE))
@@ -339,7 +339,7 @@ setMethod("stcube", signature(x = "Tracks"),
 			if (!requireNamespace("raster", quietly = TRUE))
 				stop("raster required")
 			map = OpenStreetMap::openmap(upperLeft = c(ylim[2], xlim[1]),
-				lowerRight = c(ylim[1], xlim[2]), type = mapType)
+				lowerRight = c(ylim[1], xlim[2]), zoom=mapZoom, type = mapType)
 			map = OpenStreetMap::openproj(x = map, projection = proj4string(x))
 		}
 		rgl::plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
@@ -349,7 +349,7 @@ setMethod("stcube", signature(x = "Tracks"),
 		tracks = x@tracks[-1]
 		for(t in seq_along(tracks)) {
 			coords = coordinates(tracks[[t]]@sp)
-			time = normalize(index(tracks[[t]]@time), normalizeBy, timeAll[1])
+			time = normalize(index(tracks[[t]]@time), normalizeBy)
 			rgl::lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[t+1])
 		}
 		if(showMap)
@@ -359,7 +359,8 @@ setMethod("stcube", signature(x = "Tracks"),
 
 setMethod("stcube", signature(x = "TracksCollection"),
 	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", aspect, xlim,
-		ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z, col) {
+		ylim, zlim, showMap = FALSE, mapType = "osm", normalizeBy = "week",
+		mapZoom=NULL, ..., y, z, col) {
 		# "y", "z" and "col" are ignored, but included in the method signature
 		# to avoid passing them twice to plot3d().
 		if (!requireNamespace("rgl", quietly = TRUE))
@@ -388,8 +389,8 @@ setMethod("stcube", signature(x = "TracksCollection"),
 			# Required by openmap().
 			if (!requireNamespace("raster", quietly = TRUE))
 				stop("raster required")
-			map = OpenStreetMap::openmap(upperLeft = c(ylim[2], xlim[1]),
-				lowerRight = c(ylim[1], xlim[2]), type = mapType)
+			map = OpenStreetMap::openmap(upperLeft = c(ylim[2], xlim[1]), 
+				lowerRight = c(ylim[1], xlim[2]), zoom=mapZoom, type = mapType)
 			map = OpenStreetMap::openproj(x = map, projection = proj4string(x))
 		}
 		rgl::plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
@@ -403,7 +404,7 @@ setMethod("stcube", signature(x = "TracksCollection"),
 				tracks = x@tracksCollection[[tz]]@tracks
 			for(t in seq_along(tracks)) {
 				coords = coordinates(tracks[[t]]@sp)
-				time = normalize(index(tracks[[t]]@time), normalizeBy, timeAll[1])
+				time = normalize(index(tracks[[t]]@time), normalizeBy)
 				rgl::lines3d(x = coords[, 1], y = coords[, 2], z = time, col = col[tz])
 			}
 		}

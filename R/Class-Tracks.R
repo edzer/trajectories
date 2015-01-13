@@ -7,13 +7,13 @@
 # "connections" contains data about the segments between consecutive ST points.
 
 setClass("Track",
-  contains = "STIDF", # Locations, times and attribute data about the points.
-  representation(connections = "data.frame"), 
-  # With attribute data BETWEEN points: speed, direction etc.
-  validity = function(object) {
-	stopifnot(nrow(object@connections) + 1 == nrow(object@data))
-    return(TRUE)
-  }
+	contains = "STIDF", # Locations, times and attribute data about the points.
+	representation(connections = "data.frame"), 
+	# With attribute data BETWEEN points: speed, direction etc.
+	validity = function(object) {
+		stopifnot(nrow(object@connections) + 1 == nrow(object@data))
+		return(TRUE)
+	}
 )
 
 directions_ll = function(cc, ll) {
@@ -34,7 +34,7 @@ directions_ll = function(cc, ll) {
 		dlon = lon2 - lon1
 		az = atan2(sin(dlon)*cos(lat2),
 			cos(lat1)*sin(lat2)-sin(lat1)*cos(lat2)*cos(dlon))
-		((az  / pi * 180) + 360) %% 360
+		((az / pi * 180) + 360) %% 360
 	}
 }
 
@@ -147,7 +147,6 @@ setClass("TracksCollection",
 #   
 # }
 
-
 TracksSummary = function(tracksCollection) {
 	tc = tracksCollection
 	df = data.frame(n = sapply(tc, function(x) length(x@tracks)))
@@ -156,10 +155,12 @@ TracksSummary = function(tracksCollection) {
 	df$ymin = sapply(tc, function(x) min(x@tracksData$ymin))
 	df$ymax = sapply(tc, function(x) max(x@tracksData$ymax))
 	df$tmin = sapply(tc, function(x) min(x@tracksData$tmin))
-	df$tmin = do.call(c, 
-		lapply(lapply(tc, function(x) x@tracksData$tmin), min))
-	df$tmax = do.call(c, 
-		lapply(lapply(tc, function(x) x@tracksData$tmax), max))
+	df$tmin = as.POSIXct(unlist(lapply(lapply(tc, function(x) x@tracksData$tmin), min)),
+		origin = "1970-01-01", tz=attr(tc[[1]]@tracks[[1]]@time, "tz"))
+		# do.call(c, lapply(lapply(tc, function(x) x@tracksData$tmin), min)) # reported by RH
+	df$tmax = as.POSIXct(unlist(lapply(lapply(tc, function(x) x@tracksData$tmax), max)),
+		origin = "1970-01-01", tz=attr(tc[[1]]@tracks[[1]]@time, "tz"))
+		# do.call(c, lapply(lapply(tc, function(x) x@tracksData$tmax), max)) # reported by RH
 	row.names(df) = names(tracksCollection)
 	df
 }
