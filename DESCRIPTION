@@ -1,7 +1,7 @@
 Package: trajectories
 Version: 0.1-2
 Date: 2015-01-13
-Title: Classes and methods for trajectory data
+Title: Classes and Methods for Trajectory Data
 Authors@R: 
 	c(person("Edzer", "Pebesma", role = c("cre", "aut"),
 		 email = "edzer.pebesma@uni-muenster.de"),
