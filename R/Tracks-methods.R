@@ -531,8 +531,12 @@ generalize.Track <- function(t, FUN = mean, ..., timeInterval, distance, n, tol,
 		else {
 			l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
 			sp = SpatialLines(list(l), proj4string = CRS(proj4string(t)))
-			if(!missing(tol) && nrow(coordinates(sp)[[1]][[1]]) > 1)
-				sp = gSimplify(spgeom = sp, tol = tol, topologyPreserve = TRUE)
+			if(!missing(tol) && nrow(coordinates(sp)[[1]][[1]]) > 1) {
+				if (!requireNamespace("rgeos", quietly = TRUE))
+					stop("rgeos required for tolerance")
+				sp = rgeos::gSimplify(spgeom = sp, tol = tol, 
+					topologyPreserve = TRUE)
+			}
 		}
 		time = t@time[from]
 		if (is.null(endTime)) {
