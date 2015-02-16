@@ -18,7 +18,8 @@ export(
 exportMethods(
 	generalize,
 	stbox,
-	stcube
+	stcube,
+  compare
 )
 
 S3method(dim, Track)
