@@ -18,6 +18,12 @@ compare.track <- function(track1, track2) {
   dtrack <- rbind(findPoints(track1.df, track2.df), findPoints(track2.df, track1.df))
   dtrack <- dtrack[!is.na(dtrack$p.x),]
   dtrack <- dtrack[order(dtrack$time),]
+  dtrack$dist <- NA
+  for (i in 1:nrow(dtrack)) { # distance at timestamp
+    p1 <- SpatialPoints(cbind(dtrack[i,2], dtrack[i,3]), CRS(proj4string(track1)))
+    p2 <- SpatialPoints(cbind(dtrack$p.x[i], dtrack$p.y[i]), CRS(proj4string(track1)))
+    dtrack$dist[i] <- spDistsN1(p1,p2)
+  }
   dtrack
 }
 
