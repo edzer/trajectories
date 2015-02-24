@@ -20,7 +20,9 @@ Calculates distances between two trajectories for the overlapping time interval.
 \item{track2}{An object of class \code{Track}.}
 }
 
-\value{A data frame containing timestamps, original measured points and points projected on the other track.}
+\value{A difftrack object. Includes both tracks extended with additional points 
+for the timestamps of the other track. Also includes SpatialLines representing
+the distances between the tracks.}
 
 \examples{
 require(enviroCaR)
@@ -29,9 +31,10 @@ tracks <- importSingleTrack("https://envirocar.org/api/stable", "53f8c09be4b04c3
 track1 <- tracks[1]
 track2 <- track1
 index(track2@time) <- index(track2@time) + 32
-track2@sp@coords <- track2@sp@coords + 0.001
+track2@sp@coords <- track2@sp@coords + 0.003
 
-compare(track1, track2)
+difftrack <- compare(track1, track2)
+plot(difftrack)
 }
 
 \author{

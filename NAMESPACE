@@ -8,7 +8,7 @@ importFrom(utils, stack, unstack)
 # importFrom(OpenStreetMap, openmap, openproj)
 
 exportClasses(
-	Track, Tracks, TracksCollection, segments
+	Track, Tracks, TracksCollection, segments, difftrack
 )
 
 export(
