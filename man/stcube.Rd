@@ -17,10 +17,11 @@
 	normalizeBy = "week", mapZoom = NULL, ..., y, z, col)
 \S4method{stcube}{TracksCollection}(x, xlab = "x", ylab = "y", zlab = "t",
 	type = "l", aspect, xlim, ylim, zlim, showMap = FALSE, mapType = "osm",
-	normalizeBy = "week", mapZoom = NULL, ..., y, z, col)}
+	normalizeBy = "week", mapZoom = NULL, ..., y, z, col)
+\S4method{stcube}{difftrack}(x, showMap = FALSE, mapType = "osm", ...)}
 
 \arguments{
-\item{x}{An object of class \code{Track}, \code{Tracks} or \code{TracksCollection}.}
+\item{x}{An object of class \code{Track}, \code{Tracks}, or \code{TracksCollection} or \code{difftrack}.}
 \item{xlab, ylab, zlab, type, aspect, xlim, ylim, zlim}{Arguments passed to plot3d() of package \code{rgl}.}
 \item{showMap}{Flag if a basemap is to be shown on the xy plane.}
 \item{mapType}{The tile server from which to get the map. Passed as \code{type} to openmap() of package \code{OpenStreetMap}.}

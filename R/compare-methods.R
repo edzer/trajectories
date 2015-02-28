@@ -1,8 +1,3 @@
-setClass("difftrack",
-         slots=c(track1 ="Track", track2 = "Track", sl = "SpatialLines", data = "data.frame"),
-)
-
-
 ## get distances between 2 tracks for each point in time where they overlap
 ## extend each track with these points
 setGeneric(
@@ -25,27 +20,19 @@ compare.track <- function(track1, track2) {
   # find points and create new extended data frames
   newTrack1.df <- findPoints(track2.df, track1.df, ivs2)
   newTrack2.df <- findPoints(track1.df, track2.df, ivs1)
-  # equal timestamps
-  idx <- timeMatch(newTrack1.df$time, newTrack2.df$time)
-  dists <- rep(NA, length(idx))
-  lines <- list()
-  for (i in 1:length(idx)) { # distance at timestamp
-    if (!is.na(idx[i])) {
-      coords1 <- cbind(newTrack1.df$x[i], newTrack1.df$y[i])
-      coords2 <- cbind(newTrack2.df$x[idx[i]], newTrack2.df$y[idx[i]])
-      p1 <- SpatialPoints(coords1, crs)
-      p2 <- SpatialPoints(coords2, crs)
-      dists[i] <- spDistsN1(p1,p2) # dists between tracks at matching timestamps
-      lines <- c(lines, Line(rbind(coords1, coords2))) # corresponding line
-    }
-  }
+  # points on the original
+  conns12 <- merge(newTrack2.df, track1.df, "time")
+  conns21 <- merge(track2.df, newTrack1.df, "time")
+  
+  conns12 <- lineConnections(conns12, crs)
+  conns21 <- lineConnections(conns21, crs)
+    
   # extended tracks
   newTrack1 <- STIDF(SpatialPoints(cbind(newTrack1.df$x, newTrack1.df$y), crs), newTrack1.df$time, data.frame(1:nrow(newTrack1.df)))
   newTrack2 <- STIDF(SpatialPoints(cbind(newTrack2.df$x, newTrack2.df$y), crs), newTrack2.df$time, data.frame(1:nrow(newTrack2.df)))
   newTrack1 <- Track(newTrack1)
   newTrack2 <- Track(newTrack2)
-  sl <- SpatialLines(list(Lines(lines, ID = 1)), crs) #lines between tracks
-  new("difftrack", track1 = newTrack1, track2 = newTrack2, sl = sl, data = data.frame(idx, dists))
+  new("difftrack", track1 = newTrack1, track2 = newTrack2, conns1 = conns12, conns2 = conns21)
 }
 
 setMethod("compare", signature("Track"), compare.track)
@@ -77,15 +64,19 @@ findPoints <- function(tr1, tr2, ivs) {
   newTrack
 }
 
-
-## plots a difftrack
-plot.difftrack <- function(x, ...) {  
-  plot(x@track1@sp, col="red")
-  points(x@track2@sp, col="blue")
-  lines(x@sl)
+## creates SpatialLines 
+lineConnections <- function(conns, crs) {
+  Lines <- list()
+  coords1 <- cbind(conns[,2], conns[,3])
+  coords2 <- cbind(conns[,4], conns[,5])
+  for (i in 1:nrow(conns)) {
+    Lines <- c(Lines, list(Lines(Line(rbind(coords1[i,], coords2[i,])), ID = i)))
+  }
+  sl <- SpatialLines(Lines, crs)
+  dists <- SpatialLinesLengths(sl)
+  sl <- SpatialLinesDataFrame(sl, data.frame(time = conns$time, dists), FALSE)
+  sl
 }
-
-setMethod("plot", "difftrack", plot.difftrack)
 
 
 ## calculates frechet distance

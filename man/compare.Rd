@@ -25,14 +25,17 @@ for the timestamps of the other track. Also includes SpatialLines representing
 the distances between the tracks.}
 
 \examples{
-require(enviroCaR)
-require(xts)
+## example tracks
+library(enviroCaR)
+library(sp)
+library(xts)
 tracks <- importSingleTrack("https://envirocar.org/api/stable", "53f8c09be4b04c314e7ce221")
 track1 <- tracks[1]
 track2 <- track1
 index(track2@time) <- index(track2@time) + 32
 track2@sp@coords <- track2@sp@coords + 0.003
 
+## compare and plot
 difftrack <- compare(track1, track2)
 plot(difftrack)
 }
