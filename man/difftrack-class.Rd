@@ -3,10 +3,11 @@
 \docType{class}
 \alias{difftrack-class}
 \alias{difftrack}
+\alias{plot,difftrack,ANY-method}
 
-\title{Class \code{"difftrack"}}
+\title{Class "difftrack"}
 \description{
-%%  ~~ A concise (1-5 lines) description of what the class is. ~~
+Class that represents differences between two \link{Track} objects.
 }
 
 \section{Objects from the Class}{

@@ -4,6 +4,7 @@
 \alias{stcube,Track-method} 
 \alias{stcube,Tracks-method}
 \alias{stcube,TracksCollection-method}
+\alias{stcube,difftrack-method}
 
 \title{Draw a space-time cube.}
 
