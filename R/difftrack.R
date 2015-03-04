@@ -16,30 +16,28 @@ setMethod("plot", "difftrack", plot.difftrack)
 
 
 ## stcube for difftrack
-stcube.difftrack <- function(x, showMap = FALSE, mapType = "osm", ...) {
-  stcube(x@track1, col = "red", showMap = showMap, mapType = mypType, ...)
-  stcube(x@track2, col = "blue", add = TRUE, ...)
-  
+stcube.difftrack <- function(x, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z) {
+  tracks <- Tracks(list(x@track1, x@track2))
+  stcube(tracks, showMap = showMap, mapType = mapType, normalizeBy = normalizeBy, ...)  
   lines1 <- x@conns1@lines
   lines2 <- x@conns2@lines
+  
   time1 <- x@conns1@data$time
-  time1 <- time1 - min(index(x@track1@time))
+  time1 <- normalize(time1, normalizeBy)
   time2 <- x@conns2@data$time
-  time2 <- time2 - min(index(x@track2@time))
+  time2 <- normalize(time2, normalizeBy)
   
   sapply(lines1, function(l) {
     coords <- coordinates(l)
     id <- as.numeric(l@ID)
-    z1 <- time1[id]
-    z2 <- time2[id]
-    rgl::lines3d(coords[[1]][,1], coords[[1]][,2], c(z2, z1), col = "red")    
+    z <- time1[id]
+    rgl::lines3d(coords[[1]][,1], coords[[1]][,2], z,  col = "red")    
   })
   sapply(lines2, function(l) {
     coords <- coordinates(l)
     id <- as.numeric(l@ID)
-    z1 <- time2[id]
-    z2 <- time1[id]
-    rgl::lines3d(coords[[1]][,1], coords[[1]][,2], c(z1, z2), col = "blue")    
+    z <- time2[id]
+    rgl::lines3d(coords[[1]][,1], coords[[1]][,2], z, col = "blue")    
   })
 }
 

@@ -19,7 +19,7 @@
 \S4method{stcube}{TracksCollection}(x, xlab = "x", ylab = "y", zlab = "t",
 	type = "l", aspect, xlim, ylim, zlim, showMap = FALSE, mapType = "osm",
 	normalizeBy = "week", mapZoom = NULL, ..., y, z, col)
-\S4method{stcube}{difftrack}(x, showMap = FALSE, mapType = "osm", ...)}
+\S4method{stcube}{difftrack}(x, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z)}
 
 \arguments{
 \item{x}{An object of class \code{Track}, \code{Tracks}, or \code{TracksCollection} or \code{difftrack}.}
