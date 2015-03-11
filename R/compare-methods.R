@@ -1,19 +1,22 @@
-## get distances between 2 tracks for each point in time where they overlap
-## extend each track with these points
+## compre tracks
 setGeneric(
   name = "compare",
-  def = function(track1, track2, ...) standardGeneric("compare")
+  def = function(tr1, tr2, ...) standardGeneric("compare")
 )
 
-compare.track <- function(track1, track2) {
+## get distances between 2 Track objects for each point in time where they overlap
+## extend each track with these points
+## create corresponding lines
+## returns a difftrack object
+compare.track <- function(tr1, tr2) {
   require(xts)
-  if (!(first(track1@endTime) < last(track2@endTime) && first(track2@endTime) < last(track1@endTime)))
+  if (!(first(tr1@endTime) < last(tr2@endTime) && first(tr2@endTime) < last(tr1@endTime)))
       stop("Time itervals don't overlap!")
-  if (!identicalCRS(track1, track2))
+  if (!identicalCRS(tr1, tr2))
       stop("CRS are not identical!")
-  crs <- CRS(proj4string(track1))
-  track1.df <- cbind(as.data.frame(track1)[c(coordnames(track1), "time")])
-  track2.df <- cbind(as.data.frame(track2)[c(coordnames(track2), "time")])  
+  crs <- CRS(proj4string(tr1))
+  track1.df <- cbind(as.data.frame(tr1)[c(coordnames(tr1), "time")])
+  track2.df <- cbind(as.data.frame(tr2)[c(coordnames(tr2), "time")])  
   # intervals timestamps fall in
   ivs1 <- findInterval(track1.df$time, track2.df$time) 
   ivs2 <- findInterval(track2.df$time, track1.df$time)
@@ -36,6 +39,25 @@ compare.track <- function(track1, track2) {
 }
 
 setMethod("compare", signature("Track"), compare.track)
+
+
+## compare 2 Tracks objects
+## at the moment returns a matrix with the mean distance between each track
+compare.tracks <- function(tr1, tr2) {
+  cols <- dim(tr1)[[1]] 
+  rows <- dim(tr2)[[1]] 
+  dists <- matrix(nrow=rows, ncol=cols)
+  for (i in 1:cols) {
+    for (j in 1:rows) {
+      try({
+        difftrack <- compare(tr1[i], tr2[j])
+        dists[i,j] <- mean(c(difftrack@conns1@data$dists, difftrack@conns2@data$dists))
+      })
+    }
+  }
+  dists
+}
+setMethod("compare", signature("Tracks"), compare.tracks)
 
 
 ## finds corresponding points for track1 on track2
@@ -79,7 +101,7 @@ lineConnections <- function(conns, crs) {
 }
 
 
-## calculates frechet distance
+## calculates the discrete frechet distance between two tracks
 setGeneric(
   name = "frechetDist",
   def = function(track1, track2, ...) standardGeneric("frechetDist")

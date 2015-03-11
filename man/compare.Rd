@@ -4,20 +4,22 @@
 
 \alias{compare}
 \alias{compare,Track-method}
+\alias{compare,Tracks-method}
 
-\title{Compares objects of class \code{Track}}
+\title{Compares objects of class \code{Track}, \code{Tracks}}
 
 \description{
 Calculates distances between two trajectories for the overlapping time interval.   
 }
 
 \usage{%
-\S4method{compare}{Track}(track1, track2)
+\S4method{compare}{Track}(tr1, tr2)
+\S4method{compare}{Tracks}(tr1, tr2)
 }
 
 \arguments{
-\item{track1}{An object of class \code{Track}.}
-\item{track2}{An object of class \code{Track}.}
+\item{tr1}{An object of class \code{Track} or \code{Tracks}.}
+\item{tr2}{An object of class \code{Track} or \code{Tracks}.}
 }
 
 \value{A difftrack object. Includes both tracks extended with additional points 
