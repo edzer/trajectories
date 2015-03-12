@@ -1,7 +1,7 @@
-## compre tracks
+## compare tracks
 setGeneric(
   name = "compare",
-  def = function(tr1, tr2, ...) standardGeneric("compare")
+  def = function(tr1, tr2) standardGeneric("compare")
 )
 
 ## get distances between 2 Track objects for each point in time where they overlap
@@ -41,23 +41,31 @@ compare.track <- function(tr1, tr2) {
 setMethod("compare", signature("Track"), compare.track)
 
 
-## compare 2 Tracks objects
-## at the moment returns a matrix with the mean distance between each track
-compare.tracks <- function(tr1, tr2) {
+
+## distances between 2 Tracks objects
+setGeneric(
+  name = "dists",
+  def = function(tr1, tr2, ...) standardGeneric("dists")
+)
+
+## returns a matrix with the distance between each pair of tracks
+dists.tracks <- function(tr1, tr2, f = mean, ...) {
   cols <- dim(tr1)[[1]] 
   rows <- dim(tr2)[[1]] 
-  dists <- matrix(nrow=rows, ncol=cols)
+  dists <- matrix(nrow=rows, ncol=cols) # matrix with NA's
   for (i in 1:cols) {
     for (j in 1:rows) {
-      try({
+      if (identical(f, frechetDist)) {
+        dists[i,j] <- f(tr1[i], tr2[j])
+      } else try({ ## try in case compare gives an error because tracks don't overlap in time
         difftrack <- compare(tr1[i], tr2[j])
-        dists[i,j] <- mean(c(difftrack@conns1@data$dists, difftrack@conns2@data$dists))
+        dists[i,j] <- f(c(difftrack@conns1@data$dists, difftrack@conns2@data$dists), ...)
       })
     }
   }
   dists
 }
-setMethod("compare", signature("Tracks"), compare.tracks)
+setMethod("dists", signature("Tracks"), dists.tracks)
 
 
 ## finds corresponding points for track1 on track2

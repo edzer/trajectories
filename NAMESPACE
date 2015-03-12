@@ -21,7 +21,8 @@ exportMethods(
 	stcube,
   compare,
   downsample,
-  frechetDist
+  frechetDist,
+  dists
 )
 
 S3method(dim, Track)
