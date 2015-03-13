@@ -9,9 +9,9 @@ Authors@R:
 	person("Benedikt", "Graeler", role = "ctb"))
 Depends: R (>= 2.14.0)
 Imports: methods, lattice, sp (>= 1.0-14), spacetime (>= 1.0-0)
-Suggests: rgdal, rgeos, rgl, OpenStreetMap, RCurl, rjson, adehabitatLT
+Suggests: rgdal, rgeos, rgl, OpenStreetMap, RCurl, rjson, adehabitatLT, xts, enviroCaR 
 LazyData: no
 Description: Classes and methods for trajectory data, with nested classes for individual trips, and collections for different entities. Methods include selection, generalization, aggregation, intersection, and plotting.
 License: GPL (>= 2)
 URL: http://github.com/edzer/trajectories
-Collate: Class-Tracks.R Tracks-methods.R stplot.R
+Collate: Class-Tracks.R Tracks-methods.R stplot.R difftrack.R compare-methods.R

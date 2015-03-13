@@ -1,0 +1,54 @@
+\name{dists
+}
+\docType{methods}
+
+\alias{dists}
+\alias{dists,Tracks-method}
+
+\title{Calculate distances between two \code{Tracks} objects}
+
+\description{
+Calculates a distance matrix with distances for each pair of tracks.
+}
+
+\usage{%
+\S4method{dists}{Tracks}(tr1, tr2, f, ...)
+}
+
+\arguments{
+\item{tr1}{An object of class \code{Tracks}.}
+\item{tr2}{An object of class \code{Tracks}.}
+\item{f}{A function to calculate distances. Default is \code{mean}.}
+\item{...}{Additional parameters passed to \code{f}.}
+}
+
+\value{A matrix with distances between each pair of tracks or \code{NA}
+if they don't overlap in time.}
+
+\details{
+\code{f} can be any function applicable to a numerical vector or \link{frechetDist}.
+}
+
+\examples{
+## example tracks
+library(enviroCaR)
+library(sp)
+library(xts)
+tracks <- importSingleTrack("https://envirocar.org/api/stable", "53f8c09be4b04c314e7ce221")
+track1 <- tracks[1]
+track2 <- track1
+index(track2@time) <- index(track2@time) + 32
+track2@sp@coords <- track2@sp@coords + 0.003
+
+## create Tracks objects
+tracks1 <- Tracks(list(track1, track2))
+tracks2 <- Tracks(list(track2, track1))
+
+## calculate distances
+dists(tracks1, tracks2)
+dists(tracks1, tracks2, sum)
+dists(tracks1, tracks2, frechetDist)
+}
+
+\keyword{dists}
+
