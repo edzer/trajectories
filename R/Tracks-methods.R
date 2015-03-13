@@ -291,7 +291,7 @@ setMethod("stcube", signature(x = "Track"),
 			zlim = range(time)
 		# If the basemap is to be shown, fetch map tile first to allow for
 		# rendering everything in one go.
-		if(showMap) {
+		if (showMap) {
 			# Required by openmap().
 			if (!requireNamespace("raster", quietly = TRUE))
 				stop("raster required")

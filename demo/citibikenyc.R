@@ -39,7 +39,8 @@ toTrackLst = function(x) {
 			x[i,"start.station.latitude"])
 		end = cbind(x[i,"end.station.longitude"], 
 			x[i,"end.station.latitude"])
-		pt = SpatialPoints(rbind(start, end), CRS("+proj=longlat +datum=WGS84"))
+		pt = SpatialPoints(rbind(start, end), 
+			CRS("+proj=longlat +datum=WGS84 +ellps=WGS84"))
 		Track(STIDF(pt, c(x[i,"starttime"], x[i,"stoptime"]), 
 			data.frame(id=c(x[i,"start.station.id"], x[i,"end.station.id"]))))
 	})

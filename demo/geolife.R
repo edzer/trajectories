@@ -8,7 +8,7 @@ sel = 1:20
 #sel = TRUE
 i = j = 1
 dirs = list.files("Data")[sel]
-crs = CRS("+proj=longlat +datum=WGS84")
+crs = CRS("+proj=longlat +datum=WGS84 +ellps=WGS84")
 pb = txtProgressBar(style = 3, max = length(dirs))
 elev = numeric(0)
 tr = list()
