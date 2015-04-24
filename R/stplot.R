@@ -1,11 +1,11 @@
 tracksPanel = function(x, y, sp.layout, ...) {
-    sp.panel.layout(sp.layout, panel.number())
+    sppanel(sp.layout, panel.number())
 	panel.xyplot(x, y, ...)
 }
 
 segPanel = function(x, y, subscripts, ..., x0, y0, x1, y1, 
 		arrows, length, col, sp.layout) {
-    sp.panel.layout(sp.layout, panel.number())
+    sppanel(sp.layout, panel.number())
 	if (arrows)
 		panel.arrows(x0[subscripts], y0[subscripts], 
 			x1[subscripts], y1[subscripts], length = length, 

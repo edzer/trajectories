@@ -1,3 +1,275 @@
+commit fbe84377073891dc4a4dea2fdad563444ce970fe
+Merge: e39f459 5d1cbf8
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Mar 13 17:11:45 2015 +0100
+
+    Merge branch 'master' of github.com:edzer/trajectories
+
+commit e39f4591c89b2c58903dfaaf20ce45e922d68803
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Mar 13 17:11:13 2015 +0100
+
+    update CRS +ellps= requirement of PROJ 4.9.1
+
+commit 5d1cbf837c2e8dd473006483ecb3796bdc678be2
+Merge: 9a3de99 5fb5472
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Mar 13 13:15:19 2015 +0100
+
+    Merge pull request #6 from ngort01/master
+    
+    progress so far; merge from Niko, diffTrack and Track distance measures
+
+commit 5fb5472c6c8382d03e2a99da17c162033f01d440
+Author: Nikolai Gorte <n.gorte@gmail.com>
+Date:   Thu Mar 12 20:44:18 2015 +0100
+
+    dists between Tracks objects
+
+commit fa0d458672907469e68dade5262c2f4f2b764c19
+Author: Nikolai Gorte <n.gorte@gmail.com>
+Date:   Wed Mar 11 20:43:46 2015 +0100
+
+    compare tracks
+
+commit a0743a3ddfe65b9e02e857d09730c39c83dc40ae
+Author: Nikolai Gorte <n.gorte@gmail.com>
+Date:   Wed Mar 4 22:51:05 2015 +0100
+
+    stcube for difftrack fix
+
+commit 301d02e7a80fb30c9f612746135fd5d610ea5b53
+Author: Nikolai Gorte <n.gorte@gmail.com>
+Date:   Mon Mar 2 21:20:05 2015 +0100
+
+    docu
+
+commit 3dd3ca4c7971679d77276273811c94a092ecba7b
+Author: Nikolai Gorte <n.gorte@gmail.com>
+Date:   Sat Feb 28 13:43:41 2015 +0100
+
+    - changes to difftrack
+    - plot and stcube for difftrack
+
+commit c1d14880401523e61ea9fad2914f71fd6b56e196
+Author: Nikolai Gorte <n.gorte@gmail.com>
+Date:   Tue Feb 24 21:31:05 2015 +0100
+
+    difftrack class, difftrack plot
+
+commit 841306032556f093801e73610d52e4ab85c4f874
+Author: Nikolai Gorte <n.gorte@gmail.com>
+Date:   Thu Feb 19 20:14:37 2015 +0100
+
+    frechet distance and downsample
+
+commit e040cfc4f607172009b6e90397f5c764462f3de3
+Author: Nikolai Gorte <n.gorte@gmail.com>
+Date:   Tue Feb 17 20:41:23 2015 +0100
+
+    distance between tracks at a timestamp
+
+commit c9501f3fa9c304b90e64e3830352b7a2b464654a
+Author: Nikolai Gorte <n.gorte@gmail.com>
+Date:   Tue Feb 17 00:15:38 2015 +0100
+
+    compare tracks
+
+commit 9a3de997ca4050573f2d3356eac831865ef7dbd3
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Jan 17 23:26:09 2015 +0100
+
+    move rgdal and rgeos to Suggests:
+
+commit 4cbc42a9c3a661c243d0ee81e2116196a78edb03
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Jan 15 13:10:57 2015 +0100
+
+    title case title
+
+commit cbdca0c3b49e338dc7892a881680948d7ad3dd8f
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jan 13 23:40:16 2015 +0100
+
+    update check
+
+commit 0919a6e59fdc71f0eac41ce8ab4144b1951742a6
+Merge: 93c7eff b6499a9
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Tue Jan 13 19:36:37 2015 +0100
+
+    Merge branch 'BenGraeler-master'
+
+commit b6499a9f9814ed502fb66b322cb32876b413c1d6
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Jan 13 12:23:36 2015 +0100
+
+    indentation
+
+commit bd755ac545ce2cb83b7747f5e196e291f19e7723
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Jan 13 12:14:00 2015 +0100
+
+    indentation
+
+commit 58ab31af10deb44e0215cdaed76020b231d7ee7f
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Jan 13 12:03:44 2015 +0100
+
+    indentation changes
+
+commit 07da7c5e1f0e4847fe78c5a5ceb47df41e68c62c
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Jan 13 09:30:43 2015 +0100
+
+    indentation
+
+commit 7764bb41da2231581c892549d1a4aefba7a0a3c7
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Jan 13 09:29:02 2015 +0100
+
+    indentation
+
+commit c2dc1ed570555852ad54b78c04fb1b5eba71d3f1
+Merge: 9ef8834 c08d3eb
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Jan 13 08:52:20 2015 +0100
+
+    Merge branch 'master' into indentation
+
+commit 9ef8834ce1f30780282472436bec47aa145f738b
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Jan 13 08:52:00 2015 +0100
+
+    - indentation
+
+commit c08d3eb887e6caf31867fdf53ac48f319e08c7ef
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Jan 13 08:26:50 2015 +0100
+
+    - clean cat()
+
+commit 57ad31dc4abdf6d0571ed918d8a25d9f86a97915
+Merge: ef37af2 93c7eff
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Mon Nov 24 17:43:01 2014 +0100
+
+    Merge branch 'master' of https://github.com/edzer/trajectories
+    
+    Conflicts:
+    	R/Tracks-methods.R
+
+commit ef37af245f2f52f5a4faca424340ad5e562d43de
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Mon Nov 24 15:34:00 2014 +0100
+
+    - added some zoom control to background map
+    - fixed different TZ in data.frame and time slot
+
+commit 93c7effcc855b3a2c2fac7155523bd75ea494f17
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Oct 18 20:55:22 2014 +0200
+
+    update
+
+commit 3c04688bfc39cfbf1f1b8b073cfce1fd7aba9455
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Sat Oct 18 20:54:02 2014 +0200
+
+    add demo files, add warning and remove duplicate time pt
+
+commit ef4a6302a1ef1756c91495e3d934989606dd9264
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Oct 16 09:48:31 2014 +0200
+
+    tracksCollectionData is now expanded with summ stats
+
+commit d4075effa29eab754c0ed0171abe875ff9a6928a
+Merge: 6f03f78 8ee509b
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Oct 14 16:36:09 2014 +0200
+
+    Merge branch 'master' of https://github.com/BenGraeler/trajectories
+    
+    Conflicts:
+    	R/Tracks-methods.R
+
+commit 6f03f783368076f9faf3e3036d1c62ce5f1737d1
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Oct 14 16:30:06 2014 +0200
+
+    - turns off "lit" for the maps
+    - adds a parameter "mapZoom" to select an zoom level for the background map in stcube
+    - extends normalize function
+    - normalize "day" normalizes now to hours in a day, not relative to a specific date, analogously "week" to day of the week, ...
+
+commit 8ee509b576e689c27ae9ffceeef222293a404e20
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Tue Oct 14 16:30:06 2014 +0200
+
+    - turns off "lit" for the maps
+    - adds a parameter "mapZoom" to select an zoom level for the background map in stcube
+    - extends normalize function
+    - normalize "day" normalizes now to hours in a day, not relative to a specific date, analogously "week" to day of the week, ...
+
+commit 8fbd3f3303634e97694db8711f4eeacfc5efe99c
+Merge: 9dd307f 0f2589f
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Wed Oct 1 13:08:21 2014 +0200
+
+    Merge branch 'master' of https://github.com/edzer/trajectories
+    
+    Conflicts:
+    	DESCRIPTION
+    	R/Tracks-methods.R
+
+commit 0f2589f372c91dfb01dcc6d17ae968bef29773da
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Aug 29 18:14:00 2014 +0200
+
+    tidy
+
+commit 5874d5004be620a487fe28655d3e3d2d865ce610
+Merge: b6908d6 674dc35
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Aug 29 18:08:57 2014 +0200
+
+    Merge branch 'mpadge-master'
+
+commit 674dc352184793dd723825f9059e4e119ffbafea
+Merge: b6908d6 9d4f8cd
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Aug 29 18:07:24 2014 +0200
+
+    Merge branch 'master' of github.com:mpadge/trajectories into mpadge-master
+
+commit 9d4f8cdb03c2f810e25ef142488d487bb70e5134
+Author: mpadge <mark.padgham@email.com>
+Date:   Fri Aug 29 17:45:45 2014 +0200
+
+    explicit args for plot revised
+
+commit b6908d6eb5a35205e9f49c77cadc7832139f79dd
+Merge: b6a382d 948953a
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Fri Aug 29 11:56:27 2014 +0200
+
+    Merge pull request #3 from mpadge/master
+    
+    explicit args for plot
+
+commit 948953ab5e1b6cace0d4fc4da58fecee59c875df
+Author: mpadge <mark.padgham@email.com>
+Date:   Fri Aug 29 10:48:26 2014 +0200
+
+    explicit args for plot
+
+commit b6a382d5376c421a899379743b1c9cf55182f9b2
+Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Date:   Thu Aug 28 17:13:18 2014 +0200
+
+    add ChangeLog
+
 commit 000f0f3dcd7b597fc41239b535fa8be4dd41ff37
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Thu Aug 28 12:38:32 2014 +0200
@@ -28,6 +300,13 @@ Date:   Wed Aug 27 22:58:05 2014 +0200
 
     remove traj, update tracks output, add description
 
+commit 9dd307ffeea912ec14f76f2361807fd79695b2de
+Merge: 4592c56 7d9fa51
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Fri Apr 25 15:26:39 2014 +0200
+
+    Merge branch 'master' of https://github.com/edzer/trajectories
+
 commit 7d9fa5170cf624927812d9d671cd5d3392baaf8d
 Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Fri Apr 25 15:22:01 2014 +0200
@@ -39,6 +318,13 @@ Author: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Date:   Fri Apr 25 15:19:09 2014 +0200
 
     if longlat, compute speed in m/s instead of km/s
+
+commit 4592c56d7021cf24debd08f7f40110fd7631ce95
+Author: Benedikt Gräler <ben.graeler@gmail.com>
+Date:   Wed Apr 23 16:06:25 2014 +0200
+
+    - improved stcube plotting
+    - extended normalize
 
 commit f1f5f6b16cd578b215d2edc483b62dfbdfdc3c17
 Merge: a6b4bf0 86c8ee4

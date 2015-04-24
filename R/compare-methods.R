@@ -9,8 +9,9 @@ setGeneric(
 ## create corresponding lines
 ## returns a difftrack object
 compare.track <- function(tr1, tr2) {
-  require(xts)
-  if (!(first(tr1@endTime) < last(tr2@endTime) && first(tr2@endTime) < last(tr1@endTime)))
+  if (!requireNamespace("xts", quietly = TRUE))
+    stop("package xts required for track comparison")
+  if (!(xts::first(tr1@endTime) < xts::last(tr2@endTime) && xts::first(tr2@endTime) < xts::last(tr1@endTime)))
       stop("Time itervals don't overlap!")
   if (!identicalCRS(tr1, tr2))
       stop("CRS are not identical!")
@@ -116,6 +117,8 @@ setGeneric(
 )
 
 frechetDist.track <- function(track1, track2) {
+  if (!requireNamespace("xts", quietly = TRUE))
+    stop("package xts required for frechetDist comparison")
   if (!identicalCRS(track1, track2))
     stop("CRS are not identical!")
   dists <- spDists(track1@sp, track2@sp) #dists between all points
@@ -126,7 +129,7 @@ frechetDist.track <- function(track1, track2) {
       dists[i,j] <- max(dists[i,j], min(dists[i-1,j], dists[i-1,j-1], dists[i,j-1]))
     }
   }
-  last(last(dists))
+  xts::last(xts::last(dists))
 }
 
 setMethod("frechetDist", signature("Track"), frechetDist.track)
