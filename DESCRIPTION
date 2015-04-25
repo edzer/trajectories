@@ -1,5 +1,5 @@
 Package: trajectories
-Version: 0.1-2
+Version: 0.1-3
 Date: 2015-04-24
 Title: Classes and Methods for Trajectory Data
 Authors@R: 
@@ -10,7 +10,7 @@ Authors@R:
 	person("Nikolai", "Gorte", role = "ctb"))
 Depends: R (>= 2.14.0)
 Imports: methods, lattice, sp (>= 1.1-0), spacetime (>= 1.0-0)
-Suggests: rgdal, rgeos, rgl, OpenStreetMap, RCurl, rjson, adehabitatLT, xts, enviroCaR 
+Suggests: rgdal, rgeos, rgl, OpenStreetMap, RCurl, rjson, adehabitatLT, xts
 LazyData: no
 Description: Classes and methods for trajectory data, with nested classes for individual trips, and collections for different entities. Methods include selection, generalization, aggregation, intersection, and plotting.
 License: GPL (>= 2)
