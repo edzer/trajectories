@@ -26,17 +26,15 @@ the distances between the tracks.}
 
 \examples{
 ## example tracks
-library(enviroCaR)
 library(sp)
 library(xts)
-tracks <- importSingleTrack("https://envirocar.org/api/stable", "53f8c09be4b04c314e7ce221")
-track1 <- tracks[1]
-track2 <- track1
+data(A3)
+track2 <- A3
 index(track2@time) <- index(track2@time) + 32
 track2@sp@coords <- track2@sp@coords + 0.003
 
 ## compare and plot
-difftrack <- compare(track1, track2)
+difftrack <- compare(A3, track2)
 plot(difftrack)
 }
 

@@ -31,18 +31,16 @@ if they don't overlap in time.}
 
 \examples{
 ## example tracks
-library(enviroCaR)
 library(sp)
 library(xts)
-tracks <- importSingleTrack("https://envirocar.org/api/stable", "53f8c09be4b04c314e7ce221")
-track1 <- tracks[1]
-track2 <- track1
+data(A3)
+track2 <- A3
 index(track2@time) <- index(track2@time) + 32
 track2@sp@coords <- track2@sp@coords + 0.003
 
 ## create Tracks objects
-tracks1 <- Tracks(list(track1, track2))
-tracks2 <- Tracks(list(track2, track1))
+tracks1 <- Tracks(list(A3, track2))
+tracks2 <- Tracks(list(track2, A3))
 
 ## calculate distances
 dists(tracks1, tracks2)
