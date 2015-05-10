@@ -6,12 +6,11 @@ if(!require(enviroCaR)) {devtools::install_github("enviroCar/enviroCaR"); requir
 ## get all track ids
 ids <- getTrackIDs("https://envirocar.org/api/stable")
 
-## get ids using bounding box and a time interval
+## get ids using a bounding box and a time interval
 ## bounding box
 bbox <- matrix(c(7.318136,51.802163, 7.928939,52.105665), nrow=2, ncol=2)
 
-
-## time interval: from x till now
+## time interval: 96 hours
 t2 <- as.POSIXct("2015-01-20 10:11:20 CEST")
 t1 <- t2 - as.difftime(96, unit="hours")
 
