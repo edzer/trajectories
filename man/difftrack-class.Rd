@@ -50,6 +50,8 @@ difftrack <- compare(A3, track2)
 plot(difftrack)
 
 ## space-time cube of the difftrack
-stcube(difftrack)
+\dontrun{
+ stcube(difftrack)
+}
 }
 \keyword{classes}

@@ -43,9 +43,11 @@ tracks1 <- Tracks(list(A3, track2))
 tracks2 <- Tracks(list(track2, A3))
 
 ## calculate distances
+\dontrun{
 dists(tracks1, tracks2)
 dists(tracks1, tracks2, sum)
 dists(tracks1, tracks2, frechetDist)
+}
 }
 
 \keyword{dists}
