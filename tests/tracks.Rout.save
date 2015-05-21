@@ -1,6 +1,6 @@
 
-R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
-Copyright (C) 2014 The R Foundation for Statistical Computing
+R version 3.2.0 (2015-04-16) -- "Full of Ingredients"
+Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -22,12 +22,13 @@ Type 'q()' to quit R.
 > library(spacetime)
 > library(trajectories)
 > library(rgdal)
-rgdal: version: 0.9-1, (SVN revision 518)
-Geospatial Data Abstraction Library extensions to R successfully loaded
-Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
-Path to GDAL shared files: /usr/local/share/gdal
-Loaded PROJ.4 runtime: Rel. 4.9.0, 27 October 2013, [PJ_VERSION: 490]
-Path to PROJ.4 shared files: (autodetected)
+rgdal: version: 0.9-3, (SVN revision 463)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 1.10.1, released 2013/08/26
+ Path to GDAL shared files: /usr/local/share/gdal
+ Loaded PROJ.4 runtime: Rel. 4.9.0, 27 October 2013, [PJ_VERSION: 490]
+ Path to PROJ.4 shared files: (autodetected)
+ Linking to sp version: 1.1-0 
 > 
 > # Create test objects. Do not change! Changes to the test objects are likely to
 > # have an impact on the test results. It is primarily validated against class
@@ -44,7 +45,7 @@ Path to PROJ.4 shared files: (autodetected)
 > y = c(7, 7, 6, 5, 5, 6, 7)
 > n = length(x)
 > t = t0 + cumsum(runif(n) * 60)
-> crs = CRS("+proj=longlat")
+> crs = CRS("+proj=longlat +ellps=WGS84")
 > stidf = STIDF(SpatialPoints(cbind(x, y), crs), t, data.frame(co2 = rnorm(n)))
 > A1 = Track(stidf)
 > 
@@ -5400,4 +5401,4 @@ B 2    1    4    1    5 2013-09-30 02:06:55 2013-09-30 02:12:59
 > 
 > proc.time()
    user  system elapsed 
-  4.171   0.211   4.527 
+  2.631   0.252   2.772 
