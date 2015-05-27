@@ -103,7 +103,7 @@ different IDs.
 }
 
 \usage{
-  Track(track, df = NULL, fn = TrackStats)
+  Track(track, df = fn(track), fn = TrackStats)
   Tracks(tracks, tracksData = data.frame(row.names=names(tracks)), 
   		fn = TrackSummary)
   TracksCollection(tracksCollection, tracksCollectionData,

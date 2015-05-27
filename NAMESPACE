@@ -19,10 +19,10 @@ exportMethods(
 	generalize,
 	stbox,
 	stcube,
-  compare,
-  downsample,
-  frechetDist,
-  dists
+	compare,
+	downsample,
+	frechetDist,
+	dists
 )
 
 S3method(dim, Track)

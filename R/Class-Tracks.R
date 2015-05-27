@@ -56,25 +56,15 @@ TrackStats = function(track) {
 
 # Computes segment lengths.
 
-Track = function(track, df = NULL, fn = TrackStats) {
+Track = function(track, df = fn(track), fn = TrackStats) {
 	duration = diff(as.numeric(index(track@time))) # seconds
 	if (any(duration == 0)) {
-		#print(track)
 		sel = (c(1, duration) != 0)
 		n = sum(!sel)
 		warning(paste("deselecting", n, "secondary point(s) of zero duration interval(s)"))
 		if (sum(sel) < 2)
 			stop("less than two unique time instances")
 		track = Track(as(track, "STIDF")[sel,])
-	}
-	if (!is.null(fn)) {
-		stats = TrackStats(track)
-		if (is.null(df))
-			df = stats
-		else {
-			stopifnot(nrow(df) == nrow(stats))
-			df = cbind(df, stats)
-		}
 	}
 	new("Track", track, connections = df)
 }
