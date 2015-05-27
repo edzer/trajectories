@@ -109,7 +109,8 @@ setAs("TracksCollection", "SpatialLines",
 		}
 		
 		SpatialLines(l, CRS(proj4string(from)))
-	})
+	}
+)
 
 
 setAs("TracksCollection", "SpatialLinesDataFrame", 

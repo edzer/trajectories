@@ -12,7 +12,14 @@ exportClasses(
 )
 
 export(
-	Track, Tracks, TracksCollection, segPanel, tracksPanel
+	Track, 
+	Tracks,
+	TracksCollection,
+	TrackStats,
+	TrackSummary,
+	TracksSummary,
+	segPanel,
+	tracksPanel
 )
 
 exportMethods(

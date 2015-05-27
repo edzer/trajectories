@@ -7,6 +7,7 @@
 \alias{Track}
 \alias{Tracks}
 \alias{TracksCollection}
+\alias{TrackStats}
 \alias{TrackSummary}
 \alias{TracksSummary}
 \alias{[,Track-method} 
@@ -108,6 +109,7 @@ different IDs.
   		fn = TrackSummary)
   TracksCollection(tracksCollection, tracksCollectionData,
   		fn = TracksSummary)
+  TrackStats(track)
   TrackSummary(track)
   TracksSummary(tracksCollection)
   \S4method{[}{Track}(x, i, j, ..., drop = TRUE)
@@ -141,7 +143,20 @@ different IDs.
 \value{Functions \code{Track}, \code{Tracks} and
 \code{TracksCollection} are constructor functions that take the
 slots as arguments, check object validity, and compute summary
-statistics on the track and tracks sets.}
+statistics on the track and tracks sets.
+
+\code{TrackStats} returns a \code{data.frame} with for each track
+segment the distance, duration, speed, and direction. In case data are
+geographical coordinates (long/lat), distance is in m, and direction
+is initial bearing.
+
+\code{TrackSummary} reports for each track xmin, xmax, ymin, ymax,
+tmin, tmax, (number of points) n, (total) distance, and medspeed
+(median speed).
+
+\code{TracksSummary} reports for each Tracks of a TracksCollection
+(number of tracks) n, xmin, xmax, ymin, ymax, tmin, tmin, tmax.
+}
 
 \author{ Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de} }
 \references{ http://www.jstatsoft.org/v51/i07/ }
