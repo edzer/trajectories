@@ -1,19 +1,17 @@
 setClass("difftrack",
-         slots=c(track1 ="Track", track2 = "Track", 
-                 conns1 = "SpatialLinesDataFrame", conns2 = "SpatialLinesDataFrame"),
+	slots=c(track1 ="Track", track2 = "Track", 
+		conns1 = "SpatialLinesDataFrame", conns2 = "SpatialLinesDataFrame"),
 )
 
 ## plots a difftrack
 plot.difftrack <- function(x, y, ..., axes = TRUE) {  
-  plot(x@track1@sp, col="red", ..., axes = axes)
-  points(x@track2@sp, col="blue")
-  lines(x@conns1)
-  lines(x@conns2)
+	plot(x@track1@sp, col="red", ..., axes = axes)
+	points(x@track2@sp, col="blue")
+	lines(x@conns1)
+	lines(x@conns2)
 }
 
 setMethod("plot", "difftrack", plot.difftrack)
-
-
 
 ## stcube for difftrack
 stcube.difftrack <- function(x, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z) {
