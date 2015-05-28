@@ -175,8 +175,7 @@ y = c(7,7,6,5,5,6,7)
 n = length(x)
 t = t0 + cumsum(runif(n) * 60)
 require(rgdal)
-crs = CRS("+proj=longlat +ellps=WGS84")
-#crs = CRS(as.character(NA))
+crs = CRS("+proj=longlat +ellps=WGS84") # longlat
 stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
 A1 = Track(stidf)
 # person A, track 2:
@@ -222,6 +221,16 @@ as(Tr, "segments")[1:10,]   # track segments as records
 Tr[["distance"]] = Tr[["distance"]] * 1000
 Tr$distance = Tr$distance / 1000
 Tr$distance
+# work with custum TrackStats function:
+MyStats = function(track) {
+	df = apply(coordinates(track@sp), 2, diff) # requires sp
+	data.frame(distance = apply(df, 1, function(x) sqrt(sum(x^2))))
+}
+crs = CRS(as.character(NA))
+stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
+B2 = Track(stidf) # no longer longlat;
+B3 = Track(stidf, fn = MyStats)
+all.equal(B3$distance, B2$distance)
 }
 
 \keyword{classes}

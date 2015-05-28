@@ -1,9 +1,5 @@
 # Provide generalize methods.
 
-if(!isGeneric("generalize"))
-	setGeneric("generalize", function(t, FUN = mean, ...)
-		standardGeneric("generalize"))
-
 generalize.Track <- function(t, FUN = mean, ..., timeInterval, distance, n, tol, toPoints) {
 	if (sum(!c(missing(timeInterval), missing(distance), missing(n))) != 1)
 		stop("exactly one parameter from (timeInterval, distance, n) has to be specified")
@@ -84,6 +80,10 @@ generalize.Track <- function(t, FUN = mean, ..., timeInterval, distance, n, tol,
 	stidf@endTime = endTime
 	Track(stidf)
 }
+
+if(!isGeneric("generalize"))
+	setGeneric("generalize", function(t, FUN = mean, ...)
+		standardGeneric("generalize"))
 
 setMethod("generalize", signature(t = "Track"), generalize.Track)
 
