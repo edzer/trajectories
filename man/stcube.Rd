@@ -12,7 +12,9 @@
 
 \usage{%
 \S4method{stcube}{Track}(x, xlab = "x", ylab = "y", zlab = "t", type = "l",
-	aspect, xlim, ylim, zlim, showMap = FALSE, mapType = "osm", ..., y, z)
+	aspect, xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], 
+	zlim = stbox(x)$time, showMap = FALSE, mapType = "osm", 
+	mapZoom = NULL, ..., y, z)
 \S4method{stcube}{Tracks}(x, xlab = "x", ylab = "y", zlab = "t", type = "l",
 	aspect, xlim, ylim, zlim, showMap = FALSE, mapType = "osm",
 	normalizeBy = "week", mapZoom = NULL, ..., y, z, col)
