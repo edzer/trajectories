@@ -35,10 +35,14 @@
 \alias{aggregate,Tracks-method}
 \alias{aggregate,TracksCollection-method}
 \alias{plot,TracksCollection,ANY-method}
+\alias{plot,Track,missing-method}
+\alias{plot,Tracks,ANY-method}
 \alias{stplot,TracksCollection-method}
 \alias{segPanel}
 \alias{tracksPanel}
 \alias{approxTrack}
+\alias{approxTracks}
+\alias{approxTracksCollection}
 
 \title{Classes "Track", "Tracks", and "TracksCollection"}
 \description{ Classes for representing sets of trajectory data, 

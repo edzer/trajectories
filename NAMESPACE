@@ -21,7 +21,9 @@ export(
 	TracksSummary,
 	segPanel,
 	tracksPanel,
-	approxTrack
+	approxTrack,
+	approxTracks,
+	approxTracksCollection
 )
 
 exportMethods(

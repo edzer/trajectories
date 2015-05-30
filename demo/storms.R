@@ -42,13 +42,17 @@ for(y in 2012:2009)
 	if (!inherits(try(x <- extract.track(y)), "try-error"))
 		TOTTRACK[as.character(y)] = x
 
-trColl = TracksCollection(TOTTRACK)
+storms = TracksCollection(TOTTRACK)
 
 library(maps)
 map("world",xlim=c(-80,-40),ylim=c(10,50),col="light yellow",fill=TRUE)
-plot(trColl, col = sp::bpy.colors(4, alpha = .25), lwd = 8, add = TRUE)
+plot(storms, col = sp::bpy.colors(4, alpha = .25), lwd = 8, add = TRUE)
 
-TOTTRACK = as(trColl, "data.frame")
+plot(storms)
+x = approxTracksCollection(storms, by = "30 min", FUN = spline)
+plot(x, col = 'red', add = TRUE)
+
+TOTTRACK = as(storms, "data.frame")
 library(ks)
 U=TOTTRACK[,c("LON","LAT")]
 U=U[!is.na(U$LON),]

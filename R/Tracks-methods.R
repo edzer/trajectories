@@ -651,12 +651,21 @@ unstack.TracksCollection = function(x, form, ...) {
 }
 
 # approx coordinates and attributes for specific new time points, 
-approxTrack = function(track, when, ..., FUN = stats::approx, warn.if.outside = TRUE) {
-	if (warn.if.outside &&
+approxTrack = function(track, when, ..., n = 50, by, FUN = stats::approx, warn.if.outside = TRUE) {
+	x = index(track)
+	if (missing(when)) {
+		if (missing(by))
+			when = seq(min(x), max(x), length.out = n)
+		else
+			when = seq(min(x), max(x), by = by)
+	}
+	else if (warn.if.outside &&
 		(min(when) < min(index(track)) || max(when) > max(index(track))))
 			warning("approxTrack: approximating outside data range")
-	x = index(track)
-	p = apply(coordinates(track), 2, function(y) FUN(x, y, xout = when, ...)$y)
-	d = data.frame(lapply(track@data, function(y) FUN(x, y, xout = when, ... )$y))
+	p = apply(coordinates(track), 2, function(y) FUN(x, y, xout = when, n = n, ...)$y)
+	d = data.frame(lapply(track@data, function(y) FUN(x, y, xout = when, n = n, ... )$y))
 	Track(STIDF(SpatialPoints(p, CRS(proj4string(track))), when, d))
 }
+approxTracks = function(tr, ...) Tracks(lapply(tr@tracks, function(x) approxTrack(x,...)))
+approxTracksCollection = function(tc, ...)
+	TracksCollection(lapply(tc@tracksCollection, function(x) approxTracks(x,...)))
