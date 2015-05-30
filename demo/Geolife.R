@@ -1,19 +1,25 @@
-# on Tue Feb 18 18:59:47 CET 2014, I found the data at:
-# http://research.microsoft.com/en-us/downloads/b16d359d-d164-469e-9fd4-daa38f2b2e13/
-# setwd("~/Downloads/Geolife Trajectories 1.3")
+## ------------------------------------------------------------------------
+# Geolife trajectories,
+# documentation: http://research.microsoft.com/apps/pubs/?id=152176 :
+# data: http://research.microsoft.com/en-us/projects/geolife/
+# or http://ftp.research.microsoft.com/downloads/b16d359d-d164-469e-9fd4-daa38f2b2e13/Geolife%20Trajectories%201.2.zip
+
+setwd("/home/edzer/Downloads/Geolife Trajectories 1.3/Data/")
 library(sp)
 library(spacetime)
 library(trajectories)
-sel = 1:20
+#sel = 1:20
 #sel = TRUE
+sel = IDS = c("079", "095", "111", "127", "143", "159", "175")
 i = j = 1
-dirs = list.files("Data")[sel]
-crs = CRS("+proj=longlat +datum=WGS84 +ellps=WGS84")
+# dirs = list.files("Data")
+dirs = sel
+crs = CRS("+proj=longlat +ellps=WGS84")
 pb = txtProgressBar(style = 3, max = length(dirs))
 elev = numeric(0)
 tr = list()
 for (d in dirs) {
-	dir = paste("Data", d, "Trajectory", sep = "/")
+	dir = paste(d, "Trajectory", sep = "/")
 	#print(dir)
 	lst = list()
 	i = 1
@@ -45,3 +51,6 @@ tc = TracksCollection(tr)
 object.size(tc)
 dim(tc)
 object.size(tr)
+
+plot(tc, xlim=c(116.3,116.5),ylim=c(39.8,40))
+stplot(tc, xlim=c(116.3,116.5),ylim=c(39.8,40), col = 1:20)

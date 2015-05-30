@@ -62,6 +62,8 @@ TrackStats = function(track) {
 # Computes segment lengths.
 
 Track = function(track, df = fn(track), fn = TrackStats) {
+	if (is(track, "STI") && !is(track, "STIDF"))
+		track = STIDF(track@sp, track@time, data.frame(ones = rep(1, length(track))), track@endTime)
 	duration = diff(as.numeric(index(track@time))) # seconds
 	if (any(duration == 0)) {
 		sel = (c(1, duration) != 0)

@@ -11,12 +11,9 @@
 \SweaveOpts{keep.source=true}
 \newcommand{\code}[1]{{\tt #1}}
 
+% \includegraphics[width=5cm]{ifgi-logo_int} \\ %\hspace{.5cm}
 \title{Analysing Trajectory Data in R} 
-\author{
-\includegraphics[width=5cm]{ifgi-logo_int} \\ %\hspace{.5cm}
-Benedikt Klus \and
-\href{mailto:edzer.pebesma@uni-muenster.de}{Edzer Pebesma}
-}
+\author{ Benedikt Klus \and Edzer Pebesma }
 \date{\today}
 
 \begin{document}

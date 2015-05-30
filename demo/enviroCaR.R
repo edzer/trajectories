@@ -1,7 +1,12 @@
 ## Shows how to se the enviroCaR R package to import enviroCar tracks.
 
-if(!require(devtools)) {install.packages('devtools'); require(devtools)}
-if(!require(enviroCaR)) {devtools::install_github("enviroCar/enviroCaR"); require(enviroCaR)}
+if (!require(devtools))
+	stop("install devtools first")
+
+if (!require(enviroCaR)) {
+	devtools::install_github("enviroCar/enviroCaR"); 
+	library(enviroCaR)
+}
 
 ## get all track ids
 ids <- getTrackIDs("https://envirocar.org/api/stable")
@@ -19,7 +24,6 @@ ids <- getTrackIDs("https://envirocar.org/api/stable", bbox, list(first.time = t
 
 ## import tracks, returns a TracksCollection
 trcol <- importEnviroCar("https://envirocar.org/api/stable", ids)
-
 
 ## import single track, returns a Tracks object
 track <- importSingleTrack("https://envirocar.org/api/stable", ids[1])

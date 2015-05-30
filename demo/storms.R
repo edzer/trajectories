@@ -1,4 +1,7 @@
-require(XML); library(sp); library(spacetime); library(trajectories)
+require(XML); 
+library(sp);
+library(spacetime);
+library(trajectories)
 extract.track=function(year = 2012, p = TRUE) {
 # based on # ARTHUR CHARPENTIER # http://freakonometrics.hypotheses.org/17113
 	loc <- paste("http://weather.unisys.com/hurricane/atlantic/",year,"/index.php",sep="")
@@ -43,11 +46,9 @@ trColl = TracksCollection(TOTTRACK)
 
 library(maps)
 map("world",xlim=c(-80,-40),ylim=c(10,50),col="light yellow",fill=TRUE)
-for(n in unique(TOTTRACK$name))
-	#lines(TOTTRACK$LON[TOTTRACK$name==n],TOTTRACK$LAT[TOTTRACK$name==n],lwd=.5,col="red")
-	lines(TOTTRACK$LON[TOTTRACK$name==n],TOTTRACK$LAT[TOTTRACK$name==n],lwd=.5,
-		col=rgb(255,0,0,18,maxColorValue=255))
+plot(trColl, col = sp::bpy.colors(4, alpha = .25), lwd = 8, add = TRUE)
 
+TOTTRACK = as(trColl, "data.frame")
 library(ks)
 U=TOTTRACK[,c("LON","LAT")]
 U=U[!is.na(U$LON),]

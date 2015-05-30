@@ -38,6 +38,7 @@
 \alias{stplot,TracksCollection-method}
 \alias{segPanel}
 \alias{tracksPanel}
+\alias{approxTrack}
 
 \title{Classes "Track", "Tracks", and "TracksCollection"}
 \description{ Classes for representing sets of trajectory data, 
@@ -173,6 +174,7 @@ t0 = as.POSIXct(as.Date("2013-09-30",tz="CET"))
 x = c(7,6,5,5,4,3,3)
 y = c(7,7,6,5,5,6,7)
 n = length(x)
+set.seed(131)
 t = t0 + cumsum(runif(n) * 60)
 require(rgdal)
 crs = CRS("+proj=longlat +ellps=WGS84") # longlat
@@ -231,6 +233,31 @@ stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
 B2 = Track(stidf) # no longer longlat;
 B3 = Track(stidf, fn = MyStats)
 all.equal(B3$distance, B2$distance)
+
+# approxTrack:
+opar = par()
+par(mfrow = c(1, 2))
+plot(B2, ylim = c(.5, 6))
+plot(B2, pch = 16, add = TRUE)
+title("irregular time steps")
+i = index(B2)
+B3 = approxTrack(B2, seq(min(i), max(i), length.out = 50))
+plot(B3, col = 'red', type = 'p', add = TRUE)
+B4 = approxTrack(B2, seq(min(i), max(i), length.out = 50), FUN = spline)
+plot(B4, col = 'blue', type = 'b', add = TRUE)
+# regular time steps:
+t = max(t) + (1:n) * 60 # regular
+B2 = Track(STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n))))
+plot(B2, ylim = c(.5, 6))
+plot(B2, pch = 16, add = TRUE)
+title("constant time steps")
+i = index(B2)
+B3 = approxTrack(B2, seq(min(i), max(i), length.out = 50))
+plot(B3, type = 'p', col = 'red', add = TRUE)
+B4 = approxTrack(B2, seq(min(i), max(i), length.out = 50), FUN = spline)
+plot(B4, type = 'p', col = 'blue', add = TRUE)
+par(opar)
+
 }
 
 \keyword{classes}

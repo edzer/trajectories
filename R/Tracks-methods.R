@@ -41,17 +41,19 @@ setAs("Track", "data.frame",
 )
 
 setAs("Tracks", "data.frame", 
-	function(from)
-		do.call(rbind, lapply(from@tracks, 
-			function(x) rbind(as(x, "data.frame"), NA)))
+	function(from) {
+		l = lapply(from@tracks, function(x) rbind(as(x, "data.frame"), NA))
+		d = do.call(rbind, l)
+		d$Track = rep(names(from@tracks), times = sapply(l, nrow))
+		d
+	}
 )
 
 setAs("TracksCollection", "data.frame", 
 	function(from) {
 		l = lapply(from@tracksCollection, function(x) as(x, "data.frame"))
-		n = sapply(l, nrow)
 		ret = do.call(rbind, l)
-		data.frame(ret, IDs = rep(names(from@tracksCollection), times = n))
+		data.frame(ret, IDs = rep(names(from@tracksCollection), times = sapply(l, nrow)))
 	}
 )
 
@@ -226,13 +228,17 @@ plot.TracksCollection <- function(x, y, ..., type = 'l', xlim = stbox(x)[,1],
 		else
 			do.call(segments, args)
 	} else {
-		df = as(x, "data.frame") 
-		cn = coordnames(x)
-		lines(df[[cn[1]]], df[[cn[2]]], col = col, 
-			lwd = lwd, lty = lty, ...)
+		linesTrack = function(x, y, ...) lines(as(x@sp, "SpatialLines"), ...)
+		linesTracks = function(x, y, ...) mapply(linesTrack, x@tracks, ...)
+		invisible(mapply(linesTracks, 
+			x@tracksCollection, col = col, lwd = lwd, lty = lty, type = type, ...))
 	}
 }
 setMethod("plot", "TracksCollection", plot.TracksCollection)
+
+setMethod("plot", "Tracks", function(x, ...) plot(TracksCollection(list(x)), ...))
+
+setMethod("plot", c("Track", "missing"), function(x, ...) plot(Tracks(list(x)), ...))
 
 # Provide coordnames methods.
 
@@ -240,9 +246,7 @@ setMethod("coordnames", "Track", function(x) coordnames(x@sp))
 
 setMethod("coordnames", "Tracks", function(x) coordnames(x@tracks[[1]]))
 
-setMethod("coordnames", "TracksCollection",
-	function(x) coordnames(x@tracksCollection[[1]])
-)
+setMethod("coordnames", "TracksCollection", function(x) coordnames(x@tracksCollection[[1]]))
 
 # Provide stbox methods.
 
@@ -644,4 +648,15 @@ c.Tracks = function(...)
 unstack.TracksCollection = function(x, form, ...) {
 	TracksCollection(lapply(split(x@tracksCollection, form), 
 		function(x) do.call(c, x)))
+}
+
+# approx coordinates and attributes for specific new time points, 
+approxTrack = function(track, when, ..., FUN = stats::approx, warn.if.outside = TRUE) {
+	if (warn.if.outside &&
+		(min(when) < min(index(track)) || max(when) > max(index(track))))
+			warning("approxTrack: approximating outside data range")
+	x = index(track)
+	p = apply(coordinates(track), 2, function(y) FUN(x, y, xout = when, ...)$y)
+	d = data.frame(lapply(track@data, function(y) FUN(x, y, xout = when, ... )$y))
+	Track(STIDF(SpatialPoints(p, CRS(proj4string(track))), when, d))
 }
