@@ -1,14 +1,14 @@
 Package: trajectories
 Version: 0.1-4
-Date: 2015-05-22
+Date: 2015-05-31
 Title: Classes and Methods for Trajectory Data
-Authors@R: 
+Authors@R:
 	c(person("Edzer", "Pebesma", role = c("cre", "aut"),
 		 email = "edzer.pebesma@uni-muenster.de"),
 	person("Benedikt", "Klus", role = "aut"),
 	person("Benedikt", "Graeler", role = "ctb"),
 	person("Nikolai", "Gorte", role = "ctb"))
-Depends: R (>= 2.14.0)
+Depends: R (>= 3.0.0)
 Imports: methods, lattice, sp (>= 1.1-0), spacetime (>= 1.0-0)
 Suggests: rgdal, rgeos, rgl, OpenStreetMap, RCurl, rjson, adehabitatLT, xts
 LazyData: no
