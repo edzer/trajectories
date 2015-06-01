@@ -495,7 +495,7 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 		s = which(i)
 	else
 		s = i
-	if (is.list(i)) { # might have been created by the lappty() above
+	if (!missing(i) && is.list(i)) { # might have been created by the lappty() above
 		stopifnot(all(sapply(i, function(x) is.numeric(x))))
 		s = which(sapply(i, function(x) length(x) > 0))
 		for(index in seq_along(s)) {

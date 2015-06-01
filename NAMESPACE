@@ -5,7 +5,6 @@ import(lattice)
 importFrom(stats, approx)
 # importFrom(stats, aggregate, na.omit, time, start, end)
 importFrom(utils, stack, unstack)
-importFrom(xts, xts)
 
 exportClasses(
 	Track,
