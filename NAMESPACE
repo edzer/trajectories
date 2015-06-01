@@ -5,11 +5,14 @@ import(lattice)
 importFrom(stats, approx)
 # importFrom(stats, aggregate, na.omit, time, start, end)
 importFrom(utils, stack, unstack)
-# importFrom(rgl, plot3d, lines3d, surface3d)
-# importFrom(OpenStreetMap, openmap, openproj)
+importFrom(xts, xts)
 
 exportClasses(
-	Track, Tracks, TracksCollection, segments, difftrack
+	Track,
+	Tracks,
+	TracksCollection,
+	segments,
+	difftrack
 )
 
 export(

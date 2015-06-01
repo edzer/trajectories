@@ -120,7 +120,7 @@ setAs("TracksCollection", "SpatialLinesDataFrame",
 		from@tracksCollectionData, match.ID = FALSE)
 )
 
-# Coerce to xts.
+# Coerce to xts; Track is automatic through STIDF.
 
 setAs("Tracks", "xts",
 	function(from)
@@ -296,23 +296,13 @@ setMethod("bbox", "TracksCollection", function(obj) t(stbox(obj)[1:2]))
 
 # Provide over methods.
 
-setMethod("over", c("Track", "Spatial"),
-	function(x, y, ...) {
-		over(as(x, "SpatialLines"), y, ...)
-	}
-)
+setMethod("over", c("Track", "Spatial"), function(x, y, ...) over(as(x, "SpatialLines"), y, ...))
+setMethod("over", c("Tracks", "Spatial"), function(x, y, ...) over(as(x, "SpatialLines"), y, ...))
+setMethod("over", c("TracksCollection", "Spatial"), function(x, y, ...) over(as(x, "SpatialLines"), y, ...))
 
-setMethod("over", c("Tracks", "Spatial"),
-	function(x, y, ...) {
-		over(as(x, "SpatialLines"), y, ...)
-	}
-)
-
-setMethod("over", c("TracksCollection", "Spatial"),
-	function(x, y, ...) {
-		over(as(x, "SpatialLines"), y, ...)
-	}
-)
+setMethod("over", c("Track", "xts"), function(x, y, ...) over(as(x, "xts"), y, ...))
+setMethod("over", c("Tracks", "xts"), function(x, y, ...) over(as(x, "xts"), y, ...))
+setMethod("over", c("TracksCollection", "xts"), function(x, y, ...) over(as(x, "xts"), y, ...))
 
 # Provide aggregate methods.
 
@@ -350,6 +340,7 @@ summary.Track = function(object, ...) {
 	obj = list()
 	obj$class = class(object)
 	obj$dim = dim(object)
+	obj$stbox = stbox(object)
 	obj$sp = summary(object@sp)
 	obj$time = summary(object@time)
 	obj$data = summary(object@data)
@@ -365,6 +356,8 @@ print.summary.Track = function(x, ...) {
 	cat(" with Dimensions: (")
 	cat(paste(x$dim, collapse = ", "))
 	cat(")\n")
+	cat("[[stbox]]\n")
+	print(x$stbox)
 	cat("[[Spatial:]]\n")
 	print(x$sp)
 	cat("[[Temporal:]]\n")
@@ -380,6 +373,7 @@ summary.Tracks = function(object, ...) {
 	obj = list()
 	obj$class = class(object)
 	obj$dim = dim(object)
+	obj$stbox = stbox(object)
 	obj$sp = summary(do.call(rbind, lapply(object@tracks, function(x) x@sp)))
 	obj$time = summary(do.call(rbind, lapply(object@tracks, function(x) x@time)))
 	obj$data = summary(do.call(rbind, lapply(object@tracks, function(x) x@data)))
@@ -395,6 +389,8 @@ print.summary.Tracks = function(x, ...) {
 	cat(" with Dimensions (tracks, geometries): (")
 	cat(paste(x$dim, collapse = ", "))
 	cat(")\n")
+	cat("[[stbox]]\n")
+	print(x$stbox)
 	cat("[[Spatial:]]\n")
 	print(x$sp)
 	cat("[[Temporal:]]\n")
@@ -410,6 +406,7 @@ summary.TracksCollection = function(object, ...) {
 	obj = list()
 	obj$class = class(object)
 	obj$dim = dim(object)
+	obj$stbox = stbox(object)
 	obj$sp = summary(do.call(rbind, lapply(object@tracksCollection,
 		function(x) do.call(rbind, lapply(x@tracks, function(y) y@sp)))))
 	obj$time = summary(do.call(rbind, lapply(object@tracksCollection,
@@ -429,6 +426,8 @@ print.summary.TracksCollection = function(x, ...) {
 	cat(" with Dimensions (IDs, tracks, geometries): (")
 	cat(paste(x$dim, collapse = ", "))
 	cat(")\n")
+	cat("[[stbox]]\n")
+	print(x$stbox)
 	cat("[[Spatial:]]\n")
 	print(x$sp)
 	cat("[[Temporal:]]\n")
@@ -447,12 +446,18 @@ subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
 		i = 1:length(x@tracks)
 	else if (is(i, "Spatial"))
 		i = which(!is.na(over(x, geometry(i))))
+	else if (is.character(i) && length(i) == 1 && !(i %in% names(x@tracks))) # i time:
+		i = sapply(x@tracks, function(x) nrow(as(x, "xts")[i]) > 0)
 	else if (is.logical(i))
 		i = which(i)
-	if (drop && length(i) == 1)
+	if (length(i) == 1 && drop)
 		x@tracks[[i]]
-	else
-		Tracks(x@tracks[i], x@tracksData[i,j,drop=FALSE])
+	else {
+		if (!any(i))
+			NULL
+		else 
+			Tracks(x@tracks[i], x@tracksData[i, j, drop=FALSE])
+	}
 }
 
 setMethod("[", "Tracks", subs.Tracks)
@@ -483,11 +488,16 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 		s = 1:length(x@tracksCollection)
 	else if (is(i, "Spatial"))
 		s = which(!is.na(over(x, geometry(i))))
+	else if (is.character(i) && length(i) == 1 && !(i %in% names(x@tracksCollection))) # i time:
+		i = lapply(x@tracksCollection, function(x) 
+			which(sapply(x@tracks, function(x) nrow(as(x, "xts")[i]) > 0)))
 	else if (is.logical(i))
 		s = which(i)
-	else if (is.list(i)) {
-		stopifnot(all(sapply(i, function(element) is.numeric(element))))
-		s = which(sapply(i, function(element) length(element) > 0))
+	else
+		s = i
+	if (is.list(i)) { # might have been created by the lappty() above
+		stopifnot(all(sapply(i, function(x) is.numeric(x))))
+		s = which(sapply(i, function(x) length(x) > 0))
 		for(index in seq_along(s)) {
 			tz = x@tracksCollection[[s[index]]]
 			tz@tracks = tz@tracks[i[[s[index]]]]
@@ -495,9 +505,7 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 			# Write back the just processed Tracks element.
 			x@tracksCollection[[s[index]]] = tz
 		}
-	}
-	else
-		s = i
+	} 
 	# Drop data structure. Only relevant in case one single Tracks/Track element
 	# have/has been selected. Multiple Tracks elements are always returned as
 	# TracksCollection, independently of whether drop is true or false.
@@ -658,8 +666,7 @@ approxTrack = function(track, when, ..., n = 50, by, FUN = stats::approx, warn.i
 			when = seq(min(x), max(x), length.out = n)
 		else
 			when = seq(min(x), max(x), by = by)
-	}
-	else if (warn.if.outside &&
+	} else if (warn.if.outside &&
 		(min(when) < min(index(track)) || max(when) > max(index(track))))
 			warning("approxTrack: approximating outside data range")
 	p = apply(coordinates(track), 2, function(y) FUN(x, y, xout = when, n = n, ...)$y)
