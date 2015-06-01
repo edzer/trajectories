@@ -42,9 +42,13 @@ exportMethods(
 S3method(dim, Track)
 S3method(dim, Tracks)
 S3method(dim, TracksCollection)
+
 S3method(print, summary.Track)
 S3method(print, summary.Tracks)
 S3method(print, summary.TracksCollection)
+
 S3method(stack, TracksCollection)
+
 S3method(unstack, TracksCollection)
+
 S3method(c, Tracks)
