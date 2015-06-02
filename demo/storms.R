@@ -57,7 +57,11 @@ library(ks)
 U=TOTTRACK[,c("LON","LAT")]
 U=U[!is.na(U$LON),]
 H=diag(c(.2,.2))
+# note that this might be not meaningful, as coords are longlat:
 fat=kde(U,H,xmin=c(min(U[,1]),min(U[,2])),xmax=c(max(U[,1]),max(U[,2])))
 z=fat$estimate
-image(z)
+long = fat$eval.points[[1]]
+lat = fat$eval.points[[2]]
+image(long, lat, z)
+plot(storms, add=TRUE)
 map("world",add=TRUE)
