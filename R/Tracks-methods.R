@@ -556,10 +556,11 @@ setMethod("[[", c("TracksCollection", "ANY", "missing"),
 
 setReplaceMethod("[[", c("Track", "ANY", "missing", "ANY"), 
 	function(x, i, j, value) {
-		if(i %in% names(x@data))
-			x@data[[i]] = value	
-		else if(i %in% names(x@connections))
+		if (i %in% names(x@connections)) {
+			warning(paste("replacing", i, "in connections slot"))
 			x@connections[[i]] = value
+		} else
+			x@data[[i]] = value
 		x 	
 	}
 )
