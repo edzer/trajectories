@@ -10,7 +10,7 @@ coord = t(sapply(kml$Document$Placemark$Track[cc], function(x) scan(text = x, qu
 when = which(names(tr) == "when")
 # convert the "-07:00" into " -0700" with sub:
 #time = strptime(sub("-08:00$", " -0800", unlist(kml$Document$Placemark$Track[when])),
-time = strptime(sub("([+\\-])(\\d\\d):(\\d\\d)$", " \\1\\2\\3", 
+time = strptime(sub("([+\\-])(\\d\\d):(\\d\\d)$", "\\1\\2\\3", 
 	unlist(kml$Document$Placemark$Track[when])), "%Y-%m-%dT%H:%M:%OS %z")
 
 library(sp)
