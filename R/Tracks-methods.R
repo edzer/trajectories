@@ -440,6 +440,11 @@ print.summary.TracksCollection = function(x, ...) {
 }
 
 # Provide selection methods.
+subs.Track <- function(x, i, j, ..., drop = TRUE) {
+	Track(as(x, "STIDF")[i, j, ..., drop = drop])
+}
+
+setMethod("[", "Track", subs.Track)
 
 subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
 	if (missing(i))
