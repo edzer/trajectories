@@ -256,12 +256,16 @@ plot(B2, ylim = c(.5, 6))
 plot(B2, pch = 16, add = TRUE)
 title("constant time steps")
 i = index(B2)
-B3 = approxTrack(B2, seq(min(i), max(i), length.out = 50))
+B3 = approxTrack(B2)
 plot(B3, type = 'p', col = 'red', add = TRUE)
-B4 = approxTrack(B2, seq(min(i), max(i), length.out = 50), FUN = spline)
+B4 = approxTrack(B2, FUN = spline)
 plot(B4, type = 'p', col = 'blue', add = TRUE)
 par(opar)
-
+smth = function(x,y,xout,...) predict(smooth.spline(as.numeric(x), y), as.numeric(xout))
+data(storms)
+plot(storms, type = 'p')
+storms.smooth = approxTracksCollection(storms, FUN = smth, n = 200)
+plot(storms.smooth, add = TRUE, col = 'red')
 }
 
 \keyword{classes}
