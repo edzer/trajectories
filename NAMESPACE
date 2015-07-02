@@ -2,9 +2,10 @@ import(methods)
 import(sp)
 import(spacetime)
 import(lattice)
-importFrom(stats, approx)
+importFrom(stats, approx, as.formula, na.omit, quantile, rnorm)
 # importFrom(stats, aggregate, na.omit, time, start, end)
-importFrom(utils, stack, unstack)
+importFrom(utils, head, tail, stack, unstack)
+importFrom(graphics, arrows, box, lines, points, segments)
 
 exportClasses(
 	Track,

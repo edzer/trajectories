@@ -9,7 +9,7 @@ Authors@R:
 	person("Benedikt", "Graeler", role = "ctb"),
 	person("Nikolai", "Gorte", role = "ctb"))
 Depends: R (>= 3.0.0)
-Imports: methods, lattice, sp (>= 1.1-0), spacetime (>= 1.0-0)
+Imports: stats, utils, graphics, methods, lattice, sp (>= 1.1-0), spacetime (>= 1.0-0)
 Suggests: rgdal, rgeos, rgl, OpenStreetMap, RCurl, rjson, adehabitatLT, xts
 LazyData: no
 Description: Classes and methods for trajectory data, with nested classes for individual trips, and collections for different entities. Methods include selection, generalization, aggregation, intersection, and plotting.
