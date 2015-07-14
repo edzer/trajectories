@@ -32,7 +32,7 @@ normalize = function(time, by = "week") {
 
 OSM = function(xlim, ylim, mapZoom, mapType, projection) {
 	if (!requireNamespace("OpenStreetMap", quietly = TRUE))
-		stop("OpenStreetMap required")
+		stop("package OpenStreetMap required")
 	map = OpenStreetMap::openmap(upperLeft = c(ylim[2], xlim[1]),
 		lowerRight = c(ylim[1], xlim[2]), zoom = mapZoom, type = mapType)
 	OpenStreetMap::openproj(x = map, projection = projection)

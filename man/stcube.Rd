@@ -26,7 +26,7 @@
 \arguments{
 \item{x}{An object of class \code{Track}, \code{Tracks}, or \code{TracksCollection} or \code{difftrack}.}
 \item{xlab, ylab, zlab, type, aspect, xlim, ylim, zlim}{Arguments passed to plot3d() of package \code{rgl}.}
-\item{showMap}{Flag if a basemap is to be shown on the xy plane.}
+\item{showMap}{Flag if a basemap is to be shown on the xy plane; for this to function, you may need to load library \code{raster} first, see also the \code{stcube} demo script.}
 \item{mapType}{The tile server from which to get the map. Passed as \code{type} to openmap() of package \code{OpenStreetMap}.}
 \item{normalizeBy}{An abstract time period (either \code{week} or \code{day}) to be normalized by.}
 \item{mapZoom}{Set a zoom level for the map used as background. Null will use the osm package default strategie.}
@@ -34,5 +34,8 @@
 \item{...}{Additional arguments passed to plot3d() of package \code{rgl}.}}
 
 \value{A space-time cube.}
+\examples{
+\dontrun{demo(stcube)}
+}
 
 \keyword{space-time cube}

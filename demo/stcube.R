@@ -45,6 +45,6 @@ Tr = TracksCollection(tracksCollection = list(A, B))
 # Plot tracks in a space-time cube. As fetching the basemap takes its time,
 # "showMap" defaults to FALSE. See ?stcube for detailed information.
 stcube(B, showMap = FALSE)
-library(OpenStreetMap) # needed if showMap = TRUE
+library(raster) # needed if showMap = TRUE
 stcube(A1, showMap = TRUE, col = "red")
 stcube(Tr, showMap = TRUE)
