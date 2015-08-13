@@ -15,9 +15,11 @@ before_install:
   - make
   - sudo make install
   - cd /home/travis/build/edzer/trajectories
-  - sudo R CMD javareconf 
 
 language: r
 sudo: required
 
 warnings_are_errors: true
+
+
+# - sudo R CMD javareconf 
