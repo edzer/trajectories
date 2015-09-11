@@ -1,6 +1,6 @@
 Package: trajectories
-Version: 0.1-4
-Date: 2015-08-19
+Version: 0.1-5
+Date: 2015-09-11
 Title: Classes and Methods for Trajectory Data
 Authors@R:
 	c(person("Edzer", "Pebesma", role = c("cre", "aut"),
