@@ -4,12 +4,13 @@
 # data: http://research.microsoft.com/en-us/projects/geolife/
 # or http://ftp.research.microsoft.com/downloads/b16d359d-d164-469e-9fd4-daa38f2b2e13/Geolife%20Trajectories%201.2.zip
 
-setwd("/home/edzer/Downloads/Geolife Trajectories 1.3/Data/")
+# assuming we are in the "Data" directory, e.g. by:
+# setwd("/home/edzer/Downloads/Geolife Trajectories 1.3/Data/")
+
 library(sp)
 library(spacetime)
 library(trajectories)
 #sel = 1:20
-#sel = TRUE
 sel = IDS = c("079", "095", "111", "127", "143", "159", "175")
 i = j = 1
 # dirs = list.files("Data")
