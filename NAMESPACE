@@ -38,7 +38,9 @@ exportMethods(
 	generalize,
 	plot,
 	stbox,
-	stcube
+	stcube,
+	spTransform,
+	stplot
 )
 
 S3method(dim, Track)

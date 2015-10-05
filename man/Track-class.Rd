@@ -38,6 +38,9 @@
 \alias{plot,Track,missing-method}
 \alias{plot,Tracks,ANY-method}
 \alias{stplot,TracksCollection-method}
+\alias{spTransform,Track,CRS-method}
+\alias{spTransform,Tracks,CRS-method}
+\alias{spTransform,TracksCollection,CRS-method}
 \alias{segPanel}
 \alias{tracksPanel}
 \alias{approxTrack}

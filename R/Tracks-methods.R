@@ -207,32 +207,29 @@ setMethod("proj4string", signature(obj = "TracksCollection"),
 
 # Provide plot methods. TODO Make more generic.
 
-plot.TracksCollection <- function(x, y, ..., type = 'l', xlim = stbox(x)[,1],
+plot.TracksCollection <- function(x, y, ..., xlim = stbox(x)[,1],
 		ylim = stbox(x)[,2], col = 1, lwd = 1, lty =
-		1, axes = TRUE, Arrows = FALSE, Segments = FALSE, add = FALSE) {
+		1, axes = TRUE, Arrows = FALSE, Segments = FALSE, add = FALSE,
+		length = 0.25, angle = 30, code = 2) {
+
 	sp = x@tracksCollection[[1]]@tracks[[1]]@sp
 	# Submitting arrows() and lines() formals to plot prompts warnings, 
 	# so they are absorbed here by localPlot() formals.
-	localPlot <- function (..., length, angle, code, xpd, lend, ljoin, lmitre)
-		plot (...)
-	if (! add)
-		localPlot(as(sp, "Spatial"), xlim = xlim, ylim = ylim, axes = axes, ...)
-	if (axes == FALSE)
-		box()
 	if (Arrows || Segments) {
+		if (! add)
+			plot(sp, xlim = xlim, ylim = ylim, axes = axes, ...)
+		if (axes == FALSE)
+			box()
 		df = as(x, "segments")
 		args = list(x0 = df$x0, y0 = df$y0, x1 = df$x1, y1 = df$y1, 
-			col = col, lwd = lwd, lty = lty, ...)
+			col = col, lwd = lwd, lty = lty) 
 		if (Arrows)
-			do.call(arrows, args)
+			do.call(arrows, append(args, list(length = length, angle = angle, code = code)))
 		else
 			do.call(segments, args)
-	} else {
-		linesTrack = function(x, y, ...) lines(as(x@sp, "SpatialLines"), ...)
-		linesTracks = function(x, y, ...) mapply(linesTrack, x@tracks, ...)
-		invisible(mapply(linesTracks, 
-			x@tracksCollection, col = col, lwd = lwd, lty = lty, type = type, ...))
-	}
+	} else
+		plot(as(x, "SpatialLines"), xlim = xlim, ylim = ylim, axes = axes, 
+			col = col, lwd = lwd, lty = lty, ...)
 }
 setMethod("plot", "TracksCollection", plot.TracksCollection)
 
@@ -682,3 +679,17 @@ approxTrack = function(track, when, ..., n = 50, by, FUN = stats::approx, warn.i
 approxTracks = function(tr, ...) Tracks(lapply(tr@tracks, function(x) approxTrack(x,...)))
 approxTracksCollection = function(tc, ...)
 	TracksCollection(lapply(tc@tracksCollection, function(x) approxTracks(x,...)))
+
+setMethod("spTransform", c("Track", "CRS"),
+	function(x, CRSobj, ...)
+		#Track(spTransform(as(x, "STIDF"), CRSobj, ...), df = x@connections)
+		Track(spTransform(as(x, "STIDF"), CRSobj, ...))
+)
+setMethod("spTransform", c("Tracks", "CRS"),
+	function(x, CRSobj, ...)
+		Tracks(lapply(x@tracks, function(y) spTransform(y, CRSobj, ...)))
+)
+setMethod("spTransform", c("TracksCollection", "CRS"),
+	function(x, CRSobj, ...)
+		TracksCollection(lapply(x@tracks, function(y) spTransform(y, CRSobj, ...)))
+)
