@@ -229,7 +229,7 @@ plot.TracksCollection <- function(x, y, ..., xlim = stbox(x)[,1],
 			do.call(segments, args)
 	} else
 		plot(as(x, "SpatialLines"), xlim = xlim, ylim = ylim, axes = axes, 
-			col = col, lwd = lwd, lty = lty, ...)
+			col = col, lwd = lwd, lty = lty, add = add, ...)
 }
 setMethod("plot", "TracksCollection", plot.TracksCollection)
 
