@@ -1,6 +1,6 @@
 Package: trajectories
 Version: 0.1-5
-Date: 2015-09-11
+Date: 2015-12-07
 Title: Classes and Methods for Trajectory Data
 Authors@R:
 	c(person("Edzer", "Pebesma", role = c("cre", "aut"),
@@ -16,5 +16,5 @@ Description: Classes and methods for trajectory data, with nested classes for in
 License: GPL (>= 2)
 URL: http://github.com/edzer/trajectories
 BugReports: http://github.com/edzer/trajectories/issues
-Collate: Class-Tracks.R Tracks-methods.R 
-	generalize.R stcube.R stplot.R difftrack.R compare-methods.R
+Collate: Class-Tracks.R Tracks-methods.R generalize.R stcube.R stplot.R 
+	difftrack.R compare-methods.R rtracks.R

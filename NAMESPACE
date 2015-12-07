@@ -17,17 +17,14 @@ exportClasses(
 )
 
 export(
-	Track, 
-	Tracks,
-	TracksCollection,
+	Track, Tracks, TracksCollection,
 	TrackStats,
 	TrackSummary,
 	TracksSummary,
 	segPanel,
 	tracksPanel,
-	approxTrack,
-	approxTracks,
-	approxTracksCollection
+	approxTrack, approxTracks, approxTracksCollection,
+	rTrack, rTracks, rTracksCollection
 )
 
 exportMethods(

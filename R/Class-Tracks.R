@@ -86,6 +86,10 @@ setClass("Tracks",
 		stopifnot(length(object@tracks) > 0)
 		stopifnot(!is.null(names(object@tracks)))
 		stopifnot(identicalCRS(object@tracks))
+		TR = t(sapply(object@tracks, function(x) range(index(x))))
+		overlap = which(head(TR[,2], -1) > tail(TR[,1], -1))
+		if (length(overlap) > 0)
+			warning(paste("tracks with overlapping time intervals:",paste(overlap, collapse=", ")))
 		return(TRUE)
 	}
 )
