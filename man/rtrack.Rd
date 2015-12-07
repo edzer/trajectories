@@ -30,4 +30,17 @@ element, so may contain multiple AR coefficients. The generated
 track is a \link[base]{cumsum} over the simulated AR values.
 In case it has length 1 and value 0, random walk is created using \link[stats]{rnorm}.}
 \value{An object of class \code{Track}, \code{Tracks} or \code{TracksCollection}.}
+\examples{
+x = rTrack()
+dim(x)
+plot(x)
+x = rTracks()
+dim(x)
+plot(x)
+x = rTracksCollection()
+dim(x)
+plot(x)
+x = rTracksCollection(sdo=200)
+plot(x, col=1:20)
+}
 \keyword{random}
