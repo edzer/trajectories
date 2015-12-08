@@ -7,9 +7,9 @@
 \title{Generate random \code{Track}, \code{Tracks} or \code{TracksCollection} objects}
 \description{Generate random \code{Track}, \code{Tracks} or \code{TracksCollection} objects}
 \usage{
-rTrack(n = 100, origin = c(0,0), start = as.POSIXct("1970-01-01"), ar = .8, step = 60, sd = 1, ...)
-rTracks(m = 20, start = as.POSIXct("1970-01-01"), delta = 7200, sdo = 0, ...)
-rTracksCollection(p = 10, ...)
+rTrack(n = 100, origin = c(0,0), start = as.POSIXct("1970-01-01"), ar = .8, step = 60, sd0 = 1, ...)
+rTracks(m = 20, start = as.POSIXct("1970-01-01"), delta = 7200, sd1 = 0, origin = c(0,0), ...)
+rTracksCollection(p = 10, sd2 = 0, ...)
 }
 \arguments{
 \item{n}{number of points per Track}
@@ -17,12 +17,13 @@ rTracksCollection(p = 10, ...)
 \item{start}{POSIXct, indicating the start time of the Track}
 \item{ar}{numeric vector, indicating the amound of correlation in the Track}
 \item{step}{ numeric; time step(s) in seconds between Track fixes }
-\item{sd}{standard deviation of the random steps}
+\item{sd0}{standard deviation of the random steps}
+\item{sd1}{standard deviation of the consecutive Track origin values (using rnorm)}
+\item{sd2}{standard deviation of the consecutive Tracks origin values (using rnorm)}
 \item{...}{rTrack: arguments passed on to \link[stats]{arima.sim}, rTracks: arguments
 passed on to rTrack; rTracksCollection: arguments passed on to rTracks}
 \item{m}{ number of Track objects to simulate}
 \item{delta}{ time difference between consecutive Track start times}
-\item{sdo}{ standard deviation of the consecutive Track origin values (using rnorm)}
 \item{p}{ number of IDs with Tracks to generate}
 }
 \note{\code{ar} is passed on to \link[stats]{arima.sim} as \code{ar}
@@ -40,7 +41,8 @@ plot(x)
 x = rTracksCollection()
 dim(x)
 plot(x)
-x = rTracksCollection(sdo=200)
-plot(x, col=1:20)
+plot(as(x, "SpatialLines"), col = 1:dim(x)[1], axes=TRUE)
+x = rTracksCollection(sd2 = 200)
+plot(x, col=1:dim(x)[1])
 }
 \keyword{random}
