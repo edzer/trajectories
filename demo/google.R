@@ -7,6 +7,7 @@ kml <- xmlToList(filename)
 tr = kml$Document$Placemark$Track
 cc = which(names(tr) == "coord")
 coord = t(sapply(kml$Document$Placemark$Track[cc], function(x) scan(text = x, quiet = TRUE)))[,1:2]
+row.names(coord) = NULL # they are all duplicates
 when = which(names(tr) == "when")
 # convert the "-07:00" into " -0700" with sub:
 #time = strptime(sub("-08:00$", " -0800", unlist(kml$Document$Placemark$Track[when])),
@@ -29,8 +30,8 @@ object.size(x)
 sapply(x, class)
 x$time = as.POSIXct(as.numeric(x$timestampMs)/1000, origin = "1970-01-01")
 
-x$lat = loc$latitudeE7 / 1e7
-x$lon = loc$longitudeE7 / 1e7
+x$lat = x$latitudeE7 / 1e7
+x$lon = x$longitudeE7 / 1e7
 
 a = x$activitys
 types = unique(unlist(lapply(a, function(x) if (is.null(x[[2]])) "null" else x[[2]][[1]]$type)))

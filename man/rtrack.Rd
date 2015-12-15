@@ -7,8 +7,10 @@
 \title{Generate random \code{Track}, \code{Tracks} or \code{TracksCollection} objects}
 \description{Generate random \code{Track}, \code{Tracks} or \code{TracksCollection} objects}
 \usage{
-rTrack(n = 100, origin = c(0,0), start = as.POSIXct("1970-01-01"), ar = .8, step = 60, sd0 = 1, ...)
-rTracks(m = 20, start = as.POSIXct("1970-01-01"), delta = 7200, sd1 = 0, origin = c(0,0), ...)
+rTrack(n = 100, origin = c(0,0), start = as.POSIXct("1970-01-01"), ar = .8, 
+	step = 60, sd0 = 1, ...)
+rTracks(m = 20, start = as.POSIXct("1970-01-01"), delta = 7200, sd1 = 0, 
+	origin = c(0,0), ...)
 rTracksCollection(p = 10, sd2 = 0, ...)
 }
 \arguments{
@@ -17,7 +19,7 @@ rTracksCollection(p = 10, sd2 = 0, ...)
 \item{start}{POSIXct, indicating the start time of the Track}
 \item{ar}{numeric vector, indicating the amound of correlation in the Track}
 \item{step}{ numeric; time step(s) in seconds between Track fixes }
-\item{sd0}{standard deviation of the random steps}
+\item{sd0}{standard deviation of the random steps in a Track}
 \item{sd1}{standard deviation of the consecutive Track origin values (using rnorm)}
 \item{sd2}{standard deviation of the consecutive Tracks origin values (using rnorm)}
 \item{...}{rTrack: arguments passed on to \link[stats]{arima.sim}, rTracks: arguments
@@ -27,8 +29,8 @@ passed on to rTrack; rTracksCollection: arguments passed on to rTracks}
 \item{p}{ number of IDs with Tracks to generate}
 }
 \note{\code{ar} is passed on to \link[stats]{arima.sim} as \code{ar}
-element, so may contain multiple AR coefficients. The generated
-track is a \link[base]{cumsum} over the simulated AR values.
+element, and may contain multiple AR coefficients. The generated
+track is a \link[base]{cumsum} over the simulated AR values, for each dimension.
 In case it has length 1 and value 0, random walk is created using \link[stats]{rnorm}.}
 \value{An object of class \code{Track}, \code{Tracks} or \code{TracksCollection}.}
 \examples{
@@ -38,7 +40,7 @@ plot(x)
 x = rTracks(sd1 = 120)
 dim(x)
 plot(as(x, "SpatialLines"), col = 1:dim(x)[1], axes=TRUE)
-x = rTracksCollection()
+x = rTracksCollection() # star
 dim(x)
 plot(x)
 x = rTracksCollection(sd2 = 200)
