@@ -672,9 +672,14 @@ approxTrack = function(track, when, ..., n = 50, by, FUN = stats::approx, warn.i
 	} else if (warn.if.outside &&
 		(min(when) < min(index(track)) || max(when) > max(index(track))))
 			warning("approxTrack: approximating outside data range")
-	p = apply(coordinates(track), 2, function(y) FUN(x, y, xout = when, n = n, ...)$y)
+	cc = coordinates(track)
+	p = apply(cc, 2, function(y) FUN(x, y, xout = when, n = n, ...)$y)
 	d = data.frame(lapply(track@data, function(y) FUN(x, y, xout = when, n = n, ... )$y))
-	Track(STIDF(SpatialPoints(p, CRS(proj4string(track))), when, d))
+	if (!is.matrix(p)) { # single point: return STIDF
+		p = matrix(p, ncol = ncol(cc))
+		STIDF(SpatialPoints(p, CRS(proj4string(track))), when, d)
+	} else
+		Track(STIDF(SpatialPoints(p, CRS(proj4string(track))), when, d))
 }
 approxTracks = function(tr, ...) Tracks(lapply(tr@tracks, function(x) approxTrack(x,...)))
 approxTracksCollection = function(tc, ...)
