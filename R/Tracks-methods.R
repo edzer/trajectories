@@ -696,5 +696,5 @@ setMethod("spTransform", c("Tracks", "CRS"),
 )
 setMethod("spTransform", c("TracksCollection", "CRS"),
 	function(x, CRSobj, ...)
-		TracksCollection(lapply(x@tracks, function(y) spTransform(y, CRSobj, ...)))
+		TracksCollection(lapply(x@tracksCollection, function(y) spTransform(y, CRSobj, ...)))
 )

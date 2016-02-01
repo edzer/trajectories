@@ -65,3 +65,45 @@ lat = fat$eval.points[[2]]
 image(long, lat, z)
 plot(storms, add=TRUE)
 map("world",add=TRUE)
+
+plotLLSlice = function(obj, xlim, ylim, newCRS, maps = TRUE, gridlines = TRUE,..., mar = par('mar') - 2, f = .05) {
+	stopifnot(require(rgdal))
+	stopifnot(require(rgeos))
+	l.out = 100 # length.out
+	# draw outer box:
+	p = rbind(cbind(xlim[1], seq(ylim[1],ylim[2],length.out = l.out)), 
+          cbind(seq(xlim[1],xlim[2],length.out = l.out),ylim[2]), 
+	      cbind(xlim[2],seq(ylim[2],ylim[1],length.out = l.out)), 
+          cbind(seq(xlim[2],xlim[1],length.out = l.out),ylim[1]))
+	LL = CRS("+init=epsg:4326")
+	bb = SpatialPolygons(list(Polygons(list(Polygon(list(p))),"bb")), proj4string = LL)
+
+	expBboxLL = function(x, f = f) { x@bbox[,1] = bbox(x)[,1] - f * apply(bbox(x), 1, diff); x }
+	plot(expBboxLL(spTransform(bb, newCRS), f), mar = mar)
+
+	if (gridlines)
+		plot(spTransform(gridlines(bb), newCRS), add = TRUE)
+
+	if (maps) {
+		stopifnot(require(maps))
+		m = map(xlim = xlim, ylim = ylim, plot = FALSE, fill = TRUE)
+		IDs <- sapply(strsplit(m$names, ":"), function(x) x[1])
+		library(maptools)
+		m.sp <- map2SpatialPolygons(m, IDs=IDs, proj4string = LL)
+		m = gIntersection(m.sp, bb) # cut map slice in WGS84
+		plot(spTransform(m, newCRS), add = TRUE, col = grey(0.8))
+	}
+
+	if (is(obj, "TracksCollection"))
+		obj = as(obj, "SpatialLinesDataFrame")
+
+	obj = spTransform(obj, CRS(proj4string(bb))) # to WGS84, might be obsolete
+	obj = gIntersection(obj, bb) # cut Slice
+	plot(spTransform(obj, newCRS), add = TRUE, ...)
+	text(labels(gridlines(bb), newCRS))
+}
+
+laea = CRS("+proj=laea +lat_0=30 +lon_0=-80")
+data(storms)
+plotLLSlice(storms, xlim = c(-100.01,-19.99), ylim = c(10, 55), laea, col = 'orange', lwd = 2)
+plotLLSlice(storms, xlim = c(-90,-80), ylim = c(20, 30), laea, col = 'orange', lwd = 2)
