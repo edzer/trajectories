@@ -23,9 +23,10 @@ before_install:
   - make
   - sudo make install
   - cd /home/travis/build/edzer/trajectories
-  - sudo R CMD javareconf  # for OpenStreetMaps
 
 install:
+  - sudo apt-get install openjdk-7-*
+  - sudo R CMD javareconf  # for OpenStreetMaps
   - ./pkg-build.sh install_deps
 
 script:
