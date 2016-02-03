@@ -213,8 +213,6 @@ plot.TracksCollection <- function(x, y, ..., xlim = stbox(x)[,1],
 		length = 0.25, angle = 30, code = 2) {
 
 	sp = x@tracksCollection[[1]]@tracks[[1]]@sp
-	# Submitting arrows() and lines() formals to plot prompts warnings, 
-	# so they are absorbed here by localPlot() formals.
 	if (Arrows || Segments) {
 		if (! add)
 			plot(sp, xlim = xlim, ylim = ylim, axes = axes, ...)
@@ -698,3 +696,30 @@ setMethod("spTransform", c("TracksCollection", "CRS"),
 	function(x, CRSobj, ...)
 		TracksCollection(lapply(x@tracksCollection, function(y) spTransform(y, CRSobj, ...)))
 )
+
+## Default S3 method:
+#     cut(x, breaks, labels = NULL,
+#         include.lowest = FALSE, right = TRUE, dig.lab = 3,
+#         ordered_result = FALSE, ...)
+ 
+cut.Track = function(x, breaks, ..., include.lowest = TRUE, touch = TRUE) {
+	i = index(x)
+	f = cut(i, breaks, ..., include.lowest = include.lowest)
+	d = dim(x) # nr of pts
+	x = as(x, "STIDF")
+	if (! touch)
+		spl = lapply(split(x = seq_len(d), f), function(ind) x[ind, , drop = FALSE])
+	else
+		spl = lapply(split(x = seq_len(d), f), function(ind) {
+				ti = tail(ind, 1)
+				if (ti < d)
+					ind = c(ind,ti+1)
+				x[ind, , drop = FALSE]
+			})
+	Tracks(lapply(spl[sapply(spl, length) > 1], Track))
+}
+
+cut.Tracks = function(x, breaks, ...) do.call(c, lapply(x@tracks, cut, breaks = breaks, ...))
+
+cut.TracksCollection = function(x, breaks, ...) 	
+	TracksCollection(lapply(x@tracksCollection, cut, breaks = breaks, ...))

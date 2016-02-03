@@ -118,6 +118,8 @@ TrackSummary = function(track) {
 
 Tracks = function(tracks, 
 		tracksData = data.frame(row.names=names(tracks)), fn = TrackSummary) {
+
+	stopifnot(is.list(tracks))
 	if (is.null(names(tracks)) && length(tracks) > 0)
 		names(tracks) = paste("Track", 1:length(tracks), sep = "")
 	new("Tracks", tracks = tracks, 
@@ -169,6 +171,8 @@ TracksSummary = function(tracksCollection) {
 
 TracksCollection = function(tracksCollection, tracksCollectionData = NULL,
 	fn = TracksSummary) {
+
+	stopifnot(is.list(tracksCollection))
 	if (is.null(names(tracksCollection)))
 		names(tracksCollection) = paste("Tracks", 1:length(tracksCollection), 
 		sep = "")

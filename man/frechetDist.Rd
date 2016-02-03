@@ -4,7 +4,7 @@
 \alias{frechetDist,Track-method}
 \title{Frechet distance}
 \description{
-Calculates the discrete Frechet distance between two \code{Track} objects
+Compute the discrete Frechet distance between two \code{Track} objects.
 }
 
 \usage{%

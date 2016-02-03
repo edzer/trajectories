@@ -40,6 +40,10 @@ exportMethods(
 	stplot
 )
 
+S3method(cut, Track)
+S3method(cut, Tracks)
+S3method(cut, TracksCollection)
+
 S3method(dim, Track)
 S3method(dim, Tracks)
 S3method(dim, TracksCollection)

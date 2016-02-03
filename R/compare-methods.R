@@ -57,10 +57,10 @@ dists.tracks <- function(tr1, tr2, f = mean, ...) {
   for (i in 1:cols) {
     for (j in 1:rows) {
       if (identical(f, frechetDist)) {
-        dists[i,j] <- f(tr1[i], tr2[j])
+        dists[j,i] <- f(tr1[i], tr2[j])
       } else try({ ## try in case compare gives an error because tracks don't overlap in time
         difftrack <- compare(tr1[i], tr2[j])
-        dists[i,j] <- f(c(difftrack@conns1@data$dists, difftrack@conns2@data$dists), ...)
+        dists[j,i] <- f(c(difftrack@conns1@data$dists, difftrack@conns2@data$dists), ...)
       })
     }
   }
