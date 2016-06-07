@@ -56,4 +56,6 @@ S3method(stack, TracksCollection)
 
 S3method(unstack, TracksCollection)
 
+S3method(c, Track)
 S3method(c, Tracks)
+S3method(c, TracksCollection)

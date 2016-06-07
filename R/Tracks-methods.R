@@ -651,8 +651,20 @@ stack.TracksCollection = function (x, select, ...) {
 	TracksCollection(do.call(c, l))
 }
 
+c.Track = function(...) {
+	lst = list(...)
+	# check time is in sequence:
+	i = do.call(c, lapply(lst, function(x) index(x)))
+	if (is.unsorted(i))
+		stop("cannot concatenate overlapping or unsorted Track objects")
+	Track(do.call(rbind, lapply(lst, function(x) as(x, "STIDF"))))
+}
+
 c.Tracks = function(...)
 	Tracks(do.call(c, lapply(list(...), function(x) x@tracks)))
+
+c.TracksCollection = function(...)
+	TracksCollection(do.call(c, lapply(list(...), function(x) x@tracksCollection)))
 
 unstack.TracksCollection = function(x, form, ...) {
 	TracksCollection(lapply(split(x@tracksCollection, form), 
