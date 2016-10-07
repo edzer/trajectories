@@ -2,11 +2,12 @@ language: r
 sudo: required
 dist: trusty
 
-addons:
-  apt:
-    packages:
-      - libgdal-dev
-      - libproj-dev
+apt-packages:
+  - libgdal-dev
+  - libproj-dev
+
+r_packages:
+  - knitr
 
 install:
   - sudo R CMD javareconf
