@@ -7,8 +7,6 @@ addons:
     packages:
       - libgdal-dev
       - libproj-dev
-      - openjdk-7-jdk
-      - openjdk-7-jre
 
 install:
-  - R CMD javareconf
+  - sudo R CMD javareconf
