@@ -158,8 +158,7 @@ setAs("Track", "Spatial",
 
 setAs("Tracks", "Spatial",
 	function(from) {
-		ret = do.call(rbind, lapply(from@tracks, 
-			function(x) as(x, "Spatial")))
+		ret = do.call(rbind, lapply(from@tracks, function(x) as(x, "Spatial")))
 		ret$Track = rep(names(from@tracks), times = lapply(from@tracks, length))
 		ret
 	}
