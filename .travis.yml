@@ -6,8 +6,5 @@ apt-packages:
   - libgdal-dev
   - libproj-dev
 
-r_packages:
-  - knitr
-
-install:
+before_install:
   - sudo R CMD javareconf
