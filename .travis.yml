@@ -7,6 +7,3 @@ addons:
     packages:
       - libgdal-dev
       - libproj-dev
-
-before_install:
-  - sudo R CMD javareconf
