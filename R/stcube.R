@@ -33,8 +33,12 @@ normalize = function(time, by = "week") {
 OSM = function(xlim, ylim, mapZoom, mapType, projection) {
 	if (!requireNamespace("OpenStreetMap", quietly = TRUE))
 		stop("package OpenStreetMap required")
-	map = OpenStreetMap::openmap(upperLeft = c(ylim[2], xlim[1]),
-		lowerRight = c(ylim[1], xlim[2]), zoom = mapZoom, type = mapType)
+  bboxSp <- SpatialPoints(rbind(c(xlim[1], ylim[2]),
+                                c(xlim[2], ylim[1])))
+  bboxSp@proj4string <- CRS(projection)
+  bboxSp <- spTransform(bboxSp, CRS("+init=epsg:4326"))
+	map = OpenStreetMap::openmap(upperLeft = bboxSp@coords[1,2:1],
+		lowerRight = bboxSp@coords[2,2:1], zoom = mapZoom, type = mapType)
 	OpenStreetMap::openproj(x = map, projection = projection)
 }
 
@@ -53,7 +57,7 @@ setMethod("stcube", signature(x = "Track"),
 		time = index(x@time)
 		time <- time - min(time) # seconds from start
 		if(missing(aspect))
-			aspect = if((asp = mapasp(x@sp)) == "iso") "iso" else c(1, asp, 1)
+			aspect = if((asp = mapasp(x@sp)) == "iso") c(1,1,1) else c(1, asp, 1)
 		if (missing(zlim))
 			zlim = range(time)
 		rgl::plot3d(x = coords[, 1], y = coords[, 2], z = time, xlab = xlab,
@@ -79,7 +83,7 @@ setMethod("stcube", signature(x = "Tracks"),
 		col = rainbow(length(x@tracks))
 		if(missing(aspect))
 			# mapasp() processes objects of class Spatial* only.
-			aspect = if((asp = mapasp(as(x, "SpatialLines"))) == "iso") "iso" else c(1, asp, 1)
+			aspect = if((asp = mapasp(as(x, "SpatialLines"))) == "iso") c(1,1,1) else c(1, asp, 1)
 		if (missing(zlim))
 			zlim = range(timeAll)
 		rgl::plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
@@ -115,7 +119,7 @@ setMethod("stcube", signature(x = "TracksCollection"),
 			col = rainbow(length(x@tracksCollection))
 		if(missing(aspect))
 			# mapasp() processes objects of class Spatial* only.
-			aspect = if((asp = mapasp(as(x, "SpatialLines"))) == "iso") "iso" else c(1, asp, 1)
+			aspect = if((asp = mapasp(as(x, "SpatialLines"))) == "iso") c(1,1,1) else c(1, asp, 1)
 		if (missing(zlim))
 			zlim = range(timeAll)
 		rgl::plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
@@ -137,3 +141,42 @@ setMethod("stcube", signature(x = "TracksCollection"),
 			map3d(map = OSM(xlim, ylim, mapZoom, mapType, proj4string(x)), z = timeAll[1])
 	}
 )
+
+
+stcube.STI <- function(x, xlab = "x", ylab = "y", zlab = "t", type = "p", aspect, 
+                       xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], zlim = stbox(x)$time, 
+                       showMap = FALSE, mapType = "osm", mapZoom = NULL, ..., y, z) {
+  # "y" and "z" are ignored, but added to avoid ... absorbs them
+  if (!requireNamespace("rgl", quietly = TRUE))
+    stop("rgl required")
+  stopifnot(class(x@sp) %in% c("SpatialPoints", "SpatialPointsDataFrame")) # would also be nice for Lines
+  coords = coordinates(x@sp)
+  time = index(x@time)
+  time <- time - min(time) # seconds from start
+  if(missing(aspect))
+    aspect = if((asp = mapasp(x@sp)) == "iso") c(1,1,1) else c(1, asp, 1)
+  if (missing(zlim))
+    zlim = range(time)
+  rgl::open3d()
+  rgl::plot3d(x = coords[, 1], y = coords[, 2], z = time, xlab = xlab,
+         ylab = ylab, zlab = zlab, type = type, aspect = aspect, xlim = xlim,
+         ylim = ylim, zlim = zlim, ...)
+  if(showMap)
+    map3d(map = OSM(xlim, ylim, mapZoom, mapType, proj4string(x)), z = time[1])
+}
+
+
+stcube.STIDF <- function(x, xlab = "x", ylab = "y", zlab = "t", type = "p", aspect, 
+                         xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], zlim = stbox(x)$time, 
+                         showMap = FALSE, mapType = "osm", mapZoom = NULL, col, ..., y, z) {
+  time = index(x@time)
+  time <- time - min(time) # seconds from start
+  if (missing(zlim))
+    zlim = range(time)
+  if(missing(col))
+    col <- heat.colors(10)[findInterval(x@data[,1], min(x@data[,1], na.rm = T)+0:9*(max(x@data[,1], na.rm = T) - min(x@data[,1], na.rm = T))/9)]
+  stcube.STI(x, xlab, ylab, zlab, type, aspect, xlim, ylim, zlim, showMap, mapType, mapZoom, col, ...)
+}
+
+setMethod("stcube", signature(x = "STI"), stcube.STI)
+setMethod("stcube", signature(x = "STIDF"), stcube.STIDF)

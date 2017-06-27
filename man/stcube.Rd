@@ -1,6 +1,8 @@
 \name{stcube}
 
 \alias{stcube}
+\alias{stcube,STI-method} 
+\alias{stcube,STIDF-method} 
 \alias{stcube,Track-method} 
 \alias{stcube,Tracks-method}
 \alias{stcube,TracksCollection-method}
@@ -8,7 +10,7 @@
 
 \title{Draw a space-time cube.}
 
-\description{Draw a space-time cube.}
+\description{Draw a space-time cube for a Track, TRacks, TracksCollection, difftrack or STI(DF) class.}
 
 \usage{%
 \S4method{stcube}{Track}(x, xlab = "x", ylab = "y", zlab = "t", type = "l",
@@ -21,7 +23,13 @@
 \S4method{stcube}{TracksCollection}(x, xlab = "x", ylab = "y", zlab = "t",
 	type = "l", aspect, xlim, ylim, zlim, showMap = FALSE, mapType = "osm",
 	normalizeBy = "week", mapZoom = NULL, ..., y, z, col)
-\S4method{stcube}{difftrack}(x, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z)}
+\S4method{stcube}{difftrack}(x, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z)
+\S4method{stcube}{STI}(x, xlab = "x", ylab = "y", zlab = "t", type = "p", aspect, 
+                       xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], zlim = stbox(x)$time, 
+                       showMap = FALSE, mapType = "osm", mapZoom = NULL, ..., y, z)
+\S4method{stcube}{STIDF}(x, xlab = "x", ylab = "y", zlab = "t", type = "p", aspect, 
+                       xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], zlim = stbox(x)$time, 
+                       showMap = FALSE, mapType = "osm", mapZoom = NULL, col, ..., y, z)}
 
 \arguments{
 \item{x}{An object of class \code{Track}, \code{Tracks}, or \code{TracksCollection} or \code{difftrack}.}
