@@ -44,8 +44,8 @@ if (!requireNamespace("enviroCaR", quietly = TRUE)) {
   
 } else {
   A1 = enviroCaR::importEnviroCar("https://envirocar.org/api/stable/", "528cf1a3e4b0a727145df093")
-  A2 = importEnviroCar("https://envirocar.org/api/stable/", "528cf19ae4b0a727145deb40")
-  A3 = importEnviroCar("https://envirocar.org/api/stable/", "528cf194e4b0a727145de63d")
+  A2 = enviroCaR::importEnviroCar("https://envirocar.org/api/stable/", "528cf19ae4b0a727145deb40")
+  A3 = enviroCaR::importEnviroCar("https://envirocar.org/api/stable/", "528cf194e4b0a727145de63d")
   
   A = Tracks(tracks = list(A1@tracksCollection$Tracks1@tracks$Track1, A2@tracksCollection$Tracks1@tracks$Track1))
   B = Tracks(tracks = list(A3@tracksCollection$Tracks1@tracks$Track1))

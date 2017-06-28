@@ -14,7 +14,8 @@
 
 \usage{%
 \S4method{stcube}{Track}(x, xlab = "x", ylab = "y", zlab = "t", type = "l",
-	aspect, xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], 
+	aspect, xlim = stbox(x)[[1]] + c(-0.1,0.1) * diff(stbox(x)[[1]]),
+	         ylim = stbox(x)[[2]] + c(-0.1,0.1) * diff(stbox(x)[[2]]), 
 	zlim = stbox(x)$time, showMap = FALSE, mapType = "osm", 
 	mapZoom = NULL, ..., y, z)
 \S4method{stcube}{Tracks}(x, xlab = "x", ylab = "y", zlab = "t", type = "l",
@@ -25,10 +26,14 @@
 	normalizeBy = "week", mapZoom = NULL, ..., y, z, col)
 \S4method{stcube}{difftrack}(x, showMap = FALSE, mapType = "osm", normalizeBy = "week", ..., y, z)
 \S4method{stcube}{STI}(x, xlab = "x", ylab = "y", zlab = "t", type = "p", aspect, 
-                       xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], zlim = stbox(x)$time, 
+                       xlim = stbox(x)[[1]] + c(-0.1,0.1) * diff(stbox(x)[[1]]),
+	                     ylim = stbox(x)[[2]] + c(-0.1,0.1) * diff(stbox(x)[[2]]), 
+	                     zlim = stbox(x)$time, 
                        showMap = FALSE, mapType = "osm", mapZoom = NULL, ..., y, z)
 \S4method{stcube}{STIDF}(x, xlab = "x", ylab = "y", zlab = "t", type = "p", aspect, 
-                       xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], zlim = stbox(x)$time, 
+                       xlim = stbox(x)[[1]] + c(-0.1,0.1) * diff(stbox(x)[[1]]),
+	                     ylim = stbox(x)[[2]] + c(-0.1,0.1) * diff(stbox(x)[[2]]),
+	                     zlim = stbox(x)$time, 
                        showMap = FALSE, mapType = "osm", mapZoom = NULL, col, ..., y, z)}
 
 \arguments{

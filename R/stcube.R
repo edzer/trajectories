@@ -48,7 +48,8 @@ if(!isGeneric("stcube"))
 
 setMethod("stcube", signature(x = "Track"),
 	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", aspect, 
-		xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], zlim = stbox(x)$time, 
+	         xlim = stbox(x)[[1]] + c(-0.1,0.1) * diff(stbox(x)[[1]]),
+	         ylim = stbox(x)[[2]] + c(-0.1,0.1) * diff(stbox(x)[[2]]), zlim = stbox(x)$time, 
 		showMap = FALSE, mapType = "osm", mapZoom = NULL, ..., y, z) {
 		# "y" and "z" are ignored, but added to avoid ... absorbs them
 		if (!requireNamespace("rgl", quietly = TRUE))
@@ -57,7 +58,7 @@ setMethod("stcube", signature(x = "Track"),
 		time = index(x@time)
 		time <- time - min(time) # seconds from start
 		if(missing(aspect))
-			aspect = if((asp = mapasp(x@sp)) == "iso") c(1,1,1) else c(1, asp, 1)
+			aspect = if((asp = mapasp(x@sp)) == "iso") c(1, diff(ylim)/diff(xlim), 1) else c(1, asp, 1)
 		if (missing(zlim))
 			zlim = range(time)
 		rgl::plot3d(x = coords[, 1], y = coords[, 2], z = time, xlab = xlab,
@@ -70,7 +71,8 @@ setMethod("stcube", signature(x = "Track"),
 
 setMethod("stcube", signature(x = "Tracks"),
 	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", aspect,
-		xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], zlim = stbox(x)$time, 
+	         xlim = stbox(x)[[1]] + c(-0.1,0.1) * diff(stbox(x)[[1]]),
+	         ylim = stbox(x)[[2]] + c(-0.1,0.1) * diff(stbox(x)[[2]]), zlim = stbox(x)$time, 
 		showMap = FALSE, mapType = "osm", normalizeBy = "week",
 		mapZoom = NULL, ..., y, z, col) {
 		# "y" and "z" are ignored, but added to avoid ... absorbs them
@@ -83,7 +85,7 @@ setMethod("stcube", signature(x = "Tracks"),
 		col = rainbow(length(x@tracks))
 		if(missing(aspect))
 			# mapasp() processes objects of class Spatial* only.
-			aspect = if((asp = mapasp(as(x, "SpatialLines"))) == "iso") c(1,1,1) else c(1, asp, 1)
+			aspect = if((asp = mapasp(as(x, "SpatialLines"))) == "iso")  c(1, diff(ylim)/diff(xlim), 1) else c(1, asp, 1)
 		if (missing(zlim))
 			zlim = range(timeAll)
 		rgl::plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
@@ -103,7 +105,8 @@ setMethod("stcube", signature(x = "Tracks"),
 
 setMethod("stcube", signature(x = "TracksCollection"),
 	function(x, xlab = "x", ylab = "y", zlab = "t", type = "l", aspect,
-		xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], zlim = stbox(x)$time, 
+	         xlim = stbox(x)[[1]] + c(-0.1,0.1) * diff(stbox(x)[[1]]),
+	         ylim = stbox(x)[[2]] + c(-0.1,0.1) * diff(stbox(x)[[2]]), zlim = stbox(x)$time, 
 		showMap = FALSE, mapType = "osm", normalizeBy = "week",
 		mapZoom = NULL, ..., y, z, col) {
 		# "y", "z" and "col" are ignored, but included in the method signature
@@ -119,7 +122,7 @@ setMethod("stcube", signature(x = "TracksCollection"),
 			col = rainbow(length(x@tracksCollection))
 		if(missing(aspect))
 			# mapasp() processes objects of class Spatial* only.
-			aspect = if((asp = mapasp(as(x, "SpatialLines"))) == "iso") c(1,1,1) else c(1, asp, 1)
+			aspect = if((asp = mapasp(as(x, "SpatialLines"))) == "iso")  c(1, diff(ylim)/diff(xlim), 1) else c(1, asp, 1)
 		if (missing(zlim))
 			zlim = range(timeAll)
 		rgl::plot3d(x = coordsAll[1:dim, 1], y = coordsAll[1:dim, 2],
@@ -144,7 +147,9 @@ setMethod("stcube", signature(x = "TracksCollection"),
 
 
 stcube.STI <- function(x, xlab = "x", ylab = "y", zlab = "t", type = "p", aspect, 
-                       xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], zlim = stbox(x)$time, 
+                       xlim = stbox(x)[[1]] + c(-0.1,0.1) * diff(stbox(x)[[1]]),
+                       ylim = stbox(x)[[2]] + c(-0.1,0.1) * diff(stbox(x)[[2]]),
+                       zlim = stbox(x)$time, 
                        showMap = FALSE, mapType = "osm", mapZoom = NULL, ..., y, z) {
   # "y" and "z" are ignored, but added to avoid ... absorbs them
   if (!requireNamespace("rgl", quietly = TRUE))
@@ -154,7 +159,7 @@ stcube.STI <- function(x, xlab = "x", ylab = "y", zlab = "t", type = "p", aspect
   time = index(x@time)
   time <- time - min(time) # seconds from start
   if(missing(aspect))
-    aspect = if((asp = mapasp(x@sp)) == "iso") c(1,1,1) else c(1, asp, 1)
+    aspect = if((asp = mapasp(x@sp)) == "iso") c(1, diff(ylim)/diff(xlim), 1) else c(1, asp, 1)
   if (missing(zlim))
     zlim = range(time)
   rgl::open3d()
@@ -167,7 +172,8 @@ stcube.STI <- function(x, xlab = "x", ylab = "y", zlab = "t", type = "p", aspect
 
 
 stcube.STIDF <- function(x, xlab = "x", ylab = "y", zlab = "t", type = "p", aspect, 
-                         xlim = stbox(x)[[1]], ylim = stbox(x)[[2]], zlim = stbox(x)$time, 
+                         xlim = stbox(x)[[1]] + c(-0.1,0.1) * diff(stbox(x)[[1]]),
+                         ylim = stbox(x)[[2]] + c(-0.1,0.1) * diff(stbox(x)[[2]]), zlim = stbox(x)$time, 
                          showMap = FALSE, mapType = "osm", mapZoom = NULL, col, ..., y, z) {
   time = index(x@time)
   time <- time - min(time) # seconds from start
@@ -178,5 +184,6 @@ stcube.STIDF <- function(x, xlab = "x", ylab = "y", zlab = "t", type = "p", aspe
   stcube.STI(x, xlab, ylab, zlab, type, aspect, xlim, ylim, zlim, showMap, mapType, mapZoom, col, ...)
 }
 
-setMethod("stcube", signature(x = "STI"), stcube.STI)
 setMethod("stcube", signature(x = "STIDF"), stcube.STIDF)
+
+setMethod("stcube", signature(x = "STI"), stcube.STI)
