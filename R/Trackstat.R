@@ -19,8 +19,8 @@ as.Track <- function(X,covariate){
 # It only returns the interpolated points.
 reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp){
   tsq <- tsqTracks(X,timestamp = timestamp)
+  Xrange <- rngTrack(X)
   X <-  cbind(as.data.frame(X)[c(coordnames(X), "time")])
-  Xrange <- range(X$time)
   xnew <- c()
   ynew <- c()
   
