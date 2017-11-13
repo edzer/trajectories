@@ -77,10 +77,10 @@ findPoints <- function(tr1, tr2, ivs) {
   for (i in 1:nrow(tr1)) {
     if (!ivs[i] == 0 && !ivs[i] == nrow(tr2)) {
       iv <- ivs[i]
-      tdiff1 <- tr1$time[i] - tr2$time[iv] # diff between timestamp and start of the interval it falls in
-      tdiff2 <- tr2$time[iv+1] - tr2$time[iv] # diff between timestamps (calculated here because it often varies)
-      ratio <- as.numeric(tdiff1)/as.numeric(tdiff2) 
-      x1 <- tr2[iv,1] # segment coordinates
+      # tdiff1 <- tr1$time[i] - tr2$time[iv] # diff between timestamp and start of the interval it falls in
+      tdiff1 <- difftime(tr1$time[i], tr2$time[iv])
+      # tdiff2 <- tr2$time[iv+1] - tr2$time[iv] # diff between timestamps (calculated here because it often varies)
+      tdiff2 <-  difftime(tr2$time[iv+1], tr2$time[iv], units = units(tdiff1))
       y1 <- tr2[iv,2]
       x2 <- tr2[iv+1,1]
       y2 <- tr2[iv+1,2]
