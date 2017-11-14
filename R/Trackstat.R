@@ -17,8 +17,10 @@ as.Track <- function(X,covariate){
 
 # function reTrack accepts X as an object of class Track. Output is a reconstructed Track (an object of class Track), based on "timestamp".
 # It only returns the interpolated points.
-reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp){
-  tsq <- tsqTracks(X,timestamp = timestamp)
+reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL){
+  
+  if (missing(tsq)) tsq <- tsqTracks(X,timestamp = timestamp)
+  if(missing(at)) at <- "track"
   Xrange <- rngTrack(X)
   X <-  cbind(as.data.frame(X)[c(coordnames(X), "time")])
   xnew <- c()
@@ -50,7 +52,7 @@ reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp){
   newTrack <- newTrack[!duplicated(newTrack),] # remove duplicates
   newTrack <- newTrack[order(newTrack$time),] # sort by timestamp
   colnames(newTrack) <- c("xcoor","ycoor","time")
-  if (at=="dfrm") return(newTrack)
+  if (at=="dfrm") {attr(newTrack,"tsq") <-tsq;return(newTrack) }
   return(as.Track(newTrack))
 }
 
@@ -74,3 +76,134 @@ tsqTracks <- function(X,timestamp){
   return(timeseq)
   
 }
+
+
+
+# function avedistTrack accepts X as a list of tracks and reports the average distance between
+# tracks over time, output is an object of class "distrack"
+avedistTrack <- function(X,timestamp){
+  
+  stopifnot(length(X)>1 & is.list(X))
+  
+  if (missing(timestamp)) stop("set timestamp")  
+  # calculate a sequance of time to interpolate tracks within this sequance
+  timeseq <- tsqTracks(X,timestamp = timestamp)
+  
+  # reconstruct tracks in sequance timeseq
+  Z <- lapply(X,reTrack,tsq = timeseq,at="dfrm")
+  
+  wincor <- lapply(X=1:length(Z),FUN = function(i){
+    return(list(min(Z[[i]]$x),max(Z[[i]]$x),min(Z[[i]]$y),max(Z[[i]]$y)))
+  })
+  wincor <- matrix(unlist(wincor),nrow = 4)
+  w <- owin(c(min(wincor[1,]),max(wincor[2,])),c(min(wincor[3,]),max(wincor[4,])))
+  # create a list and convert tracks in each element of timeseq to an object of calss ppp
+  p <- list()
+  
+  for (j in 1:length(timeseq)) {
+    
+    l <- lapply(X=1:length(Z), function(i){
+      Z[[i]][which(Z[[i]]$time==timeseq[j]),-3]
+    })
+    
+    if(length(unlist(l))>0){
+      x <- unlist(lapply(X=1:length(l),function(k){
+        l[[k]]$x
+      }))
+      y <- unlist(lapply(X=1:length(l),function(h){
+        l[[h]]$y
+      }))
+      p[[j]] <- as.ppp(data.frame(x,y),W=w)
+    }
+    
+  }
+  
+  p1 <- p[!sapply(p, is.null)] 
+  avedist <- unlist(
+    lapply(X=1:length(p1), function(i){
+      pd <-  pairdist(p1[[i]])
+      pd <- pd[pd>0]
+      return(mean(pd))
+    })
+  )
+  avedist <- data.frame(timeseq[!sapply(p, is.null)],avedist)
+  class(avedist) <- c("distrack")
+  attr(avedist,"ppp") <- p
+  return(avedist)
+}
+
+print.distrack <- function(x){
+  print(as.vector(x$avedist))
+}
+
+plot.distrack <- function(x,...){
+  plot(x$timeseq,x$avedist,,xlab="time",ylab="average distance",...)
+}
+
+
+removeduptrack <- function(X){
+  X <-  cbind(as.data.frame(X)[c(coordnames(X), "time")])
+  X <- X[!duplicated(X),]
+  return(as.Track(X)) 
+}
+
+as.Track.ppp <- function(X,timestamp){
+  
+  stopifnot(length(X)>1 & is.list(X))
+  
+  if (missing(timestamp)) stop("set timestamp") 
+  # calculate a sequance of time to interpolate tracks within this sequance
+  timeseq <- tsqTracks(X,timestamp = timestamp)
+  
+  # reconstruct tracks in sequance timeseq
+  Z <- lapply(X,reTrack,tsq = timeseq,at="dfrm")
+  
+  wincor <- lapply(X=1:length(Z),FUN = function(i){
+    return(list(min(Z[[i]]$x),max(Z[[i]]$x),min(Z[[i]]$y),max(Z[[i]]$y)))
+  })
+  wincor <- matrix(unlist(wincor),nrow = 4)
+  w <- owin(c(min(wincor[1,]),max(wincor[2,])),c(min(wincor[3,]),max(wincor[4,])))
+  
+  # create a list and convert tracks in each element of timeseq to an object of calss ppp
+  p <- list()
+  
+  for (j in 1:length(timeseq)) {
+    
+    l <- lapply(X=1:length(Z), function(i){
+      w <- which(Z[[i]]$time==timeseq[j])
+      if (length(w)>0) return(cbind(Z[[i]][w,-3],id=i))
+      return(Z[[i]][w,-3]) 
+    })
+    
+    if(length(unlist(l))>0){
+      x <- unlist(lapply(X=1:length(l),function(k){
+        l[[k]]$x
+      }))
+      y <- unlist(lapply(X=1:length(l),function(h){
+        l[[h]]$y
+      }))
+      m <- unlist(lapply(X=1:length(l),function(h){
+        l[[h]]$id
+      }))
+      p[[j]] <- as.ppp(data.frame(x,y),W=w)
+      marks(p[[j]]) <- m
+    }
+    
+  }
+  return(p)
+}
+
+
+density.Track <- function(X,timestamp,...){
+  stopifnot(length(X)>1 & is.list(X))
+  
+  if (missing(timestamp)) stop("set timestamp") 
+  
+  p <- as.Track.ppp(X,timestamp)
+  p <- p[!sapply(p, is.null)] 
+  imlist <- lapply(p, density.ppp,...)
+  return(Reduce("+",imlist)/length(imlist))
+}
+
+
+
