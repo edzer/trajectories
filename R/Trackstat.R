@@ -141,7 +141,7 @@ plot.distrack <- function(x,...){
 }
 
 
-removeduptrack <- function(X){
+rmdupTrack <- function(X){
   X <-  cbind(as.data.frame(X)[c(coordnames(X), "time")])
   X <- X[!duplicated(X),]
   return(as.Track(X)) 
@@ -202,8 +202,205 @@ density.Track <- function(X,timestamp,...){
   p <- as.Track.ppp(X,timestamp)
   p <- p[!sapply(p, is.null)] 
   imlist <- lapply(p, density.ppp,...)
-  return(Reduce("+",imlist)/length(imlist))
+  out <- Reduce("+",imlist)/length(imlist)
+  attr(out,"Tracksim") <- imlist
+  attr(out,"ppps") <- p
+  return(out)
+}
+
+as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
+  stopifnot(length(X)>1 & is.list(X))
+  
+  if (missing(timestamp)) stop("set timestamp") 
+  
+  Z <- as.Track.ppp(X,timestamp)
+  Z <- Z[!sapply(p, is.null)]
+  wind <- Z[[1]]$window
+  arrows <- list()
+  Y <- list()
+  for (i in 1:length(Z)) {
+    if(i==length(Z)) break()
+    j <- i+1
+    m1 <- match(marks(Z[[i]]),marks(Z[[j]]))
+    m2 <- match(marks(Z[[j]]),marks(Z[[i]]))
+    m1 <- m1[!is.na(m1)]
+    m2 <- m2[!is.na(m2)]
+    x <- Z[[j]][m1]
+    y <- Z[[i]][m2]
+    l <- psp(y$x,y$y,x$x,x$y,window = wind)
+    arrows[[i]] <- l
+    center <- midpoints.psp(l)
+    mark <- lengths.psp(l)
+    marks(center) <- mark
+    if (missing(epsilon)) epsilon <- 0
+    Y[[i]] <- center[mark>epsilon]
+  }
+  class(Y) <- c("list","Trrow")
+  attr(Y,"psp") <- arrows
+  return(Y)  
+}
+
+print.Trrow <- function(x, ...) { 
+  attributes(x) <- NULL 
+  print(x) 
+} 
+
+Track.idw <- function(X,timestamp,epsilon=epsilon,...){
+  stopifnot(length(X)>1 & is.list(X))
+  
+  if (missing(timestamp)) stop("set timestamp")
+  
+  Y <- as.Track.arrow(X,timestamp,epsilon=epsilon)
+  Z <- lapply(Y, idw,...)
+  meanIDW <- Reduce("+",Z)/length(Z)
+  return(meanIDW)
+}
+
+avemove <- function(X,timestamp,epsilon=epsilon){
+  stopifnot(length(X)>1 & is.list(X))
+  
+  if (missing(timestamp)) stop("set timestamp") 
+  timeseq <- tsqTracks(X,timestamp = timestamp)
+  Y <- as.Track.arrow(X,timestamp,epsilon=epsilon)
+  Z <- attr(Y,"psp")
+  preout <- lapply(X=1:length(Z), function(i){
+    mean(lengths.psp(Z[[i]]))
+  })
+  out <- unlist(preout)
+  class(out) <- c("numeric", "arwlen")
+  attr(out,"tsq") <- timeseq
+  return(out)
+}
+
+print.arwlen <- function(x){
+  print(as.vector(x))
+}
+
+plot.arwlen <- function(x,...){
+  tsq <- attr(x,"tsq")
+  tsq <- tsq[c(-1,-length(tsq))]
+  plot(tsq,x,xlab="time",ylab="average movement",...)
+}
+
+chimaps <- function(X,timestamp,rank,...){
+  if (!is.numeric(rank)) stop("rank must be numeric")
+  if (rank < 1 | rank >length(X)) stop("rank must be number between one and the number of Tracks")
+  stopifnot(length(X)>1 & is.list(X))
+  
+  if (missing(timestamp)) stop("set timestamp") 
+  
+  d <- density.Track(X,timestamp,...)
+  imlist <- attr(d,"Tracksim")
+  sumim <- Reduce("+",imlist)
+  chi <- lapply(X=1:length(imlist),FUN = function(i){
+    E1 <- sumim*sum(imlist[[i]]$v)/(sum(sumim$v))
+    return((imlist[[i]]-E1)/sqrt(E1))
+  })
+  out <- chi[[rank]]
+  attr(out,"ims") <- chi
+  return(out)
+}
+
+Kinhom.Track <- function(X,timestamp,
+                correction=c("border", "bord.modif", "isotropic", "translate"),q,...){
+  
+  stopifnot(length(X)>1 & is.list(X))
+  
+  if (missing(timestamp)) stop("set timestamp") 
+  
+  cor <- match.arg(correction,correction)
+  
+  ZZ <- density.Track(X,timestamp)
+  
+  Z <- attr(ZZ,"Tracksim")
+  Y <- attr(ZZ,"ppps")
+  
+  K <- lapply(X=1:length(Y), function(i){
+      kk <- Kinhom(Y[[i]],lambda = Z[[i]],correction=cor,...)
+      return(as.data.frame(kk))
+  })
+  Kmat <- matrix(nrow = length(K[[1]]$theo),ncol = length(K))
+  for (i in 1:length(K)) {
+    Kmat[,i] <- K[[i]][,3]
+  }
+  # Kmat <- as.data.frame(K)
+  lowk <- numeric()
+  upk <- numeric()
+  avek <- numeric()
+  for (i in 1:nrow(Kmat)) {
+    avek[i] <- mean(Kmat[i,])
+    lowk[i] <- quantile(Kmat[i,],q)
+    upk[i] <- quantile(Kmat[i,],1-q)
+  }
+  
+  out <- data.frame(lowk=lowk,upk=upk,avek=avek,r=K[[1]]$r,theo=K[[1]]$theo)
+  class(out) <- c("list","KTrack")
+  attr(out,"out") <- out
+  return(out)
+}
+print.KTrack <- function(x){
+  print("variability area of K-function")
+}
+
+plot.KTrack <- function(x,type="l",col= "grey70",...){
+  ylim <- c(min(x$lowk),max(x$upk))
+  plot(x$r,x$lowk,ylim=ylim,xlab="r",ylab="K",type=type,...)
+  points(x$r,x$upk,type=type)
+  polygon(c(x$r, rev(x$r)), c(x$upk, rev(x$lowk)),
+          col = col, border = NA)
+  points(x$r,x$theo,type=type,col=2)
+  points(x$r,x$avek,type=type)
+}
+
+pcfinhom.Track <- function(X,timestamp,
+                           correction = c("translate", "Ripley"),q,...){
+  
+  stopifnot(length(X)>1 & is.list(X))
+  
+  if (missing(timestamp)) stop("set timestamp") 
+  
+  cor <- match.arg(correction,correction)
+  
+  ZZ <- density.Track(X,timestamp)
+  
+  Z <- attr(ZZ,"Tracksim")
+  Y <- attr(ZZ,"ppps")
+  
+  g <- lapply(X=1:length(Y), function(i){
+    gg <- pcfinhom(Y[[i]],lambda = Z[[i]],correction=cor,...)
+    return(as.data.frame(gg))
+  })
+  gmat <- matrix(nrow = length(g[[1]]$theo),ncol = length(g))
+  for (i in 1:length(g)) {
+    gmat[,i] <- g[[i]][,3]
+  }
+  # Kmat <- as.data.frame(K)
+  lowg <- numeric()
+  upg <- numeric()
+  aveg <- numeric()
+  for (i in 1:nrow(gmat)) {
+    aveg[i] <- mean(gmat[i,])
+    lowg[i] <- quantile(gmat[i,],q)
+    upg[i] <- quantile(gmat[i,],1-q)
+  }
+  
+  out <- data.frame(lowg=lowg,upg=upg,aveg=aveg,r=g[[1]]$r,theo=g[[1]]$theo)
+  class(out) <- c("list","gTrack")
+  attr(out,"out") <- out
+  return(out)
 }
 
 
+print.gTrack <- function(x){
+  print("variability area of pair correlatio function")
+}
 
+plot.gTrack <- function(x,type="l",col= "grey70",...){
+  ylim <- c(min(x$lowg),max(x$upg))
+  plot(x$r,x$lowg,ylim=ylim,xlab="r",ylab="g",type=type,...)
+  points(x$r,x$upg,type=type)
+  polygon(c(x$r, rev(x$r)), c(x$upg, rev(x$lowg)),
+          col = col, border = NA)
+  points(x$r,x$theo,type=type,col=2)
+  points(x$r,x$aveg,type=type)
+}
