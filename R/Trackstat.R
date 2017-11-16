@@ -214,7 +214,7 @@ as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
   if (missing(timestamp)) stop("set timestamp") 
   
   Z <- as.Track.ppp(X,timestamp)
-  Z <- Z[!sapply(p, is.null)]
+  Z <- Z[!sapply(Z, is.null)]
   wind <- Z[[1]]$window
   arrows <- list()
   Y <- list()
@@ -288,7 +288,7 @@ chimaps <- function(X,timestamp,rank,...){
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp") 
-  
+  timeseq <- tsqTracks(X,timestamp = timestamp)
   d <- density.Track(X,timestamp,...)
   imlist <- attr(d,"Tracksim")
   sumim <- Reduce("+",imlist)
@@ -298,6 +298,8 @@ chimaps <- function(X,timestamp,rank,...){
   })
   out <- chi[[rank]]
   attr(out,"ims") <- chi
+  attr(out,"time") <- timeseq[rank]
+  attr(out,"timevec") <- timeseq
   return(out)
 }
 
@@ -314,9 +316,12 @@ Kinhom.Track <- function(X,timestamp,
   
   Z <- attr(ZZ,"Tracksim")
   Y <- attr(ZZ,"ppps")
+  W <- Y[[1]]$window
+  ripley <- min(diff(W$xrange), diff(W$yrange))/4
+  rr <- seq(0,ripley,length.out = 513)
   
   K <- lapply(X=1:length(Y), function(i){
-      kk <- Kinhom(Y[[i]],lambda = Z[[i]],correction=cor,...)
+      kk <- Kinhom(Y[[i]],lambda = Z[[i]],correction=cor,r=rr,...)
       return(as.data.frame(kk))
   })
   Kmat <- matrix(nrow = length(K[[1]]$theo),ncol = length(K))
@@ -344,12 +349,13 @@ print.KTrack <- function(x){
 
 plot.KTrack <- function(x,type="l",col= "grey70",...){
   ylim <- c(min(x$lowk),max(x$upk))
-  plot(x$r,x$lowk,ylim=ylim,xlab="r",ylab="K",type=type,...)
+  plot(x$r,x$lowk,ylim=ylim,xlab="r",ylab="K(r)",type=type,...)
   points(x$r,x$upk,type=type)
   polygon(c(x$r, rev(x$r)), c(x$upk, rev(x$lowk)),
           col = col, border = NA)
   points(x$r,x$theo,type=type,col=2)
   points(x$r,x$avek,type=type)
+  legend(0,max(x$upk),col = c(2,1),legend=c("poisson","average"),lty=c(1,1))
 }
 
 pcfinhom.Track <- function(X,timestamp,
