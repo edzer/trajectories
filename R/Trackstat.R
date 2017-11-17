@@ -89,49 +89,19 @@ avedistTrack <- function(X,timestamp){
   # calculate a sequance of time to interpolate tracks within this sequance
   timeseq <- tsqTracks(X,timestamp = timestamp)
   
-  # reconstruct tracks in sequance timeseq
-  Z <- lapply(X,reTrack,tsq = timeseq,at="dfrm")
+  Y <- as.Track.ppp(X,timestamp)
   
-  wincor <- lapply(X=1:length(Z),FUN = function(i){
-    return(list(min(Z[[i]]$x),max(Z[[i]]$x),min(Z[[i]]$y),max(Z[[i]]$y)))
+  avedist <- lapply(X=1:length(Y), function(i){
+    pd <-  pairdist(Y[[i]])
+    mean(pd[pd>0])
   })
-  wincor <- matrix(unlist(wincor),nrow = 4)
-  w <- owin(c(min(wincor[1,]),max(wincor[2,])),c(min(wincor[3,]),max(wincor[4,])))
-  # create a list and convert tracks in each element of timeseq to an object of calss ppp
-  p <- list()
   
-  for (j in 1:length(timeseq)) {
-    
-    l <- lapply(X=1:length(Z), function(i){
-      Z[[i]][which(Z[[i]]$time==timeseq[j]),-3]
-    })
-    
-    if(length(unlist(l))>0){
-      x <- unlist(lapply(X=1:length(l),function(k){
-        l[[k]]$x
-      }))
-      y <- unlist(lapply(X=1:length(l),function(h){
-        l[[h]]$y
-      }))
-      p[[j]] <- as.ppp(data.frame(x,y),W=w)
-    }
-    
-  }
-  
-  p1 <- p[!sapply(p, is.null)] 
-  avedist <- unlist(
-    lapply(X=1:length(p1), function(i){
-      pd <-  pairdist(p1[[i]])
-      pd <- pd[pd>0]
-      return(mean(pd))
-    })
-  )
-  avedist <- data.frame(timeseq[!sapply(p, is.null)],avedist)
+  avedist <- data.frame(timeseq[-1],unlist(avedist))
+  colnames(avedist) <- c("timeseq","avedist")
   class(avedist) <- c("distrack")
-  attr(avedist,"ppp") <- p
+  attr(avedist,"ppp") <- Y
   return(avedist)
 }
-
 print.distrack <- function(x){
   print(as.vector(x$avedist))
 }
@@ -158,41 +128,20 @@ as.Track.ppp <- function(X,timestamp){
   # reconstruct tracks in sequance timeseq
   Z <- lapply(X,reTrack,tsq = timeseq,at="dfrm")
   
-  wincor <- lapply(X=1:length(Z),FUN = function(i){
-    return(list(min(Z[[i]]$x),max(Z[[i]]$x),min(Z[[i]]$y),max(Z[[i]]$y)))
+  Z <- lapply(X,reTrack,tsq = timeseq,at="dfrm")
+  id <- rep(1:length(Z),sapply(Z, nrow))
+  Z <- do.call("rbind",Z)
+  Z <- cbind(Z,id)
+  allZ <- split(Z,Z[,3])
+  w <- owin(c(min(Z$xcoor)-0.5,max(Z$xcoor)+0.5),c(min(Z$ycoor)-0.5,max(Z$ycoor)+0.5))
+  
+  Tppp <- lapply(X=1:length(allZ), function(i){
+    p <- as.ppp(allZ[[i]][,-c(3,4)],W=w)
+    marks(p) <- allZ[[i]][,4]
+    return(p)
   })
-  wincor <- matrix(unlist(wincor),nrow = 4)
-  w <- owin(c(min(wincor[1,]),max(wincor[2,])),c(min(wincor[3,]),max(wincor[4,])))
-  
-  # create a list and convert tracks in each element of timeseq to an object of calss ppp
-  p <- list()
-  
-  for (j in 1:length(timeseq)) {
-    
-    l <- lapply(X=1:length(Z), function(i){
-      w <- which(Z[[i]]$time==timeseq[j])
-      if (length(w)>0) return(cbind(Z[[i]][w,-3],id=i))
-      return(Z[[i]][w,-3]) 
-    })
-    
-    if(length(unlist(l))>0){
-      x <- unlist(lapply(X=1:length(l),function(k){
-        l[[k]]$x
-      }))
-      y <- unlist(lapply(X=1:length(l),function(h){
-        l[[h]]$y
-      }))
-      m <- unlist(lapply(X=1:length(l),function(h){
-        l[[h]]$id
-      }))
-      p[[j]] <- as.ppp(data.frame(x,y),W=w)
-      marks(p[[j]]) <- m
-    }
-    
-  }
-  return(p)
+  return(Tppp)
 }
-
 
 density.Track <- function(X,timestamp,...){
   stopifnot(length(X)>1 & is.list(X))
