@@ -127,8 +127,6 @@ as.Track.ppp <- function(X,timestamp){
   
   # reconstruct tracks in sequance timeseq
   Z <- lapply(X,reTrack,tsq = timeseq,at="dfrm")
-  
-  Z <- lapply(X,reTrack,tsq = timeseq,at="dfrm")
   id <- rep(1:length(Z),sapply(Z, nrow))
   Z <- do.call("rbind",Z)
   Z <- cbind(Z,id)
