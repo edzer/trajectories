@@ -117,6 +117,7 @@ rmdupTrack <- function(X){
   return(as.Track(X)) 
 }
 
+
 as.Track.ppp <- function(X,timestamp){
   
   stopifnot(length(X)>1 & is.list(X))
