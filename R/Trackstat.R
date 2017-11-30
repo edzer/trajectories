@@ -9,7 +9,7 @@ as.Track <- function(X,covariate){
   sp <- cbind(x=X$xcoor,y=X$ycoor)
   sp <- SpatialPoints(sp)
   t <- as.POSIXct(paste(X$date,X$time))
-  if(missing(covariate)) covariate <- data.frame(d=rep(NA,length(X$xcoor)))
+  if(missing(covariate)) covariate <- data.frame(d=rep(0,length(X$xcoor)))
   
   return(Track(STIDF(sp,time = t,data =covariate)))
 }
@@ -132,7 +132,7 @@ as.Track.ppp <- function(X,timestamp){
   Z <- do.call("rbind",Z)
   Z <- cbind(Z,id)
   allZ <- split(Z,Z[,3])
-  w <- owin(c(min(Z$xcoor)-0.5,max(Z$xcoor)+0.5),c(min(Z$ycoor)-0.5,max(Z$ycoor)+0.5))
+  w <- owin(c(min(Z$xcoor)-0.001,max(Z$xcoor)+0.001),c(min(Z$ycoor)-0.001,max(Z$ycoor)+0.001))
   
   Tppp <- lapply(X=1:length(allZ), function(i){
     p <- as.ppp(allZ[[i]][,-c(3,4)],W=w)
@@ -252,15 +252,17 @@ chimaps <- function(X,timestamp,rank,...){
 }
 
 Kinhom.Track <- function(X,timestamp,
-                correction=c("border", "bord.modif", "isotropic", "translate"),q,...){
+                correction=c("border", "bord.modif", "isotropic", "translate"),q,
+                sigma=c("bw.diggle","bw.ppl"," bw.scott"),...){
   
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp") 
   
   cor <- match.arg(correction,correction)
-  
-  ZZ <- density.Track(X,timestamp)
+  bw <- match.arg(sigma,sigma)
+  bw <- match.fun(bw)
+  ZZ <- density.Track(X,timestamp,bw)
   
   Z <- attr(ZZ,"Tracksim")
   Y <- attr(ZZ,"ppps")
