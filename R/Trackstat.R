@@ -365,7 +365,7 @@ plot.gTrack <- function(x,type="l",col= "grey70",...){
 newrTrack <- function (n = 100, origin = c(0, 0), start = as.POSIXct("1970-01-01"), 
                        ar = 0.8, step = 60, sd0 = 1,bbox=bbox, transform=FALSE,nrandom=FALSE, ...){
   
-    if(nrandom)  repeat{n <- rpois(1,n);if(!a==0) break()}
+  if(nrandom)  repeat{n <- rpois(1,n);if(!n==0) break()}
   if (missing(bbox) & transform) {
     xo <- runif(1)
     yo <- runif(1)
