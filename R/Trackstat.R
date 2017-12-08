@@ -4,12 +4,12 @@
 # to length of each column in X.
 as.Track <- function(X,covariate){
   stopifnot(nrow(X)>0)
-  colnames(X) <- c("xcoor","ycoor","time")
+  # colnames(X) <- c("xcoor","ycoor","time")
   if(!is.data.frame(X)) X <- as.data.frame(X)
   sp <- cbind(x=X$xcoor,y=X$ycoor)
   sp <- SpatialPoints(sp)
   t <- as.POSIXct(paste(X$date,X$time))
-  if(missing(covariate)) covariate <- data.frame(d=rep(0,length(X$xcoor)))
+  if(missing(covariate)) covariate <- data.frame(d=rep(1,length(X$xcoor)))
   
   return(Track(STIDF(sp,time = t,data =covariate)))
 }
@@ -362,7 +362,7 @@ plot.gTrack <- function(x,type="l",col= "grey70",...){
 }
 
 
-newrTrack <- function (n = 100, origin = c(0, 0), start = as.POSIXct("1970-01-01"), 
+rTrack <- function (n = 100, origin = c(0, 0), start = as.POSIXct("1970-01-01"), 
                        ar = 0.8, step = 60, sd0 = 1,bbox=bbox, transform=FALSE,nrandom=FALSE, ...){
   
   if(nrandom)  repeat{n <- rpois(1,n);if(!n==0) break()}
@@ -405,12 +405,12 @@ newrTrack <- function (n = 100, origin = c(0, 0), start = as.POSIXct("1970-01-01
 }
 
 
-newrTracks <- function (m = 20, start = as.POSIXct("1970-01-01"), delta = 7200, 
+rTracks <- function (m = 20, start = as.POSIXct("1970-01-01"), delta = 7200, 
                         sd1 = 0, origin = c(0, 0), ...) 
   Tracks(lapply(0:(m - 1) * delta, function(x) newrTrack(start = start + 
                                                     x, origin = origin + rnorm(2, sd = sd1), ...)))
 
-newrTracksCollection <- function (p = 10, sd2 = 0, ...) 
+rTracksCollection <- function (p = 10, sd2 = 0, ...) 
   TracksCollection(lapply(1:p, function(x) newrTracks(origin = rnorm(2, 
                                                               sd = sd2), ...)))
 
