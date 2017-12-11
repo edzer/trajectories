@@ -11,7 +11,7 @@ importFrom(grDevices, rainbow, heat.colors)
 importFrom(spatstat, marks, psp, midpoints.psp, lengths.psp,
   'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp,
   Kinhom, pcfinhom, idw)
-importFrom(rgl, open3d, plot3d, lines3d)
+# importFrom(rgl, open3d, plot3d, lines3d)
 
 exportClasses(
 	Track,
