@@ -80,7 +80,7 @@ findPoints <- function(tr1, tr2, ivs) {
       # tdiff1 <- tr1$time[i] - tr2$time[iv] # diff between timestamp and start of the interval it falls in
       tdiff1 <- difftime(tr1$time[i], tr2$time[iv])
       # tdiff2 <- tr2$time[iv+1] - tr2$time[iv] # diff between timestamps (calculated here because it often varies)
-	  tdiff2 <-  difftime(tr2$time[iv+1], tr2$time[iv], units = units(tdiff1))
+	    tdiff2 <-  difftime(tr2$time[iv+1], tr2$time[iv], units = units(tdiff1))
       ratio <- as.numeric(tdiff1)/as.numeric(tdiff2) 
       x1 <- tr2[iv,1] # segment coordinates
       y1 <- tr2[iv,2]
