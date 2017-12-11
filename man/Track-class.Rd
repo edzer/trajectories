@@ -13,6 +13,9 @@
 \alias{[,Track-method} 
 \alias{[,Tracks-method} 
 \alias{[,TracksCollection-method}
+\alias{[,Track,ANY,ANY,ANY-method} 
+\alias{[,Tracks,ANY,ANY,ANY-method} 
+\alias{[,TracksCollection,ANY,ANY,ANY-method}
 \alias{[[,Track,ANY,missing-method}
 \alias{[[,Tracks,ANY,missing-method}
 \alias{[[,TracksCollection,ANY,missing-method}
