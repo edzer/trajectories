@@ -17,4 +17,4 @@ URL: http://github.com/edzer/trajectories
 BugReports: http://github.com/edzer/trajectories/issues
 VignetteBuilder: knitr
 Collate: Class-Tracks.R Tracks-methods.R generalize.R stcube.R stplot.R 
-	difftrack.R compare-methods.R rtracks.R Trackstat.R
+	difftrack.R compare-methods.R rtracks.R Trackstat.R auto.arima.Track
