@@ -403,3 +403,15 @@ rTrack <- function (n = 100, origin = c(0, 0), start = as.POSIXct("1970-01-01"),
   if (transform) out@sp@bbox <- bbox
   return(out)
 }
+
+
+
+rTracks <- function (m = 20, start = as.POSIXct("1970-01-01"), delta = 7200, 
+                     sd1 = 0, origin = c(0, 0), ...) 
+  Tracks(lapply(0:(m - 1) * delta, function(x) rTrack(start = start + 
+                                                        x, origin = origin + rnorm(2, sd = sd1), ...)))
+
+rTracksCollection <- function (p = 10, sd2 = 0, ...) 
+  TracksCollection(lapply(1:p, function(x) rTracks(origin = rnorm(2, 
+                                                                  sd = sd2), ...)))
+
