@@ -253,7 +253,7 @@ chimaps <- function(X,timestamp,rank,...){
 
 Kinhom.Track <- function(X,timestamp,
                 correction=c("border", "bord.modif", "isotropic", "translate"),q,
-                sigma=c("bw.diggle","bw.ppl"," bw.scott"),...){
+                sigma=c("default","bw.diggle","bw.ppl"," bw.scott"),...){
   
   stopifnot(length(X)>1 & is.list(X))
   
@@ -261,23 +261,41 @@ Kinhom.Track <- function(X,timestamp,
   
   cor <- match.arg(correction,correction)
   bw <- match.arg(sigma,sigma)
-  bw <- match.fun(bw)
-  ZZ <- density.Track(X,timestamp,bw)
-  
-  Z <- attr(ZZ,"Tracksim")
-  Y <- attr(ZZ,"ppps")
-  W <- Y[[1]]$window
-  ripley <- min(diff(W$xrange), diff(W$yrange))/4
-  rr <- seq(0,ripley,length.out = 513)
-  
-  K <- lapply(X=1:length(Y), function(i){
+  if (bw == "default") {
+    Y <- as.Track.ppp(X,timestamp = timestamp)
+    W <- Y[[1]]$window
+    ripley <- min(diff(W$xrange), diff(W$yrange))/4
+    rr <- seq(0,ripley,length.out = 513)
+    
+    K <- lapply(X=1:length(Y), function(i){
+      kk <- Kinhom(Y[[i]],correction=cor,r=rr,...)
+      return(as.data.frame(kk))
+    })
+    Kmat <- matrix(nrow = length(K[[1]]$theo),ncol = length(K))
+    for (i in 1:length(K)) {
+      Kmat[,i] <- K[[i]][,3]
+    }
+  }
+  else{
+    bw <- match.fun(bw)
+    ZZ <- density.Track(X,timestamp,bw)
+    
+    Z <- attr(ZZ,"Tracksim")
+    Y <- attr(ZZ,"ppps")
+    W <- Y[[1]]$window
+    ripley <- min(diff(W$xrange), diff(W$yrange))/4
+    rr <- seq(0,ripley,length.out = 513)
+    
+    K <- lapply(X=1:length(Y), function(i){
       kk <- Kinhom(Y[[i]],lambda = Z[[i]],correction=cor,r=rr,...)
       return(as.data.frame(kk))
-  })
-  Kmat <- matrix(nrow = length(K[[1]]$theo),ncol = length(K))
-  for (i in 1:length(K)) {
-    Kmat[,i] <- K[[i]][,3]
+    })
+    Kmat <- matrix(nrow = length(K[[1]]$theo),ncol = length(K))
+    for (i in 1:length(K)) {
+      Kmat[,i] <- K[[i]][,3]
+    }
   }
+  
   # Kmat <- as.data.frame(K)
   lowk <- numeric()
   upk <- numeric()
