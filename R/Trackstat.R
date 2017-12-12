@@ -299,13 +299,14 @@ print.KTrack <- function(x){
 
 plot.KTrack <- function(x,type="l",col= "grey70",...){
   ylim <- c(min(x$lowk),max(x$upk))
-  plot(x$r,x$lowk,ylim=ylim,xlab="r",ylab="K(r)",type=type,...)
+  plot(x$r,x$lowk,ylim=ylim,type=type,xlab="",ylab="",...)
+  title(ylab=expression(K[inhom](r)),,xlab="r", line=2.2, cex.lab=1.2)
   points(x$r,x$upk,type=type)
   polygon(c(x$r, rev(x$r)), c(x$upk, rev(x$lowk)),
           col = col, border = NA)
   points(x$r,x$theo,type=type,col=2)
   points(x$r,x$avek,type=type)
-  legend(0,max(x$upk),col = c(2,1),legend=c("poisson","average"),lty=c(1,1))
+  legend(0,max(x$upk),col = c(2,0,1),legend=c(expression(K[inhom]^{pois}),"",expression(bar(K)[inhom])),lty=c(1,1))
 }
 
 pcfinhom.Track <- function(X,timestamp,
