@@ -2,7 +2,7 @@
 \alias{print.arwlen}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+print.arwlen
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
