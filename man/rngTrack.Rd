@@ -2,7 +2,7 @@
 \alias{rngTrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+rngTrack
 }
 \description{
 rngTrack returns the timerange of an object of class Track.

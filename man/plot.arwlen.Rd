@@ -2,7 +2,7 @@
 \alias{plot.arwlen}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+plot.arwlen
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~

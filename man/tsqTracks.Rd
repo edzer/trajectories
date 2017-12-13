@@ -2,7 +2,7 @@
 \alias{tsqTracks}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+tsqTracks
 }
 \description{
 tsqtracks returns a sequance of time based on a list of tracks (or a single object of class Track) and an argument timestamp.

@@ -2,7 +2,7 @@
 \alias{avedistTrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+avedistTrack
 }
 \description{
 function avedistTrack accepts X as a list of tracks and reports the average distance between tracks over time, output is an object of class "distrack".

@@ -2,7 +2,7 @@
 \alias{as.Track.arrow}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+as.Track.arrow
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
