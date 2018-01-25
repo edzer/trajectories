@@ -8,29 +8,31 @@ Track.idw
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Track.idw(x)
+Track.idw(x,timestamp,epsilon=epsilon,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+a list of objects of class "Track"
+}
+\item{timestamp}{
+based on secs,mins, ...
+}
+\item{epsilon}{(optional) movements with length less than epsilon are not considered in the calculation}
+\item{...}{passed to arguments of fucntion idw in spatstat}
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+Performs spatial smoothing to the movements of a list of tracks.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+an image of class "im".
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \note{
 %%  ~~further notes~~
@@ -39,17 +41,14 @@ Track.idw(x)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+as.Track.arrow, idw.}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-  }
+X <- list()
+for(i in 1:10){
+  m <- matrix(c(0,10,0,10),nrow=2,byrow = T)
+  X[[i]] <- rTrack(bbox = m,transform = T)
+}
+Track.idw(X,timestamp="30 secs")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

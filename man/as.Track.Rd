@@ -2,38 +2,35 @@
 \alias{as.Track}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Converts a data.frame to an object of class "Track"
+Converts data to an object of class "Track"
 }
 \description{
-Function as.Track  accepts a dataframe (let say X) with three columns "xcoor", "ycoor" and time (or any class that can be converted to a data.frame)
- and converts it to an object of class Track. It can also accepts covariates for the corresponding 
+Function as.Track  accepts converts x,y coordinates and thier corresponding time/date to an object of class Track. It can also accepts covariates for the corresponding 
  locations, covariates must be a dataframe with some columns and length of each column is equal
- to length of each column in X.
+ to length of x,y,t.
 }
 \usage{
-as.Track(x)
+as.Track(x,y,t)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{x}{ x coordinate.
+}
+\item{y}{ y coordinate.
+}
+\item{t}{ corresponding time and date of x,y.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+An object of class "Track" can be created by some geographical locations and corresponding time/dates. Function as.Track converts locations and dates/times to an object of class "Track". time/date should be from class "POSIXct" "POSIXt". See example below.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
+An object of class "Track".}
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \note{
 %%  ~~further notes~~
@@ -42,18 +39,14 @@ as.Track(x)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+Track, as.POSIXct
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-  }
-}
+x <- runif(10,0,1)
+y <- runif(10,0,1)
+date <- seq(as.POSIXct("2015-1-1 0:00"), as.POSIXct("2015-1-1 9:00"), by = "hour")
+Z <- as.Track(x,y,date)
+plot(Z)}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")

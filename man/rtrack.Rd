@@ -8,7 +8,7 @@
 \description{Generate random \code{Track}, \code{Tracks} or \code{TracksCollection} objects}
 \usage{
 rTrack(n = 100, origin = c(0,0), start = as.POSIXct("1970-01-01"), ar = .8, 
-	step = 60, sd0 = 1, ...)
+	step = 60, sd0 = 1,bbox=bbox, transform=FALSE,nrandom=FALSE, ...)
 rTracks(m = 20, start = as.POSIXct("1970-01-01"), delta = 7200, sd1 = 0, 
 	origin = c(0,0), ...)
 rTracksCollection(p = 10, sd2 = 0, ...)
@@ -22,17 +22,24 @@ rTracksCollection(p = 10, sd2 = 0, ...)
 \item{sd0}{standard deviation of the random steps in a Track}
 \item{sd1}{standard deviation of the consecutive Track origin values (using rnorm)}
 \item{sd2}{standard deviation of the consecutive Tracks origin values (using rnorm)}
+\item{bbox}{box of track}
+\item{transform}{to transform track}
+\item{nrandom}{to set the number of locations of track as random number}
 \item{...}{rTrack: arguments passed on to \link[stats]{arima.sim}, rTracks: arguments
 passed on to rTrack; rTracksCollection: arguments passed on to rTracks}
 \item{m}{ number of Track objects to simulate}
 \item{delta}{ time difference between consecutive Track start times}
 \item{p}{ number of IDs with Tracks to generate}
 }
-\note{\code{ar} is passed on to \link[stats]{arima.sim} as \code{ar}
+\details{\code{ar} is passed on to \link[stats]{arima.sim} as \code{ar}
 element, and may contain multiple AR coefficients. The generated
 track is a \link[base]{cumsum} over the simulated AR values, for each dimension.
-In case it has length 1 and value 0, random walk is created using \link[stats]{rnorm}.}
+In case it has length 1 and value 0, random walk is created using \link[stats]{rnorm}. If bbox is given, the generated track will be transformed to bbox. If transform is TRUE and no bbox is given, it transforms the track to a unit box. If nrandom is TRUE, it generates a random number using \code{rpois} with parameter n as the number of locations per track.}
 \value{An object of class \code{Track}, \code{Tracks} or \code{TracksCollection}.}
+\author{
+Edzer Pebesma <edzer.pebesma@uni-muenster.de>,
+Mohammad Mehdi Moradi <moradi@uji.es>
+}
 \examples{
 x = rTrack()
 dim(x)

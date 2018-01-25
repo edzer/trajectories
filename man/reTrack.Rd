@@ -5,7 +5,7 @@
 Reconstruct objects of class "Track"
 }
 \description{
-Function reTrack accepts X as an object of class Track. Output is a reconstructed Track (an object of class Track), based on "timestamp". It only returns the interpolated points.
+Function reTrack accepts X as an object of class "Track". Output is a reconstructed Track (again an object of class Track), based on a regular "timestamp". It only returns the interpolated points.
 }
 \usage{
 reTrack(x)
@@ -13,25 +13,29 @@ reTrack(x)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+an object of class Track
+}
+\item{timestamp}{
+timestamp which Track be reconstructed based on
+}
+\item{at}{
+to set the type of output as either an object of class "Track" or data.frame
+}
+\item{tsq}{
+a time sequence to reconstruct Track X based on it. This is optional. If this is not given, the function creates the time sequance based on timestamp.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+Sometimes tracks data are not collected according to a regular timestamp. In order to compare different tracks which share some time intervals, we might need to be aware of the locations in a regular timestamp. Function reTrack unables us to reconstruct an object of class "Track" based on a regular timestamp. Time sequance can be given by user, if not reTrack creates a regulare time sequance based on the given timestamp. 
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Either an object of class "Track"" or a data.frame
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
-}
+Mohammad Mehdi Moradi <moradi@uji.es>}
 \note{
 %%  ~~further notes~~
 }
@@ -39,17 +43,24 @@ reTrack(x)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+as.Track
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+library(sp)
+library(spacetime)
+t0 = as.POSIXct(as.Date("2013-09-30",tz="CET"))
+# person A, track 1:
+x = c(7,6,5,5,4,3,3)
+y = c(7,7,6,5,5,6,7)
+n = length(x)
+set.seed(131)
+t = t0 + cumsum(runif(n) * 60)
+require(rgdal)
+crs = CRS("+proj=longlat +ellps=WGS84") # longlat
+stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
+A1 = Track(stidf)
+reTrack(A1,timestamp = "1 sec")
 
-## The function is currently defined as
-function (x) 
-{
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

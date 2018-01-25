@@ -2,35 +2,30 @@
 \alias{avemove}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-avemove
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-avemove(x)
+avemove(x,timestamp,epsilon=epsilon)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{x}{a list of some objects of class Track
 %%     ~~Describe \code{x} here~~
 }
+\item{timestamp}{timestamp to calculate the pairwise distances between tarcks}
+\item{epsilon}{(optional) movements with length less than epsilon are not considered in the calculation}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+when analysying a list of tracks, avemove calculate the average of movements based on given timestamp.}
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+an object of class "numeric" or "arwlen".
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \note{
 %%  ~~further notes~~
@@ -42,14 +37,12 @@ avemove(x)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-  }
+X <- list()
+for(i in 1:10){
+  m <- matrix(c(0,10,0,10),nrow=2,byrow = T)
+  X[[i]] <- rTrack(bbox = m,transform = T)
+}
+avemove(X,timestamp = "30 secs")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

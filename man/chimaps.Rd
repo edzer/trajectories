@@ -5,32 +5,30 @@
 chimaps
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+Computes the chimaps, corresponding to a list of objects of class "Track". chimaps are based on the discrepancy between computed and expected intensity in a given location.}
 \usage{
-chimaps(x)
+chimaps(x,timestamp,rank,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+   \item{x}{
+A list of Track objects
 }
+\item{timestamp}{based on secs,mins,...}
+\item{rank}{a number between one and the length of corresponding time sequance which is created based on given timestamp.}
+\item{...}{passed to arguments of density.Track}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+[estimated intensity - expected intensity] / sqrt(expected intensity).
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+an image of class "im".
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \note{
 %%  ~~further notes~~
@@ -39,17 +37,15 @@ chimaps(x)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+density.Track
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-  }
+X <- list()
+for(i in 1:10){
+  m <- matrix(c(0,10,0,10),nrow=2,byrow = T)
+  X[[i]] <- rTrack(bbox = m,transform = T)
+}
+chimaps(X,timestamp = "30 secs",rank = 2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

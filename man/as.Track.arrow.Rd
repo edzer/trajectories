@@ -5,32 +5,30 @@
 as.Track.arrow
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Converting a list of Track objects to a list of marked point patterns. Each mark shows the length of movement.
 }
 \usage{
-as.Track.arrow(x)
+as.Track.arrow(x,timestamp,epsilon=epsilon)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+A list of Track objects
 }
+\item{timestamp}{based on secs,mins,...}
+\item{epsilon}{(optional) movements with length less than epsilon are not considered in the calculation}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+Converting a list of Track objetcs to a list of marked point patterns. Marks show the length of movement with respect to the previous location.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+a list of marked point patterns.
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \note{
 %%  ~~further notes~~
@@ -39,17 +37,15 @@ as.Track.arrow(x)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+rTrack, as.Track.ppp
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-  }
+X <- list()
+for(i in 1:10){
+  m <- matrix(c(0,10,0,10),nrow=2,byrow = T)
+  X[[i]] <- rTrack(bbox = m,transform = T)
+}
+as.Track.arrow(X,timestamp="30 secs")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

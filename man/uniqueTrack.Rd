@@ -1,25 +1,24 @@
-\name{print.arwlen}
-\alias{print.arwlen}
+\name{uniqueTrack}
+\alias{uniqueTrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-print.arwlen
+uniqueTrack
 }
 \description{
-to print an object of class "arwlen".}
+Removing duplicated points in a track}
 \usage{
-print.arwlen(x)
+uniqueTrack(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-an object of class "arqlen"
+an object of class "Track"
 }
 }
 \details{
-none.}
+This function removes duplicated points in an object of class "Track".}
 \value{
-none.
-}
+An object of class Track with  no duplicated point.}
 \references{
 %% ~put references to the literature/web site here ~
 }
@@ -33,10 +32,11 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+rTrack, rTracks, rTracksCollection
 }
 \examples{
-none.
+x <-  rTrack()
+uniqueTrack(x)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

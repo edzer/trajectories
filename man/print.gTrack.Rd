@@ -5,33 +5,24 @@
 print.gTrack
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+print method.}
 \usage{
 print.gTrack(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
-}
+an object of class "gTrack"}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+none.}
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
+none.}
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
-}
+Mohammad Mehdi Moradi <moradi@uji.es>}
 \note{
 %%  ~~further notes~~
 }
@@ -42,14 +33,7 @@ print.gTrack(x)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-  }
+none.
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

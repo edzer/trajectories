@@ -2,35 +2,32 @@
 \alias{avedistTrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-avedistTrack
+Average pairwise distance between tracks over time
 }
 \description{
-function avedistTrack accepts X as a list of tracks and reports the average distance between tracks over time, output is an object of class "distrack".
+This measures the average of pairwise distances between tracks over time.
 }
 \usage{
 avedistTrack(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{x}{a list of some objects of class "Track"
 %%     ~~Describe \code{x} here~~
 }
+\item{timestamp}{timestamp to calculate the pairwise distances between tarcks}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This function calculates the average pairwise distance between a list of tracks according to a given timestamp.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+An object of class "distrack". It can be plotted over time.
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \note{
 %%  ~~further notes~~
@@ -39,17 +36,19 @@ avedistTrack(x)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+as.Track.ppp
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+X <- list()
+for(i in 1:10){
+  m <- matrix(c(0,10,0,10),nrow=2,byrow = T)
+  X[[i]] <- rTrack(bbox = m,transform = T)
+}
 
-## The function is currently defined as
-function (x) 
-{
-  }
+ave <- avedistTrack(X,timestamp = "30 secs")
+plot(ave,type="l")
+
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

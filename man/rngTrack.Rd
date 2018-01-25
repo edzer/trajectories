@@ -5,33 +5,28 @@
 rngTrack
 }
 \description{
-rngTrack returns the timerange of an object of class Track.
+rngTrack returns the timerange of an object of class "Track".
 }
 \usage{
 rngTrack(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{x}{ an object of class Track
 %%     ~~Describe \code{x} here~~
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This calculates the range of an object of class Track
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+an object of "POSIXct" "POSIXt"
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
-}
+Mohammad Mehdi moradi <moradi@uji.es>}
 \note{
 %%  ~~further notes~~
 }
@@ -39,17 +34,22 @@ rngTrack(x)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+rTrack}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-  }
+library(sp)
+library(spacetime)
+t0 = as.POSIXct(as.Date("2013-09-30",tz="CET"))
+# person A, track 1:
+x = c(7,6,5,5,4,3,3)
+y = c(7,7,6,5,5,6,7)
+n = length(x)
+set.seed(131)
+t = t0 + cumsum(runif(n) * 60)
+require(rgdal)
+crs = CRS("+proj=longlat +ellps=WGS84") # longlat
+stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
+A1 = Track(stidf)
+rngTrack(A1)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

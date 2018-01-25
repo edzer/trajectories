@@ -5,32 +5,26 @@
 auto.arima.Track
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+Fit arima models to objects of class "Track".}
 \usage{
 auto.arima.Track(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
-}
+an object of class "Track"}
+\item{...}{passed to argumenst of \code{auto.arima}}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+This fita arima models to the x,y locations of objects of class "Track".}
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+an object of class "ArimaTrack"
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \note{
 %%  ~~further notes~~
@@ -39,17 +33,11 @@ auto.arima.Track(x)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{rTrack},\code{auto.arima}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-  }
+X <- rTrack()
+auto.arima.Track(X)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

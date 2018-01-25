@@ -8,29 +8,31 @@ pcfinhom.Track
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-pcfinhom.Track(x)
+pcfinhom.Track(x,timestamp,correction = c("translate", "Ripley"),q,
+                sigma=c("default","bw.diggle","bw.ppl","bw.scott"),...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+\item{x}{
+A list of Track objects
 }
+\item{timestamp}{based on secs,mins,...}
+\item{correction}{the type of correction to be used in computing pair correlation function}
+\item{q}{(optional) a numeric value between 0 and 1. quantile to be applied to calculate the variability area}
+\item{sigma}{method to be used in computing intensity function}
+\item{...}{passed to the arguments of pcfinhom}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This calculates the variability area of  pair correlation function over time. If sigma=default, it calculates the variability area using the defaults of pcfinhom, otherwise it first estimate the intensity function using the given sigma as bandwidth selection method and then using the estimated intensity function, it estimates the variability area.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+an object of class "gTrack"
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \note{
 %%  ~~further notes~~
@@ -39,17 +41,15 @@ pcfinhom.Track(x)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+rTrack, as.Track.ppp, pcfinhom}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-  }
+X <- list()
+for(i in 1:100){
+  m <- matrix(c(0,10,0,10),nrow=2,byrow = T)
+  X[[i]] <- rTrack(bbox = m,transform = T)
+}
+g <- pcfinhom.Track(X,timestamp = "30 sec")
+plot(g)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
