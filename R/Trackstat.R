@@ -1,17 +1,10 @@
-# function as.Track  accepts a dataframe (let say X) with three columns "xcoor", "ycoor" and time (or any class that can be converted to a data.frame)
-# and converts it to an object of class Track. It can also accepts covariates for the corresponding 
-# locations, covariates must be a dataframe with some columns and length of each column is equal
-# to length of each column in X.
-as.Track <- function(X,covariate){
-  stopifnot(nrow(X)>0)
-  # colnames(X) <- c("xcoor","ycoor","time")
-  if(!is.data.frame(X)) X <- as.data.frame(X)
-  sp <- cbind(x=X$xcoor,y=X$ycoor)
+as.Track <- function(x,y,t,covariate){
+  stopifnot(length(x)>0 |  length(y)>0 | length(t)>0)
+  sp <- cbind(x,y)
   sp <- SpatialPoints(sp)
-  t <- as.POSIXct(paste(X$date,X$time))
-  if(missing(covariate)) covariate <- data.frame(d=rep(1,length(X$xcoor)))
-  
-  return(Track(STIDF(sp,time = t,data =covariate)))
+  td <- as.POSIXct(paste(t))
+  if(missing(covariate)) covariate <- data.frame(d=rep(1,length(x)))
+  return(Track(STIDF(sp,time = td,data =covariate)))
 }
 
 
@@ -53,7 +46,7 @@ reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL){
   newTrack <- newTrack[order(newTrack$time),] # sort by timestamp
   colnames(newTrack) <- c("xcoor","ycoor","time")
   if (at=="dfrm") {attr(newTrack,"tsq") <-tsq;return(newTrack) }
-  return(as.Track(newTrack))
+  return(as.Track(newTrack[,1],newTrack[,2],newTrack[,3]))
 }
 
 # rngTrack returns the timerange of an object of class Track
@@ -96,7 +89,7 @@ avedistTrack <- function(X,timestamp){
     mean(pd[pd>0])
   })
   
-  avedist <- data.frame(timeseq[-1],unlist(avedist))
+  avedist <- data.frame(timeseq[-c(1,length(timeseq))],unlist(avedist))
   colnames(avedist) <- c("timeseq","avedist")
   class(avedist) <- c("distrack")
   attr(avedist,"ppp") <- Y
@@ -107,14 +100,14 @@ print.distrack <- function(x){
 }
 
 plot.distrack <- function(x,...){
-  plot(x$timeseq,x$avedist,,xlab="time",ylab="average distance",...)
+  plot(x$timeseq,x$avedist,xlab="time",ylab="average distance",...)
 }
 
 
-rmdupTrack <- function(X){
+uniqueTrack <- function(X){
   X <-  cbind(as.data.frame(X)[c(coordnames(X), "time")])
   X <- X[!duplicated(X),]
-  return(as.Track(X)) 
+  return(as.Track(X[,1],X[,2],X[,3])) 
 }
 
 
@@ -132,7 +125,9 @@ as.Track.ppp <- function(X,timestamp){
   Z <- do.call("rbind",Z)
   Z <- cbind(Z,id)
   allZ <- split(Z,Z[,3])
-  w <- owin(c(min(Z$xcoor)-0.001,max(Z$xcoor)+0.001),c(min(Z$ycoor)-0.001,max(Z$ycoor)+0.001))
+  dx <- (max(Z$xcoor)-min(Z$xcoor))/1000
+  dy <- (max(Z$ycoor)-min(Z$ycoor))/1000
+  w <- owin(c(min(Z$xcoor)-dx,max(Z$xcoor)+dx),c(min(Z$ycoor)-dy,max(Z$ycoor)+dy))
   
   Tppp <- lapply(X=1:length(allZ), function(i){
     p <- as.ppp(allZ[[i]][,-c(3,4)],W=w)
@@ -226,7 +221,7 @@ print.arwlen <- function(x){
 
 plot.arwlen <- function(x,...){
   tsq <- attr(x,"tsq")
-  tsq <- tsq[c(-1,-length(tsq))]
+  tsq <- tsq[-c(1,length(tsq)-1,length(tsq))]
   plot(tsq,x,xlab="time",ylab="average movement",...)
 }
 
@@ -252,12 +247,13 @@ chimaps <- function(X,timestamp,rank,...){
 }
 
 Kinhom.Track <- function(X,timestamp,
-                correction=c("border", "bord.modif", "isotropic", "translate"),q,
+                correction=c("translate","Ripley"),q,
                 sigma=c("default","bw.diggle","bw.ppl"," bw.scott"),...){
   
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp") 
+  if (missing(q)) q <- 0
   
   cor <- match.arg(correction,correction)
   bw <- match.arg(sigma,sigma)
@@ -318,7 +314,7 @@ print.KTrack <- function(x){
 plot.KTrack <- function(x,type="l",col= "grey70",...){
   ylim <- c(min(x$lowk),max(x$upk))
   plot(x$r,x$lowk,ylim=ylim,type=type,xlab="",ylab="",...)
-  title(ylab=expression(K[inhom](r)),,xlab="r", line=2.2, cex.lab=1.2)
+  title(ylab=expression(K[inhom](r)),xlab="r", line=2.2, cex.lab=1.2)
   points(x$r,x$upk,type=type)
   polygon(c(x$r, rev(x$r)), c(x$upk, rev(x$lowk)),
           col = col, border = NA)
@@ -328,27 +324,47 @@ plot.KTrack <- function(x,type="l",col= "grey70",...){
 }
 
 pcfinhom.Track <- function(X,timestamp,
-                           correction = c("translate", "Ripley"),q,...){
+                           correction = c("translate", "Ripley"),q,
+                           sigma=c("default","bw.diggle","bw.ppl"," bw.scott"),...){
   
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp") 
+  if (missing(q)) q <- 0
   
   cor <- match.arg(correction,correction)
+  bw <- match.arg(sigma,sigma)
   
-  ZZ <- density.Track(X,timestamp)
-  
-  Z <- attr(ZZ,"Tracksim")
-  Y <- attr(ZZ,"ppps")
-  
-  g <- lapply(X=1:length(Y), function(i){
-    gg <- pcfinhom(Y[[i]],lambda = Z[[i]],correction=cor,...)
-    return(as.data.frame(gg))
-  })
-  gmat <- matrix(nrow = length(g[[1]]$theo),ncol = length(g))
-  for (i in 1:length(g)) {
-    gmat[,i] <- g[[i]][,3]
+  if (bw == "default"){
+    Y <- as.Track.ppp(X,timestamp = timestamp)
+    
+    g <- lapply(X=1:length(Y), function(i){
+      gg <- pcfinhom(Y[[i]],correction=cor,...)
+      return(as.data.frame(gg))
+    })
+    gmat <- matrix(nrow = length(g[[1]]$theo),ncol = length(g))
+    for (i in 1:length(g)) {
+      gmat[,i] <- g[[i]][,3]
+    }
   }
+  else {
+    
+    bw <- match.fun(bw)
+    ZZ <- density.Track(X,timestamp,bw)
+    
+    Z <- attr(ZZ,"Tracksim")
+    Y <- attr(ZZ,"ppps")
+      
+    g <- lapply(X=1:length(Y), function(i){
+      gg <- pcfinhom(Y[[i]],lambda = Z[[i]],correction=cor,...)
+      return(as.data.frame(gg))
+    })
+    gmat <- matrix(nrow = length(g[[1]]$theo),ncol = length(g))
+    for (i in 1:length(g)) {
+      gmat[,i] <- g[[i]][,3]
+    }
+  }
+  gmat <- gmat[-1,]
   # Kmat <- as.data.frame(K)
   lowg <- numeric()
   upg <- numeric()
@@ -359,7 +375,7 @@ pcfinhom.Track <- function(X,timestamp,
     upg[i] <- quantile(gmat[i,],1-q)
   }
   
-  out <- data.frame(lowg=lowg,upg=upg,aveg=aveg,r=g[[1]]$r,theo=g[[1]]$theo)
+  out <- data.frame(lowg=lowg,upg=upg,aveg=aveg,r=g[[1]]$r[-1],theo=g[[1]]$theo[-1])
   class(out) <- c("list","gTrack")
   attr(out,"out") <- out
   return(out)
@@ -372,7 +388,7 @@ print.gTrack <- function(x){
 
 plot.gTrack <- function(x,type="l",col= "grey70",...){
   ylim <- c(min(x$lowg),max(x$upg))
-  plot(x$r,x$lowg,ylim=ylim,xlab="r",ylab="g",type=type,...)
+  plot(x$r,x$lowg,ylim=ylim,xlab="r",ylab=expression(g[inhom](r)),type=type,...)
   points(x$r,x$upg,type=type)
   polygon(c(x$r, rev(x$r)), c(x$upg, rev(x$lowg)),
           col = col, border = NA)
@@ -433,5 +449,28 @@ rTracks <- function (m = 20, start = as.POSIXct("1970-01-01"), delta = 7200,
 rTracksCollection <- function (p = 10, sd2 = 0, ...) 
   TracksCollection(lapply(1:p, function(x) rTracks(origin = rnorm(2, 
                                                                   sd = sd2), ...)))
+
+
+auto.arima.Track <- function(X,...){
+  stopifnot(class(X)=="Track")
+  xseries <- coordinates(X)[,1]
+  yseries <- coordinates(X)[,2]
+  
+  xfit <- auto.arima(xseries,...)
+  yfit <- auto.arima(yseries,...)
+  
+  out <- list(xfit,yfit)
+  attr(out,"models") <- out
+  class(out) <- c("ArimaTrack")
+  return(out)
+}
+
+print.ArimaTrack <- function(X){
+  attributes(X) <- NULL
+  cat("Arima model fitted to x-coordinate: ");
+  cat(paste0(X[[1]]),"\n")
+  cat("Arima model fitted to y-coordinate: ");
+  cat(paste0(X[[2]]))
+}
 
 
