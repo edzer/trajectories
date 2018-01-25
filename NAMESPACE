@@ -2,7 +2,6 @@ import(methods)
 import(sp)
 import(spacetime)
 import(lattice)
-import(forecast)
 importFrom(stats, approx, as.formula, na.omit, quantile, rnorm, arima.sim,
 	rpois, runif)
 # importFrom(stats, aggregate, na.omit, time, start, end)
