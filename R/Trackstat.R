@@ -473,4 +473,22 @@ print.ArimaTrack <- function(X){
   cat(paste0(X[[2]]))
 }
 
+print.Track <- function(X){
+  cat("Random Track \n");
+  cat(paste0(nrow(as.data.frame(X@sp)), "points"),"\n");
+  cat(paste0("bbox:"),"\n");
+  print(X@sp@bbox);
+  cat("\n",paste0("Time period: [",range(X@endTime)[1],", ", range(X@endTime)[2],"]"))
+}
 
+print.Tracks <- function(X){
+  cat("An object of class Tracks" ,"\n");
+  cat(paste0(length(X@tracks)), "tracks followed by a single object")
+}
+
+print.TracksCollection <- function(X){
+  cat("An object of class TracksCollection" ,"\n");
+  cat(paste0(length(X@tracksCollection))
+  , "collection of tracks followed by", paste0(length(X@tracksCollection)), " object")
+  
+}
