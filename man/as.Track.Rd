@@ -39,7 +39,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-Track, as.POSIXct
+\link[trajectories]{Track}, \link[base]{as.POSIXct}
 }
 \examples{
 x <- runif(10,0,1)

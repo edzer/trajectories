@@ -41,7 +41,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-as.Track.arrow, idw.}
+\link[trajectories]{as.Track.arrow}, \link[spatstat]{idw}}
 \examples{
 X <- list()
 for(i in 1:10){

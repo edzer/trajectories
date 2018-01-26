@@ -15,7 +15,7 @@ as.Track.arrow(x,timestamp,epsilon=epsilon)
   \item{x}{
 A list of Track objects
 }
-\item{timestamp}{based on secs,mins,...}
+\item{timestamp}{based on secs, mins,...}
 \item{epsilon}{(optional) movements with length less than epsilon are not considered in the calculation}
 }
 \details{
@@ -37,7 +37,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-rTrack, as.Track.ppp
+\link[trajectories]{rTrack}, \link[trajectories]{as.Track.ppp}
 }
 \examples{
 X <- list()

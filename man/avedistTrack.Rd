@@ -8,7 +8,7 @@ Average pairwise distance between tracks over time
 This measures the average of pairwise distances between tracks over time.
 }
 \usage{
-avedistTrack(x)
+avedistTrack(x,timestamp)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,7 +36,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-as.Track.ppp
+\link[trajectories]{as.Track.ppp}
 }
 \examples{
 X <- list()

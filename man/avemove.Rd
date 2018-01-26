@@ -36,7 +36,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\link[trajectories]{as.Track.arrow}
 }
 \examples{
 X <- list()

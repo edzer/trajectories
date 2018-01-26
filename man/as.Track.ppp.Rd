@@ -14,7 +14,7 @@ as.Track.ppp(x,timestamp)
   \item{x}{
 a list of Track objects
 }
-\item{timestamp}{based on secs,mins,...}
+\item{timestamp}{based on secs, mins,...}
 }
 \details{
 as.Track.ppp converts a list of Track objetcs to a list of ppp objetcs.}
@@ -25,7 +25,7 @@ A list of point patterns, objects of class "ppp".
 %% ~put references to the literature/web site here ~
 }
 \author{
-Mohammad Mehdi Moradi}
+Mohammad Mehdi Moradi <moradi@uji.es>}
 \note{
 %%  ~~further notes~~
 }
@@ -33,7 +33,7 @@ Mohammad Mehdi Moradi}
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-avedistTrack
+\link[trajectories]{avedistTrack}, \link[spatstat]{as.ppp}
 }
 \examples{
 X <- list()

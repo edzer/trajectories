@@ -33,7 +33,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{rTrack},\code{auto.arima}
+\link[trajectories]{rTrack}, \link[forecast]{auto.arima}
 }
 \examples{
 X <- rTrack()

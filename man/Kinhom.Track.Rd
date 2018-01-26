@@ -41,7 +41,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-rTrack, as.Track.ppp,Kinhom}
+\link[trajectories]{rTrack}, \link[trajectories]{as.Track.ppp}, \link[spatstat]{Kinhom}}
 \examples{
 X <- list()
 for(i in 1:100){
