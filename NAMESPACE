@@ -29,7 +29,9 @@ export(
 	segPanel,
 	tracksPanel,
 	approxTrack, approxTracks, approxTracksCollection,
-	rTrack, rTracks, rTracksCollection
+	rTrack, rTracks, rTracksCollection, as.Track, as.Track.arrow,
+	as.Track.ppp, auto.arima.Track, avedistTrack, avemove, chimaps,
+	density.Track, Kinhom.Track, pcfinhom.Track, reTrack, Track.idw
 )
 
 exportMethods(
