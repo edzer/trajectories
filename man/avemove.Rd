@@ -2,8 +2,10 @@
 \alias{avemove}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
+average movement of moving objects
 }
 \description{
+This returns the average movements of a lits of objects of class "Track" over time.
 }
 \usage{
 avemove(x,timestamp,epsilon=epsilon)
