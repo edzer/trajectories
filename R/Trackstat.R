@@ -490,5 +490,4 @@ print.TracksCollection <- function(X){
   cat("An object of class TracksCollection" ,"\n");
   cat(paste0(length(X@tracksCollection))
   , "collection of tracks followed by", paste0(length(X@tracksCollection)), " object")
-  
 }

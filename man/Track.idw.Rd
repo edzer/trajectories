@@ -21,7 +21,6 @@ based on secs,mins, ...
 \item{epsilon}{(optional) movements with length less than epsilon are not considered in the calculation}
 \item{...}{passed to arguments of fucntion idw in spatstat}
 }
-}
 \details{
 Performs spatial smoothing to the movements of a list of tracks.
 }
