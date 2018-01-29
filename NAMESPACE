@@ -31,7 +31,10 @@ export(
 	approxTrack, approxTracks, approxTracksCollection,
 	rTrack, rTracks, rTracksCollection, as.Track, as.Track.arrow,
 	as.Track.ppp, auto.arima.Track, avedistTrack, avemove, chimaps,
-	density.Track, Kinhom.Track, pcfinhom.Track, reTrack, Track.idw
+	density.Track, Kinhom.Track, pcfinhom.Track, reTrack, Track.idw,
+	plot.arwlen,plot.distrack,plot.gTrack,plot.KTrack,print.ArimaTrack,
+	print.arwlen,print.distrack,print.gTrack,print.KTrack,print.Track,
+	print.Tracks,print.TracksCollection,print.Trrow
 )
 
 exportMethods(
