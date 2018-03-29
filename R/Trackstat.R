@@ -4,12 +4,12 @@
 # to length of each column in X.
 as.Track <- function(X,covariate){
   stopifnot(nrow(X)>0)
-  colnames(X) <- c("xcoor","ycoor","time")
+  # colnames(X) <- c("xcoor","ycoor","time")
   if(!is.data.frame(X)) X <- as.data.frame(X)
   sp <- cbind(x=X$xcoor,y=X$ycoor)
   sp <- SpatialPoints(sp)
   t <- as.POSIXct(paste(X$date,X$time))
-  if(missing(covariate)) covariate <- data.frame(d=rep(NA,length(X$xcoor)))
+  if(missing(covariate)) covariate <- data.frame(d=rep(1,length(X$xcoor)))
   
   return(Track(STIDF(sp,time = t,data =covariate)))
 }
@@ -89,49 +89,19 @@ avedistTrack <- function(X,timestamp){
   # calculate a sequance of time to interpolate tracks within this sequance
   timeseq <- tsqTracks(X,timestamp = timestamp)
   
-  # reconstruct tracks in sequance timeseq
-  Z <- lapply(X,reTrack,tsq = timeseq,at="dfrm")
+  Y <- as.Track.ppp(X,timestamp)
   
-  wincor <- lapply(X=1:length(Z),FUN = function(i){
-    return(list(min(Z[[i]]$x),max(Z[[i]]$x),min(Z[[i]]$y),max(Z[[i]]$y)))
+  avedist <- lapply(X=1:length(Y), function(i){
+    pd <-  pairdist(Y[[i]])
+    mean(pd[pd>0])
   })
-  wincor <- matrix(unlist(wincor),nrow = 4)
-  w <- owin(c(min(wincor[1,]),max(wincor[2,])),c(min(wincor[3,]),max(wincor[4,])))
-  # create a list and convert tracks in each element of timeseq to an object of calss ppp
-  p <- list()
   
-  for (j in 1:length(timeseq)) {
-    
-    l <- lapply(X=1:length(Z), function(i){
-      Z[[i]][which(Z[[i]]$time==timeseq[j]),-3]
-    })
-    
-    if(length(unlist(l))>0){
-      x <- unlist(lapply(X=1:length(l),function(k){
-        l[[k]]$x
-      }))
-      y <- unlist(lapply(X=1:length(l),function(h){
-        l[[h]]$y
-      }))
-      p[[j]] <- as.ppp(data.frame(x,y),W=w)
-    }
-    
-  }
-  
-  p1 <- p[!sapply(p, is.null)] 
-  avedist <- unlist(
-    lapply(X=1:length(p1), function(i){
-      pd <-  pairdist(p1[[i]])
-      pd <- pd[pd>0]
-      return(mean(pd))
-    })
-  )
-  avedist <- data.frame(timeseq[!sapply(p, is.null)],avedist)
+  avedist <- data.frame(timeseq[-1],unlist(avedist))
+  colnames(avedist) <- c("timeseq","avedist")
   class(avedist) <- c("distrack")
-  attr(avedist,"ppp") <- p
+  attr(avedist,"ppp") <- Y
   return(avedist)
 }
-
 print.distrack <- function(x){
   print(as.vector(x$avedist))
 }
@@ -147,6 +117,7 @@ rmdupTrack <- function(X){
   return(as.Track(X)) 
 }
 
+
 as.Track.ppp <- function(X,timestamp){
   
   stopifnot(length(X)>1 & is.list(X))
@@ -157,42 +128,19 @@ as.Track.ppp <- function(X,timestamp){
   
   # reconstruct tracks in sequance timeseq
   Z <- lapply(X,reTrack,tsq = timeseq,at="dfrm")
+  id <- rep(1:length(Z),sapply(Z, nrow))
+  Z <- do.call("rbind",Z)
+  Z <- cbind(Z,id)
+  allZ <- split(Z,Z[,3])
+  w <- owin(c(min(Z$xcoor)-0.001,max(Z$xcoor)+0.001),c(min(Z$ycoor)-0.001,max(Z$ycoor)+0.001))
   
-  wincor <- lapply(X=1:length(Z),FUN = function(i){
-    return(list(min(Z[[i]]$x),max(Z[[i]]$x),min(Z[[i]]$y),max(Z[[i]]$y)))
+  Tppp <- lapply(X=1:length(allZ), function(i){
+    p <- as.ppp(allZ[[i]][,-c(3,4)],W=w)
+    marks(p) <- allZ[[i]][,4]
+    return(p)
   })
-  wincor <- matrix(unlist(wincor),nrow = 4)
-  w <- owin(c(min(wincor[1,]),max(wincor[2,])),c(min(wincor[3,]),max(wincor[4,])))
-  
-  # create a list and convert tracks in each element of timeseq to an object of calss ppp
-  p <- list()
-  
-  for (j in 1:length(timeseq)) {
-    
-    l <- lapply(X=1:length(Z), function(i){
-      w <- which(Z[[i]]$time==timeseq[j])
-      if (length(w)>0) return(cbind(Z[[i]][w,-3],id=i))
-      return(Z[[i]][w,-3]) 
-    })
-    
-    if(length(unlist(l))>0){
-      x <- unlist(lapply(X=1:length(l),function(k){
-        l[[k]]$x
-      }))
-      y <- unlist(lapply(X=1:length(l),function(h){
-        l[[h]]$y
-      }))
-      m <- unlist(lapply(X=1:length(l),function(h){
-        l[[h]]$id
-      }))
-      p[[j]] <- as.ppp(data.frame(x,y),W=w)
-      marks(p[[j]]) <- m
-    }
-    
-  }
-  return(p)
+  return(Tppp)
 }
-
 
 density.Track <- function(X,timestamp,...){
   stopifnot(length(X)>1 & is.list(X))
@@ -304,15 +252,17 @@ chimaps <- function(X,timestamp,rank,...){
 }
 
 Kinhom.Track <- function(X,timestamp,
-                correction=c("border", "bord.modif", "isotropic", "translate"),q,...){
+                correction=c("border", "bord.modif", "isotropic", "translate"),q,
+                sigma=c("bw.diggle","bw.ppl"," bw.scott"),...){
   
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp") 
   
   cor <- match.arg(correction,correction)
-  
-  ZZ <- density.Track(X,timestamp)
+  bw <- match.arg(sigma,sigma)
+  bw <- match.fun(bw)
+  ZZ <- density.Track(X,timestamp,bw)
   
   Z <- attr(ZZ,"Tracksim")
   Y <- attr(ZZ,"ppps")
@@ -410,3 +360,57 @@ plot.gTrack <- function(x,type="l",col= "grey70",...){
   points(x$r,x$theo,type=type,col=2)
   points(x$r,x$aveg,type=type)
 }
+
+
+rTrack <- function (n = 100, origin = c(0, 0), start = as.POSIXct("1970-01-01"), 
+                       ar = 0.8, step = 60, sd0 = 1,bbox=bbox, transform=FALSE,nrandom=FALSE, ...){
+  
+  if(nrandom)  repeat{n <- rpois(1,n);if(!n==0) break()}
+  if (missing(bbox) & transform) {
+    xo <- runif(1)
+    yo <- runif(1)
+    origin <- c(xo,yo)
+  }  
+  if (!missing(bbox) & transform) {
+    xo <- runif(1,bbox[1,1],bbox[1,2])
+    yo <- runif(1,bbox[2,1],bbox[2,2])
+    origin <- c(xo,yo)
+  }
+  if (length(ar) == 1 && ar == 0) 
+    xy = cbind(cumsum(rnorm(n, sd = sd0)) + origin[1], cumsum(rnorm(n, 
+                                                                    sd = sd0)) + origin[2])
+  else {xy = cbind(origin[1] + cumsum(as.vector(arima.sim(list(ar = ar), 
+                                                          n, sd = sd0, ...))), 
+                   origin[2] + cumsum(as.vector(arima.sim(list(ar = ar), 
+                                                          
+                                                          n, sd = sd0, ...))))}
+  if(transform) {
+    if(missing(bbox))  bbox <- matrix(c(0,1,0,1),nrow = 2,byrow = T); colnames(bbox) <- c("min","max");rownames(bbox) <- c("x","y")
+    
+    xr <- max(xy[,1])-min(xy[,1])
+    yr <- max(xy[,2])-min(xy[,2])
+    
+    xt <- (xy[,1]-min(xy[,1]))/xr
+    yt <- (xy[,2]-min(xy[,2]))/yr
+    
+    xy <- cbind(xt,yt)
+    xy <- cbind(x=xy[,1]*bbox[1,2],y=xy[,2]*bbox[2,2])
+  }
+  
+  T = start + 0:(n - 1) * step
+  sti = STI(SpatialPoints(xy), T)
+  out <- Track(sti)
+  if (transform) out@sp@bbox <- bbox
+  return(out)
+}
+
+
+rTracks <- function (m = 20, start = as.POSIXct("1970-01-01"), delta = 7200, 
+                        sd1 = 0, origin = c(0, 0), ...) 
+  Tracks(lapply(0:(m - 1) * delta, function(x) rTrack(start = start + 
+                                                    x, origin = origin + rnorm(2, sd = sd1), ...)))
+
+rTracksCollection <- function (p = 10, sd2 = 0, ...) 
+  TracksCollection(lapply(1:p, function(x) rTracks(origin = rnorm(2, 
+                                                              sd = sd2), ...)))
+

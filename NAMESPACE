@@ -2,11 +2,15 @@ import(methods)
 import(sp)
 import(spacetime)
 import(lattice)
-importFrom(stats, approx, as.formula, na.omit, quantile, rnorm, arima.sim)
+importFrom(stats, approx, as.formula, na.omit, quantile, rnorm, arima.sim, 
+	rpois, runif)
 # importFrom(stats, aggregate, na.omit, time, start, end)
 importFrom(utils, head, tail, stack, unstack)
-importFrom(graphics, arrows, box, lines, points, segments)
+importFrom(graphics, arrows, box, lines, points, segments, legend, polygon)
 importFrom(grDevices, rainbow)
+importFrom(spatstat, marks, psp, midpoints.psp, lengths.psp,
+  'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp,
+  Kinhom, pcfinhom, idw)
 
 exportClasses(
 	Track,
