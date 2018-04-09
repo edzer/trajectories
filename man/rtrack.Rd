@@ -22,9 +22,9 @@ rTracksCollection(p = 10, sd2 = 0, ...)
 \item{sd0}{standard deviation of the random steps in a Track}
 \item{sd1}{standard deviation of the consecutive Track origin values (using rnorm)}
 \item{sd2}{standard deviation of the consecutive Tracks origin values (using rnorm)}
-\item{bbox}{box of track}
-\item{transform}{to transform track}
-\item{nrandom}{to set the number of locations of track as random number}
+\item{bbox}{bbox object FIXME:fill in}
+\item{transform}{logical; FIXME:fill in }
+\item{nrandom}{logical; if \code{TRUE}, draw \code{n} from \code{rpois(n)}}
 \item{...}{rTrack: arguments passed on to \link[stats]{arima.sim}, rTracks: arguments
 passed on to rTrack; rTracksCollection: arguments passed on to rTracks}
 \item{m}{ number of Track objects to simulate}
