@@ -10,7 +10,7 @@ Function as.Track  accepts converts x,y coordinates and thier corresponding time
  to length of x,y,t.
 }
 \usage{
-as.Track(x,y,t)
+as.Track(x,y,t,covariate)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -19,6 +19,8 @@ as.Track(x,y,t)
 \item{y}{ y coordinate.
 }
 \item{t}{ corresponding time and date of x,y.
+}
+\item{covariate}{ additional information.
 }
 }
 \details{
