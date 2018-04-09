@@ -89,18 +89,18 @@ avedistTrack <- function(X,timestamp){
     mean(pd[pd>0])
   })
   
-  avedist <- data.frame(timeseq[-c(1,length(timeseq))],unlist(avedist))
-  colnames(avedist) <- c("timeseq","avedist")
-  class(avedist) <- c("distrack")
+  avedist <- unlist(avedist)
+  class(avedist) <- c("distrack","numeric")
   attr(avedist,"ppp") <- Y
+  attr(avedist,"tsq") <- timeseq[-1]
   return(avedist)
 }
 print.distrack <- function(x){
-  print(as.vector(x$avedist))
+  print(as.vector(x))
 }
 
 plot.distrack <- function(x,...){
-  plot(x$timeseq,x$avedist,xlab="time",ylab="average distance",...)
+  plot(attr(x,"tsq"),x,xlab="time",ylab="average distance",...)
 }
 
 
@@ -221,7 +221,7 @@ print.arwlen <- function(x){
 
 plot.arwlen <- function(x,...){
   tsq <- attr(x,"tsq")
-  tsq <- tsq[-c(1,length(tsq)-1,length(tsq))]
+  tsq <- tsq[-c(1,length(tsq))]
   plot(tsq,x,xlab="time",ylab="average movement",...)
 }
 
@@ -312,7 +312,7 @@ print.KTrack <- function(x){
 }
 
 plot.KTrack <- function(x,type="l",col= "grey70",...){
-  ylim <- c(min(x$lowk),max(x$upk))
+  ylim <- c(min(c(x$lowk,x$theo)),max(c(x$upk,x$theo)))
   plot(x$r,x$lowk,ylim=ylim,type=type,xlab="",ylab="",...)
   title(ylab=expression(K[inhom](r)),xlab="r", line=2.2, cex.lab=1.2)
   points(x$r,x$upk,type=type)
@@ -320,7 +320,7 @@ plot.KTrack <- function(x,type="l",col= "grey70",...){
           col = col, border = NA)
   points(x$r,x$theo,type=type,col=2)
   points(x$r,x$avek,type=type)
-  legend(0,max(x$upk),col = c(2,0,1),legend=c(expression(K[inhom]^{pois}),"",expression(bar(K)[inhom])),lty=c(1,1))
+  legend(0,max(c(x$upk,x$theo)),col = c(2,0,1),legend=c(expression(K[inhom]^{pois}),"",expression(bar(K)[inhom])),lty=c(1,1))
 }
 
 pcfinhom.Track <- function(X,timestamp,
@@ -338,8 +338,12 @@ pcfinhom.Track <- function(X,timestamp,
   if (bw == "default"){
     Y <- as.Track.ppp(X,timestamp = timestamp)
     
+    W <- Y[[1]]$window
+    ripley <- min(diff(W$xrange), diff(W$yrange))/4
+    rr <- seq(0,ripley,length.out = 513)
+    
     g <- lapply(X=1:length(Y), function(i){
-      gg <- pcfinhom(Y[[i]],correction=cor,...)
+      gg <- pcfinhom(Y[[i]],correction=cor,r=rr,...)
       return(as.data.frame(gg))
     })
     gmat <- matrix(nrow = length(g[[1]]$theo),ncol = length(g))
@@ -365,7 +369,7 @@ pcfinhom.Track <- function(X,timestamp,
     }
   }
   gmat <- gmat[-1,]
-  # Kmat <- as.data.frame(K)
+  
   lowg <- numeric()
   upg <- numeric()
   aveg <- numeric()
@@ -394,6 +398,8 @@ plot.gTrack <- function(x,type="l",col= "grey70",...){
           col = col, border = NA)
   points(x$r,x$theo,type=type,col=2)
   points(x$r,x$aveg,type=type)
+  legend(0.01*max(x$r),max(x$upg),col = c(2,0,1),
+         legend=c(expression(g[inhom]^{pois}),"",expression(bar(g)[inhom])),lty=c(1,1))
 }
 
 auto.arima.Track <- function(X,...){
