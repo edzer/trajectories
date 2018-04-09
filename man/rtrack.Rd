@@ -8,7 +8,7 @@
 \description{Generate random \code{Track}, \code{Tracks} or \code{TracksCollection} objects}
 \usage{
 rTrack(n = 100, origin = c(0,0), start = as.POSIXct("1970-01-01"), ar = .8, 
-	step = 60, sd0 = 1, bbox=bbox, transform=FALSE, nrandom=FALSE, ...)
+	step = 60, sd0 = 1, bbox = bbox, transform = FALSE, nrandom = FALSE, ...)
 rTracks(m = 20, start = as.POSIXct("1970-01-01"), delta = 7200, sd1 = 0, 
 	origin = c(0,0), ...)
 rTracksCollection(p = 10, sd2 = 0, ...)
