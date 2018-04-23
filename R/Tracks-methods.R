@@ -376,6 +376,10 @@ summary.Tracks = function(object, ...) {
 	obj
 }
 
+setMethod("show", "Track", function(object) print.Track(object))
+setMethod("show", "Tracks", function(object) print.Tracks(object))
+setMethod("show", "TracksCollection", function(object) print.TracksCollection(object))
+
 setMethod("summary", "Tracks", summary.Tracks)
 
 print.summary.Tracks = function(x, ...) {

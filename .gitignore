@@ -3,3 +3,12 @@
 .RData
 *.Rproj
 
+.aux
+.bbl
+.blg
+.log
+.out
+.tpt
+
+
+
