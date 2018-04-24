@@ -145,7 +145,7 @@ auto.arima.Track(Beijing[[5]])
 ###################################################
 meandist <- avedistTrack(Beijing,timestamp = "20 mins")
 plot(meandist,type="l",lwd=2)
-distinframe <- data.frame(tsq=meandist$timeseq,dist=meandist$avedist)
+distinframe <- data.frame(tsq=attr(meandist,"tsq"),dist=meandist)
 dist3rd <- distinframe[substr(distinframe$tsq,start = 1,stop=10)==
                          "2008-02-03",]
 plot(dist3rd$tsq,dist3rd$dist,type="l",xlab="time",
