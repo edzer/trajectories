@@ -497,7 +497,7 @@ R>  dists(tracks1,tracks2,mean)
 \begin{Sinput}
 R> # meandist <- avedistTrack(Beijing,timestamp = "20 mins")
 R> # plot(meandist,type="l",lwd=2)
-R> # distinframe <- data.frame(tsq=meandist$timeseq,dist=meandist$avedist)
+R> # distinframe <- data.frame(tsq=attr(meandist,"tsq"),dist=meandist)
 R> # dist3rd <- distinframe[substr(distinframe$tsq,start = 1,stop=10)==
 R> #                          "2008-02-03",]
 R> # plot(dist3rd$tsq,dist3rd$dist,type="l",xlab="time",
