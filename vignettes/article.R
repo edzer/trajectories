@@ -194,17 +194,18 @@ plot(fcenterimg,main="",ribwid=0.04,ribsep=0.02)
 
 
 ###################################################
-### code chunk number 18: article.Rnw:517-535
+### code chunk number 18: article.Rnw:517-536
 ###################################################
 ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
 chall <- attr(ch,"ims")
-minmax <- mclapply(X=1:length(chall),function(i){
+minmax <- lapply(X=1:length(chall),function(i){
     return(list(min(chall[[i]]$v),max(chall[[i]]$v)))
   })
 minmax <- do.call("rbind",minmax)
 col5 <- colorRampPalette(c('blue','white','red'))
 color_levels=200 
 par(mar=c(0,0,1,1))
+par(mfrow=c(1,3))
 plot(chall[[51]],zlim=c(-max(abs(unlist(minmax))),max(abs(unlist(minmax))))
           ,main=attr(ch,"timevec")[51],ribwid=0.04,ribsep=0.02,
           col=col5(n=color_levels))
@@ -217,11 +218,12 @@ plot(chall[[104]],zlim=c(-max(abs(unlist(minmax))),max(abs(unlist(minmax))))
 
 
 ###################################################
-### code chunk number 19: article.Rnw:587-591
+### code chunk number 19: article.Rnw:588-594
 ###################################################
- K <- Kinhom.Track(Beijing,timestamp = "20 mins",q=0)
+ K <- Kinhom.Track(Beijing,correction = "translate",
+                      timestamp = "20 mins",q=0)
+ par(mfrow=c(1,2))
  plot(K)
  g <- pcfinhom.Track(Beijing,timestamp = "20 mins",q=0)
  plot(g)
-
 

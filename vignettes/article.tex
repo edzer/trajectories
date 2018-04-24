@@ -654,13 +654,14 @@ One may still think of adaptive intensity estimators such as the Voronoi estimat
 \begin{Sinput}
 R> # ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
 R> # chall <- attr(ch,"ims")
-R> # minmax <- mclapply(X=1:length(chall),function(i){
+R> # minmax <- lapply(X=1:length(chall),function(i){
 R> #     return(list(min(chall[[i]]$v),max(chall[[i]]$v)))
 R> #   })
 R> # minmax <- do.call("rbind",minmax)
 R> # col5 <- colorRampPalette(c('blue','white','red'))
 R> # color_levels=200 
 R> # par(mar=c(0,0,1,1))
+R> # par(mfrow=c(1,3))
 R> # plot(chall[[51]],zlim=c(-max(abs(unlist(minmax))),max(abs(unlist(minmax))))
 R> #           ,main=attr(ch,"timevec")[51],ribwid=0.04,ribsep=0.02,
 R> #           col=col5(n=color_levels))
@@ -724,7 +725,9 @@ In both functions above, users can take advantage of the bandwidth selection to 
   Finally, we show the variability area of $K$-function and pair correlation function over time in Figure \ref{Kgvariation}. The left plot displays the variation of $K$-function, showing that for small distances taxis tend to have a clustering behaviour while for larger distances they favour inhibition. The right plot of the variation of the pair correlation function also confirms the same behaviour. Due to the preference of moving within particular zones, $K$-function and pair correlation function might result as what is displayed in Figure \ref{Kgvariation}. In other words, taxis might prefer to take passengers to close destinations within particular zones rather than far destinations. 
 \begin{Schunk}
 \begin{Sinput}
-R>  # K <- Kinhom.Track(Beijing,timestamp = "20 mins",q=0)
+R>  # K <- Kinhom.Track(Beijing,correction = "translate",
+R>  #                      timestamp = "20 mins",q=0)
+R>  # par(mfrow=c(1,2))
 R>  # plot(K)
 R>  # g <- pcfinhom.Track(Beijing,timestamp = "20 mins",q=0)
 R>  # plot(g)
