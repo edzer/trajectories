@@ -194,7 +194,7 @@ auto.arima.Track(Beijing[[5]])
 ###################################################
 # ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
 # chall <- attr(ch,"ims")
-# minmax <- mclapply(X=1:length(chall),function(i){
+# minmax <- lapply(X=1:length(chall),function(i){
 #     return(list(min(chall[[i]]$v),max(chall[[i]]$v)))
 #   })
 # minmax <- do.call("rbind",minmax)

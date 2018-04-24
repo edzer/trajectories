@@ -654,7 +654,7 @@ One may still think of adaptive intensity estimators such as the Voronoi estimat
 \begin{Sinput}
 R> # ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
 R> # chall <- attr(ch,"ims")
-R> # minmax <- mclapply(X=1:length(chall),function(i){
+R> # minmax <- lapply(X=1:length(chall),function(i){
 R> #     return(list(min(chall[[i]]$v),max(chall[[i]]$v)))
 R> #   })
 R> # minmax <- do.call("rbind",minmax)
