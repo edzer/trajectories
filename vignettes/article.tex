@@ -99,19 +99,41 @@ URL: \url{https://www3.uji.es/~mateu}
 \section[Introduction]{Introduction}\label{sec:intro}
 Modern data collection techniques allow tracking objects continuously. This means that we do not only know the current location of a moving object, but we also track the objects over time. A set of some tracks from different moving objects may be considered a trajectory pattern. Another example is that in which we record the location of a group of moving objects (e.g. cars, pedestrians, animals) within a regular/irregular time sequence. \cite{guting05} focused on moving objects databases and extended database technology to deal with moving objects. \cite{challa2011} presented an introduction to the field of object tracking and provided solid foundation to the collection of diverse algorithms developed by academics, scientific researchers and engineers. \cite{hanks15} proposed a continuous-time, discrete-space (CTDS) model for animal movement. \cite{russell16} introduced an approach that models dependent movement by augmenting a dynamic marginal movement model with a spatial point process interaction function within a weighted distribution framework. \cite{hooten17} presented a natural basis function approach to constructing appropriate covariance models for movement processes. There are already some \proglang{R} packages available in \href{https://cran.r-project.org}{CRAN Task View: Handling and Analyzing Spatio-Temporal Data} to handle moving objects. Most of them are focused on handling and analysing animal movements such as \pkg{adehabitatLT} \citep{calenge06}, \pkg{tripEstimation} \citep{sumner2009}, \pkg{argosfilter} \citep{argosf}, \pkg{V-Track} \citep{V-Track}, \pkg{animalTrack} \citep{animalTrack}, \pkg{BBMM} \citep{BBMM}, \pkg{bcpa} \citep{bcpa}, \pkg{BayesianAnimalTracker} \citep{BayesianAnimalTracker}, \pkg{TrackReconstruction} \citep{TrackReconstruction}, \pkg{mkde} \citep{mkde}, \pkg{SimilarityMeasures} \citep{SimilarityMeasures}, \pkg{smam} \citep{smam}, \pkg{trip}\citep{trip}, \pkg{moveHMM} \citep{moveHMM}, \pkg{FLightR} \citep{FLightR}. In particular, the package \pkg{adehabitatLT} \citep{calenge06} provides tools to simulate trajectories using a Brownian motion, correlated Random walks and Levy walks. \cite{SimilarityMeasures} presented four different similarity measures in \pkg{SimilarityMeasures}. \cite{moveHMM} in \pkg{moveHMM} provided animal movement modelling using hidden Markov models. Using multiple regression, \pkg{fishmove} \citep{fishmove}  provides functions to predict fish movement parameters. R package \pkg{trackR} \citep{frick} provides infrastructure for running and cycling Data.
 
-However, to the best of our knowledge, \proglang{R} is still missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. Figure \ref{taxitracks} shows routes passed by 5 different taxis on the 4th of Feb 2008 in Beijing, China. Each taxi has a different start/end time.
-To avoid having a complicated plot, we have only displayed 5 tracks; the entire dataset will be analysed in Section \ref{sec:explo}.
+However, to the best of our knowledge, \proglang{R} is still missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. Figure \ref{taxitracks} shows routes passed by 5 different taxis on the 4th of Feb 2008 in Beijing, China.
+\begin{figure}[!h]
+\begin{center}
+\begin{Schunk}
+\begin{Sinput}
+R> library(trajectories)
+R> data(Beijing)
+R> Z <- lapply(X=1:length(Beijing), function(i){
++    q <-  cut(Beijing[[i]], "day", touch = F)
++    return(q@tracks[[3]])
++  })
+R> plot(Z[[21]],xlim=c(420000,470000),ylim=c(4390000,4455000),lwd=2)
+R> plot(Z[[26]],add=T,col="orange",lwd=2)
+R> plot(Z[[20]],add=T,col=2,lwd=2)
+R> plot(Z[[12]],add=T,col=3,lwd=2)
+R> plot(Z[[15]],add=T,col=4,lwd=2)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{article-002}
+\end{center}
+\caption{Trajectory pattern containing tracks of five taxis on the 4th of Feb 2008 in Beijing, China. Each color represents a different taxi track.}
+\label{taxitracks}
+\end{figure}
+Each taxi has a different start/end time. To avoid having a complicated plot, we have only displayed 5 tracks; the entire dataset will be analysed in Section \ref{sec:explo}.
 
 Studying the behaviour of moving objects over time and their interaction, either between objects or with environment, plays a crucial role in understanding how they use space and more importantly how they interact each other. Moving objects are moving within a particular area over time, thus a snapshot of a trajectory pattern might be seen as a spatial point pattern. This aspect then empowers us to study the behaviour of moving objects within space and over time. A set of locations, usually non-uniformly distributed within a certain region, can be considered as a realisation of a spatial point process. Analysis of spatial point processes has been widely discussed in the literature \citep{MW03,IPSS08,D13,BRT15}. The \proglang{R} package \pkg{spatstat} \citep{baddeley05,BRT15} provides different tools for statistical analysis, model-fitting, simulation and tests on spatial point patterns. \cite{D13} has broadly considered the details of spatio-temporal point processes. Application of such processes can be found in traffic management, geography, forestry, ecology, epidemiology, seismology, astronomy and criminology. 
 
 This paper describes a collection of tools provided by the \proglang{R} package \pkg{trajectories} to handle, simulate and statistically analyse movement data regardless of the domain, converting a trajectory pattern into a list of point patterns based on regular timestamps. We here propose different functions to analyse the behaviour of objects over time and how they use space and also how they interact with each other. The type of interaction between objects may vary over time. The effect of the environment on the type of interaction might also be of interest. Therefore, using the literature of spatial point processes, the \proglang{R} package \pkg{trajectories} opens up a new way of thinking about trajectory datasets. We define different classes to handle trajectories, and different functions for simulating and performing exploratory data analysis. We also borrow first and second-order characteristics from the literature of spatial point processes and, by adapting them to trajectory patterns, we aim at highlighting the most frequently used routes within the studied area together with disclosing the type of interaction between the objects over time. Moreover, the \pkg{trajectories} package fits time series models to the spatial coordinates of a trajectory dataset.
 
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.6\linewidth]{Tracks-ex.pdf}
-\caption{Trajectory pattern containing tracks of five taxis on the 4th of Feb 2008 in Beijing, China. Each color represents a different taxi track.}
-\label{taxitracks}
-\end{figure}
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=0.6\linewidth]{Tracks-ex.pdf}
+% \caption{Trajectory pattern containing tracks of five taxis on the 4th of Feb 2008 in Beijing, China. Each color represents a different taxi track.}
+% \label{taxitracks}
+% \end{figure}
 
 The plan of the paper is the following.
 Section \ref{sec:setdef} presents some background and definitions.
@@ -172,7 +194,7 @@ Time period: [2013-09-30 02:00:30, 2013-09-30 02:02:31]
 R> plot(A1)
 \end{Sinput}
 \end{Schunk}
-\includegraphics{article-004}
+\includegraphics{article-005}
 \end{center}
 \caption{Single track A1 passed by person A.}
 \label{figA1}
@@ -293,6 +315,7 @@ Figure \ref{classes} shows the classes and their connection. We point out that c
 \code{stcube} & Draw a space-time cube\\
 \code{stplot} & Create trellis plot for \class{TracksCollection} objects\\
 \code{generalize}& Resample \class{Track} to lower freqency or minimal distance\\
+\code{cut}& Obtain ranges of space and time coordinates\\
   \hline
   \end{tabular}
   \label{Tablemethod}
@@ -343,7 +366,7 @@ Time period: [2013-09-30 02:00:30, 2013-09-30 02:02:31]
 R> stplot(Tr, attr = "co2", arrows = TRUE, lwd = 3, by = "IDs")
 \end{Sinput}
 \end{Schunk}
-\includegraphics{article-009}
+\includegraphics{article-010}
 \caption{Co2 consumption over time.}
 \label{fig:co2consumptionovertime}
 \end{figure}
@@ -413,7 +436,7 @@ R> plot(x,lwd=2,main="x");plot(y,lwd=2,main="y")
 R> plot(w,lwd=2,main="w");plot(z,lwd=2,main="z")
 \end{Sinput}
 \end{Schunk}
-\includegraphics{article-011}
+\includegraphics{article-012}
 \end{center}
 \caption{Simulated random tracks using \code{rTrack}. \code{x} is random track with all defaults. \code{y} is a random track transformed to a unit box. \code{w} is a random track transformed to the box $[0,10]\times [0,10]$ and \code{z} is in a same box as \code{w} but with the random number of points.}
 \label{randomtracks}
@@ -428,7 +451,7 @@ Figure \ref{randomtracks} shows four different random tracks: \code{x} is a rand
 
 \begin{Schunk}
 \begin{Sinput}
-R> data("Beijing")
+R> # data("Beijing")
 R> library(forecast)
 R> auto.arima.Track(Beijing[[5]])
 \end{Sinput}
@@ -603,7 +626,7 @@ Figure \ref{avemovebijing} shows the average length of movements per 20 minutes 
   \begin{eqnarray}\label{Trackest}
   \widehat{\widehat{\lambda}}(u)=\frac{1}{k} \sum\limits_{i=1}^{k} \widehat{\lambda}_i(u) =\frac{1}{k}\sum\limits_{i=1}^{k} \sum\limits_{j=1}^{n_i} \frac{\kappa(u-x_j)}{c_W(x_j)}, \qquad u \in W,
   \end{eqnarray}
-  as an estimator of the intensity of the trajectory pattern $S$. Intuitively, we interpret $\widehat{\widehat{\lambda}}(u)$ as the average expected number of points (objects) within the time period $T$ in a small area around $u$. As a simple example, consider the movements of cars within a city in a particular day, the estimator \eqref{Trackest} reveals the more dense streets, highways, freeways, etc in that day. Intensity estimators \eqref{Uni} and \eqref{JD} are implemented in the \pkg{trajectories} package using the function \code{density.Track}. The function \code{density.Track} builds the point patterns $\textbf{x}_1,\textbf{x}_2, \ldots, \textbf{x}_k$ and pass them to the function \code{density.ppp} in the package \pkg{spatstat}.
+  as an estimator of the intensity of the trajectory pattern $S$. Intuitively, we interpret $\widehat{\widehat{\lambda}}(u)$ as the average expected number of points (objects) within the time period $T$ in a small area around $u$. As a simple example, consider the movements of cars within a city in a particular day, the estimator \eqref{Trackest} reveals the more dense streets, highways, freeways, etc in that day. Intensity estimator \eqref{Trackest}, possible to use both edge corrections, is implemented in the \pkg{trajectories} package using the function \code{density.Track}. The function \code{density.Track} builds the point patterns $\textbf{x}_1,\textbf{x}_2, \ldots, \textbf{x}_k$ and pass them to the function \code{density.ppp} in the package \pkg{spatstat}.
 
 We next turn to calculate the average estimated intensity of the taxi data using the estimator \eqref{Trackest}.
 
@@ -706,7 +729,7 @@ where $K^{'}_{inhom}$ is the derivative of $K_{inhom}$.
   \frac{1}{|W|}\sum_i \sum_j 
   \frac{\textbf{1}\{d_{ij} \le r\} e(x_i,x_j,r)}{\widehat\lambda(x_i) \, \widehat\lambda(x_j)}, \hspace{1cm} r \geq 0
   \end{equation}
-  where $d_{ij}$ is the distance between $x_i,x_j$ and $e(x_i,x_j,r)$ is an edge correction. For more details see \cite[Chapter 4]{MW03}; \cite{IPSS08,D13}; \citep[Chapter7]{BRT15}.
+  where $d_{ij}$ is the distance between $x_i,x_j$ and $e(x_i,x_j,r)$ is an edge correction. For more details see \cite[Chapter 4]{MW03}; \cite{IPSS08,D13}; \cite{gabriel2014}; \citep[Chapter7]{BRT15}.
 
 Summary statistics such as the $K$-function and the pair correlation function are used to analyse the type of interaction between points. Having this in mind, we next turn to use these functions in analysing the trajectory pattern $S$. Similar to our proposal for the intensity function and using summary statistics for point patterns, we here propose a variability area for the $K$-function and the pair correlation function as follows:
   \begin{leftbar}
@@ -722,7 +745,7 @@ Note that, steps above can be applied to the pair correlation function as well.
 In both functions above, users can take advantage of the bandwidth selection to first estimate the intensity function and then pass estimated intensities to the function \code{Kinhom} or \code{pcfinhom}. \code{default} is to not pass any estimated intensity function to \code{Kinhom} or \code{pcfinhom} in which the intensity will be estimated using the `leave-one-out' kernel smoother \citep{baddeley00,BRT15}. Different edge corrections can be also passed to \code{Kinhom.Track} and \code{pcfinhom.Track}. 
   
   
-  Finally, we show the variability area of $K$-function and pair correlation function over time in Figure \ref{Kgvariation}. The left plot displays the variation of $K$-function, showing that for small distances taxis tend to have a clustering behaviour while for larger distances they favour inhibition. The right plot of the variation of the pair correlation function also confirms the same behaviour. Due to the preference of moving within particular zones, $K$-function and pair correlation function might result as what is displayed in Figure \ref{Kgvariation}. In other words, taxis might prefer to take passengers to close destinations within particular zones rather than far destinations. 
+  Finally and taking into account that estimated intensity in Figure \ref{bijingint} represent a non-unifrom distribution and/or clustering behaviour, we show the variability area of $K$-function and pair correlation function over time in Figure \ref{Kgvariation} (considering the ``translate'' correction, see \cite{gabriel2014}). The left plot displays the variation of $K$-function, showing that for small distances taxis tend to have a clustering behaviour while for larger distances they favour inhibition. The right plot of the variation of the pair correlation function also confirms the same behaviour. Due to the preference of moving within particular zones, $K$-function and pair correlation function might result as what is displayed in Figure \ref{Kgvariation}. In other words, taxis might prefer to take passengers to close destinations within particular zones rather than far destinations. 
 \begin{Schunk}
 \begin{Sinput}
 R>  # K <- Kinhom.Track(Beijing,correction = "translate",
