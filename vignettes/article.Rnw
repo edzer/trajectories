@@ -103,16 +103,30 @@ URL: \url{https://www3.uji.es/~mateu}
 \section[Introduction]{Introduction}\label{sec:intro}
 Modern data collection techniques allow tracking objects continuously. This means that we do not only know the current location of a moving object, but we also track the objects over time. A set of some tracks from different moving objects may be considered a trajectory pattern. Another example is that in which we record the location of a group of moving objects (e.g. cars, pedestrians, animals) within a regular/irregular time sequence. \cite{guting05} focused on moving objects databases and extended database technology to deal with moving objects. \cite{challa2011} presented an introduction to the field of object tracking and provided solid foundation to the collection of diverse algorithms developed by academics, scientific researchers and engineers. \cite{hanks15} proposed a continuous-time, discrete-space (CTDS) model for animal movement. \cite{russell16} introduced an approach that models dependent movement by augmenting a dynamic marginal movement model with a spatial point process interaction function within a weighted distribution framework. \cite{hooten17} presented a natural basis function approach to constructing appropriate covariance models for movement processes. There are already some \proglang{R} packages available in \href{https://cran.r-project.org}{CRAN Task View: Handling and Analyzing Spatio-Temporal Data} to handle moving objects. Most of them are focused on handling and analysing animal movements such as \pkg{adehabitatLT} \citep{calenge06}, \pkg{tripEstimation} \citep{sumner2009}, \pkg{argosfilter} \citep{argosf}, \pkg{V-Track} \citep{V-Track}, \pkg{animalTrack} \citep{animalTrack}, \pkg{BBMM} \citep{BBMM}, \pkg{bcpa} \citep{bcpa}, \pkg{BayesianAnimalTracker} \citep{BayesianAnimalTracker}, \pkg{TrackReconstruction} \citep{TrackReconstruction}, \pkg{mkde} \citep{mkde}, \pkg{SimilarityMeasures} \citep{SimilarityMeasures}, \pkg{smam} \citep{smam}, \pkg{trip}\citep{trip}, \pkg{moveHMM} \citep{moveHMM}, \pkg{FLightR} \citep{FLightR}. In particular, the package \pkg{adehabitatLT} \citep{calenge06} provides tools to simulate trajectories using a Brownian motion, correlated Random walks and Levy walks. \cite{SimilarityMeasures} presented four different similarity measures in \pkg{SimilarityMeasures}. \cite{moveHMM} in \pkg{moveHMM} provided animal movement modelling using hidden Markov models. Using multiple regression, \pkg{fishmove} \citep{fishmove}  provides functions to predict fish movement parameters. R package \pkg{trackR} \citep{frick} provides infrastructure for running and cycling Data.
 
-However, to the best of our knowledge, \proglang{R} is still missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. Figure \ref{taxitracks} shows routes passed by 5 different taxis on the 4th of Feb 2008 in Beijing, China.
-\begin{figure}[!h]
-\begin{center}
-<<fig=TRUE,height=8,width=8>>=
+However, to the best of our knowledge, \proglang{R} is still missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. Figure \ref{taxitracks} shows routes passed by 5 different taxis on the 4th of Feb 2008 in Beijing, China. Each taxi has a different start/end time. To avoid having a complicated plot, we have only displayed 5 tracks; the entire dataset will be analysed in Section \ref{sec:explo}.
+
+The entire dataset is stored in \proglang{R} package  \pkg{taxidata}  and can be installed through the following code.
+<<>>=
+# install.packages("taxidata", 
+# repos = "http://pebesma.staff.ifgi.de",type = "source")
+@
+
+Figure \ref{taxitracks} is generated using the following lines of code.
+
+<<>>=
 library(trajectories)
-data(Beijing)
+library(taxidata)
+Beijing <- taxidata
 Z <- lapply(X=1:length(Beijing), function(i){
   q <-  cut(Beijing[[i]], "day", touch = F)
   return(q@tracks[[3]])
 })
+@
+
+
+\begin{figure}[htbp]
+\begin{center}
+<<fig=TRUE,height=8,width=8>>=
 plot(Z[[21]],xlim=c(420000,470000),ylim=c(4390000,4455000),lwd=2)
 plot(Z[[26]],add=T,col="orange",lwd=2)
 plot(Z[[20]],add=T,col=2,lwd=2)
@@ -123,7 +137,7 @@ plot(Z[[15]],add=T,col=4,lwd=2)
 \caption{Trajectory pattern containing tracks of five taxis on the 4th of Feb 2008 in Beijing, China. Each color represents a different taxi track.}
 \label{taxitracks}
 \end{figure}
-Each taxi has a different start/end time. To avoid having a complicated plot, we have only displayed 5 tracks; the entire dataset will be analysed in Section \ref{sec:explo}.
+
 
 Studying the behaviour of moving objects over time and their interaction, either between objects or with environment, plays a crucial role in understanding how they use space and more importantly how they interact each other. Moving objects are moving within a particular area over time, thus a snapshot of a trajectory pattern might be seen as a spatial point pattern. This aspect then empowers us to study the behaviour of moving objects within space and over time. A set of locations, usually non-uniformly distributed within a certain region, can be considered as a realisation of a spatial point process. Analysis of spatial point processes has been widely discussed in the literature \citep{MW03,IPSS08,D13,BRT15}. The \proglang{R} package \pkg{spatstat} \citep{baddeley05,BRT15} provides different tools for statistical analysis, model-fitting, simulation and tests on spatial point patterns. \cite{D13} has broadly considered the details of spatio-temporal point processes. Application of such processes can be found in traffic management, geography, forestry, ecology, epidemiology, seismology, astronomy and criminology. 
 
