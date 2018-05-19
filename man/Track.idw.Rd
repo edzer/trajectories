@@ -2,17 +2,17 @@
 \alias{Track.idw}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Track.idw
+Movement smoothing of trajectory pattern
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-Track.idw(x,timestamp,epsilon=epsilon,...)
+Track.idw(X,timestamp,epsilon=epsilon,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
 a list of objects of class "Track"
 }
 \item{timestamp}{

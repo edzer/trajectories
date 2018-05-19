@@ -2,7 +2,7 @@
 \alias{plot.KTrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-plot.KTrack
+Methods for class "KTrack"
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~

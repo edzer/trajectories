@@ -7,11 +7,11 @@ uniqueTrack
 \description{
 Removing duplicated points in a track}
 \usage{
-uniqueTrack(x)
+uniqueTrack(X)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
 an object of class "Track"
 }
 }

@@ -53,8 +53,14 @@ rTracksCollection <- function (p = 10, sd2 = 0, ...)
 
 
 print.Track <- function(X){
-  cat("An object of class Track \n");
-  cat(paste0(nrow(as.data.frame(X@sp)), "points"),"\n");
+  if (class(X@sp)=="SpatialPoints") {
+    cat("An object of class Track \n");
+    cat(paste0(nrow(as.data.frame(X@sp)), "points"),"\n");
+    }
+  if (class(X@sp)=="SpatialLines") {
+    cat("A generalized object of class Track \n");
+    cat(paste0(length(Y@sp@lines), "lines"),"\n"); 
+  }
   cat(paste0("bbox:"),"\n");
   print(X@sp@bbox);
   cat(paste0("Time period: [",range(X@endTime)[1],", ", range(X@endTime)[2],"]"))

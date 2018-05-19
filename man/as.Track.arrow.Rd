@@ -2,17 +2,17 @@
 \alias{as.Track.arrow}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-as.Track.arrow
+Convert trajectory pattern to a list of marked point patterns
 }
 \description{
 Converting a list of Track objects to a list of marked point patterns. Each mark shows the length of movement.
 }
 \usage{
-as.Track.arrow(x,timestamp,epsilon=epsilon)
+as.Track.arrow(X,timestamp,epsilon=epsilon)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
 A list of Track objects
 }
 \item{timestamp}{based on secs, mins,...}

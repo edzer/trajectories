@@ -2,17 +2,17 @@
 \alias{avedistTrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Average pairwise distance between tracks over time
+Average pairwise distance of trajectory pattern over time
 }
 \description{
 This measures the average of pairwise distances between tracks over time.
 }
 \usage{
-avedistTrack(x,timestamp)
+avedistTrack(X,timestamp)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{a list of some objects of class "Track"
+  \item{X}{a list of some objects of class "Track"
 %%     ~~Describe \code{x} here~~
 }
 \item{timestamp}{timestamp to calculate the pairwise distances between tarcks}

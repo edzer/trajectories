@@ -2,17 +2,17 @@
 \alias{plot.distrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-plot.distrack
+Methods for class "distrack"
 }
 \description{
 The plot method for "distrack" objects.
 }
 \usage{
-plot(x,xlab="time",ylab="average distance",...)
+plot(X,xlab="time",ylab="average distance",...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
 an object of class "distrack"
 }
 \item{...}{further plotting parameters}

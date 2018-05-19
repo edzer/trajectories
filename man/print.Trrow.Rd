@@ -2,16 +2,16 @@
 \alias{print.Trrow}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-print.Trrow
+Methods for class "Trrow"
 }
 \description{
 Print objetcs of class "Trrow"}
 \usage{
-print.Trrow(x)
+print.Trrow(X)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
 an object of class "Trrow"
 }
 }

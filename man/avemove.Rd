@@ -2,17 +2,17 @@
 \alias{avemove}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-average movement of moving objects
+Average movement of trajectory pattern
 }
 \description{
 This returns the average movements of a lits of objects of class "Track" over time.
 }
 \usage{
-avemove(x,timestamp,epsilon=epsilon)
+avemove(X,timestamp,epsilon=epsilon)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{a list of some objects of class Track
+  \item{X}{a list of some objects of class Track
 %%     ~~Describe \code{x} here~~
 }
 \item{timestamp}{timestamp to calculate the pairwise distances between tarcks}

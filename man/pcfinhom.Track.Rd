@@ -2,18 +2,18 @@
 \alias{pcfinhom.Track}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-pcfinhom.Track
+Pair correlation funcrion of trajectory pattern
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-pcfinhom.Track(x,timestamp,correction = c("translate", "Ripley"),q,
+pcfinhom.Track(X,timestamp,correction = c("translate", "Ripley"),q,
                 sigma=c("default","bw.diggle","bw.ppl","bw.scott"),...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-\item{x}{
+\item{X}{
 A list of Track objects
 }
 \item{timestamp}{based on secs,mins,...}
@@ -45,8 +45,8 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 \examples{
 X <- list()
 for(i in 1:100){
-  m <- matrix(c(0,10,0,10),nrow=2,byrow = T)
-  X[[i]] <- rTrack(bbox = m,transform = T)
+  m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
+  X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 g <- pcfinhom.Track(X,timestamp = "30 sec")
 plot(g)

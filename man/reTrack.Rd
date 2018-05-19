@@ -8,11 +8,11 @@ Reconstruct objects of class "Track"
 Function reTrack accepts X as an object of class "Track". Output is a reconstructed Track (again an object of class Track), based on a regular "timestamp". It only returns the interpolated points.
 }
 \usage{
-reTrack(x,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL)
+reTrack(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
 an object of class Track
 }
 \item{at}{

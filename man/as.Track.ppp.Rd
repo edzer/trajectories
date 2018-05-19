@@ -2,16 +2,16 @@
 \alias{as.Track.ppp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-as.Track.ppp
+Conver trajectory pattern to a list of objects of class ppp
 }
 \description{
 This function converts a list of Tracks to a list of point patterns (class "ppp")}
 \usage{
-as.Track.ppp(x,timestamp)
+as.Track.ppp(X,timestamp)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
 a list of Track objects
 }
 \item{timestamp}{based on secs, mins,...}

@@ -2,16 +2,16 @@
 \alias{print.ArimaTrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-print.ArimaTrack
+Methods for class "ArimaTrack"
 }
 \description{
 print method.}
 \usage{
-print.ArimaTrack(x)
+print.ArimaTrack(X)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
   an  object of class "ArimaTrack"
 %%     ~~Describe \code{x} here~~
 }

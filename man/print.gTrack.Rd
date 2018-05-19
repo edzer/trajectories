@@ -2,7 +2,7 @@
 \alias{print.gTrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-print.gTrack
+Methods for class "gTrack"
 }
 \description{
 print method.}

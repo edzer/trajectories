@@ -2,7 +2,7 @@
 \alias{print.arwlen}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-print.arwlen
+Methods for class "arwlen"
 }
 \description{
 to print an object of class "arwlen".}

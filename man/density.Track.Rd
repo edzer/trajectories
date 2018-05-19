@@ -2,17 +2,17 @@
 \alias{density.Track}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-density.Track
+Kernel estimate of intensity of trajectory pattern
 }
 \description{
 Estimating the intensity of a list of tracks.
 }
 \usage{
-density.Track(x,timestamp,...)
+density.Track(X,timestamp,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
 a list of objects of class "Track"
 }
 \item{timestamp}{based on secs,mins,...}

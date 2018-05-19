@@ -2,16 +2,16 @@
 \alias{plot.gTrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-plot.gTrack
+Methods for class "gTrack"
 }
 \description{
 plot method}
 \usage{
-plot.gTrack(x)
+plot.gTrack(X)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
   an object of class "gTrack"
 %%     ~~Describe \code{x} here~~
 }

@@ -2,17 +2,17 @@
 \alias{plot.arwlen}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-plot.arwlen
+Methods for class "arwlen"
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-plot.arwlen(x)
+plot.arwlen(X)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
 an object of class  "arwlen"}
 }
 \details{

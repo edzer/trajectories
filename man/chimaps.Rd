@@ -2,16 +2,16 @@
 \alias{chimaps}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-chimaps
+Chimaps of tarjectory pattern.
 }
 \description{
 Computes the chimaps, corresponding to a list of objects of class "Track". chimaps are based on the discrepancy between computed and expected intensity in a given location.}
 \usage{
-chimaps(x,timestamp,rank,...)
+chimaps(X,timestamp,rank,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-   \item{x}{
+   \item{X}{
 A list of Track objects
 }
 \item{timestamp}{based on secs,mins,...}

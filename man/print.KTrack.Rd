@@ -2,17 +2,17 @@
 \alias{print.KTrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-print.KTrack
+Methods for class "KTrack"
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-print.KTrack(x)
+print.KTrack(X)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
   an object of class "KTrack"
 %%     ~~Describe \code{x} here~~
 }

@@ -2,7 +2,7 @@
 \alias{print.Track}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-print.Track
+Methods for class "Track"
 }
 \description{
 method to print an object of class "Track"}

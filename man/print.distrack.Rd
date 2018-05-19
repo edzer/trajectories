@@ -2,7 +2,7 @@
 \alias{print.distrack}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-print.distrack
+Methods for class "distrack"
 }
 \description{
 This is a method for class "distrack".
