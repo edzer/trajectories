@@ -59,7 +59,7 @@ print.Track <- function(X){
     }
   if (class(X@sp)=="SpatialLines") {
     cat("A generalized object of class Track \n");
-    cat(paste0(length(Y@sp@lines), "lines"),"\n"); 
+    cat(paste0(length(X@sp@lines), "lines"),"\n"); 
   }
   cat(paste0("bbox:"),"\n");
   print(X@sp@bbox);

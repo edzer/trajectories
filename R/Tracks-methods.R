@@ -60,7 +60,7 @@ setAs("TracksCollection", "data.frame",
 # Coerce to Line, Lines, SpatialLines and SpatialLinesDataFrame. 
 
 setAs("Track", "Line", 
-	function(from) Line(coordinates(from@sp))
+      function(from) Line(coordinates(from))
 )
 
 setAs("Track", "Lines",
@@ -179,7 +179,9 @@ setAs("TracksCollection", "SpatialPointsDataFrame", function(from) as(from, "Spa
 # Provide coordinates methods.
 
 setMethod("coordinates", "Track",
-	function(obj) coordinates(obj@sp)
+          function(obj) { if(class(obj@sp)=="SpatialPoints") {return(as.data.frame(obj@sp))}
+            if (class(obj@sp)=="SpatialLines") {do.call(rbind,lapply(coordinates(obj@sp), as.data.frame))}
+          }
 )
 
 setMethod("coordinates", "Tracks",
