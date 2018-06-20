@@ -101,7 +101,7 @@ URL: \url{https://www3.uji.es/~mateu}
 
 %% -- Introduction -------------------------------------------------------------
 \section[Introduction]{Introduction}\label{sec:intro}
-Modern data collection techniques allow tracking objects continuously. This means that we do not only know the current location of a moving object, but we also track the objects over time. A set of some tracks from different moving objects may be considered a trajectory pattern. Another example is that in which we record the location of a group of moving objects (e.g. cars, pedestrians, animals) within a regular/irregular time sequence. \cite{guting05} focused on moving objects databases and extended database technology to deal with moving objects. \cite{challa2011} presented an introduction to the field of object tracking and provided solid foundation to the collection of diverse algorithms developed by academics, scientific researchers and engineers. \cite{hanks15} proposed a continuous-time, discrete-space (CTDS) model for animal movement. \cite{russell16} introduced an approach that models dependent movement by augmenting a dynamic marginal movement model with a spatial point process interaction function within a weighted distribution framework. \cite{hooten17} presented a natural basis function approach to constructing appropriate covariance models for movement processes. There are already some \proglang{R} packages available in \href{https://cran.r-project.org}{CRAN Task View: Handling and Analyzing Spatio-Temporal Data} to handle moving objects. Most of them are focused on handling and analysing animal movements such as \pkg{adehabitatLT} \citep{calenge06}, \pkg{tripEstimation} \citep{sumner2009}, \pkg{argosfilter} \citep{argosf}, \pkg{V-Track} \citep{V-Track}, \pkg{animalTrack} \citep{animalTrack}, \pkg{BBMM} \citep{BBMM}, \pkg{bcpa} \citep{bcpa}, \pkg{BayesianAnimalTracker} \citep{BayesianAnimalTracker}, \pkg{TrackReconstruction} \citep{TrackReconstruction}, \pkg{mkde} \citep{mkde}, \pkg{SimilarityMeasures} \citep{SimilarityMeasures}, \pkg{smam} \citep{smam}, \pkg{trip}\citep{trip}, \pkg{moveHMM} \citep{moveHMM}, \pkg{FLightR} \citep{FLightR}. In particular, the package \pkg{adehabitatLT} \citep{calenge06} provides tools to simulate trajectories using a Brownian motion, correlated Random walks and Levy walks. \cite{SimilarityMeasures} presented four different similarity measures in \pkg{SimilarityMeasures}. \cite{moveHMM} in \pkg{moveHMM} provided animal movement modelling using hidden Markov models. Using multiple regression, \pkg{fishmove} \citep{fishmove}  provides functions to predict fish movement parameters. R package \pkg{trackR} \citep{frick} provides infrastructure for running and cycling Data.
+Modern data collection techniques allow tracking objects continuously. This means that we do not only know the current location of a moving object, but we also track the objects over time. A set of some tracks from different moving objects may be considered a trajectory pattern. Another example is that in which we record the location of a group of moving objects (e.g. cars, pedestrians, animals) within a regular/irregular time sequence. \cite{guting05} focused on moving objects databases and extended database technology to deal with moving objects. \cite{challa2011} presented an introduction to the field of object tracking and provided solid foundation to the collection of diverse algorithms developed by academics, scientific researchers and engineers. \cite{hanks15} proposed a continuous-time, discrete-space (CTDS) model for animal movement. \cite{niu2016modeling} considered a multivariate Ornstein Uhlenbeck diffusion process to model the movement of animals in continuous time. \cite{russell16} introduced an approach that models dependent movement by augmenting a dynamic marginal movement model with a spatial point process interaction function within a weighted distribution framework. \cite{hooten17} presented a natural basis function approach to constructing appropriate covariance models for movement processes. There are already some \proglang{R} packages available in \href{https://cran.r-project.org}{CRAN Task View: Handling and Analyzing Spatio-Temporal Data} to handle moving objects. Most of them are focused on handling and analysing animal movements such as \pkg{adehabitatLT} \citep{calenge06}, \pkg{tripEstimation} \citep{sumner2009}, \pkg{argosfilter} \citep{argosf}, \pkg{V-Track} \citep{V-Track}, \pkg{animalTrack} \citep{animalTrack}, \pkg{BBMM} \citep{BBMM}, \pkg{bcpa} \citep{bcpa}, \pkg{BayesianAnimalTracker} \citep{BayesianAnimalTracker}, \pkg{TrackReconstruction} \citep{TrackReconstruction}, \pkg{mkde} \citep{mkde}, \pkg{SimilarityMeasures} \citep{SimilarityMeasures}, \pkg{smam} \citep{smam}, \pkg{trip}\citep{trip}, \pkg{moveHMM} \citep{moveHMM}, \pkg{FLightR} \citep{FLightR}. In particular, the package \pkg{adehabitatLT} \citep{calenge06} provides tools to simulate trajectories using a Brownian motion, correlated Random walks and Levy walks. \cite{SimilarityMeasures} presented four different similarity measures in \pkg{SimilarityMeasures}. \cite{moveHMM} in \pkg{moveHMM} provided animal movement modelling using hidden Markov models. Using multiple regression, \pkg{fishmove} \citep{fishmove}  provides functions to predict fish movement parameters. R package \pkg{trackR} \citep{frick} provides infrastructure for running and cycling Data.
 
 However, to the best of our knowledge, \proglang{R} is still missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. Figure \ref{taxitracks} shows routes passed by 5 different taxis on the 4th of Feb 2008 in Beijing, China. Each taxi has a different start/end time. To avoid having a complicated plot, we have only displayed 5 tracks; the entire dataset will be analysed in Section \ref{sec:explo}.
 
@@ -168,7 +168,7 @@ library(trajectories)
 @
 
 \subsection{Track}
-The class \class{Track} represents a single track followed by a person, animal or an object. Instances of this class are meant to hold a series of consecutive location/timestamps that are not interrupted by another activity. The class contains five slots: @sp to store the spatial points, @time to store the corresponding time, @endtime to store the end time when having generalised line geometries with one value per attribute for a set of points (otherwise, defaults to the time defined in @time), @data to store the attributes (covariate information) and @connections to keep a record of attribute data between points (e.g., distance, duration, speed and direction). A Track object can be created out of an \class{STIDF} object as follows
+The class \class{Track} represents a single track followed by a person, animal or an object. Instances of this class are meant to hold a series of consecutive location/timestamps that are not interrupted by another activity. The class contains five slots: @sp to store the spatial points, @time to store the corresponding time, @endtime to store the end time when having generalised line geometries with one value per attribute for a set of points (otherwise, defaults to the time defined in @time), @data to store the attributes (covariate information) and @connections to keep a record of attribute data between points (e.g., distance, duration, speed and direction). A \class{Track} object can be created out of an \class{STIDF} object as follows
 <<>>=
 set.seed(10)
 t0 = as.POSIXct(as.Date("2013-09-30",tz="CET"))
@@ -254,7 +254,7 @@ The class \class{segments} is written to provide a data structure for storing al
 \begin{figure}[!h]
   \centering
   \includegraphics[width = 5in]{classes}
-  \caption{Classes for Track data in package \pkg{trajectories}. Solid arrows denote inheritance. Arrows show the corresponding slot's class and slot's names are displayed using lines accordingly.}
+  \caption{Classes for trajectory data in package \pkg{trajectories}. Solid arrows denote inheritance. Arrows show the corresponding slot's class and slot's names are displayed using lines accordingly.}
   \label{classes}
   \end{figure} 
  
@@ -310,7 +310,7 @@ stplot(Tr, attr = "co2", arrows = TRUE, lwd = 3, by = "IDs")
 
 \section{Simulation and model fitting}\label{simandfitt}
   \subsection{Trajectory simulation}
-  Simulating trajectory patterns can be a useful tool to imitate true models and understand their behaviour. The package \pkg{trajectories} allows simulating tracks using \code{rTrack}, \code{rTracks}, \code{rTracksCollection} where \code{rTrack()} generates a single track, \code{rTracks()} simulates a collection of tracks assumed to be passed by a single object and \code{rTracksCollection} is used to simulate a set of tracks passed by different objects. By default, these functions do not consider any box (or window) for the track to be simulated in and consider \code{origin=c(0,0)} as the origin of the track. However, one can still restrict the track to a desirable closed box using the argument \code{bbox}. If \code{transform=TRUE} and no \code{bbox} is given, then \code{rTrack} transforms the track to the default box $[0,1]\times [0,1]$, where in this case the origin is a random point in the default box. If a default box \code{bbox} (e.g. \code{m} in the following example) is given and \code{transform=TRUE}, then \code{origin} is a random point in \code{bbox} and the final track is also transformed into \code{bbox}. The function \code{rTrack} simulates tracks with a predefined number of points per Track (indicated as \code{n} in the code with default $100$). However if \code{nrandom=TRUE} then it simulates a track with a random number of points based on a Poisson distribution with parameter \code{n}. An example of these functions is the following:
+  Simulating trajectory patterns can be a useful tool to imitate true models and understand their behaviour. The package \pkg{trajectories} allows simulating tracks using \code{rTrack}, \code{rTracks}, \code{rTracksCollection} where \code{rTrack()} generates a single track, \code{rTracks()} simulates a collection of tracks assumed to be passed by a single object and \code{rTracksCollection} is used to simulate a set of tracks passed by different objects. By default, these functions do not consider any box (or window) for the track to be simulated in and consider \code{origin=c(0,0)} as the origin of the track. However, one can still restrict the track to a desirable closed box using the argument \code{bbox}. If \code{transform=TRUE} and no \code{bbox} is given, then \code{rTrack} transforms the track to the default box $[0,1]\times [0,1]$, where in this case the origin is a random point in the default box. If a default box \code{bbox} (e.g. \code{m} in the following example) is given and \code{transform=TRUE}, then \code{origin} is a random point in \code{bbox} and the final track is also transformed into \code{bbox}. The function \code{rTrack} simulates tracks with a predefined number of points per track (indicated as \code{n} in the code with default $100$). However if \code{nrandom=TRUE} then it simulates a track with a random number of points based on a Poisson distribution with parameter \code{n}. An example of these functions is the following:
 <<>>=
 set.seed(10)
 x <- rTrack();x
@@ -336,7 +336,7 @@ Figure \ref{randomtracks} shows four different random tracks: \code{x} is a rand
  \subsection{Model fitting}
   The behaviour of trajectory data might also be studied using available tools for time series modelling. However, obtaining a proper model is extremely important as it highlights the
   underlying structure of the series, and the fitted model can be used for future forecasting. The \proglang{R} package
-  \pkg{trajectories} can fit ARIMA models to movement data. Using \proglang{R} package \pkg{forecast}, the function \code{auto.arima.Track} fits arima models to the spatial coordinates of an object of class \class{Track}. See example below.
+  \pkg{trajectories} can fit ARIMA models to movement data. Using \proglang{R} package \pkg{forecast}, the function \code{auto.arima.Track} fits arima models to the spatial coordinates of an object of class \class{Track}. Note this is applicable to individuals. See example below.
 
 <<>>=
 library(forecast)
@@ -353,7 +353,7 @@ auto.arima.Track(Beijing[[5]])
   \end{enumerate}
 
 \subsection{Data}
-  We considered a sample of the T-Drive trajectory dataset that contains one-week trajectories of $10357$ taxis during the period of Feb. 2 to Feb. 8, 2008, within Beijing, China. T-drive is a smart driving direction services based on GPS trajectories of a large number of taxis. The GPS-equipped taxis are mobile sensors probing the traffic flows on road surfaces. So, the taxi trajectories contain the information of both human knowledge of experienced drivers and traffic patterns. The total number of points in this dataset is about 15 million and the total distance of the trajectories reaches up to 9 million kilometers. For more details about the data, see \cite{yuan10,yuan11}. 
+ We considered a sample of the T-Drive trajectory dataset that contains one-week trajectories of $10357$ taxis during the period of Feb. $2$ to Feb. $8, 2008$, within Beijing, China. T-drive is a smart driving direction services based on GPS trajectories of a large number of taxis. The GPS-equipped taxis are mobile sensors probing the traffic flows on road surfaces. So, the taxi trajectories contain the information of both human knowledge of experienced drivers and traffic patterns. The total number of points in this dataset is about $15$ million and the total distance of the trajectories reaches up to $9$ million kilometres. For more details about the data, see \cite{yuan10,yuan11}. 
   
 We here point out some useful information about the dataset:
 \begin{itemize}
@@ -361,17 +361,17 @@ We here point out some useful information about the dataset:
   \item Regardless of taxis with no information, there are $4694$ taxis with less than $10$ recorded locations in at least one day. 
   \item There are tracks with some jumps to the outside of the studied area and it may be caused by lack of GPS accuracy so that wrong locations have been removed. These locations might later be recovered by interpolation.
 \end{itemize}
-  We thus analyse the cleaned dataset which is based on moving data of $5642$ taxis. The map of the studied area is displayed in Figure \ref{Beijingmapgoogle}.
+  We thus analyse the cleaned dataset which is based on moving data of $5642$ taxis. The map of the studied area is displayed in Figure \ref{Beijingmapgoogle}. It is seen that the metropolitan area of Beijing is almost located in the centre of the map while there are some other townships, airports in the countryside of Beijing.
   \begin{figure}[!h]
   \centering
   \includegraphics[width = 4in]{Beijingmap}
-  \caption{Map of the studied area.}
+  \caption{Map of the studied area in Beijing, China.}
   \label{Beijingmapgoogle}
   \end{figure}
   
   In the following, we present the implemented methods in \pkg{trajectories} by applying them to the taxi movement dataset in Beijing, China. 
 \subsection{Distance analysis}\label{distanal}
-  A simple way to get into the nature of movement data is to study the distance between objects. The function \code{dists} provides users with calculating the distance between a pair of objects of class \class{Tracks}. This considers the distance between tracks when they overlap in time. The output is a matrix with distances between each pair of tracks or NA, if they do not overlap in time. A function to calculate distances can be passed to \code{dists}, such as \code{mean}, \code{sum}, \code{frechetDist}, etc.
+  A simple way to get into the nature of movement data is to study the distance between objects. The function \code{dists} provides users with calculating the distance between a pair of objects of class \class{Tracks}. This considers the distance between tracks when they overlap in time. The output is a matrix with distances between each pair of tracks or 'NA', if they do not overlap in time. A function to calculate distances can be passed to \code{dists}, such as \code{mean}, \code{sum}, \code{frechetDist}, etc.
 
 <<warning = FALSE>>=
  tracks1 <- Tracks(list(Beijing[[1]],Beijing[[2]]))
@@ -385,9 +385,9 @@ We here point out some useful information about the dataset:
   \begin{enumerate}
   \item Based on the time range of all tracks $s_i$, create a regular time sequence.
   \item Interpolate each track $s_i$ based on the created time sequence. For this purpose, the function \code{reTrack} can be used. It reconstructs each track $s_i$ according to a desirable time sequence.
-  \item Discretise the trajectory pattern $S$ to a collection of point patterns $\textbf{x}_1,\textbf{x}_2, \ldots, \textbf{x}_k$. Note that the number of points in each pattern might be different.
+  \item Discretise the trajectory pattern $S$ to a collection of point patterns $\mathbf{x}_1,\mathbf{x}_2, \ldots, \mathbf{x}_k$. Note that the number of points in each pattern might be different.
   \item For any $\mathbf{x}_i ,i=1,\ldots,k$, calculate pairwise distances between all data points.
-  \item Report the average of pairwise distances per time.
+  \item Report the average of pairwise distances per each time.
   \end{enumerate}
   \end{leftbar}
   Steps above are implemented in the function \code{avedistTrack}. In order to use \code{avedistTrack}, we only need to specify the argument \code{timestamp}. It then returns the average distance between objects based on that timestamps. 
@@ -407,10 +407,10 @@ do_all <- FALSE
   \centering
   \subfloat{\includegraphics[width = 3.2in]{averagedistance}}
   \subfloat{\includegraphics[width = 3.2in]{averagedistance3rd}}
-  \caption{Average pairwise distance between taxis in Beijing, China. Left: Within the period 2-8, Feb 2008. Right: During 3rd of Feb 2008.}
+  \caption{Average pairwise distance between taxis in Beijing, China. \emph{Left}: Within the period $2-8$, Feb $2008$. \emph{Right}: During $3$-rd of Feb $2008$.}
   \label{distbijing}
   \end{figure}
-Figure \ref{distbijing} shows the average distance between taxis in Beijing. The left plot shows the average pairwise distance between taxis for all the week and it is easily seen that there is a daily trend. In order to see the more crowded hours within a day, we show the average pairwise distances during the 3rd of Feb 2008 in the right plot in Figure \ref{distbijing}. It can be seen that the crowded time comes between midday and 17:00. Also, it shows how taxis are getting far from each other during night. Note that small average distances between taxis might be a sign of traffic during the corresponding hours. We point out that the reason of having larger average distance in the last two days might be the Chinese new year holidays.
+Figure \ref{distbijing} shows the average distance between taxis in Beijing. The left plot shows the average pairwise distance between taxis for all the week and it is easily seen that there is a daily trend. In order to see the more crowded hours within a day, we show the average pairwise distances during the $3$-rd of Feb $2008$ in the right plot in Figure \ref{distbijing}. It can be seen that the crowded time comes between midday and $17:00$. Also, it shows how taxis are getting far from each other during night. Note that small average distances between taxis might be a sign of traffic during the corresponding hours. We point out that the reason of having larger average distance in the last two days might be the Chinese new year holidays.
 
 As an alternative, one can use nearest neighbour distances instead of pairwise distances. But that might not distinguish patterns with different hot-spots, i.e. patterns with different sets of tracks concentrated in some particular subregions. 
   \subsection{Movement smoothing}
@@ -433,10 +433,10 @@ As an alternative, one can use nearest neighbour distances instead of pairwise d
   \begin{eqnarray}
   w_j=\frac{1}{(d(u,x_j))^p},
   \end{eqnarray}
-  in which $d$ measures the distance between $u$ and $x_j \in \mathbf{x}_i$, $l_j$ is the corresponding mark of $x_j$ that is the length of the corresponding segment to $x_j$, $n_i$ is the number of points in the $i$th pattern and $p$ is an integer, being 2 as a default value. For details see \cite[Chapter 15]{BRT15}.
+  in which $d$ measures the distance between $u$ and $x_j \in \mathbf{x}_i$, $l_j$ is the corresponding mark of $x_j$ that is the length of the corresponding segment to $x_j$, $n_i$ is the number of points in the $i$-th pattern and $p$ is an integer, being $2$ as a default value. For details see \cite[Chapter 15]{BRT15}.
   
   In order to use \code{Track.idw}, we only need set the argument \code{timestamp}. When collecting data, it may happen to record the location of objects which are actually stopped. Therefore and to not include them in the movement smoothing, there is an argument \code{epsilon} so that movements with length less than \code{epsilon} are not included in the computation. If no \code{epsilon} is set in the function, it then uses all segments. 
-  The following \code{code} generates an image of class \class{im} which reflects the smoothed movement of taxis per 20 minutes.
+  The following \code{code} generates an image of class \class{im} which reflects the smoothed movement of taxis per $20$ minutes.
 <<>>=
 if(do_all){
 b <- Track.idw(Beijing,timestamp = "20 mins",epsilon=1000)
@@ -447,10 +447,10 @@ plot(b,main="",ribwid=0.04,ribsep=0.02)
   \begin{figure}[!h]
   \centering
   \includegraphics[width = 4in]{idw}
-  \caption{Movement smoothing for taxi data in Beijing, China based on \code{timestamp = "20 mins"} and movements with length longer 1000 meters.}
+  \caption{Movement smoothing for taxi data in Beijing, China based on \code{timestamp = "20 mins"} and movements with length longer than 1000 meters.}
   \label{idwBeijing}
   \end{figure}
-  Figure \ref{idwBeijing} shows the movement smoothing for taxi data in Beijing according to the \code{timestamp= "20 mins"}. Here, we have not considered movements with length less than 1000 meters. In other words, we assume taxis with the length of movements less than 1000 meters per 20 minutes as stopped. This confirms that moving in the center is slower than countryside/highways in Beijing, and in particular, it reveals some highways/freeways in which taxis are moving faster.
+  Figure \ref{idwBeijing} shows the movement smoothing for taxi data in Beijing according to the \code{timestamp= "20 mins"}. Here, we have not considered movements with length less than $1000$ meters. In other words, we assume taxis with the length of movements less than $1000$ meters per $20$ minutes as stopped. This confirms that moving in the centre is slower than countryside/highways in Beijing, and in particular, it reveals some highways/freeways in which taxis are moving faster..
 
  After smoothing the length of movements over space, we now turn to see the changes in the average of the length of movements over time. The function \code{avemove} measures the average length of movements passed by a collection of tracks based on a desirable timestamps. Now, we apply this to the taxi data in Beijing as follows
 <<>>=
@@ -469,10 +469,10 @@ plot(b,main="",ribwid=0.04,ribsep=0.02)
 \centering
 \subfloat{\includegraphics[width = 3.2in]{avemove}}
 \subfloat{\includegraphics[width = 3.2in]{avemove3rd}}
-\caption{Average length of movements by taxis in Beijing, China versus time based on \code{timestamp = "20 mins"}, and movements with length longer than 1000 meters. Left: Within the period 2-8 Feb 2008. Right: During the 3rd of Feb 2008.}
+\caption{Average length of movements by taxis in Beijing, China versus time based on \code{timestamp = "20 mins"}, and movements with length longer than $1000$ meters. \emph{Left}: Within the period $2-8$ Feb $2008$. \emph{Right}: During the $3$-rd of Feb $2008$.}
 \label{avemovebijing}
 \end{figure}
-Figure \ref{avemovebijing} shows the average length of movements per 20 minutes by taxis in Beijing. The daily trend can be seen in the left plot, and the right plot shows that between midnight and early morning, the average length of movements is decreasing while from morning till noon there is an increase in the length of movements. In the afternoon, there can be seen a decrease in the average length of movements which might be caused by traffic.
+Figure \ref{avemovebijing} shows the average length of movements per $20$ minutes by taxis in Beijing. The daily trend can be seen in the left plot, and the right plot shows that between midnight and early morning, the average length of movements is decreasing while from morning till noon there is an increase in the length of movements. In the afternoon, there can be seen a decrease in the average length of movements which might be caused by traffic.
 
 \subsection{Intensity function}\label{sec:intensity}
   An exploratory data analysis of point patterns often starts with estimating the intensity function $\lambda$ which reflects the mean number of points in different regions and may be seen as a ``\textit{heat-map}'' for the events. A well-known method to estimate the intensity function $\lambda$ is by kernel smoothing. \cite{D85} introduced a uniform edge-corrected kernel estimator
@@ -489,11 +489,11 @@ Figure \ref{avemovebijing} shows the average length of movements per 20 minutes 
   \end{eqnarray}
   is the edge correction factor, and $\kappa$ is a kernel function. We note that the estimator \eqref{Uni} is unbiased if the true intensity is uniform while the estimator \eqref{JD} conserves mass, meaning that $\int_W \hat{\lambda}(u) \de u =n$. Both estimators \eqref{Uni} and \eqref{JD} can be computed using the \proglang{R} package \pkg{spatstat} for planar point patterns. We here avoid mathematical definitions of a point process and assume that $X$ is finite, i.e. any realisation is a point pattern with finite number of points, and the number of points in any subregion is a well-defined random variable \citep{BRT15}. For technical details of point processes see \citep{MW03,daley07}.
   
-  Being able to estimate the intensity function of planar spatial point patterns, we are here interested in estimating the intensity function for trajectory patterns. Such estimator can highlight well-traveled areas based on the tracks of moving objects (e.g.\ humans, cars). We next propose an average intensity estimate using the following steps:
+  Being able to estimate the intensity function of planar spatial point patterns, we are here interested in estimating the intensity function for trajectory patterns. Such estimator can highlight well-traveled areas based on the tracks of moving objects (e.g.\ humans, cars) within the time period in question. We next propose an average intensity estimate using the following steps:
   \begin{leftbar}
   \begin{enumerate}
-  \item Follow steps 1-3 as in Section \ref{distanal}.
-  \item For any $\textbf{x}_i$, estimate the intensity function, say, $\lambda_i$.
+  \item Follow steps $1-3$ as in Section \ref{distanal}.
+  \item For any $\mathbf{x}_i$, estimate the intensity function, say, $\lambda_i$.
   \item The average over all estimated intensity functions $\widehat{\lambda}_i$ may be considered as an estimated intensity for the trajectory pattern $S$.
   \end{enumerate}
   \end{leftbar}
@@ -501,7 +501,7 @@ Figure \ref{avemovebijing} shows the average length of movements per 20 minutes 
   \begin{eqnarray}\label{Trackest}
   \widehat{\widehat{\lambda}}(u)=\frac{1}{k} \sum\limits_{i=1}^{k} \widehat{\lambda}_i(u) =\frac{1}{k}\sum\limits_{i=1}^{k} \sum\limits_{j=1}^{n_i} \frac{\kappa(u-x_j)}{c_W(x_j)}, \qquad u \in W,
   \end{eqnarray}
-  as an estimator of the intensity of the trajectory pattern $S$. Intuitively, we interpret $\widehat{\widehat{\lambda}}(u)$ as the average expected number of points (objects) within the time period $T$ in a small area around $u$. As a simple example, consider the movements of cars within a city in a particular day, the estimator \eqref{Trackest} reveals the more dense streets, highways, freeways, etc in that day. Intensity estimator \eqref{Trackest}, possible to use both edge corrections, is implemented in the \pkg{trajectories} package using the function \code{density.Track}. The function \code{density.Track} builds the point patterns $\textbf{x}_1,\textbf{x}_2, \ldots, \textbf{x}_k$ and pass them to the function \code{density.ppp} in the package \pkg{spatstat}.
+  as an estimator of the intensity of the trajectory pattern $S$. Intuitively, we interpret $\widehat{\widehat{\lambda}}(u)$ as the average expected number of points (objects) within the time period $T$ in a small area around $u$. As a simple example, consider the movements of cars within a city in a particular day, the estimator \eqref{Trackest} reveals the more dense streets, highways, freeways, etc in that day. Intensity estimator \eqref{Trackest}, possible to use both edge corrections, is implemented in the \pkg{trajectories} package using the function \code{density.Track}. The function \code{density.Track} builds the point patterns $\mathbf{x}_1,\mathbf{x}_2, \ldots, \mathbf{x}_k$ and pass them to the function \code{density.ppp} in the package \pkg{spatstat}.
 
 We next turn to calculate the average estimated intensity of the taxi data using the estimator \eqref{Trackest}.
 
@@ -525,7 +525,7 @@ We next turn to calculate the average estimated intensity of the taxi data using
  plot(fcenterimg,main="",ribwid=0.04,ribsep=0.02)
  }
 @
-Figure \ref{bijingint} shows the estimated intensity using the estimator \eqref{Uni} for both Beijing and its metropolitan area. The bandwidth has been selected using a likelihood cross-validation method and the function \code{bw.ppl} in \pkg{spatstat}. Other bandwidth selection methods can also be passed to \code{density.Track}. Figure \ref{bijingint} highlights the most well-traveled areas in which those areas in the countryside with higher intensities (left plot) are some townships or airports. The right plot highlights the crowded routes within the center of Beijing.
+Figure \ref{bijingint} shows the estimated intensity using the estimator \eqref{Uni} for both Beijing and its metropolitan area. The bandwidth has been selected using a likelihood cross-validation method and the function \code{bw.ppl} in \pkg{spatstat}. Other bandwidth selection methods can also be passed to \code{density.Track}. Figure \ref{bijingint} highlights the most well-traveled areas in which those areas in the countryside with higher intensities (left plot) are some townships or airports. The right plot highlights the crowded routes within the centre of Beijing, China.
   \begin{figure}[!h]
   \centering
   \subfloat{\includegraphics[width = 3.3in]{Intensity}}
@@ -534,7 +534,7 @@ Figure \ref{bijingint} shows the estimated intensity using the estimator \eqref{
   \label{bijingint}
   \end{figure}
 
-One may still think of adaptive intensity estimators such as the Voronoi estimator \citep{Ord78,BSV10}. We here point out that as the estimator \eqref{Trackest} is built based on an average of estimated intensity functions of a set of spatial point patterns, one can estimate each of $\lambda_i$ using adaptive estimators resulting in a final adaptive estimator for the corresponding trajectory pattern.
+One may still think of adaptive intensity estimators such as the Voronoi estimator \citep{Ord78,BSV10}. We here point out that as the estimator \eqref{Trackest} is built based on an average of estimated intensities of a set of spatial point patterns, one can estimate each of $\lambda_i$ using adaptive estimators resulting in a final adaptive estimator for the corresponding trajectory pattern.
   \subsection{Chi maps}
   After discretising the trajectory pattern $S$ to some point patterns and being able to estimate the individual intensity functions $\lambda_i$, one may think of discovering the areas with more/less events than the expected number. This motivates us to think of $\chi^2$ statistics 
   \begin{eqnarray}\label{chistat}
@@ -546,7 +546,7 @@ One may still think of adaptive intensity estimators such as the Voronoi estimat
   \end{eqnarray*}
   is the expected intensity at time $t=t_1$ and location $u \in W$. Doing so for all $u \in W$ enables us to draw a map of $\chi^2$ values in a fixed time. The resulting map discloses the areas where the estimated intensity differs from the expected intensity. The function \code{chimaps} generates a map based on a given timestamp and rank. The argument rank is a number between one and the length of the generated time sequence based on the given timestamp.
   
-  The chi maps of the 3rd of Feb based on three different ranks are displayed in Figure \ref{bijingchi}. Values of each pixel is calculated by equation \eqref{chistat}.  We show the chi maps for three different times during the day in which changes over time can be seen. The left plot of Figure \ref{bijingchi} shows the chi map at \code{06:10:44} so that the estimated intensity is higher than the expected intensity in the countryside. The reason for this might be the movements from countryside to the city center in the early morning. The middle plot of Figure \ref{bijingchi} shows that the estimated intensity in the city is higher than the expected intensity. This may be caused  by heavier traffic in the city during the day than in the countryside. In the right plot of Figure \ref{bijingchi}, although the estimated intensity is still slightly higher than the expected one in the city, can see that the $\chi^2$ statistic \eqref{chistat} takes values around 0 almost everywhere at night. These three plots together confirm the changes in the values of the $\chi^2$ statistic \eqref{chistat} over time so that the mass is moving to the city in the morning and goes away in the evening. This behaviour may be explained by the movements to the city in the the morning and moving back to the countryside in the evening.
+  The chi maps of the $3$-rd of Feb based on three different ranks are displayed in Figure \ref{bijingchi}. Values of each pixel is calculated by equation \eqref{chistat}.  We show the chi maps for three different times during the day in which changes over time can be seen. The left plot of Figure \ref{bijingchi} shows the chi map at \code{06:10:44} so that the estimated intensity is higher than the expected intensity in the countryside. The reason for this might be the movements from countryside to the city center in the early morning. The middle plot of Figure \ref{bijingchi} shows that the estimated intensity in the city is higher than the expected intensity. This may be caused  by heavier traffic in the city during the day than in the countryside. In the right plot of Figure \ref{bijingchi}, although the estimated intensity is still slightly higher than the expected one in the city, can see that the $\chi^2$ statistic \eqref{chistat} takes values around $0$ almost everywhere at night. These three plots together confirm the changes in the values of the $\chi^2$ statistic \eqref{chistat} over time so that the mass is moving to the city in the morning and goes away in the evening. This behaviour may be explained by the movements to the city in the the morning and moving back to the countryside in the evening.
 
 <<>>=
  if(do_all){
@@ -577,7 +577,7 @@ ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
   \subfloat{\includegraphics[width = 2.2in]{chi1}}
   \subfloat{\includegraphics[width = 2.2in]{chi2}}
   \subfloat{\includegraphics[width = 2.2in]{chi3}}
-  \caption{Chi maps. Left: in the morning, Middle: in the afternoon, Right: at night.  Exact time is reported on each plot}
+  \caption{Chi maps. \emph{Left}: in the morning, \emph{Middle}: in the afternoon, \emph{Right}: at night.  Exact time is reported on top of each plot.}
   \label{bijingchi}
   \end{figure}
 
@@ -609,18 +609,18 @@ where $K^{'}_{inhom}$ is the derivative of $K_{inhom}$.
 Summary statistics such as the $K$-function and the pair correlation function are used to analyse the type of interaction between points. Having this in mind, we next turn to use these functions in analysing the trajectory pattern $S$. Similar to our proposal for the intensity function and using summary statistics for point patterns, we here propose a variability area for the $K$-function and the pair correlation function as follows:
   \begin{leftbar}
   \begin{enumerate}
-  \item According to regular timestamps, discretise the trajectory pattern $S$ and build the point patterns $\textbf{x}_1,\textbf{x}_2, \ldots, \textbf{x}_k$.
-  \item For all the resulted point patterns $\textbf{x}_1,\textbf{x}_2, \ldots, \textbf{x}_k$, estimate the $K$-function using \eqref{kfun}.
+  \item According to regular timestamps, discretise the trajectory pattern $S$ and build the point patterns $\mathbf{x}_1,\mathbf{x}_2, \ldots, \mathbf{x}_k$.
+  \item For all the resulted point patterns $\mathbf{x}_1,\mathbf{x}_2, \ldots, \mathbf{x}_k$, estimate the $K$-function using \eqref{kfun}.
   \item From the estimated $K$-functions $\widehat{K}_1, \widehat{K}_2,\ldots,\widehat{K}_k$, build the pointwise variability area of the $K$-function, i.e. for each value of distance argument $r$, sort $\widehat{K}_i(r)$ and then take the lowest and highest value amongst all; doing so for a sequence of $r$ results in a variability area for the $K$-function. This shows how the type of interaction between objects changes over time.
   \end{enumerate}
   \end{leftbar}
 
 Note that, steps above can be applied to the pair correlation function as well.
 
-In both functions above, users can take advantage of the bandwidth selection to first estimate the intensity function and then pass estimated intensities to the function \code{Kinhom} or \code{pcfinhom}. \code{default} is to not pass any estimated intensity function to \code{Kinhom} or \code{pcfinhom} in which the intensity will be estimated using the `leave-one-out' kernel smoother \citep{baddeley00,BRT15}. Different edge corrections can be also passed to \code{Kinhom.Track} and \code{pcfinhom.Track}. 
+In both functions above, users can take advantage of the bandwidth selection to first estimate the intensity function and then pass estimated intensities to the function \code{Kinhom} or \code{pcfinhom}. Default is to not pass any estimated intensity function to \code{Kinhom} or \code{pcfinhom} in which the intensity will be estimated using the `leave-one-out' kernel smoother \citep{baddeley00,BRT15}. Different edge corrections can be also passed to \code{Kinhom.Track} and \code{pcfinhom.Track}. 
   
   
-  Finally and taking into account that estimated intensity in Figure \ref{bijingint} represent a non-unifrom distribution and/or clustering behaviour, we show the variability area of $K$-function and pair correlation function over time in Figure \ref{Kgvariation} (considering the ``translate'' correction, see \cite{gabriel2014}). The left plot displays the variation of $K$-function, showing that for small distances taxis tend to have a clustering behaviour while for larger distances they favour inhibition. The right plot of the variation of the pair correlation function also confirms the same behaviour. Due to the preference of moving within particular zones, $K$-function and pair correlation function might result as what is displayed in Figure \ref{Kgvariation}. In other words, taxis might prefer to take passengers to close destinations within particular zones rather than far destinations. 
+  Finally and taking into account that estimated intensity in Figure \ref{bijingint} represent a non-unifrom distribution and/or clustering behaviour, we show the variability area of $K$-function and pair correlation function over time in Figure \ref{Kgvariation} (considering the ``translate'' correction, see \cite{gabriel2014}). The left plot displays the variation of $K$-function, showing that for small distances taxis tend to have a clustering behaviour while for larger distances they favour inhibition. The right plot of the variation of the pair correlation function also confirms the same behaviour. Due to the preference of moving within particular zones, $K$-function and pair correlation function might result as what is displayed in Figure \ref{Kgvariation}. In other words, taxis might prefer to take passengers to close destinations within particular zones rather than further destinations. Argument \code{q} is to use quantiles of the values of $K$-function (or pair correlation function) rather than using maximum and minimum. Default \code{q=0} uses maximum and minimum.
 <<>>=
  if(do_all){
  K <- Kinhom.Track(Beijing,correction = "translate",
@@ -636,11 +636,11 @@ In both functions above, users can take advantage of the bandwidth selection to 
   \centering
   \includegraphics[width = 3in]{Kfun}
   \includegraphics[width = 3in]{gfun}
-  \caption{Variability area of second-order summary statistics for taxi data in Beijing, China. Left: $K$-function, Right: pair correlation function.}
+  \caption{Variability area of second-order summary statistics for taxi data in Beijing, China. \emph{Left}: $K$-function, \emph{Right}: pair correlation function.}
   \label{Kgvariation}
   \end{figure}
 
-  We point out that as this kind of discretising trajectory patterns results in a set of spatial point patterns, it may also drives us to consider them as replicated spatial point patterns. Therefore, one may be able to introduce a single $K$-function or pair correlation function for all patterns. For more details, see \cite[Section 5.4]{D13}.
+  We point out that as this kind of discretising trajectory patterns results in a set of spatial point patterns, it may also drives us to consider them as replicated spatial point patterns. Therefore, one may be able to introduce a single $K$-function or pair correlation function for all patterns. Note that in this case, point patterns are not independent. For more details, see \cite[Section 5.4]{D13}.
   
  \section{Summary and discussion} \label{sec:summary}
   Analysing trajectory data is often a challenge as moving objects are living in space while moving in time. Such data might be analysed in space or time separately. However, one may look at trajectory patterns with a different perspective. 
