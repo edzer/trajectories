@@ -7,15 +7,13 @@ Methods for class "gTrack"
 \description{
 print method.}
 \usage{
-print.gTrack(x)
+\method{print}{gTrack}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-an object of class "gTrack"}
+  \item{x}{ an object of class "gTrack"} 
+  \item{...}{ignored}
 }
-\author{
-Mohammad Mehdi Moradi <moradi@uji.es>}
+\author{ Mohammad Mehdi Moradi <moradi@uji.es>}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 

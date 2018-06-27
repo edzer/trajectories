@@ -7,22 +7,14 @@ Methods for class "gTrack"
 \description{
 plot method}
 \usage{
-plot.gTrack(X)
+\method{plot}{gTrack}(x, type = "l", col = "grey70", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
-  an object of class "gTrack"
-%%     ~~Describe \code{x} here~~
-}
+  \item{x}{ an object of class "gTrack" }
+  \item{type}{ line type}
+  \item{col}{ line color}
+  \item{...}{ passed on to plot}
 }
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.

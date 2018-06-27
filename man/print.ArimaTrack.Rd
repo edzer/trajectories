@@ -7,14 +7,12 @@ Methods for class "ArimaTrack"
 \description{
 print method.}
 \usage{
-print.ArimaTrack(X)
+\method{print}{ArimaTrack}(x, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
-  an  object of class "ArimaTrack"
-%%     ~~Describe \code{x} here~~
-}
+  \item{x}{ an  object of class "ArimaTrack" }
+  \item{...}{ignored}
 }
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>

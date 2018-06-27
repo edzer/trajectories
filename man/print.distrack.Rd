@@ -8,12 +8,12 @@ Methods for class "distrack"
 This is a method for class "distrack".
 }
 \usage{
-print.distrack(x)
+\method{print}{distrack}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-an object of class "distrack"}
+  \item{x}{ an object of class "distrack"} 
+  \item{...}{ignored}
 }
 \details{
 This is a method for class "distrack".

@@ -8,7 +8,7 @@ Kernel estimate of intensity of trajectory pattern
 Estimating the intensity of a list of tracks.
 }
 \usage{
-density.Track(x,..., timestamp)
+\method{density}{Track}(x,..., timestamp)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

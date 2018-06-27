@@ -5,20 +5,17 @@
 Methods for class "KTrack"
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Methods for class "KTrack"
 }
 \usage{
-print.KTrack(X)
+\method{print}{KTrack}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
-  an object of class "KTrack"
-%%     ~~Describe \code{x} here~~
+  \item{x}{ an object of class "KTrack" }
+  \item{...}{ ignored }
 }
-}
-\details{
-to print an object of class "KTrack".}
+\details{ to print an object of class "KTrack".}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }

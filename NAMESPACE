@@ -34,7 +34,8 @@ export(
 	density.Track, Kinhom.Track, pcfinhom.Track, reTrack, Track.idw,
 	plot.distrack, 
 # marks, psp, midpoints.psp, lengths.psp, 'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp, Kinhom, pcfinhom, idw, bw.ppl, bw.diggle, bw.scott, plot.arwlen,
-	plot.KTrack, plot.gTrack, plot.distrack
+	plot.KTrack, plot.gTrack, plot.distrack,
+	tsqTracks, uniqueTrack
 )
 
 exportMethods(
@@ -59,7 +60,6 @@ S3method(dim, TracksCollection)
 S3method(print, summary.Track)
 S3method(print, summary.Tracks)
 S3method(print, summary.TracksCollection)
-S3method(range, Track)
 S3method("print", "arwlen")
 S3method("print", "distrack")
 S3method("print", "gTrack")

@@ -7,13 +7,12 @@ Methods for class "Track"
 \description{
 method to print an object of class "Track"}
 \usage{
-print.Track(x)
+\method{print}{Track}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-an object of class "Track"
-}
+  \item{x}{ an object of class "Track" }
+  \item{...}{ ignored}
 }
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
