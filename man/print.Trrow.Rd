@@ -15,25 +15,10 @@ print.Trrow(X)
 an object of class "Trrow"
 }
 }
-\details{
-none.
-}
-\value{
-none.
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
 as.Track.arrow
 }
-\examples{
-print.Trrow(x)
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

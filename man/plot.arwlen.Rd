@@ -15,8 +15,6 @@ plot.arwlen(X)
   \item{X}{
 an object of class  "arwlen"}
 }
-\details{
-none.}
 \value{
 a plot.
 }
@@ -26,10 +24,8 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-avemove}
+\seealso{avemove}
 \examples{
-none
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

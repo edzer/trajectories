@@ -14,7 +14,7 @@ reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL){
   
   if (missing(tsq)) tsq <- tsqTracks(X,timestamp = timestamp)
   if(missing(at)) at <- "track"
-  Xrange <- rngTrack(X)
+  Xrange <- range(X)
   X <-  cbind(as.data.frame(X)[c(coordnames(X), "time")])
   xnew <- c()
   ynew <- c()
@@ -49,8 +49,8 @@ reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL){
   return(as.Track(newTrack[,1],newTrack[,2],newTrack[,3]))
 }
 
-# rngTrack returns the timerange of an object of class Track
-rngTrack <- function(X){
+# range.Track returns the timerange of an object of class Track
+range.Track <- function(X) {
   Y <- cbind(as.data.frame(X)[c(coordnames(X), "time")])
   return(range(Y$time)) 
 }
@@ -58,8 +58,10 @@ rngTrack <- function(X){
 # tsqtracks returns a sequance of time based on a list of tracks (or a single object of class Track) and an argument timestamp
 tsqTracks <- function(X,timestamp){
   
-  if (!is.list(X)) timerange <- rngTrack(X)
-  else timerange <- lapply(X, rngTrack)
+  timerange = if (is.list(X)) 
+    lapply(X, range)
+  else 
+  	range(X)
   
   Trackrg <- range(timerange)
   class(Trackrg) <- c('POSIXt','POSIXct')
