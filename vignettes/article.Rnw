@@ -107,37 +107,37 @@ However, to the best of our knowledge, \proglang{R} is still missing a complete 
 
 The entire dataset is stored in \proglang{R} package  \pkg{taxidata}  and can be installed through the following code.
 <<>>=
-install.packages("taxidata", 
- repos = "http://pebesma.staff.ifgi.de",type = "source")
+do_all <- FALSE
+if(do_all){
+ install.packages("taxidata", 
+ repos = "http://pebesma.staff.ifgi.de",type = "source") 
+}
 @
 
 Figure \ref{taxitracks} is generated using the following lines of code.
 
 <<>>=
 library(trajectories)
-library(taxidata)
+if(do_all){
+  library(taxidata)
 Beijing <- taxidata
 Z <- lapply(X=1:length(Beijing), function(i){
   q <-  cut(Beijing[[i]], "day", touch = F)
   return(q@tracks[[3]])
 })
-@
-
-
-\begin{figure}[htbp]
-\begin{center}
-<<fig=TRUE,height=8,width=8>>=
 plot(Z[[21]],xlim=c(420000,470000),ylim=c(4390000,4455000),lwd=2)
 plot(Z[[26]],add=T,col="orange",lwd=2)
 plot(Z[[20]],add=T,col=2,lwd=2)
 plot(Z[[12]],add=T,col=3,lwd=2)
 plot(Z[[15]],add=T,col=4,lwd=2)
+}
 @
-\end{center}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.6\linewidth]{Tracks-ex.pdf}
 \caption{Trajectory pattern containing tracks of five taxis on the 4th of Feb 2008 in Beijing, China. Each color represents a different taxi track.}
 \label{taxitracks}
 \end{figure}
-
 
 Studying the behaviour of moving objects over time and their interaction, either between objects or with environment, plays a crucial role in understanding how they use space and more importantly how they interact each other. Moving objects are moving within a particular area over time, thus a snapshot of a trajectory pattern might be seen as a spatial point pattern. This aspect then empowers us to study the behaviour of moving objects within space and over time. A set of locations, usually non-uniformly distributed within a certain region, can be considered as a realisation of a spatial point process. Analysis of spatial point processes has been widely discussed in the literature \citep{MW03,IPSS08,D13,BRT15}. The \proglang{R} package \pkg{spatstat} \citep{baddeley05,BRT15} provides different tools for statistical analysis, model-fitting, simulation and tests on spatial point patterns. \cite{D13} has broadly considered the details of spatio-temporal point processes. Application of such processes can be found in traffic management, geography, forestry, ecology, epidemiology, seismology, astronomy and criminology. 
 
@@ -340,7 +340,7 @@ Figure \ref{randomtracks} shows four different random tracks: \code{x} is a rand
 
 <<>>=
 library(forecast)
-auto.arima.Track(Beijing[[5]])
+auto.arima.Track(A1)
 @
 
 \section{Exploratory data analysis} \label{sec:explo}
@@ -374,9 +374,19 @@ We here point out some useful information about the dataset:
   A simple way to get into the nature of movement data is to study the distance between objects. The function \code{dists} provides users with calculating the distance between a pair of objects of class \class{Tracks}. This considers the distance between tracks when they overlap in time. The output is a matrix with distances between each pair of tracks or 'NA', if they do not overlap in time. A function to calculate distances can be passed to \code{dists}, such as \code{mean}, \code{sum}, \code{frechetDist}, etc.
 
 <<warning = FALSE>>=
- tracks1 <- Tracks(list(Beijing[[1]],Beijing[[2]]))
- tracks2 <- Tracks(list(Beijing[[3]],Beijing[[4]]))
- dists(tracks1,tracks2,mean)
+library(xts)
+data(A3)
+track2 <- A3
+index(track2@time) <- index(track2@time) + 32
+track2@sp@coords <- track2@sp@coords + 0.003
+
+## create Tracks objects
+tracks1 <- Tracks(list(A3, track2))
+tracks2 <- Tracks(list(track2, A3))
+
+## calculate distances
+## Not run: 
+dists(tracks1, tracks2,mean)
 @
 
 \subsubsection{Average distance over time}
@@ -392,7 +402,6 @@ We here point out some useful information about the dataset:
   \end{leftbar}
   Steps above are implemented in the function \code{avedistTrack}. In order to use \code{avedistTrack}, we only need to specify the argument \code{timestamp}. It then returns the average distance between objects based on that timestamps. 
 <<>>=
-do_all <- FALSE
  if (do_all){
  meandist <- avedistTrack(Beijing,timestamp = "20 mins")
  plot(meandist,type="l",lwd=2)
