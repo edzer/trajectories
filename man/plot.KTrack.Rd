@@ -5,7 +5,7 @@
 Methods for class "KTrack"
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Methods for class "KTrack"
 }
 \usage{
 plot.KTrack(x)
@@ -21,23 +21,13 @@ plotting the variability area of K-function of a list of tracks.}
 \value{
 a plot.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
-}
-\note{
-%%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-none
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

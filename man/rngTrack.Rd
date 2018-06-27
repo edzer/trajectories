@@ -22,14 +22,8 @@ This calculates the range of an object of class Track
 \value{
 an object of "POSIXct" "POSIXt"
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi moradi <moradi@uji.es>}
-\note{
-%%  ~~further notes~~
-}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

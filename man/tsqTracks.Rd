@@ -25,14 +25,8 @@ This creates a sequence of time based on a track or a list of tracks.
 \value{
 An object of class "POSIXct" or "POSIXt".
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>}
-\note{
-%%  ~~further notes~~
-}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

@@ -21,14 +21,8 @@ as.Track.ppp converts a list of Track objetcs to a list of ppp objetcs.}
 \value{
 A list of point patterns, objects of class "ppp".
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>}
-\note{
-%%  ~~further notes~~
-}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
@@ -38,8 +32,8 @@ Mohammad Mehdi Moradi <moradi@uji.es>}
 \examples{
 X <- list()
 for(i in 1:10){
-  m <- matrix(c(0,10,0,10),nrow=2,byrow = T)
-  X[[i]] <- rTrack(bbox = m,transform = T)
+  m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
+  X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 as.Track.ppp(X,timestamp="30 secs")
 }

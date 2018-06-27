@@ -21,13 +21,8 @@ none.
 \value{
 none.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
-}
-\note{
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~

@@ -1,12 +1,12 @@
+import(lattice)
 import(methods)
 import(sp)
 import(spacetime)
-import(lattice)
 importFrom(stats, approx, as.formula, na.omit, quantile, rnorm, arima.sim,
 	rpois, runif,density)
 # importFrom(stats, aggregate, na.omit, time, start, end)
 importFrom(utils, head, tail, stack, unstack)
-importFrom(graphics, arrows, box, lines, points, segments, legend, polygon)
+importFrom(graphics, arrows, box, lines, points, segments, legend, polygon, title)
 importFrom(grDevices, rainbow, heat.colors)
 importFrom(spatstat, marks, psp, midpoints.psp, lengths.psp,
  'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp,
@@ -32,10 +32,9 @@ export(
 	rTrack, rTracks, rTracksCollection, as.Track, as.Track.arrow,
 	as.Track.ppp, auto.arima.Track, avedistTrack, avemove, chimaps,
 	density.Track, Kinhom.Track, pcfinhom.Track, reTrack, Track.idw,
-	plot.distrack, marks, psp, midpoints.psp, lengths.psp,
- 'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp,
- Kinhom, pcfinhom, idw, bw.ppl, bw.diggle, bw.scott, plot.arwlen,
- plot.KTrack,plot.gTrack,plot.distrack
+	plot.distrack, 
+# marks, psp, midpoints.psp, lengths.psp, 'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp, Kinhom, pcfinhom, idw, bw.ppl, bw.diggle, bw.scott, plot.arwlen,
+	plot.KTrack, plot.gTrack, plot.distrack
 )
 
 exportMethods(

@@ -5,7 +5,7 @@
 Pair correlation funcrion of trajectory pattern
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Pair correlation funcrion of trajectory pattern
 }
 \usage{
 pcfinhom.Track(X,timestamp,correction = c("translate", "Ripley"),q,
@@ -28,14 +28,8 @@ This calculates the variability area of  pair correlation function over time. If
 \value{
 an object of class "gTrack"
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
-}
-\note{
-%%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
