@@ -42,8 +42,8 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 \examples{
 X <- list()
 for(i in 1:10){
-  m <- matrix(c(0,10,0,10),nrow=2,byrow = T)
-  X[[i]] <- rTrack(bbox = m,transform = T)
+  m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
+  X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 chimaps(X,timestamp = "30 secs",rank = 2)
 }
