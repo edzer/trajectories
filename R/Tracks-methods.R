@@ -20,7 +20,7 @@ setAs("Tracks", "segments", function(from) {
 		ret = do.call(rbind, lapply(from@tracks, 
 			function(x) as(x, "segments")))
 		ret$Track = rep(names(from@tracks), 
-			times = sapply(from@tracks, length) - 1)
+			times = sapply(from@tracks, length)-1)
 		ret
 	}
 )
@@ -60,7 +60,7 @@ setAs("TracksCollection", "data.frame",
 # Coerce to Line, Lines, SpatialLines and SpatialLinesDataFrame. 
 
 setAs("Track", "Line", 
-	function(from) Line(coordinates(from@sp))
+      function(from) Line(coordinates(from))
 )
 
 setAs("Track", "Lines",
@@ -179,7 +179,9 @@ setAs("TracksCollection", "SpatialPointsDataFrame", function(from) as(from, "Spa
 # Provide coordinates methods.
 
 setMethod("coordinates", "Track",
-	function(obj) coordinates(obj@sp)
+          function(obj) { if(class(obj@sp)=="SpatialPoints") {return(as.data.frame(obj@sp))}
+            if (class(obj@sp)=="SpatialLines") {do.call(rbind,lapply(coordinates(obj@sp), as.data.frame))}
+          }
 )
 
 setMethod("coordinates", "Tracks",
@@ -375,6 +377,10 @@ summary.Tracks = function(object, ...) {
 	class(obj) = "summary.Tracks"
 	obj
 }
+
+setMethod("show", "Track", function(object) print.Track(object))
+setMethod("show", "Tracks", function(object) print.Tracks(object))
+setMethod("show", "TracksCollection", function(object) print.TracksCollection(object))
 
 setMethod("summary", "Tracks", summary.Tracks)
 
