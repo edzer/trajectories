@@ -26,17 +26,7 @@ a plot.
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-avemove}
-\examples{
-none
-}
+\seealso{avemove}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")

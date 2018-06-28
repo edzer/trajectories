@@ -9,8 +9,8 @@ importFrom(utils, head, tail, stack, unstack)
 importFrom(graphics, arrows, box, lines, points, segments, legend, polygon)
 importFrom(grDevices, rainbow, heat.colors)
 importFrom(spatstat, marks, psp, midpoints.psp, lengths.psp,
- 'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp,
- Kinhom, pcfinhom, idw, bw.ppl, bw.diggle, bw.scott)
+           'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp,
+           Kinhom, pcfinhom, idw, bw.ppl, bw.diggle, bw.scott)
 # importFrom(rgl, open3d, plot3d, lines3d)
 
 exportClasses(
@@ -35,7 +35,7 @@ export(
 	plot.distrack, marks, psp, midpoints.psp, lengths.psp,
  'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp,
  Kinhom, pcfinhom, idw, bw.ppl, bw.diggle, bw.scott, plot.arwlen,
- plot.KTrack,plot.gTrack,plot.distrack
+ plot.KTrack,plot.gTrack,plot.distrack,rngTrack,tsqTracks,uniqueTrack
 )
 
 exportMethods(

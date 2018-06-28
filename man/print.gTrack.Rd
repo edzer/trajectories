@@ -7,11 +7,11 @@ Methods for class "gTrack"
 \description{
 print method.}
 \usage{
-print.gTrack(x)
+print.gTrack(X)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
+  \item{X}{
 an object of class "gTrack"}
 }
 \details{
@@ -23,18 +23,6 @@ none.}
 }
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
-\examples{
-none.
-}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")

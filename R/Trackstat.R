@@ -92,7 +92,7 @@ avedistTrack <- function(X,timestamp){
   avedist <- unlist(avedist)
   class(avedist) <- c("distrack","numeric")
   attr(avedist,"ppp") <- Y
-  attr(avedist,"tsq") <- timeseq[-1]
+  attr(avedist,"tsq") <- timeseq[-c(1,length(timeseq))]
   return(avedist)
 }
 print.distrack <- function(x){

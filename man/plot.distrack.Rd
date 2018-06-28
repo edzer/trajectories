@@ -8,14 +8,14 @@ Methods for class "distrack"
 The plot method for "distrack" objects.
 }
 \usage{
-plot(X,xlab="time",ylab="average distance",...)
+plot.distrack(X,xlab="time",ylab="average distance",\dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
-an object of class "distrack"
-}
-\item{...}{further plotting parameters}
+  \item{X}{an object of class "distrack"}
+  \item{xlab}{the x label of the plot}
+  \item{ylab}{the y label of the plot}
+  \item{\dots}{further plotting parameters}
 }
 \details{
 This plots an object of class "distrack".
@@ -29,18 +29,7 @@ None.
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
-\examples{
-
-}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")

@@ -15,30 +15,11 @@ print.Tracks(X)
 an object of class "Tracks"
 }
 }
-\details{
-none
-%%  ~~ If necessary, more details than the description above ~~
-}
-\value{
-none
-}
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
-}
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
-\examples{
-none
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
