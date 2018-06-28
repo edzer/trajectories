@@ -8,7 +8,7 @@ library("MASS")
 
 
 ###################################################
-### code chunk number 2: article.Rnw:109-114
+### code chunk number 2: article.Rnw:110-115
 ###################################################
 do_all <- FALSE
 if(do_all){
@@ -18,7 +18,7 @@ if(do_all){
 
 
 ###################################################
-### code chunk number 3: article.Rnw:119-133
+### code chunk number 3: article.Rnw:120-134
 ###################################################
 library(trajectories)
 if(do_all){
@@ -37,13 +37,13 @@ plot(Z[[15]],add=T,col=4,lwd=2)
 
 
 ###################################################
-### code chunk number 4: article.Rnw:166-167
+### code chunk number 4: article.Rnw:167-168
 ###################################################
 library(trajectories)
 
 
 ###################################################
-### code chunk number 5: article.Rnw:172-183
+### code chunk number 5: article.Rnw:173-184
 ###################################################
 set.seed(10)
 t0 = as.POSIXct(as.Date("2013-09-30",tz="CET"))
@@ -59,13 +59,13 @@ A1
 
 
 ###################################################
-### code chunk number 6: article.Rnw:187-188
+### code chunk number 6: article.Rnw:188-189
 ###################################################
 plot(A1)
 
 
 ###################################################
-### code chunk number 7: article.Rnw:198-204
+### code chunk number 7: article.Rnw:199-205
 ###################################################
 x <- runif(10,0,1)
 y <- runif(10,0,1)
@@ -76,7 +76,7 @@ as.Track(x,y,date,covariate = records)
 
 
 ###################################################
-### code chunk number 8: article.Rnw:210-220
+### code chunk number 8: article.Rnw:211-221
 ###################################################
 x = c(7,6,6,7,7)
 y = c(6,5,4,4,3)
@@ -91,7 +91,7 @@ A
 
 
 ###################################################
-### code chunk number 9: article.Rnw:226-246
+### code chunk number 9: article.Rnw:227-247
 ###################################################
 # person B, track 1:
 x = c(2,2,1,1,2,3)
@@ -116,7 +116,7 @@ Tr
 
 
 ###################################################
-### code chunk number 10: article.Rnw:295-299
+### code chunk number 10: article.Rnw:296-300
 ###################################################
 dim(A1)
 dim(B1)
@@ -125,13 +125,13 @@ downsample(A1,B1)
 
 
 ###################################################
-### code chunk number 11: article.Rnw:303-304
+### code chunk number 11: article.Rnw:304-305
 ###################################################
 stplot(Tr, attr = "co2", arrows = TRUE, lwd = 3, by = "IDs")
 
 
 ###################################################
-### code chunk number 12: article.Rnw:314-320
+### code chunk number 12: article.Rnw:315-321
 ###################################################
 set.seed(10)
 x <- rTrack();x
@@ -142,7 +142,7 @@ z <- rTrack(bbox = m,transform = T,nrandom = T);z
 
 
 ###################################################
-### code chunk number 13: article.Rnw:324-327
+### code chunk number 13: article.Rnw:325-328
 ###################################################
 par(mfrow=c(2,2),mar=rep(2.2,4))
 plot(x,lwd=2,main="x");plot(y,lwd=2,main="y")
@@ -150,19 +150,14 @@ plot(w,lwd=2,main="w");plot(z,lwd=2,main="z")
 
 
 ###################################################
-### code chunk number 14: article.Rnw:341-343
+### code chunk number 14: article.Rnw:342-344
 ###################################################
-## EJP:
-#data("Beijing")
-load("/home/edzer/data/mehdi/taxi/Y.RData")
-Beijing = Y
-
 library(forecast)
 auto.arima.Track(A1)
 
 
 ###################################################
-### code chunk number 15: article.Rnw:376-389
+### code chunk number 15: article.Rnw:377-390
 ###################################################
 library(xts)
 data(A3)
@@ -180,7 +175,7 @@ dists(tracks1, tracks2,mean)
 
 
 ###################################################
-### code chunk number 16: article.Rnw:404-413
+### code chunk number 16: article.Rnw:405-414
 ###################################################
  if (do_all){
  meandist <- avedistTrack(Beijing,timestamp = "20 mins")
@@ -194,7 +189,7 @@ dists(tracks1, tracks2,mean)
 
 
 ###################################################
-### code chunk number 17: article.Rnw:449-453
+### code chunk number 17: article.Rnw:450-454
 ###################################################
 if(do_all){
 b <- Track.idw(Beijing,timestamp = "20 mins",epsilon=1000)
@@ -203,7 +198,7 @@ plot(b,main="",ribwid=0.04,ribsep=0.02)
 
 
 ###################################################
-### code chunk number 18: article.Rnw:465-475
+### code chunk number 18: article.Rnw:466-476
 ###################################################
  if(do_all){
  q <- avemove(Beijing,timestamp = "20 mins",epsilon=1000)
@@ -218,7 +213,7 @@ plot(b,main="",ribwid=0.04,ribsep=0.02)
 
 
 ###################################################
-### code chunk number 19: article.Rnw:517-535
+### code chunk number 19: article.Rnw:518-536
 ###################################################
  if(do_all){
  d <- density.Track(Beijing,timestamp = "20 mins",bw.ppl)
@@ -241,7 +236,7 @@ plot(b,main="",ribwid=0.04,ribsep=0.02)
 
 
 ###################################################
-### code chunk number 20: article.Rnw:560-581
+### code chunk number 20: article.Rnw:561-582
 ###################################################
  if(do_all){
 ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
@@ -267,7 +262,7 @@ ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
 
 
 ###################################################
-### code chunk number 21: article.Rnw:633-641
+### code chunk number 21: article.Rnw:634-642
 ###################################################
  if(do_all){
  K <- Kinhom.Track(Beijing,correction = "translate",
@@ -278,90 +273,4 @@ ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
   plot(g)
  }
 
-=======
-### code chunk number 14: article.Rnw:368-375
-###################################################
-meandist <- avedistTrack(Beijing,timestamp = "20 mins")
-plot(meandist,type="l",lwd=2)
-distinframe <- data.frame(tsq=attr(meandist,"tsq"),dist=meandist)
-dist3rd <- distinframe[substr(distinframe$tsq,start = 1,stop=10)==
-                         "2008-02-03",]
-plot(dist3rd$tsq,dist3rd$dist,type="l",xlab="time",
-      ylab="average distance",lwd=2)
-
-
-###################################################
-### code chunk number 15: article.Rnw:412-414
-###################################################
-b <- Track.idw(Beijing,timestamp = "20 mins",epsilon=1000)
-plot(b,main="",ribwid=0.04,ribsep=0.02)
-
-
-###################################################
-### code chunk number 16: article.Rnw:426-434
-###################################################
- q <- avemove(Beijing,timestamp = "20 mins",epsilon=1000)
- par(mfrow=c(1,2))
- plot(q,type="l",lwd=2)
- qdata <- data.frame(q,attr(q,"tsq")[-c(1,length(attr(q,"tsq")))])
- colnames(qdata) <- c("dist","startingtime")
- q3rd <- qdata[substr(qdata$startingtime,start = 1,stop=10)=="2008-02-03",]
- plot(q3rd$startingtime,q3rd$dist,type="l",xlab="time (hour)"
-      ,ylab="average movement",lwd=2)
-
-
-###################################################
-### code chunk number 17: article.Rnw:476-492
-###################################################
-d <- density.Track(Beijing,timestamp = "20 mins",bw.ppl)
-par(mfrow=c(1,2))
-plot(d,main="",ribwid=0.04,ribsep=0.02)
-#focus on the center
-w <- owin(c(440000,455000),c(4410000,4430000))
-pps <- attr(d,"ppps")
-npps <- lapply(X=1:length(pps),FUN = function(i){
-  pps[[i]][w]
-})
-
-centerimg <- lapply(X=1:length(npps),FUN = function(i){
-  density(npps[[i]],bw.ppl(npps[[i]]))
-})
-fcenterimg <- Reduce("+",centerimg)/length(centerimg)
-
-plot(fcenterimg,main="",ribwid=0.04,ribsep=0.02)
-
-
-###################################################
-### code chunk number 18: article.Rnw:517-536
-###################################################
-ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
-chall <- attr(ch,"ims")
-minmax <- lapply(X=1:length(chall),function(i){
-    return(list(min(chall[[i]]$v),max(chall[[i]]$v)))
-  })
-minmax <- do.call("rbind",minmax)
-col5 <- colorRampPalette(c('blue','white','red'))
-color_levels=200 
-par(mar=c(0,0,1,1))
-par(mfrow=c(1,3))
-plot(chall[[51]],zlim=c(-max(abs(unlist(minmax))),max(abs(unlist(minmax))))
-          ,main=attr(ch,"timevec")[51],ribwid=0.04,ribsep=0.02,
-          col=col5(n=color_levels))
-plot(chall[[75]],zlim=c(-max(abs(unlist(minmax))),max(abs(unlist(minmax))))
-          ,main=attr(ch,"timevec")[75],ribwid=0.04,ribsep=0.02,
-          col=col5(n=color_levels))
-plot(chall[[104]],zlim=c(-max(abs(unlist(minmax))),max(abs(unlist(minmax))))
-          ,main=attr(ch,"timevec")[104],ribwid=0.04,ribsep=0.02,
-          col=col5(n=color_levels))
-
-
-###################################################
-### code chunk number 19: article.Rnw:588-594
-###################################################
- K <- Kinhom.Track(Beijing,correction = "translate",
-                      timestamp = "20 mins",q=0)
- par(mfrow=c(1,2))
- plot(K)
- g <- pcfinhom.Track(Beijing,timestamp = "20 mins",q=0)
- plot(g)
 
