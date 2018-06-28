@@ -22,6 +22,7 @@
 \newtheorem{definition}{Definition}[section]
 %% For Sweave-based articles about R packages:
 %% need no \usepackage{Sweave}
+% \VignetteIndexEntry{ trajectories: Classes and Methods for Trajectory Data }
 
 
 
@@ -34,7 +35,7 @@
 \author{M. Mehdi Moradi\\University of Jaume I
     \And Edzer Pebesma\\University of M\"unster
     \And Jorge Mateu\\University of Jaume I}
-\Plainauthor{Achim Zeileis, Second Author}
+%\Plainauthor{Achim Zeileis, Second Author}
 
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
@@ -104,8 +105,11 @@ However, to the best of our knowledge, \proglang{R} is still missing a complete 
 The entire dataset is stored in \proglang{R} package  \pkg{taxidata}  and can be installed through the following code.
 \begin{Schunk}
 \begin{Sinput}
-R> install.packages("taxidata", 
-+   repos = "http://pebesma.staff.ifgi.de",type = "source")
+R> do_all <- FALSE
+R> if (do_all){
++   install.packages("taxidata", 
++   repos = "http://pebesma.staff.ifgi.de",type = "source") 
++  }
 \end{Sinput}
 \end{Schunk}
 
@@ -114,29 +118,25 @@ Figure \ref{taxitracks} is generated using the following lines of code.
 \begin{Schunk}
 \begin{Sinput}
 R> library(trajectories)
-R> library(taxidata)
-R> Beijing <- taxidata
-R> Z <- lapply(X=1:length(Beijing), function(i){
+R> if (do_all){
++    library(taxidata)
++  Beijing <- taxidata
++  Z <- lapply(X=1:length(Beijing), function(i){
 +    q <-  cut(Beijing[[i]], "day", touch = F)
 +    return(q@tracks[[3]])
 +  })
++  plot(Z[[21]],xlim=c(420000,470000),ylim=c(4390000,4455000),lwd=2)
++  plot(Z[[26]],add=T,col="orange",lwd=2)
++  plot(Z[[20]],add=T,col=2,lwd=2)
++  plot(Z[[12]],add=T,col=3,lwd=2)
++  plot(Z[[15]],add=T,col=4,lwd=2)
++  }
 \end{Sinput}
 \end{Schunk}
 
-
-\begin{figure}[htbp]
-\begin{center}
-\begin{Schunk}
-\begin{Sinput}
-R> plot(Z[[21]],xlim=c(420000,470000),ylim=c(4390000,4455000),lwd=2)
-R> plot(Z[[26]],add=T,col="orange",lwd=2)
-R> plot(Z[[20]],add=T,col=2,lwd=2)
-R> plot(Z[[12]],add=T,col=3,lwd=2)
-R> plot(Z[[15]],add=T,col=4,lwd=2)
-\end{Sinput}
-\end{Schunk}
-\includegraphics{article-004}
-\end{center}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.6\linewidth]{Tracks-ex.pdf}
 \caption{Trajectory pattern containing tracks of five taxis on the 4th of Feb 2008 in Beijing, China. Each color represents a different taxi track.}
 \label{taxitracks}
 \end{figure}
@@ -205,7 +205,7 @@ Time period: [2013-09-30 02:00:30, 2013-09-30 02:02:31]
 R> plot(A1)
 \end{Sinput}
 \end{Schunk}
-\includegraphics{article-007}
+\includegraphics{article-006}
 \end{center}
 \caption{Single track A1 passed by person A.}
 \label{figA1}
@@ -377,7 +377,7 @@ Time period: [2013-09-30 02:00:30, 2013-09-30 02:02:31]
 R> stplot(Tr, attr = "co2", arrows = TRUE, lwd = 3, by = "IDs")
 \end{Sinput}
 \end{Schunk}
-\includegraphics{article-012}
+\includegraphics{article-011}
 \caption{Co2 consumption over time.}
 \label{fig:co2consumptionovertime}
 \end{figure}
@@ -447,7 +447,7 @@ R> plot(x,lwd=2,main="x");plot(y,lwd=2,main="y")
 R> plot(w,lwd=2,main="w");plot(z,lwd=2,main="z")
 \end{Sinput}
 \end{Schunk}
-\includegraphics{article-014}
+\includegraphics{article-013}
 \end{center}
 \caption{Simulated random tracks using \code{rTrack}. \code{x} is random track with all defaults. \code{y} is a random track transformed to a unit box. \code{w} is a random track transformed to the box $[0,10]\times [0,10]$ and \code{z} is in a same box as \code{w} but with the random number of points.}
 \label{randomtracks}
@@ -463,11 +463,12 @@ Figure \ref{randomtracks} shows four different random tracks: \code{x} is a rand
 \begin{Schunk}
 \begin{Sinput}
 R> library(forecast)
-R> auto.arima.Track(Beijing[[5]])
+R> data(A3)
+R> auto.arima.Track(A3)
 \end{Sinput}
 \begin{Soutput}
-Arima model fitted to x-coordinate: ARIMA(1,0,2) with non-zero mean 
-Arima model fitted to y-coordinate: ARIMA(2,1,2) with drift
+Arima model fitted to x-coordinate: ARIMA(0,2,1) 
+Arima model fitted to y-coordinate: ARIMA(1,1,1) with drift
 \end{Soutput}
 \end{Schunk}
 
@@ -503,14 +504,19 @@ We here point out some useful information about the dataset:
 
 \begin{Schunk}
 \begin{Sinput}
-R>  tracks1 <- Tracks(list(Beijing[[1]],Beijing[[2]]))
-R>  tracks2 <- Tracks(list(Beijing[[3]],Beijing[[4]]))
+R> library(xts)
+R> track2 <- A3
+R> index(track2@time) <- index(track2@time) + 32
+R> track2@sp@coords <- track2@sp@coords + 0.003
+R> ## create Tracks objects
+R> tracks1 <- Tracks(list(A3, track2))
+R> tracks2 <- Tracks(list(track2, A3))
 R>  dists(tracks1,tracks2,mean)
 \end{Sinput}
 \begin{Soutput}
-         [,1]      [,2]
-[1,] 16854.55  9103.338
-[2,] 15025.30 10275.476
+          [,1]      [,2]
+[1,] 0.5481612 0.0000000
+[2,] 0.0000000 0.5481612
 \end{Soutput}
 \end{Schunk}
 
@@ -528,7 +534,6 @@ R>  dists(tracks1,tracks2,mean)
   Steps above are implemented in the function \code{avedistTrack}. In order to use \code{avedistTrack}, we only need to specify the argument \code{timestamp}. It then returns the average distance between objects based on that timestamps. 
 \begin{Schunk}
 \begin{Sinput}
-R> do_all <- FALSE
 R>  if (do_all){
 +   meandist <- avedistTrack(Beijing,timestamp = "20 mins")
 +   plot(meandist,type="l",lwd=2)
