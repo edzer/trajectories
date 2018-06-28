@@ -9,8 +9,8 @@ importFrom(utils, head, tail, stack, unstack)
 importFrom(graphics, arrows, box, lines, points, segments, legend, polygon, title)
 importFrom(grDevices, rainbow, heat.colors)
 importFrom(spatstat, marks, psp, midpoints.psp, lengths.psp,
- 'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp,
- Kinhom, pcfinhom, idw, bw.ppl, bw.diggle, bw.scott)
+           'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp,
+           Kinhom, pcfinhom, idw, bw.ppl, bw.diggle, bw.scott)
 # importFrom(rgl, open3d, plot3d, lines3d)
 
 exportClasses(
@@ -32,10 +32,10 @@ export(
 	rTrack, rTracks, rTracksCollection, as.Track, as.Track.arrow,
 	as.Track.ppp, auto.arima.Track, avedistTrack, avemove, chimaps,
 	density.Track, Kinhom.Track, pcfinhom.Track, reTrack, Track.idw,
-	plot.distrack, 
-# marks, psp, midpoints.psp, lengths.psp, 'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp, Kinhom, pcfinhom, idw, bw.ppl, bw.diggle, bw.scott, plot.arwlen,
-	plot.KTrack, plot.gTrack, plot.distrack,
-	tsqTracks, uniqueTrack
+	plot.distrack, marks, psp, midpoints.psp, lengths.psp,
+ 'marks<-', owin, as.ppp, pairdist, density.psp, density.ppp,
+ Kinhom, pcfinhom, idw, bw.ppl, bw.diggle, bw.scott, plot.arwlen,
+ plot.KTrack,plot.gTrack,plot.distrack,rngTrack,tsqTracks,uniqueTrack
 )
 
 exportMethods(

@@ -19,4 +19,3 @@ Methods for class "KTrack"
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
-

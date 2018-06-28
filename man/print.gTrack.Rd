@@ -15,5 +15,3 @@ print method.}
   \item{...}{ignored}
 }
 \author{ Mohammad Mehdi Moradi <moradi@uji.es>}
-
-

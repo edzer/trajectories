@@ -29,6 +29,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 \link[trajectories]{rTrack}, \link[forecast]{auto.arima}
 }
 \examples{
+library(forecast)
 X <- rTrack()
 auto.arima.Track(X)
 }

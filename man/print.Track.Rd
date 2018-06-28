@@ -17,6 +17,3 @@ method to print an object of class "Track"}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-

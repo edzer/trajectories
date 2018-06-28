@@ -21,7 +21,4 @@ a plot.
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{avemove}

@@ -18,6 +18,8 @@ Print objetcs of class "Trrow"}
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
 
+
 \seealso{
 as.Track.arrow
 }
+

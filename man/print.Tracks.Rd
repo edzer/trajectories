@@ -18,5 +18,3 @@ an object of class "Tracks"
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
-
-

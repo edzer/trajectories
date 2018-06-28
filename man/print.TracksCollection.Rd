@@ -15,6 +15,8 @@ print.TracksCollection(X)
 an object of class "TracksCollection"
 }
 }
+
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
+

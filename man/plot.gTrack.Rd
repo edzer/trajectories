@@ -16,5 +16,7 @@ plot method}
   \item{col}{ line color}
   \item{...}{ passed on to plot}
 }
+
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>}
+

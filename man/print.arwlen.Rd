@@ -17,6 +17,3 @@ to print an object of class "arwlen".}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
