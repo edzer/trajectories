@@ -23,14 +23,8 @@ when analysying a list of tracks, avemove calculate the average of movements bas
 \value{
 an object of class "numeric" or "arwlen".
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
-}
-\note{
-%%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~

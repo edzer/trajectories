@@ -152,6 +152,11 @@ plot(w,lwd=2,main="w");plot(z,lwd=2,main="z")
 ###################################################
 ### code chunk number 14: article.Rnw:341-343
 ###################################################
+## EJP:
+#data("Beijing")
+load("/home/edzer/data/mehdi/taxi/Y.RData")
+Beijing = Y
+
 library(forecast)
 auto.arima.Track(A1)
 
@@ -273,4 +278,90 @@ ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
   plot(g)
  }
 
+=======
+### code chunk number 14: article.Rnw:368-375
+###################################################
+meandist <- avedistTrack(Beijing,timestamp = "20 mins")
+plot(meandist,type="l",lwd=2)
+distinframe <- data.frame(tsq=attr(meandist,"tsq"),dist=meandist)
+dist3rd <- distinframe[substr(distinframe$tsq,start = 1,stop=10)==
+                         "2008-02-03",]
+plot(dist3rd$tsq,dist3rd$dist,type="l",xlab="time",
+      ylab="average distance",lwd=2)
+
+
+###################################################
+### code chunk number 15: article.Rnw:412-414
+###################################################
+b <- Track.idw(Beijing,timestamp = "20 mins",epsilon=1000)
+plot(b,main="",ribwid=0.04,ribsep=0.02)
+
+
+###################################################
+### code chunk number 16: article.Rnw:426-434
+###################################################
+ q <- avemove(Beijing,timestamp = "20 mins",epsilon=1000)
+ par(mfrow=c(1,2))
+ plot(q,type="l",lwd=2)
+ qdata <- data.frame(q,attr(q,"tsq")[-c(1,length(attr(q,"tsq")))])
+ colnames(qdata) <- c("dist","startingtime")
+ q3rd <- qdata[substr(qdata$startingtime,start = 1,stop=10)=="2008-02-03",]
+ plot(q3rd$startingtime,q3rd$dist,type="l",xlab="time (hour)"
+      ,ylab="average movement",lwd=2)
+
+
+###################################################
+### code chunk number 17: article.Rnw:476-492
+###################################################
+d <- density.Track(Beijing,timestamp = "20 mins",bw.ppl)
+par(mfrow=c(1,2))
+plot(d,main="",ribwid=0.04,ribsep=0.02)
+#focus on the center
+w <- owin(c(440000,455000),c(4410000,4430000))
+pps <- attr(d,"ppps")
+npps <- lapply(X=1:length(pps),FUN = function(i){
+  pps[[i]][w]
+})
+
+centerimg <- lapply(X=1:length(npps),FUN = function(i){
+  density(npps[[i]],bw.ppl(npps[[i]]))
+})
+fcenterimg <- Reduce("+",centerimg)/length(centerimg)
+
+plot(fcenterimg,main="",ribwid=0.04,ribsep=0.02)
+
+
+###################################################
+### code chunk number 18: article.Rnw:517-536
+###################################################
+ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
+chall <- attr(ch,"ims")
+minmax <- lapply(X=1:length(chall),function(i){
+    return(list(min(chall[[i]]$v),max(chall[[i]]$v)))
+  })
+minmax <- do.call("rbind",minmax)
+col5 <- colorRampPalette(c('blue','white','red'))
+color_levels=200 
+par(mar=c(0,0,1,1))
+par(mfrow=c(1,3))
+plot(chall[[51]],zlim=c(-max(abs(unlist(minmax))),max(abs(unlist(minmax))))
+          ,main=attr(ch,"timevec")[51],ribwid=0.04,ribsep=0.02,
+          col=col5(n=color_levels))
+plot(chall[[75]],zlim=c(-max(abs(unlist(minmax))),max(abs(unlist(minmax))))
+          ,main=attr(ch,"timevec")[75],ribwid=0.04,ribsep=0.02,
+          col=col5(n=color_levels))
+plot(chall[[104]],zlim=c(-max(abs(unlist(minmax))),max(abs(unlist(minmax))))
+          ,main=attr(ch,"timevec")[104],ribwid=0.04,ribsep=0.02,
+          col=col5(n=color_levels))
+
+
+###################################################
+### code chunk number 19: article.Rnw:588-594
+###################################################
+ K <- Kinhom.Track(Beijing,correction = "translate",
+                      timestamp = "20 mins",q=0)
+ par(mfrow=c(1,2))
+ plot(K)
+ g <- pcfinhom.Track(Beijing,timestamp = "20 mins",q=0)
+ plot(g)
 

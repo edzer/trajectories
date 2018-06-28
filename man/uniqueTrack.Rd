@@ -19,14 +19,8 @@ an object of class "Track"
 This function removes duplicated points in an object of class "Track".}
 \value{
 An object of class Track with  no duplicated point.}
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
-}
-\note{
-%%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~

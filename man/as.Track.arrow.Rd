@@ -24,16 +24,9 @@ Converting a list of Track objetcs to a list of marked point patterns. Marks sho
 \value{
 a list of marked point patterns.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
-\note{
-%%  ~~further notes~~
-}
-
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{

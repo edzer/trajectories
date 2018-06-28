@@ -21,14 +21,8 @@ as.Track.ppp converts a list of Track objetcs to a list of ppp objetcs.}
 \value{
 A list of point patterns, objects of class "ppp".
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>}
-\note{
-%%  ~~further notes~~
-}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

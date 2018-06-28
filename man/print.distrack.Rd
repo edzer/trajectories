@@ -8,12 +8,12 @@ Methods for class "distrack"
 This is a method for class "distrack".
 }
 \usage{
-print.distrack(x)
+\method{print}{distrack}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-an object of class "distrack"}
+  \item{x}{ an object of class "distrack"} 
+  \item{...}{ignored}
 }
 \details{
 This is a method for class "distrack".
@@ -21,26 +21,17 @@ This is a method for class "distrack".
 \value{
 See the documentation on the corresponding generic function.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
-}
-\note{
-%%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 X <- list()
 for(i in 1:10){
-  m <- matrix(c(0,10,0,10),nrow=2,byrow = T)
-  X[[i]] <- rTrack(bbox = m,transform = T)
+  m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
+  X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 
 ave <- avedistTrack(X,timestamp = "30 secs")

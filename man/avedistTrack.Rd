@@ -23,14 +23,8 @@ This function calculates the average pairwise distance between a list of tracks 
 \value{
 An object of class "distrack". It can be plotted over time.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
-}
-\note{
-%%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~

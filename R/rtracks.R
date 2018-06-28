@@ -52,7 +52,8 @@ rTracksCollection <- function (p = 10, sd2 = 0, ...)
                                                                   sd = sd2), ...)))
 
 
-print.Track <- function(X){
+print.Track <- function(x,...){
+  X = x
   if (class(X@sp)=="SpatialPoints") {
     cat("An object of class Track \n");
     cat(paste0(nrow(as.data.frame(X@sp)), "points"),"\n");

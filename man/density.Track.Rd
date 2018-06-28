@@ -8,14 +8,14 @@ Kernel estimate of intensity of trajectory pattern
 Estimating the intensity of a list of tracks.
 }
 \usage{
-density.Track(X,timestamp,...)
+\method{density}{Track}(x,..., timestamp)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
+  \item{x}{
 a list of objects of class "Track"
 }
-\item{timestamp}{based on secs,mins,...}
+\item{timestamp}{based on secs, mins, ...}
 \item{...}{passed to arguments of density.ppp}
 }
 \details{
@@ -24,14 +24,8 @@ This estimate the average intensity function of moving objects over time. Bandwi
 \value{
 an image of class "im".
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
-}
-\note{
-%%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
@@ -45,7 +39,7 @@ for(i in 1:10){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
-density.Track(X,"30 secs")
+density.Track(X, timestamp = "30 secs")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

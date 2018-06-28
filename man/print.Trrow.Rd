@@ -7,19 +7,19 @@ Methods for class "Trrow"
 \description{
 Print objetcs of class "Trrow"}
 \usage{
-print.Trrow(X)
+\method{print}{Trrow}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
-an object of class "Trrow"
-}
+  \item{x}{ an object of class "Trrow" }
+  \item{...}{ ignored }
 }
 \author{
 Mohammad Mehdi Moradi <moradi@uji.es>
 }
 
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
+\seealso{
+as.Track.arrow
+}
+
