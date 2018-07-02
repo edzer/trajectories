@@ -31,11 +31,15 @@ passed on to rTrack; rTracksCollection: arguments passed on to rTracks}
 \item{delta}{ time difference between consecutive Track start times}
 \item{p}{ number of IDs with Tracks to generate}
 }
-\note{\code{ar} is passed on to \link[stats]{arima.sim} as \code{ar}
+\details{\code{ar} is passed on to \link[stats]{arima.sim} as \code{ar}
 element, and may contain multiple AR coefficients. The generated
 track is a \link[base]{cumsum} over the simulated AR values, for each dimension.
-In case it has length 1 and value 0, random walk is created using \link[stats]{rnorm}.}
+In case it has length 1 and value 0, random walk is created using \link[stats]{rnorm}. If bbox is given, the generated track will be transformed to bbox. If transform is TRUE and no bbox is given, it transforms the track to a unit box. If nrandom is TRUE, it generates a random number using \link[stats]{rpois} with parameter n as the number of locations per track.}
 \value{An object of class \code{Track}, \code{Tracks} or \code{TracksCollection}.}
+\author{
+Edzer Pebesma <edzer.pebesma@uni-muenster.de>,
+Mohammad Mehdi Moradi <moradi@uji.es>
+}
 \examples{
 x = rTrack()
 dim(x)

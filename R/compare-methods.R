@@ -161,15 +161,15 @@ downsample.track <- function(track1, track2) {
     xy1 <- cbind(head (xy, n), tail (xy, n))    
     d2.long <- head(d1, n) + tail(d1, n)
     xy.new <- list()
-    for(i in 1:n) xy.new[[i]] <- rbind(head(xy, n)[i,], tail(xy, n)[i,])
-    d2.short <- sapply (xy.new, function(x) spDists(x, longlat=TRUE)[1,2])
+    for(i in 1:n) {xy.new[[i]] <- rbind(head(xy, n)[i,], tail(xy, n)[i,])}
+    d2.short <- sapply (xy.new, function(x) spDists(as.matrix(x), longlat=TRUE)[1,2])
     remove <- which.min(d2.long - d2.short) + 1
     xy <- xy[- remove,]
     time <- time[- remove]
     stidf <- STIDF(SpatialPoints (xy, crs), time, data.frame(extraDat=rnorm(n)))
-    tr  <- Track (stidf)
+    track1  <- Track (stidf)
   }
-  tr
+  track1
 }
 
 setMethod("downsample", signature("Track"), downsample.track)
