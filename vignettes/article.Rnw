@@ -135,7 +135,7 @@ plot(Z[[15]],add=T,col=4,lwd=2)
 @
 \begin{figure}[!h]
 \centering
-\includegraphics[width=0.6\linewidth]{Tracks-ex.pdf}
+\includegraphics[width=0.7\linewidth]{Tracks-ex.pdf}
 \caption{Trajectory pattern containing tracks of five taxis on the 4th of Feb 2008 in Beijing, China. Each color represents a different taxi track.}
 \label{taxitracks}
 \end{figure}
@@ -341,7 +341,8 @@ Figure \ref{randomtracks} shows four different random tracks: \code{x} is a rand
 
 <<>>=
 library(forecast)
-auto.arima.Track(A1)
+data(A3)
+auto.arima.Track(A3)
 @
 
 \section{Exploratory data analysis} \label{sec:explo}
@@ -560,7 +561,7 @@ One may still think of adaptive intensity estimators such as the Voronoi estimat
 
 <<>>=
  if(do_all){
-ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
+ch <- chimaps(Beijing,timestamp = "20 mins",rank = 1)
  chall <- attr(ch,"ims")
  minmax <- lapply(X=1:length(chall),function(i){
      return(list(min(chall[[i]]$v),max(chall[[i]]$v)))

@@ -150,14 +150,15 @@ plot(w,lwd=2,main="w");plot(z,lwd=2,main="z")
 
 
 ###################################################
-### code chunk number 14: article.Rnw:342-344
+### code chunk number 14: article.Rnw:342-345
 ###################################################
 library(forecast)
-auto.arima.Track(A1)
+data(A3)
+auto.arima.Track(A3)
 
 
 ###################################################
-### code chunk number 15: article.Rnw:377-390
+### code chunk number 15: article.Rnw:378-391
 ###################################################
 library(xts)
 data(A3)
@@ -175,7 +176,7 @@ dists(tracks1, tracks2,mean)
 
 
 ###################################################
-### code chunk number 16: article.Rnw:405-414
+### code chunk number 16: article.Rnw:406-415
 ###################################################
  if (do_all){
  meandist <- avedistTrack(Beijing,timestamp = "20 mins")
@@ -189,7 +190,7 @@ dists(tracks1, tracks2,mean)
 
 
 ###################################################
-### code chunk number 17: article.Rnw:450-454
+### code chunk number 17: article.Rnw:451-455
 ###################################################
 if(do_all){
 b <- Track.idw(Beijing,timestamp = "20 mins",epsilon=1000)
@@ -198,7 +199,7 @@ plot(b,main="",ribwid=0.04,ribsep=0.02)
 
 
 ###################################################
-### code chunk number 18: article.Rnw:466-476
+### code chunk number 18: article.Rnw:467-477
 ###################################################
  if(do_all){
  q <- avemove(Beijing,timestamp = "20 mins",epsilon=1000)
@@ -213,7 +214,7 @@ plot(b,main="",ribwid=0.04,ribsep=0.02)
 
 
 ###################################################
-### code chunk number 19: article.Rnw:518-536
+### code chunk number 19: article.Rnw:519-537
 ###################################################
  if(do_all){
  d <- density.Track(Beijing,timestamp = "20 mins",bw.ppl)
@@ -236,10 +237,10 @@ plot(b,main="",ribwid=0.04,ribsep=0.02)
 
 
 ###################################################
-### code chunk number 20: article.Rnw:561-582
+### code chunk number 20: article.Rnw:562-583
 ###################################################
  if(do_all){
-ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
+ch <- chimaps(Beijing,timestamp = "20 mins",rank = 1)
  chall <- attr(ch,"ims")
  minmax <- lapply(X=1:length(chall),function(i){
      return(list(min(chall[[i]]$v),max(chall[[i]]$v)))
@@ -262,7 +263,7 @@ ch <- chimaps(Beijing,timestamp = "20 mins",rank = 200)
 
 
 ###################################################
-### code chunk number 21: article.Rnw:634-642
+### code chunk number 21: article.Rnw:635-643
 ###################################################
  if(do_all){
  K <- Kinhom.Track(Beijing,correction = "translate",
