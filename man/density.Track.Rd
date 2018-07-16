@@ -1,5 +1,5 @@
-\name{density.Track}
-\alias{density.Track}
+\name{density.list}
+\alias{density.list}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Kernel estimate of intensity of trajectory pattern
@@ -8,18 +8,18 @@ Kernel estimate of intensity of trajectory pattern
 Estimating the intensity of a list of tracks.
 }
 \usage{
-\method{density}{Track}(x,..., timestamp)
+\method{density}{list}(x,..., timestamp)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-a list of objects of class "Track"
+a list of "Track" objects
 }
 \item{timestamp}{based on secs, mins, ...}
 \item{...}{passed to arguments of density.ppp}
 }
 \details{
-This estimate the average intensity function of moving objects over time. Bandwidth selection methods such as bw.diggle, bw.scott and bw.ppl can be passed to this density.Track.
+This estimate the average intensity function of moving objects over time. Bandwidth selection methods such as bw.diggle, bw.scott and bw.ppl can be passed to this density.list.
 }
 \value{
 an image of class "im".
@@ -39,7 +39,7 @@ for(i in 1:10){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
-density.Track(X, timestamp = "30 secs")
+density(X, timestamp = "30 secs")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

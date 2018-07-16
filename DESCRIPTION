@@ -1,16 +1,14 @@
 Package: trajectories
 Version: 0.1-6
 Title: Classes and Methods for Trajectory Data
-Authors@R:
-	c(person("Edzer", "Pebesma", role = c("cre", "aut"),
-		 email = "edzer.pebesma@uni-muenster.de"),
+Authors@R: c(person("Edzer", "Pebesma", role = c("aut", "cre"), email = "edzer.pebesma@uni-muenster.de", comment = c(ORCID = "0000-0001-8049-7069")),
 	person("Benedikt", "Klus", role = "aut"),
 	person("Benedikt", "Graeler", role = "ctb"),
 	person("Nikolai", "Gorte", role = "ctb"),
-	person("Mehdi", "Moradi", role = "ctb"))
-Depends: R (>= 3.0.0), sp (>= 1.1-0), spacetime (>= 1.0-0)
-Imports: stats, utils, graphics, methods, lattice, spatstat
-Suggests: rgdal, rgeos, OpenStreetMap, RCurl, rjson, adehabitatLT, xts, knitr, rgl, forecast, MASS
+	person("Mehdi", "Moradi", role = "aut"))
+Depends: R (>= 3.0.0)
+Imports: stats, utils, graphics, methods, lattice, sp (>= 1.1-0), spacetime (>= 1.0-0)
+Suggests: rgdal, rgeos, OpenStreetMap, RCurl, rjson, adehabitatLT, xts, knitr, rgl, forecast, MASS , spatstat
 Description: Classes and methods for trajectory data, with support for nesting individual Track objects in track sets (Tracks) and track sets for different entities in collections of Tracks (TracksCollection). Methods include selection, generalization, aggregation, intersection, simulation, and plotting.
 License: GPL (>= 2)
 URL: http://github.com/edzer/trajectories

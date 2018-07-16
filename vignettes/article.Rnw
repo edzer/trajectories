@@ -118,6 +118,8 @@ if(do_all){
 Figure \ref{taxitracks} is generated using the following lines of code.
 
 <<>>=
+library(sp)
+library(spacetime)
 library(trajectories)
 if(do_all){
   library(taxidata)

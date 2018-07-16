@@ -37,6 +37,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 \seealso{
 \link[trajectories]{rTrack}, \link[trajectories]{as.Track.ppp}, \link[spatstat]{Kinhom}}
 \examples{
+library(spatstat)
 X <- list()
 for(i in 1:100){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
