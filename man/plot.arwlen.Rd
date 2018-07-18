@@ -8,7 +8,7 @@ Methods for class "arwlen"
 Methods for class "arwlen"
 }
 \usage{
-plot.arwlen(x, ...)
+\method{plot}{arwlen}(x, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
