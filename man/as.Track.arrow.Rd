@@ -38,7 +38,7 @@ for(i in 1:10){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
-as.Track.arrow(X,timestamp="30 secs")
+Y <- as.Track.arrow(X,timestamp="120 secs")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

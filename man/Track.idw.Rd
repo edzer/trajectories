@@ -41,7 +41,7 @@ for(i in 1:10){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
-Track.idw(X,timestamp="30 secs")
+Track.idw(X,timestamp="180 secs")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
