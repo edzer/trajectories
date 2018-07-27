@@ -7,13 +7,14 @@ Methods for class "gTrack"
 \description{
 plot method}
 \usage{
-\method{plot}{gTrack}(x, type = "l", col = "grey70", ...)
+\method{plot}{gTrack}(x, type = "l", col = "grey70",cex=1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{ an object of class "gTrack" }
   \item{type}{ line type}
   \item{col}{ line color}
+  \item{cex}{used for size of legend}
   \item{...}{ passed on to plot}
 }
 \author{

@@ -8,13 +8,14 @@ Methods for class "KTrack"
 Methods for class "KTrack"
 }
 \usage{
-\method{plot}{KTrack}(x, type = "l", col = "grey70", ...)
+\method{plot}{KTrack}(x, type = "l", col = "grey70",cex=1, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{an object of class KTrack}
   \item{type}{ line type}
   \item{col}{ color}
+  \item{cex}{used for size of legend}
   \item{...}{ passed on to plot}
 }
 \details{
