@@ -20,7 +20,7 @@ Collate: Class-Tracks.R Tracks-methods.R generalize.R stcube.R stplot.R
         difftrack.R compare-methods.R rtracks.R Trackstat.R
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2018-07-16 21:15:12 UTC; edzer
+Packaged: 2018-09-25 11:59:22 UTC; edzer
 Author: Edzer Pebesma [aut, cre] (<https://orcid.org/0000-0001-8049-7069>),
   Benedikt Klus [aut],
   Benedikt Graeler [ctb],
