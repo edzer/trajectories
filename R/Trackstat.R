@@ -96,7 +96,7 @@ avedistTrack <- function(X,timestamp){
   avedist <- unlist(avedist)
   class(avedist) <- c("distrack","numeric")
   attr(avedist,"ppp") <- Y
-  attr(avedist,"tsq") <- timeseq[-1]
+  attr(avedist,"tsq") <- attr(Y,"tsq")
   return(avedist)
 }
 print.distrack <- function(x, ...){
@@ -105,7 +105,7 @@ print.distrack <- function(x, ...){
 
 plot.distrack <- function(x,...){
   x = unclass(x)
-  plot(attr(x,"tsq")[1:length(x)], x, xlab="time",ylab="average distance",...)
+  plot(attr(x,"tsq"), x, xlab="time",ylab="average distance",...)
 }
 
 
@@ -142,7 +142,14 @@ as.Track.ppp <- function(X,timestamp){
     p <- spatstat::`marks<-`(p, value = allZ[[i]][,4])
     return(p)
   })
+  class(Tppp) <- c("list","ppplist")
+  attr(Tppp,"tsq") <- as.POSIXlt.character(attributes(allZ)$names)
   return(Tppp)
+}
+
+print.ppplist <- function(x,...){
+  attributes(x) <- NULL 
+  print(x, ...) 
 }
 
 density.list <- function(x, ..., timestamp) {
@@ -169,6 +176,7 @@ as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
   if (missing(timestamp)) stop("set timestamp") 
   
   Z <- as.Track.ppp(X,timestamp)
+  tsq <- attr(Z,"tsq")
   Z <- Z[!sapply(Z, is.null)]
   wind <- Z[[1]]$window
   arrows <- list()
@@ -192,6 +200,7 @@ as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
   }
   class(Y) <- c("list","Trrow")
   attr(Y, "psp") <- arrows
+  attr(Y,"time") <- tsq[-length(tsq)]
   return(Y)  
 }
 
@@ -218,6 +227,7 @@ avemove <- function(X,timestamp,epsilon=epsilon){
   
   if (missing(timestamp)) stop("set timestamp") 
   timeseq <- tsqTracks(X,timestamp = timestamp)
+  if (missing(epsilon)) epsilon <- 0
   Y <- as.Track.arrow(X,timestamp,epsilon=epsilon)
   Z <- attr(Y,"psp")
   preout <- lapply(X=1:length(Z), function(i){
@@ -225,7 +235,7 @@ avemove <- function(X,timestamp,epsilon=epsilon){
   })
   out <- unlist(preout)
   class(out) <- c("numeric", "arwlen")
-  attr(out,"tsq") <- timeseq
+  attr(out,"time") <- attr(Y,"time")
   return(out)
 }
 
@@ -236,8 +246,8 @@ print.arwlen <- function(x, ...){
 plot.arwlen <- function(x,...){
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
-  tsq <- attr(x,"tsq")
-  tsq <- tsq[-c(1,length(tsq))]
+  x = unclass(x)
+  tsq <- attr(x,"time")
   plot(tsq,x,xlab="time",ylab="average movement",...)
 }
 
@@ -317,9 +327,9 @@ Kinhom.Track <- function(X,timestamp,
   upk <- numeric()
   avek <- numeric()
   for (i in 1:nrow(Kmat)) {
-    avek[i] <- mean(Kmat[i,])
-    lowk[i] <- quantile(Kmat[i,],q)
-    upk[i] <- quantile(Kmat[i,],1-q)
+    avek[i] <- mean(Kmat[i,],na.rm = TRUE)
+    lowk[i] <- quantile(Kmat[i,],q,na.rm = TRUE)
+    upk[i] <- quantile(Kmat[i,],1-q,na.rm = TRUE)
   }
   
   out <- data.frame(lowk=lowk,upk=upk,avek=avek,r=K[[1]]$r,theo=K[[1]]$theo)
@@ -331,18 +341,19 @@ print.KTrack <- function(x, ...){
   print("variability area of K-function", ...)
 }
 
-plot.KTrack <- function(x,type="l",col= "grey70",...){
+plot.KTrack <- function(x,type="l",col= "grey70",cex=1,...){
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   ylim <- c(min(c(x$lowk,x$theo)),max(c(x$upk,x$theo)))
-  plot(x$r,x$lowk,ylim=ylim,type=type,xlab="",ylab="",...)
-  title(ylab=expression(K[inhom](r)),xlab="r", line=2.2, cex.lab=1.2)
+  plot(x$r,x$lowk,ylim=ylim,type=type,ylab=expression(K[inhom](r)),xlab="r",...)
   points(x$r,x$upk,type=type)
   polygon(c(x$r, rev(x$r)), c(x$upk, rev(x$lowk)),
           col = col, border = NA)
   points(x$r,x$theo,type=type,col=2)
   points(x$r,x$avek,type=type)
-  legend(0,max(c(x$upk,x$theo)),col = c(2,0,1),legend=c(expression(K[inhom]^{pois}),"",expression(bar(K)[inhom])),lty=c(1,1))
+  legend(0,max(c(x$upk,x$theo)),col = c(2,0,1),
+         legend=c(expression(K[inhom]^{pois}),"",expression(bar(K)[inhom])),
+         lty=c(1,1),cex = cex)
 }
 
 pcfinhom.Track <- function(X,timestamp,
@@ -398,9 +409,9 @@ pcfinhom.Track <- function(X,timestamp,
   upg <- numeric()
   aveg <- numeric()
   for (i in 1:nrow(gmat)) {
-    aveg[i] <- mean(gmat[i,])
-    lowg[i] <- quantile(gmat[i,],q)
-    upg[i] <- quantile(gmat[i,],1-q)
+    aveg[i] <- mean(gmat[i,],na.rm = TRUE)
+    lowg[i] <- quantile(gmat[i,],q,na.rm = TRUE)
+    upg[i] <- quantile(gmat[i,],1-q,na.rm = TRUE)
   }
   
   out <- data.frame(lowg=lowg,upg=upg,aveg=aveg,r=g[[1]]$r[-1],theo=g[[1]]$theo[-1])
@@ -414,7 +425,7 @@ print.gTrack <- function(x, ...){
   print("variability area of pair correlatio function", ...)
 }
 
-plot.gTrack <- function(x,type="l",col= "grey70",...){
+plot.gTrack <- function(x,type="l",col= "grey70",cex=1,...){
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   ylim <- c(min(x$lowg),max(x$upg))
@@ -425,7 +436,9 @@ plot.gTrack <- function(x,type="l",col= "grey70",...){
   points(x$r,x$theo,type=type,col=2)
   points(x$r,x$aveg,type=type)
   legend(0.01*max(x$r),max(x$upg),col = c(2,0,1),
-         legend=c(expression(g[inhom]^{pois}),"",expression(bar(g)[inhom])),lty=c(1,1))
+         legend=c(expression(g[inhom]^{pois}),"",
+                  expression(bar(g)[inhom])),
+         lty=c(1,1),cex=cex)
 }
 
 auto.arima.Track <- function(X,...){

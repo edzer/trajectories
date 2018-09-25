@@ -39,7 +39,7 @@ for(i in 1:10){
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 
-ave <- avedistTrack(X,timestamp = "30 secs")
+ave <- avedistTrack(X,timestamp = "120 secs")
 plot(ave,type="l")
 
 
