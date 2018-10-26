@@ -1,3 +1,17 @@
+as.list.Tracks <- function(X){
+  stopifnot(class(X)=="Tracks")
+  return(X@tracks)
+}
+
+as.list.TracksCollection <- function(Y){
+  stopifnot(class(Y)=="TracksCollection")
+  out <-  lapply(X=1:length(Y@tracksCollection), function(i){
+    as.list.Tracks(Y@tracksCollection[[i]])
+  })
+  return(unlist(out, recursive=FALSE))
+}
+
+
 as.Track <- function(x,y,t,covariate){
   stopifnot(length(x)>0 |  length(y)>0 | length(t)>0)
   sp <- cbind(x,y)
@@ -14,7 +28,7 @@ reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL){
   
   if (missing(tsq)) tsq <- tsqTracks(X,timestamp = timestamp)
   if(missing(at)) at <- "track"
-  Xrange <- rngTrack(X)
+  Xrange <- range.Track(X)
   X <-  cbind(as.data.frame(X)[c(coordnames(X), "time")])
   xnew <- c()
   ynew <- c()
@@ -50,7 +64,7 @@ reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL){
 }
 
 # range.Track returns the timerange of an object of class Track
-rngTrack <- function(X) {
+range.Track <- function(X) {
   Y <- cbind(as.data.frame(X)[c(coordnames(X), "time")])
   return(range(Y$time)) 
 }
@@ -59,9 +73,9 @@ rngTrack <- function(X) {
 tsqTracks <- function(X, timestamp){
   
   timerange = if (is.list(X)) 
-    lapply(X, rngTrack)
+    lapply(X, range.Track)
   else 
-  	rngTrack(X)
+    range.Track(X)
   
   Trackrg <- range(timerange)
   class(Trackrg) <- c('POSIXt','POSIXct')
@@ -77,6 +91,10 @@ tsqTracks <- function(X, timestamp){
 # function avedistTrack accepts X as a list of tracks and reports the average distance between
 # tracks over time, output is an object of class "distrack"
 avedistTrack <- function(X,timestamp){
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   
   stopifnot(length(X)>1 & is.list(X))
   if (!requireNamespace("spatstat", quietly = TRUE))
@@ -109,7 +127,7 @@ plot.distrack <- function(x,...){
 }
 
 
-uniqueTrack <- function(X){
+unique.Track <- function(X){
   X <-  cbind(as.data.frame(X)[c(coordnames(X), "time")])
   X <- X[!duplicated(X),]
   return(as.Track(X[,1],X[,2],X[,3])) 
@@ -117,11 +135,16 @@ uniqueTrack <- function(X){
 
 
 as.Track.ppp <- function(X,timestamp){
+  
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  stopifnot(length(X)>1 & is.list(X))
 
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   
-  stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp") 
   # calculate a sequance of time to interpolate tracks within this sequance
@@ -153,6 +176,11 @@ print.ppplist <- function(x,...){
 }
 
 density.list <- function(x, ..., timestamp) {
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  
   stopifnot(length(x)>1 & is.list(x))
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
@@ -169,11 +197,16 @@ density.list <- function(x, ..., timestamp) {
 }
 
 as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   
   if (missing(timestamp)) stop("set timestamp") 
+  if(missing(epsilon))  epsilon <- 0
   
   Z <- as.Track.ppp(X,timestamp)
   tsq <- attr(Z,"tsq")
@@ -210,9 +243,14 @@ print.Trrow <- function(x, ...) {
 } 
 
 Track.idw <- function(X,timestamp,epsilon=epsilon,...){
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp")
+  if(missing(epsilon))  epsilon <- 0
   
   Y <- as.Track.arrow(X,timestamp,epsilon=epsilon)
   Z <- lapply(Y, spatstat::idw, ...)
@@ -221,6 +259,10 @@ Track.idw <- function(X,timestamp,epsilon=epsilon,...){
 }
 
 avemove <- function(X,timestamp,epsilon=epsilon){
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
@@ -252,8 +294,16 @@ plot.arwlen <- function(x,...){
 }
 
 chimaps <- function(X,timestamp,rank,...){
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  stopifnot(length(X)>1 & is.list(X))
+  
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
+  
+  if(missing(rank)) rank <- 1
   if (!is.numeric(rank)) stop("rank must be numeric")
   if (rank < 1 | rank >length(X)) stop("rank must be number between one and the number of Tracks")
   stopifnot(length(X)>1 & is.list(X))
@@ -277,6 +327,11 @@ chimaps <- function(X,timestamp,rank,...){
 Kinhom.Track <- function(X,timestamp,
                 correction=c("border", "bord.modif", "isotropic", "translate"),q,
                 sigma=c("default","bw.diggle","bw.ppl"," bw.scott"),...){
+  
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
@@ -359,6 +414,11 @@ plot.KTrack <- function(x,type="l",col= "grey70",cex=1,...){
 pcfinhom.Track <- function(X,timestamp,
                            correction = c("translate", "Ripley"), q,
                            sigma=c("default", "bw.diggle", "bw.ppl", "bw.scott"), ...) {
+  
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
