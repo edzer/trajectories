@@ -2,6 +2,7 @@
 \alias{range.Track}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
+range.Track
 %%  ~~function to do ... ~~
 }
 \description{

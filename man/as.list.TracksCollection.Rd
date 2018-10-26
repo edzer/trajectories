@@ -2,6 +2,7 @@
 \alias{as.list.TracksCollection}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
+as.list.TracksCollection
 %%  ~~function to do ... ~~
 }
 \description{
