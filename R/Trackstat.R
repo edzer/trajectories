@@ -175,19 +175,19 @@ print.ppplist <- function(x,...){
   print(x, ...) 
 }
 
-density.list <- function(x, ..., timestamp) {
+density.list <- function(X, ..., timestamp) {
   stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
   
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   
-  stopifnot(length(x)>1 & is.list(x))
+  stopifnot(length(X)>1 & is.list(X))
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   
   if (missing(timestamp)) stop("set timestamp") 
   
-  p <- as.Track.ppp(x, timestamp)
+  p <- as.Track.ppp(X, timestamp)
   p <- p[!sapply(p, is.null)] 
   imlist <- lapply(p, spatstat::density.ppp, ...)
   out <- Reduce("+", imlist) / length(imlist)
