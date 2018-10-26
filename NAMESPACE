@@ -28,7 +28,7 @@ export(
 	rTrack, rTracks, rTracksCollection, as.Track, as.Track.arrow,
 	as.Track.ppp, auto.arima.Track, avedistTrack, avemove, chimaps,
 	Kinhom.Track, pcfinhom.Track, reTrack, Track.idw,
-	tsqTracks, uniqueTrack
+	tsqTracks, unique.Track,as.list.Tracks,as.list.TracksCollection,range.Track
 )
 
 exportMethods(
