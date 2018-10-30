@@ -6,6 +6,7 @@ range.Track
 %%  ~~function to do ... ~~
 }
 \description{
+Retrieves the range of a "Track" object
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -45,7 +46,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \examples{
 x <-  rTrack()
-range(x)
+range.Track(x)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

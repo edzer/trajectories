@@ -6,6 +6,7 @@ as.list.Tracks
 %%  ~~function to do ... ~~
 }
 \description{
+Convert a "Tracks" object to a list of tracks
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
