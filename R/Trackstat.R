@@ -3,10 +3,10 @@ as.list.Tracks <- function(X){
   return(X@tracks)
 }
 
-as.list.TracksCollection <- function(Y){
-  stopifnot(class(Y)=="TracksCollection")
-  out <-  lapply(X=1:length(Y@tracksCollection), function(i){
-    as.list.Tracks(Y@tracksCollection[[i]])
+as.list.TracksCollection <- function(X){
+  stopifnot(class(X)=="TracksCollection")
+  out <-  lapply(X=1:length(X@tracksCollection), function(i){
+    as.list.Tracks(X@tracksCollection[[i]])
   })
   return(unlist(out, recursive=FALSE))
 }
