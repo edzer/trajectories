@@ -114,9 +114,9 @@ The entire dataset is stored in the \proglang{R} package  \pkg{taxidata}  and ca
 
 Figure~\ref{taxitracks} is generated using the following lines of code.
 
-\begin{figure}[!h]
-\begin{center}
-<<fig=TRUE,height=7,width=7>>=
+%\begin{figure}[!h]
+%\begin{center}
+<<>>=
 library("trajectories")
 # library("taxidata")
 # Beijing <- taxidata
@@ -131,16 +131,17 @@ library("trajectories")
 # plot(Z[[12]],add=T,col=3,lwd=2)
 # plot(Z[[15]],add=T,col=4,lwd=2)
 @
-\end{center}
-\caption{Trajectory pattern containing tracks of five taxis on the 4th of Feb 2008 in Beijing, China. Each color represents a different taxi track.}
-\label{taxitracks}
-\end{figure}
-% \begin{figure}[!h]
-% \centering
-% \includegraphics[width=0.6\linewidth]{Tracks-ex.pdf}
+% \end{center}
 % \caption{Trajectory pattern containing tracks of five taxis on the 4th of Feb 2008 in Beijing, China. Each color represents a different taxi track.}
 % \label{taxitracks}
 % \end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.6\linewidth]{Tracks-ex.pdf}
+\caption{Trajectory pattern containing tracks of five taxis on the 4th of Feb 2008 in Beijing, China. Each color represents a different taxi track.}
+\label{taxitracks}
+\end{figure}
 
 Studying the behaviour of moving objects over time and their interaction, either between objects or with environment, plays a crucial role in understanding how they use space and more importantly how they interact each other. Moving objects are moving within a particular area over time, thus a snapshot of a trajectory pattern might be seen as a spatial point pattern. This aspect then empowers us to study the behaviour of moving objects within space and over time. A set of locations, usually non-uniformly distributed within a certain region, can be considered as a realisation of a spatial point process. Analysis of spatial point processes has been widely discussed in the literature \citep{MW03,IPSS08,D13,BRT15}. The \proglang{R} package \pkg{spatstat} \citep{baddeley05,BRT15} provides different tools for statistical analysis, model-fitting, simulation and tests on spatial point patterns. \cite{D13} has broadly considered the details of spatio-temporal point processes. Application of such processes can be found in traffic management, geography, forestry, ecology, epidemiology, seismology, astronomy and criminology. 
 
@@ -398,9 +399,10 @@ We here point out some useful information about the dataset:
   \end{enumerate}
   \end{leftbar}
   Steps above are implemented in the function \code{avedistTrack}. In order to use \code{avedistTrack}, we only need to specify the argument \code{timestamp}. It then returns the average distance between objects based on that timestamps. 
-\begin{figure}[!h]
-\begin{center}
-<<fig=TRUE,height=8,width=14>>=
+
+%\begin{figure}[!h]
+%\begin{center}
+<<>>=
  # par(mfrow=c(1,2))
  # meandist <- avedistTrack(Beijing,timestamp = "20 mins")
  # plot(meandist,type="l",lwd=2,cex.axis=1.7,cex.lab=1.7)
@@ -410,18 +412,18 @@ We here point out some useful information about the dataset:
  # plot(dist3rd$tsq,dist3rd$dist,type="l",xlab="time",
  #       ylab="average distance",lwd=2,cex.axis=1.7,cex.lab=1.7)
 @
-\end{center}
-\caption{Average pairwise distances between taxis in Beijing, China. \emph{Left}: Within the period $2-8$, Feb $2008$. \emph{Right}: During $3$-rd of Feb $2008$.}
-\label{distbijing}
-\end{figure}
+% \end{center}
+% \caption{Average pairwise distances between taxis in Beijing, China. \emph{Left}: Within the period $2-8$, Feb $2008$. \emph{Right}: During $3$-rd of Feb $2008$.}
+% \label{distbijing}
+% \end{figure}
 
-% \begin{figure}[!h]
-%   \centering
-%   \subfloat{\includegraphics[width = 3.2in]{averagedistance}}
-%   \subfloat{\includegraphics[width = 3.2in]{averagedistance3rd}}
-%   \caption{Average pairwise distance between taxis in Beijing, China. \emph{Left}: Within the period $2-8$, Feb $2008$. \emph{Right}: During $3$-rd of Feb $2008$.}
-%   \label{distbijing}
-%   \end{figure}
+\begin{figure}[!h]
+  \centering
+  \subfloat{\includegraphics[width = 3.2in]{averagedistance}}
+  \subfloat{\includegraphics[width = 3.2in]{averagedistance3rd}}
+  \caption{Average pairwise distance between taxis in Beijing, China. \emph{Left}: Within the period $2-8$, Feb $2008$. \emph{Right}: During $3$-rd of Feb $2008$.}
+  \label{distbijing}
+  \end{figure}
 Figure~\ref{distbijing} shows the average distance between taxis in Beijing. The left plot shows the average pairwise distance between taxis for all the week and it is easily seen that there is a daily trend. In order to see the more crowded hours within a day, we show the average pairwise distances during the $3$-rd of Feb $2008$ in the right plot in Figure~\ref{distbijing}. It can be seen that the crowded time comes between midday and $17:00$. Also, it shows how taxis are getting far from each other during night. Note that small average distances between taxis might be a sign of traffic during the corresponding hours. We point out that the reason of having larger average distance in the last two days might be the Chinese new year holidays.
 
 As an alternative, one can use nearest neighbour distances instead of pairwise distances. But that might not distinguish patterns with different clusters, i.e., patterns with different sets of tracks concentrated in some particular subregions. 
@@ -449,49 +451,50 @@ As an alternative, one can use nearest neighbour distances instead of pairwise d
   
   In order to use \code{Track.idw}, we only need to set the argument \code{timestamp}. When collecting data, it may happen to record the location of objects which are actually stopped. Therefore and to not include them in the movement smoothing, there is an argument \code{epsilon} so that movements with length less than \code{epsilon} are not included in the computation. If no \code{epsilon} is set in the function, it then uses all segments. 
   The following \code{code} generates an image of class \class{im} which reflects the smoothed movement of taxis per $20$ minutes.
-\begin{figure}[!h]
-\begin{center}
-<<fig=TRUE>>=
+%\begin{figure}[!h]
+%\begin{center}
+<<>>=
  # b <- Track.idw(Beijing,timestamp = "20 mins",epsilon=1000)
  # plot(b,main="",ribwid=0.04,ribsep=0.02,cex.axis=1.5)
 @
-\end{center}
-\caption{Movement smoothing for taxi data in Beijing, China based on \code{timestamp = "20 mins"} and movements with length longer than 1000 meters.}
-\label{idwBeijing}
-\end{figure}
+% \end{center}
+% \caption{Movement smoothing for taxi data in Beijing, China based on \code{timestamp = "20 mins"} and movements with length longer than 1000 meters.}
+% \label{idwBeijing}
+% \end{figure}
 
-  % \begin{figure}[!h]
-  % \centering
-  % \includegraphics[width = 4in]{idw}
-  % \caption{Movement smoothing for taxi data in Beijing, China based on \code{timestamp = "20 mins"} and movements with length longer than 1000 meters.}
-  % \label{idwBeijing}
-  % \end{figure}
+  \begin{figure}[!h]
+  \centering
+  \includegraphics[width = 4in]{idw}
+  \caption{Movement smoothing for taxi data in Beijing, China based on \code{timestamp = "20 mins"} and movements with length longer than 1000 meters.}
+  \label{idwBeijing}
+  \end{figure}
   Figure~\ref{idwBeijing} shows the movement smoothing for taxi data in Beijing according to the \code{timestamp= "20 mins"}. Here, we have not considered movements with length less than $1000$ meters. In other words, we assume taxis with the length of movements less than $1000$ meters per $20$ minutes as stopped. This confirms that moving in the centre is slower than countryside/highways in Beijing, and in particular, it reveals some highways/freeways in which taxis are moving faster.
 
  After smoothing the length of movements over space, we now turn to see the changes in the average of the length of movements over time. The function \code{avemove} measures the average length of movements passed by a collection of tracks based on a desirable timestamps. Now, we apply this to the taxi data in Beijing as follows
-\begin{figure}[!h]
-\begin{center}
-<<fig=TRUE,height=8,width=14>>=
-  #  q <- avemove(Beijing,timestamp = "20 mins",epsilon=1000)
-  #  par(mfrow=c(1,2))
-  #  plot(q,type="l",lwd=2,cex.axis=1.7,cex.lab=1.7)
-  #  qdata <- data.frame(q,attr(q,"time"))
-  #  colnames(qdata) <- c("dist","startingtime")
-  #  q3rd <- qdata[substr(qdata$startingtime,start = 1,stop=10)=="2008-02-03",]
-  #  plot(q3rd$startingtime,q3rd$dist,type="l",xlab="time (hour)"
-  #     ,ylab="average movement",lwd=2,cex.axis=1.7,cex.lab=1.7)
+%\begin{figure}[!h]
+%\begin{center}
+<<>>=
+   # q <- avemove(Beijing,timestamp = "20 mins",epsilon=1000)
+   # par(mfrow=c(1,2))
+   # plot(q,type="l",lwd=2,cex.axis=1.7,cex.lab=1.7)
+   # qdata <- data.frame(q,attr(q,"time"))
+   # colnames(qdata) <- c("dist","startingtime")
+   # q3rd <- qdata[substr(qdata$startingtime,start = 1,stop=10)=="2008-02-03",]
+   # plot(q3rd$startingtime,q3rd$dist,type="l",xlab="time (hour)"
+   #    ,ylab="average movement",lwd=2,cex.axis=1.7,cex.lab=1.7)
 @
-\end{center}
-\caption{Average length of movements by taxis in Beijing, China versus time based on \code{timestamp = "20 mins"}, and movements with length longer than $1000$ meters. \emph{Left}: Within the period $2-8$ Feb $2008$. \emph{Right}: During the $3$-rd of Feb $2008$.}
-\label{avemovebijing}
-\end{figure}
-% \begin{figure}[!h]
-% \centering
-% \subfloat{\includegraphics[width = 3.2in]{avemove}}
-% \subfloat{\includegraphics[width = 3.2in]{avemove3rd}}
+% \end{center}
 % \caption{Average length of movements by taxis in Beijing, China versus time based on \code{timestamp = "20 mins"}, and movements with length longer than $1000$ meters. \emph{Left}: Within the period $2-8$ Feb $2008$. \emph{Right}: During the $3$-rd of Feb $2008$.}
 % \label{avemovebijing}
 % \end{figure}
+
+\begin{figure}[!h]
+\centering
+\subfloat{\includegraphics[width = 3.2in]{avemove}}
+\subfloat{\includegraphics[width = 3.2in]{avemove3rd}}
+\caption{Average length of movements by taxis in Beijing, China versus time based on \code{timestamp = "20 mins"}, and movements with length longer than $1000$ meters. \emph{Left}: Within the period $2-8$ Feb $2008$. \emph{Right}: During the $3$-rd of Feb $2008$.}
+\label{avemovebijing}
+\end{figure}
 
 Figure~\ref{avemovebijing} shows the average length of movements per $20$ minutes by taxis in Beijing. The daily trend can be seen in the left plot, and the right plot shows that between midnight and early morning, the average length of movements is decreasing while from morning till noon there is an increase in the length of movements. In the afternoon, there can be seen a decrease in the average length of movements which might be caused by traffic.
 
@@ -526,9 +529,9 @@ Figure~\ref{avemovebijing} shows the average length of movements per $20$ minute
 
 We next turn to calculate the average estimated intensity of the taxi data using the estimator~\ref{Trackest}.
 
-\begin{figure}[!h]
-\begin{center}
-<<fig=TRUE,height=8,width=14,warning=FALSE, message=FALSE>>=
+%\begin{figure}[!h]
+%\begin{center}
+<<>>=
  # library("spatstat")
  # d <- density(Beijing,timestamp = "20 mins",bw.ppl)
  # par(mfrow=c(1,2),mar=rep(1,4))
@@ -547,19 +550,19 @@ We next turn to calculate the average estimated intensity of the taxi data using
  # 
  # plot(fcenterimg,main="",ribwid=0.04,ribsep=0.02,cex.axis=1.7)
 @
-\end{center}
-\caption{Estimated intensity function. \emph{Left}: Beijing. \emph{Right}: Beijing metropolitan area.}
-\label{bijingint}
-\end{figure}
+% \end{center}
+% \caption{Estimated intensity function. \emph{Left}: Beijing. \emph{Right}: Beijing metropolitan area.}
+% \label{bijingint}
+% \end{figure}
 
 Figure~\ref{bijingint} shows the estimated intensity using the estimator~\ref{Uni} for both Beijing and its metropolitan area. The bandwidth has been selected using a likelihood cross-validation method and the function \code{bw.ppl} in \pkg{spatstat}. Other bandwidth selection methods can also be passed to \code{density.list}. Figure~\ref{bijingint} highlights the most well-traveled areas in which those areas in the countryside with higher intensities (left plot) are some townships or airports. The right plot highlights the crowded routes within the centre of Beijing, China.
-  % \begin{figure}[!h]
-  % \centering
-  % \subfloat{\includegraphics[width = 3.3in]{Intensity}}
-  % \subfloat{\includegraphics[width = 3.3in]{Intensitycenter}}
-  % \caption{Estimated intensity function. Left: Beijing. Right: Beijing metropolitan area.}
-  % \label{bijingint}
-  % \end{figure}
+  \begin{figure}[!h]
+  \centering
+  \subfloat{\includegraphics[width = 3.3in]{Intensity}}
+  \subfloat{\includegraphics[width = 3.3in]{Intensitycenter}}
+  \caption{Estimated intensity function. Left: Beijing. Right: Beijing metropolitan area.}
+  \label{bijingint}
+  \end{figure}
 
 One may still think of adaptive intensity estimators such as the Voronoi estimator \citep{Ord78,BSV10}. We here point out that as the estimator~\ref{Trackest} is built based on an average of estimated intensities of a set of spatial point patterns, one can estimate each of $\lambda_i(\cdot)$ using adaptive estimators resulting in a final adaptive estimator for the corresponding trajectory pattern.
   \subsection{Chi maps}
@@ -575,9 +578,9 @@ One may still think of adaptive intensity estimators such as the Voronoi estimat
   
   The chi maps of the $3$-rd of Feb based on three different ranks are displayed in Figure~\ref{bijingchi}. Values of each pixel is calculated by equation~\ref{chistat}.  We show the chi maps for three different times during the day in which changes over time can be seen. The left plot of Figure~\ref{bijingchi} shows the chi map at \code{06:10:44} so that the estimated intensity is higher than the expected intensity in the countryside. The reason for this might be the movements from countryside to the city center in the early morning. The middle plot of Figure~\ref{bijingchi} shows that the estimated intensity in the city is higher than the expected intensity. This may be caused  by heavier traffic in the city during the day than in the countryside. In the right plot of Figure~\ref{bijingchi}, although the estimated intensity is still slightly higher than the expected one in the city, we can see that the $\chi^2$ statistic~\ref{chistat} takes values around $0$ almost everywhere at night. These three plots together confirm the changes in the values of the $\chi^2$ statistic~\ref{chistat} over time so that the mass is moving to the city in the morning and goes away in the evening. This behaviour may be explained by the movements to the city in the morning and moving back to the countryside in the evening.
 
-\begin{figure}[!h]
-\begin{center}
-<<fig=TRUE,height=8,width=14>>=
+%\begin{figure}[!h]
+%\begin{center}
+<<>>=
  # ch <- chimaps(Beijing,timestamp = "20 mins",rank = 1)
  # chall <- attr(ch,"ims")
  # minmax <- lapply(X=1:length(chall),function(i){
@@ -601,19 +604,19 @@ One may still think of adaptive intensity estimators such as the Voronoi estimat
  #      col=col5(n=color_levels),cex.axis=1.7)
  # title(attr(ch,"timevec")[104],line = -10,cex.main=2)
 @
-\end{center}
-\caption{Chi maps. \emph{Left}: in the morning, \emph{Middle}: in the afternoon, \emph{Right}: at night.  Exact time is reported on top of each plot.}
-\label{bijingchi}
-\end{figure}
+% \end{center}
+% \caption{Chi maps. \emph{Left}: in the morning, \emph{Middle}: in the afternoon, \emph{Right}: at night.  Exact time is reported on top of each plot.}
+% \label{bijingchi}
+% \end{figure}
 
-% \begin{figure}[!h]
-%   \centering
-%   \subfloat{\includegraphics[width = 2.2in]{chi1}}
-%   \subfloat{\includegraphics[width = 2.2in]{chi2}}
-%   \subfloat{\includegraphics[width = 2.2in]{chi3}}
-%   \caption{Chi maps. \emph{Left}: in the morning, \emph{Middle}: in the afternoon, \emph{Right}: at night.  Exact time is reported on top of each plot.}
-%   \label{bijingchi}
-%   \end{figure}
+\begin{figure}[!h]
+  \centering
+  \subfloat{\includegraphics[width = 2.2in]{chi1}}
+  \subfloat{\includegraphics[width = 2.2in]{chi2}}
+  \subfloat{\includegraphics[width = 2.2in]{chi3}}
+  \caption{Chi maps. \emph{Left}: in the morning, \emph{Middle}: in the afternoon, \emph{Right}: at night.  Exact time is reported on top of each plot.}
+  \label{bijingchi}
+  \end{figure}
 
 \subsection{Second-order summary statistics}
   After discretising a trajectory pattern and estimating the intensity function of each single resulted point pattern, we now turn to look at the interaction between the moving objects over time. We are interested in distinguishing whether objects tend to move independently or they show some kind of dependence (e.g., clustering or inhibition). A common way in the point process literature is to use summary statistics such as $K$- and pair correlation functions \citep{ripley77,baddeley00,BRT15}. Pairwise distances are the hint here: if objects tend to be close to each other, then most of the pairwise distances are going to be small, and if they favour to stand far, then only a few of the pairwise distances are small \citep{BRT15}.  \cite{baddeley00} considered second-order intensity-reweighted stationary point processes, and defined the inhomogeneous $K-$function as
@@ -655,9 +658,9 @@ In both functions above, users can take advantage of the bandwidth selection to 
   
   
   Finally and taking into account that estimated intensity in Figure~\ref{bijingint} represent a non-unifrom distribution and/or clustering behaviour, we show the variability area of $K$-function and pair correlation function over time in Figure~\ref{Kgvariation} (considering the ``translate'' correction, see \cite{gabriel2014}). The left plot displays the variation of $K$-function, showing that for small distances taxis tend to have a clustering behaviour while for larger distances they favour inhibition. The right plot of the variation of the pair correlation function also confirms the same behaviour. Due to the preference of moving within particular zones, $K$-function and pair correlation function might result as what is displayed in Figure~\ref{Kgvariation}. In other words, taxis might prefer to take passengers to close destinations within particular zones rather than further destinations. Argument \code{q} is to use quantiles of the values of $K$-function (or pair correlation function) rather than using maximum and minimum. Default \code{q=0} uses maximum and minimum.
-\begin{figure}[!h]
-\begin{center}
-<<fig=TRUE,height=8,width=14>>=
+%\begin{figure}[!h]
+%\begin{center}
+<<>>=
   # K <- Kinhom.Track(Beijing,correction = "translate",
   #                      timestamp = "20 mins",q=0)
   # par(mfrow=c(1,2),mar=rep(5,4))
@@ -665,18 +668,18 @@ In both functions above, users can take advantage of the bandwidth selection to 
   # g <- pcfinhom.Track(Beijing,timestamp = "20 mins",q=0)
   # plot(g,cex.axis=1.7,cex.lab=1.5,cex=2)
 @
-\end{center}
-\caption{Variability area of second-order summary statistics for taxi data in Beijing, China. \emph{Left}: $K$-function, \emph{Right}: pair correlation function.}
-\label{Kgvariation}
-\end{figure}
+% \end{center}
+% \caption{Variability area of second-order summary statistics for taxi data in Beijing, China. \emph{Left}: $K$-function, \emph{Right}: pair correlation function.}
+% \label{Kgvariation}
+% \end{figure}
   
-  % \begin{figure}[!h]
-  % \centering
-  % \includegraphics[width = 3in]{Kfun}
-  % \includegraphics[width = 3in]{gfun}
-  % \caption{Variability area of second-order summary statistics for taxi data in Beijing, China. \emph{Left}: $K$-function, \emph{Right}: pair correlation function.}
-  % \label{Kgvariation}
-  % \end{figure}
+  \begin{figure}[!h]
+  \centering
+  \includegraphics[width = 3in]{Kfun}
+  \includegraphics[width = 3in]{gfun}
+  \caption{Variability area of second-order summary statistics for taxi data in Beijing, China. \emph{Left}: $K$-function, \emph{Right}: pair correlation function.}
+  \label{Kgvariation}
+  \end{figure}
 
   We point out that as this kind of discretising trajectory patterns results in a set of spatial point patterns, it may also drives us to consider them as replicated spatial point patterns. Therefore, one may be able to introduce a single $K$-function or pair correlation function for all patterns. Note that in this case, point patterns are not independent. For more details, see \citet[Section 5.4]{D13}.
   
