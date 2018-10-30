@@ -175,7 +175,7 @@ print.ppplist <- function(x,...){
   print(x, ...) 
 }
 
-density.list <- function(x, ..., timestamp) {
+density.list <- function(x, timestamp, ...) {
   stopifnot(class(x)=="list" | class(x)=="Tracks" | class(x)=="TracksCollection")
   
   if(class(x)=="Tracks") x <- as.list.Tracks(x)
