@@ -452,8 +452,8 @@ As an alternative, one can use nearest neighbour distances instead of pairwise d
 \begin{figure}[!h]
 \begin{center}
 <<fig=TRUE>>=
-% b <- Track.idw(Beijing,timestamp = "20 mins",epsilon=1000)
-% plot(b,main="",ribwid=0.04,ribsep=0.02,cex.axis=1.5)
+ # b <- Track.idw(Beijing,timestamp = "20 mins",epsilon=1000)
+ # plot(b,main="",ribwid=0.04,ribsep=0.02,cex.axis=1.5)
 @
 \end{center}
 \caption{Movement smoothing for taxi data in Beijing, China based on \code{timestamp = "20 mins"} and movements with length longer than 1000 meters.}
@@ -472,14 +472,14 @@ As an alternative, one can use nearest neighbour distances instead of pairwise d
 \begin{figure}[!h]
 \begin{center}
 <<fig=TRUE,height=8,width=14>>=
-  % q <- avemove(Beijing,timestamp = "20 mins",epsilon=1000)
-  % par(mfrow=c(1,2))
-  % plot(q,type="l",lwd=2,cex.axis=1.7,cex.lab=1.7)
-  % qdata <- data.frame(q,attr(q,"time"))
-  % colnames(qdata) <- c("dist","startingtime")
-  % q3rd <- qdata[substr(qdata$startingtime,start = 1,stop=10)=="2008-02-03",]
-  % plot(q3rd$startingtime,q3rd$dist,type="l",xlab="time (hour)"
-  %    ,ylab="average movement",lwd=2,cex.axis=1.7,cex.lab=1.7)
+  #  q <- avemove(Beijing,timestamp = "20 mins",epsilon=1000)
+  #  par(mfrow=c(1,2))
+  #  plot(q,type="l",lwd=2,cex.axis=1.7,cex.lab=1.7)
+  #  qdata <- data.frame(q,attr(q,"time"))
+  #  colnames(qdata) <- c("dist","startingtime")
+  #  q3rd <- qdata[substr(qdata$startingtime,start = 1,stop=10)=="2008-02-03",]
+  #  plot(q3rd$startingtime,q3rd$dist,type="l",xlab="time (hour)"
+  #     ,ylab="average movement",lwd=2,cex.axis=1.7,cex.lab=1.7)
 @
 \end{center}
 \caption{Average length of movements by taxis in Beijing, China versus time based on \code{timestamp = "20 mins"}, and movements with length longer than $1000$ meters. \emph{Left}: Within the period $2-8$ Feb $2008$. \emph{Right}: During the $3$-rd of Feb $2008$.}
