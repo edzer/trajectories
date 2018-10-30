@@ -10,14 +10,15 @@ Convert a "TracksCollection" object to a list of tracks
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-\method{as.list}{TracksCollection}(X)
+\method{as.list}{TracksCollection}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
+  \item{x}{
   an object of class "TracksCollection"
 %%     ~~Describe \code{Y} here~~
 }
+\item{...}{passed to arguments of as.list}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~

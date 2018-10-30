@@ -1,12 +1,12 @@
-as.list.Tracks <- function(X){
-  stopifnot(class(X)=="Tracks")
-  return(X@tracks)
+as.list.Tracks <- function(x,...){
+  stopifnot(class(x)=="Tracks")
+  return(as.list(x@tracks,...))
 }
 
-as.list.TracksCollection <- function(X){
-  stopifnot(class(X)=="TracksCollection")
-  out <-  lapply(X=1:length(X@tracksCollection), function(i){
-    as.list.Tracks(X@tracksCollection[[i]])
+as.list.TracksCollection <- function(x,...){
+  stopifnot(class(x)=="TracksCollection")
+  out <-  lapply(X=1:length(x@tracksCollection), function(i){
+    as.list.Tracks(x@tracksCollection[[i]],...)
   })
   return(unlist(out, recursive=FALSE))
 }
@@ -64,9 +64,9 @@ reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL){
 }
 
 # range.Track returns the timerange of an object of class Track
-range.Track <- function(X) {
+range.Track <- function(X,...) {
   Y <- cbind(as.data.frame(X)[c(coordnames(X), "time")])
-  return(range(Y$time)) 
+  return(range(Y$time,...)) 
 }
 
 # tsqtracks returns a sequance of time based on a list of tracks (or a single object of class Track) and an argument timestamp
@@ -127,10 +127,10 @@ plot.distrack <- function(x,...){
 }
 
 
-unique.Track <- function(X){
-  X <-  cbind(as.data.frame(X)[c(coordnames(X), "time")])
-  X <- X[!duplicated(X),]
-  return(as.Track(X[,1],X[,2],X[,3])) 
+unique.Track <- function(x,...){
+  x <-  cbind(as.data.frame(x)[c(coordnames(x), "time")])
+  x <- unique(x,...)
+  return(as.Track(x[,1],x[,2],x[,3])) 
 }
 
 
@@ -175,19 +175,19 @@ print.ppplist <- function(x,...){
   print(x, ...) 
 }
 
-density.list <- function(X, ..., timestamp) {
-  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+density.list <- function(x, ..., timestamp) {
+  stopifnot(class(x)=="list" | class(x)=="Tracks" | class(x)=="TracksCollection")
   
-  if(class(X)=="Tracks") X <- as.list.Tracks(X)
-  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  if(class(x)=="Tracks") x <- as.list.Tracks(x)
+  if (class(x)=="TracksCollection") x <- as.list.TracksCollection(x)
   
-  stopifnot(length(X)>1 & is.list(X))
+  stopifnot(length(x)>1 & is.list(x))
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   
   if (missing(timestamp)) stop("set timestamp") 
   
-  p <- as.Track.ppp(X, timestamp)
+  p <- as.Track.ppp(x, timestamp)
   p <- p[!sapply(p, is.null)] 
   imlist <- lapply(p, spatstat::density.ppp, ...)
   out <- Reduce("+", imlist) / length(imlist)

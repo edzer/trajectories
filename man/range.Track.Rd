@@ -10,7 +10,7 @@ Retrieves the range of a "Track" object
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-\method{range}{Track}(X)
+\method{range}{Track}(X,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,6 +18,7 @@ Retrieves the range of a "Track" object
   an object of class "Track"
 %%     ~~Describe \code{X} here~~
 }
+\item{...}{passed to arguments of range}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~

@@ -7,13 +7,14 @@ unique.Track
 \description{
 Removing duplicated points in a track}
 \usage{
-\method{unique}{Track}(X)
+\method{unique}{Track}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
+  \item{x}{
 an object of class "Track"
 }
+\item{...}{passed to arguments of unique}
 }
 \details{
 This function removes duplicated points in an object of class "Track".}
