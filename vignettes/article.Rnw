@@ -116,6 +116,7 @@ Figure~\ref{taxitracks} is generated using the following lines of code.
 
 %\begin{figure}[!h]
 %\begin{center}
+
 <<>>=
 library("trajectories")
 # library("taxidata")
