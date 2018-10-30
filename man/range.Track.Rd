@@ -9,7 +9,7 @@ range.Track
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-range.Track(X)
+\method{range}{Track}(X)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -45,7 +45,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \examples{
 x <-  rTrack()
-urange.Track(x)
+urange(x)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

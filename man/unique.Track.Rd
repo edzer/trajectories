@@ -7,7 +7,7 @@ unique.Track
 \description{
 Removing duplicated points in a track}
 \usage{
-unique.Track(X)
+\method{unique}{Track}(X)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -30,7 +30,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \examples{
 x <-  rTrack()
-unique.Track(x)
+unique(x)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

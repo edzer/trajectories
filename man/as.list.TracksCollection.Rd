@@ -9,7 +9,7 @@ as.list.TracksCollection
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-as.list.TracksCollection(X)
+\method{as.list}{TracksCollection}(X)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -46,7 +46,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \examples{
 x <-  rTracksCollection()
-as.list.rTracksCollection(x)
+as.list(x)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
