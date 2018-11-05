@@ -1,3 +1,17 @@
+as.list.Tracks <- function(x,...){
+  stopifnot(class(x)=="Tracks")
+  return(as.list(x@tracks,...))
+}
+
+as.list.TracksCollection <- function(x,...){
+  stopifnot(class(x)=="TracksCollection")
+  out <-  lapply(X=1:length(x@tracksCollection), function(i){
+    as.list.Tracks(x@tracksCollection[[i]],...)
+  })
+  return(unlist(out, recursive=FALSE))
+}
+
+
 as.Track <- function(x,y,t,covariate){
   stopifnot(length(x)>0 |  length(y)>0 | length(t)>0)
   sp <- cbind(x,y)
@@ -14,7 +28,7 @@ reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL){
   
   if (missing(tsq)) tsq <- tsqTracks(X,timestamp = timestamp)
   if(missing(at)) at <- "track"
-  Xrange <- rngTrack(X)
+  Xrange <- range.Track(X)
   X <-  cbind(as.data.frame(X)[c(coordnames(X), "time")])
   xnew <- c()
   ynew <- c()
@@ -50,18 +64,18 @@ reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL){
 }
 
 # range.Track returns the timerange of an object of class Track
-rngTrack <- function(X) {
+range.Track <- function(X,...) {
   Y <- cbind(as.data.frame(X)[c(coordnames(X), "time")])
-  return(range(Y$time)) 
+  return(range(Y$time,...)) 
 }
 
 # tsqtracks returns a sequance of time based on a list of tracks (or a single object of class Track) and an argument timestamp
 tsqTracks <- function(X, timestamp){
   
   timerange = if (is.list(X)) 
-    lapply(X, rngTrack)
+    lapply(X, range.Track)
   else 
-  	rngTrack(X)
+    range.Track(X)
   
   Trackrg <- range(timerange)
   class(Trackrg) <- c('POSIXt','POSIXct')
@@ -77,6 +91,10 @@ tsqTracks <- function(X, timestamp){
 # function avedistTrack accepts X as a list of tracks and reports the average distance between
 # tracks over time, output is an object of class "distrack"
 avedistTrack <- function(X,timestamp){
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   
   stopifnot(length(X)>1 & is.list(X))
   if (!requireNamespace("spatstat", quietly = TRUE))
@@ -109,19 +127,24 @@ plot.distrack <- function(x,...){
 }
 
 
-uniqueTrack <- function(X){
-  X <-  cbind(as.data.frame(X)[c(coordnames(X), "time")])
-  X <- X[!duplicated(X),]
-  return(as.Track(X[,1],X[,2],X[,3])) 
+unique.Track <- function(x,...){
+  x <-  cbind(as.data.frame(x)[c(coordnames(x), "time")])
+  x <- unique(x,...)
+  return(as.Track(x[,1],x[,2],x[,3])) 
 }
 
 
 as.Track.ppp <- function(X,timestamp){
+  
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  stopifnot(length(X)>1 & is.list(X))
 
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   
-  stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp") 
   # calculate a sequance of time to interpolate tracks within this sequance
@@ -152,7 +175,12 @@ print.ppplist <- function(x,...){
   print(x, ...) 
 }
 
-density.list <- function(x, ..., timestamp) {
+density.list <- function(x, timestamp, ...) {
+  stopifnot(class(x)=="list" | class(x)=="Tracks" | class(x)=="TracksCollection")
+  
+  if(class(x)=="Tracks") x <- as.list.Tracks(x)
+  if (class(x)=="TracksCollection") x <- as.list.TracksCollection(x)
+  
   stopifnot(length(x)>1 & is.list(x))
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
@@ -169,11 +197,16 @@ density.list <- function(x, ..., timestamp) {
 }
 
 as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   
   if (missing(timestamp)) stop("set timestamp") 
+  if(missing(epsilon))  epsilon <- 0
   
   Z <- as.Track.ppp(X,timestamp)
   tsq <- attr(Z,"tsq")
@@ -210,9 +243,14 @@ print.Trrow <- function(x, ...) {
 } 
 
 Track.idw <- function(X,timestamp,epsilon=epsilon,...){
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp")
+  if(missing(epsilon))  epsilon <- 0
   
   Y <- as.Track.arrow(X,timestamp,epsilon=epsilon)
   Z <- lapply(Y, spatstat::idw, ...)
@@ -221,6 +259,10 @@ Track.idw <- function(X,timestamp,epsilon=epsilon,...){
 }
 
 avemove <- function(X,timestamp,epsilon=epsilon){
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
@@ -252,8 +294,16 @@ plot.arwlen <- function(x,...){
 }
 
 chimaps <- function(X,timestamp,rank,...){
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  stopifnot(length(X)>1 & is.list(X))
+  
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
+  
+  if(missing(rank)) rank <- 1
   if (!is.numeric(rank)) stop("rank must be numeric")
   if (rank < 1 | rank >length(X)) stop("rank must be number between one and the number of Tracks")
   stopifnot(length(X)>1 & is.list(X))
@@ -277,6 +327,11 @@ chimaps <- function(X,timestamp,rank,...){
 Kinhom.Track <- function(X,timestamp,
                 correction=c("border", "bord.modif", "isotropic", "translate"),q,
                 sigma=c("default","bw.diggle","bw.ppl"," bw.scott"),...){
+  
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
@@ -341,11 +396,12 @@ print.KTrack <- function(x, ...){
   print("variability area of K-function", ...)
 }
 
-plot.KTrack <- function(x,type="l",col= "grey70",cex=1,...){
+plot.KTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   ylim <- c(min(c(x$lowk,x$theo)),max(c(x$upk,x$theo)))
-  plot(x$r,x$lowk,ylim=ylim,type=type,ylab=expression(K[inhom](r)),xlab="r",...)
+  plot(x$r,x$lowk,ylim=ylim,type=type,ylab="",xlab="r",...)
+  title(ylab=expression(K[inhom](r)),line = line,...)
   points(x$r,x$upk,type=type)
   polygon(c(x$r, rev(x$r)), c(x$upk, rev(x$lowk)),
           col = col, border = NA)
@@ -359,6 +415,11 @@ plot.KTrack <- function(x,type="l",col= "grey70",cex=1,...){
 pcfinhom.Track <- function(X,timestamp,
                            correction = c("translate", "Ripley"), q,
                            sigma=c("default", "bw.diggle", "bw.ppl", "bw.scott"), ...) {
+  
+  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
@@ -425,11 +486,12 @@ print.gTrack <- function(x, ...){
   print("variability area of pair correlatio function", ...)
 }
 
-plot.gTrack <- function(x,type="l",col= "grey70",cex=1,...){
+plot.gTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   ylim <- c(min(x$lowg),max(x$upg))
-  plot(x$r,x$lowg,ylim=ylim,xlab="r",ylab=expression(g[inhom](r)),type=type,...)
+  plot(x$r,x$lowg,ylim=ylim,xlab="r",ylab="",type=type,...)
+  title(ylab=expression(g[inhom](r)),line = line,...)
   points(x$r,x$upg,type=type)
   polygon(c(x$r, rev(x$r)), c(x$upg, rev(x$lowg)),
           col = col, border = NA)

@@ -8,12 +8,12 @@ Kernel estimate of intensity of trajectory pattern
 Estimating the intensity of a list of tracks.
 }
 \usage{
-\method{density}{list}(x,..., timestamp)
+\method{density}{list}(x, timestamp,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-a list of "Track" objects
+a list of "Track" objects, an object of class "Tracks" or "TracksCollection"
 }
 \item{timestamp}{based on secs, mins, ...}
 \item{...}{passed to arguments of density.ppp}

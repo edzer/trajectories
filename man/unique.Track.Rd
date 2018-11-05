@@ -1,19 +1,20 @@
-\name{uniqueTrack}
-\alias{uniqueTrack}
+\name{unique.Track}
+\alias{unique.Track}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-uniqueTrack
+unique.Track
 }
 \description{
 Removing duplicated points in a track}
 \usage{
-uniqueTrack(X)
+\method{unique}{Track}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
+  \item{x}{
 an object of class "Track"
 }
+\item{...}{passed to arguments of unique}
 }
 \details{
 This function removes duplicated points in an object of class "Track".}
@@ -30,7 +31,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 }
 \examples{
 x <-  rTrack()
-uniqueTrack(x)
+unique(x)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
