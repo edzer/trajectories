@@ -3,7 +3,7 @@
 \docType{methods}
 
 \alias{dists}
-\alias{dists,Tracks-method}
+\alias{dists,Tracks,Tracks-method}
 
 \title{Calculate distances between two \code{Tracks} objects}
 
@@ -12,7 +12,7 @@ Calculates a distance matrix with distances for each pair of tracks.
 }
 
 \usage{%
-\S4method{dists}{Tracks}(tr1, tr2, f, ...)
+\S4method{dists}{Tracks,Tracks}(tr1, tr2, f, ...)
 }
 
 \arguments{

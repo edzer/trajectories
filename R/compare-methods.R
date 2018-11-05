@@ -43,6 +43,7 @@ setMethod("compare", signature("Track"), compare.track)
 
 
 
+
 ## distances between 2 Tracks objects
 setGeneric(
   name = "dists",
@@ -66,8 +67,7 @@ dists.tracks <- function(tr1, tr2, f = mean, ...) {
   }
   dists
 }
-setMethod("dists", signature("Tracks"), dists.tracks)
-
+setMethod("dists", signature(tr1 = "Tracks", tr2 = "Tracks"), dists.tracks)
 
 ## finds corresponding points for track1 on track2
 findPoints <- function(tr1, tr2, ivs) {

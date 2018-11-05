@@ -740,3 +740,13 @@ cut.Tracks = function(x, breaks, ...) do.call(c, lapply(x@tracks, cut, breaks = 
 
 cut.TracksCollection = function(x, breaks, ...) 	
 	TracksCollection(lapply(x@tracksCollection, cut, breaks = breaks, ...))
+
+"index<-.Track" = function(x, value) {
+	index(x@time) = value
+	x
+}
+
+setReplaceMethod("geometry", c("Track", "Spatial"), function(obj, value) {
+	obj@sp = value
+	obj
+})
