@@ -24,7 +24,7 @@
 }
 
 @book{BRT15,
-	title={Spatial Point Patterns: Methodology and Applications with R},
+	title={Spatial Point Patterns: Methodology and Applications with \proglang{R}},
 	author={Baddeley, Adrian and Rubak, Ege and Turner, Rolf},
 	year={2015},
 	publisher={CRC Press}
@@ -34,6 +34,8 @@
 	title={A kernel method for smoothing point process data},
 	author={Diggle, Peter},
 	journal={Applied Statistics},
+	volume={34},
+	number={2},
 	pages={138--147},
 	year={1985},
 	publisher={JSTOR}
@@ -83,37 +85,6 @@
 }
 
 
-@incollection{B05,
-	title={Network density estimation: analysis of point patterns over a network},
-	author={Borruso, Giuseppe},
-	booktitle={Computational Science and Its Applications--ICCSA 2005},
-	pages={126--132},
-	year={2005},
-	publisher={Springer}
-}
-
-@article{B08,
-	title={Network density estimation: a {GIS} approach for analysing point patterns in a network space},
-	author={Borruso, Giuseppe},
-	journal={Transactions in {GIS}},
-	volume={12},
-	number={3},
-	pages={377--402},
-	year={2008},
-	publisher={Wiley Online Library}
-}
-
-@article{XZY08,
-	title={Kernel density estimation of traffic accidents in a network space},
-	author={Xie, Zhixiao and Yan, Jun},
-	journal={Computers, Environment and Urban Systems},
-	volume={32},
-	number={5},
-	pages={396--406},
-	year={2008},
-	publisher={Elsevier}
-}
-
 @article{SS09,
 	title={Detection of hierarchical point agglomerations by the network-based variable clumping method},
 	author={Shiode, S and Shiode, N},
@@ -124,7 +95,7 @@
 }
 @book{MW03,
 	title={Statistical Inference and Simulation for Spatial Point Processes},
-	author={M{\o}ller, Jesper and Waagepetersen, Rasmus Plenge},
+	author={M{\o}ller, Jesper and Waagepetersen, Rasmus},
 	year={2003},
 	publisher={CRC Press}
 }
@@ -164,7 +135,7 @@
 	title={Geometric Measure Theory},
 	author={Federer, Herbert},
 	year={1996},
-	publisher={Springer Verlag}
+	publisher={Springer-Verlag}
 }
 
 @Book{M60,
@@ -316,24 +287,33 @@
 
 @book{D13,
 	title={Statistical Analysis of Spatial and Spatio-Temporal Point Patterns},
-	author={Diggle, Peter J},
+	author={Diggle, Peter},
 	year={2013},
 	publisher={CRC Press}
 }
 
 
 @article{baddeley05,
-  title={Spatstat: an R package for analyzing spatial point patterns},
+  title={\pkg{Spatstat}: an \proglang{R} package for analyzing spatial point patterns},
   author={Baddeley, Adrian and Turner, Rolf},
-  journal={Journal of Statistical Software},
-  volume={12},
-  number={6},
-  pages={1--42},
-  year={2005}
+  journal = {Journal of Statistical Software, Articles},
+   volume = {12},
+   number = {6},
+   year = {2005},
+   keywords = {},
+   abstract = {spatstat is a package for analyzing spatial point pattern data. Its functionality includes exploratory data analysis, model-fitting, and simulation. It is designed to handle realistic datasets, including inhomogeneous point patterns, spatial sampling regions of arbitrary shape, extra covariate data, and \"marks\" attached to the points of the point pattern. 
+
+A unique feature of spatstat is its generic algorithm for fitting point process models to point pattern data. The interface to this algorithm is a function ppm that is strongly analogous to lm and glm. 
+
+This paper is a general description of spatstat and an introduction for new users.},
+   issn = {1548-7660},
+   pages = {1--42},
+   doi = {10.18637/jss.v012.i06},
+   url = {https://www.jstatsoft.org/v012/i06}
 }
 
 @article{MRMB,
-  title={Normalisation of the inhomogeneous $K$-function and pair correlation function},
+  title={Normalisation of the inhomogeneous {$K$}-function and pair correlation function},
   author={Moradi, M. Mehdi and Read, N and Mateu, J and Baddeley, A},
   journal={In preparation},
   volume={NA},
@@ -405,7 +385,7 @@
 
 @article{baddeley00,
   title={Non-and semi-parametric estimation of interaction in inhomogeneous point patterns},
-  author={Baddeley, Adrian J and M{\o}ller, Jesper and Waagepetersen, Rasmus},
+  author={Baddeley, Adrian and M{\o}ller, Jesper and Waagepetersen, Rasmus},
   journal={Statistica Neerlandica},
   volume={54},
   number={3},
@@ -422,7 +402,7 @@
 }
 
 @article{calenge06,
-  title={The package ``adehabitat'' for the R software: a tool for the analysis of space and habitat use by animals},
+  title={The package \pkg{adehabitat} for the \proglang{R} software: a tool for the analysis of space and habitat use by animals},
   author={Calenge, Cl{\'e}ment},
   journal={Ecological modelling},
   volume={197},
@@ -434,10 +414,10 @@
 
 
 @Manual{trip,
-    title = {trip: Tools for the Analysis of Animal Track Data},
+    title = {\pkg{trip}: Tools for the Analysis of Animal Track Data},
     author = {Michael D. Sumner},
     year = {2016},
-    note = {R package version 1.5.0},
+    note = {\proglang{R} package version 1.5.0},
     url = {https://CRAN.R-project.org/package=trip}
   }
 
@@ -445,7 +425,7 @@
   title={An Introduction to The theory of Point Processes: Volume II: General Theory and Structure},
   author={Daley, Daryl J and Vere-Jones, David},
   year={2007},
-  publisher={Springer Science \& Business Media}
+  publisher={Springer-Verlag Science \& Business Media}
 }
 
 @article{jones93,
@@ -483,6 +463,8 @@ pages={23--33}
   title={Modelling spatial patterns},
   author={Ripley, Brian D},
   journal={Journal of the Royal Statistical Society. Series B (Methodological)},
+  volume={39},
+  number={2},
   pages={172--212},
   year={1977},
   publisher={JSTOR}
@@ -492,6 +474,7 @@ pages={23--33}
   title={Bayesian estimation of animal movement from archival and satellite tags},
   author={Sumner, Michael D and Wotherspoon, Simon J and Hindell, Mark A},
   journal={PLoS One},
+  doi={https://doi.org/10.1371/journal.pone.0007324},
   volume={4},
   number={10},
   pages={e7324},
@@ -500,73 +483,72 @@ pages={23--33}
 }
 
 @Manual{argosf,
-    title = {argosfilter: Argos locations filter},
+    title = {\pkg{argosfilter}: Argos locations filter},
     author = {Carla Freitas},
     year = {2012},
-    note = {R package version 0.63},
+    note = {\proglang{R} package version 0.63},
     url = {https://CRAN.R-project.org/package=argosfilter}
   }
   
   @Manual{animalTrack,
-    title = {animalTrack: Animal track reconstruction for high frequency 2-dimensional
-(2D) or 3-dimensional (3D) movement data.},
+    title = {\pkg{animalTrack}: Animal track reconstruction for high frequency 2-dimensional (2D) or 3-dimensional (3D) movement data},
     author = {Ed Farrell and Lee Fuiman},
     year = {2013},
-    note = {R package version 1.0.0},
+    note = {\proglang{R} package version 1.0.0},
     url = {https://CRAN.R-project.org/package=animalTrack}
   }
   
   @Manual{BBMM,
-    title = {BBMM: Brownian bridge movement model},
-    author = {{Nielson} and R. M. and H. Sawyer and T. L. McDonald},
+    title = {\pkg{BBMM}: Brownian bridge movement model},
+    author = {Nielson, R. M. and Sawyer, H.  and McDonald, T. L.},
     year = {2013},
-    note = {R package version 3.0},
+    note = {\proglang{R} package version 3.0},
     url = {https://CRAN.R-project.org/package=BBMM}
   }
   
   @Manual{bcpa,
-    title = {bcpa: Behavioral change point analysis of animal movement},
+    title = {\pkg{bcpa}: Behavioral change point analysis of animal movement},
     author = {Eliezer Gurarie},
     year = {2014},
-    note = {R package version 1.1},
+    note = {\proglang{R} package version 1.1},
     url = {https://CRAN.R-project.org/package=bcpa}
   }
   
   @Manual{smam,
-    title = {smam: Statistical Modeling of Animal Movements},
+    title = {\pkg{smam}: Statistical Modeling of Animal Movements},
     author = {Jun Yan and Vladimir Pozdnyakov},
     year = {2016},
-    note = {R package version 0.3-0},
+    note = {\proglang{R} package version 0.3-0},
     url = {https://CRAN.R-project.org/package=smam}
   }
   
   @Manual{BayesianAnimalTracker,
-    title = {BayesianAnimalTracker: Bayesian Melding of GPS and DR Path for Animal Tracking},
+    title = {\pkg{BayesianAnimalTracker}: Bayesian Melding of GPS and DR Path for Animal Tracking},
     author = {Yang (Seagle) Liu},
     year = {2014},
-    note = {R package version 1.2},
+    note = {\proglang{R} package version 1.2},
     url = {https://CRAN.R-project.org/package=BayesianAnimalTracker}
-  }
+    }
   
-  @Manual{TrackReconstruction,
-    title = {TrackReconstruction: Reconstruct animal tracks from magnetometer, accelerometer,
+@Manual{TrackReconstruction,
+    title = {\pkg{TrackReconstruction}: Reconstruct animal tracks from magnetometer, accelerometer, depth and optional speed data,
 depth and optional speed data.},
     author = {Brian Battaile},
     year = {2014},
-    note = {R package version 1.1},
+    note = {\proglang{R} package version 1.1},
     url = {https://CRAN.R-project.org/package=TrackReconstruction}
   }
   
   @Manual{mkde,
-    title = {mkde: 2D and 3D movement-based kernel density estimates (MKDEs).},
+    title = {\pkg{mkde}: 2D and 3D movement-based kernel density estimates (MKDEs).},
     author = {Jeff A. Tracey and James Sheppard and Jun Zhu and Robert Sinkovts and Amit Chourasia and Glenn Lockwood and Robert N. Fisher},
     year = {2014},
-    note = {R package version 0.1},
+    note = {\proglang{R} package version 0.1},
     url = {https://CRAN.R-project.org/package=mkde}
   }
   
   @Article{moveHMM,
-    title = {moveHMM: an R package for the statistical modelling of animal movement data using hidden Markov models},
+    title = {\pkg{moveHMM}: an \proglang{R} package for the statistical modelling of animal movement data using hidden Markov models},
     author = {Theo Michelot and Roland Langrock and Toby A. Patterson},
     journal = {Methods in Ecology and Evolution},
     year = {2016},
@@ -576,26 +558,31 @@ depth and optional speed data.},
   }
   
   @Article{V-Track,
-    title = {V-Track: software for analysing and visualising animal movement from acoustic telemetry detections},
-    journal = {Marine and Freshwater Research},
-    volume = {63},
-    pages = {1635},
-    year = {2012},
+    title = {\pkg{V-Track}: software for analysing and visualising animal movement from acoustic telemetry detections},
+   journal={Marine and Freshwater Research},
+  volume={63},
+  number={9},
+  pages={815--820},
+  year={2012},
+  publisher={CSIRO},
     author = {Hamish A. Campbell and Matt E. Watts and Ross G. Dwyer and Craig E. Franklin}
   }
   
   @Manual{SimilarityMeasures,
-    title = {SimilarityMeasures: Trajectory Similarity Measures},
+    title = {\pkg{SimilarityMeasures}: Trajectory Similarity Measures},
     author = {Kevin Toohey},
     year = {2015},
-    note = {R package version 1.4},
+    note = {\proglang{R} package version 1.4},
     url = {https://CRAN.R-project.org/package=SimilarityMeasures}
   }
   
   @article{FLightR,
-  title={FLightR: an R package for reconstructing animal paths from solar geolocation loggers},
+  title={\pkg{FLightR}: an \proglang{R} package for reconstructing animal paths from solar geolocation loggers},
   author={Rakhimberdiev, Eldar and Saveliev, Anatoly and Piersma, Theunis and Karagicheva, Julia},
   journal={Methods in Ecology and Evolution},
+  volume={8},
+  number={11},
+  pages={1482--1487},
   year={2017},
   publisher={Wiley Online Library}
 }
@@ -639,17 +626,22 @@ depth and optional speed data.},
     journal = {Fish and Fisheries},
     year = {2014},
     url = {http://dx.doi.org/10.1111/faf.12028},
-    note = {R package 'fishmove', version  0.3-3}
+    note = {\proglang{R} package \pkg{fishmove}, version  0.3-3}
   }
   
   @article{spacetime,
-  title={spacetime: Spatio-Temporal data in R},
-  author={Pebesma, Edzer.},
-  journal={Journal of Statistical Software},
-  volume={51},
-  number={7},
-  pages={1--30},
-  year={2012}
+  title={\pkg{spacetime}: Spatio-Temporal data in \proglang{R}},
+  author = {Edzer Pebesma},
+   journal = {Journal of Statistical Software, Articles},
+   volume = {51},
+   number = {7},
+   year = {2012},
+   keywords = {},
+   abstract = {This document describes classes and methods designed to deal with different types of spatio-temporal data in R implemented in the R package spacetime, and provides examples for analyzing them. It builds upon the classes and methods for spatial data from package sp, and for time series data from package xts. The goal is to cover a number of useful representations for spatio-temporal sensor data, and results from predicting (spatial and/or temporal interpolation or smoothing), aggregating, or subsetting them, and to represent trajectories. The goals of this paper is to explore how spatio-temporal data can be sensibly represented in classes, and to find out which analysis and visualisation methods are useful and feasible. We discuss the time series convention of representing time intervals by their starting time only. This document is the main reference for the R package spacetime, and is available (in updated form) as a vignette in this package.},
+   issn = {1548-7660},
+   pages = {1--30},
+   doi = {10.18637/jss.v051.i07},
+   url = {https://www.jstatsoft.org/v051/i07}
 }
 
 @inproceedings{yuan11,
@@ -673,12 +665,13 @@ depth and optional speed data.},
 
 @article{frick,
    author = {Hannah Frick and Ioannis Kosmidis},
-   title = {trackeR: Infrastructure for Running and Cycling Data from GPS-Enabled Tracking Devices in R},
+   title = {\pkg{trackeR}: Infrastructure for Running and Cycling Data from GPS-Enabled Tracking Devices in \proglang{R}},
    journal = {Journal of Statistical Software, Articles},
    volume = {82},
    number = {7},
    year = {2017},
    keywords = {sports; tracking; work capacity; running; cycling; distribution profiles},
+   abstract = {The use of GPS-enabled tracking devices and heart rate monitors is becoming increasingly common in sports and fitness activities. The trackeR package aims to fill the gap between the routine collection of data from such devices and their analyses in R. The package provides methods to import tracking data into data structures which preserve units of measurement and are organized in sessions. The package implements core infrastructure for relevant summaries and visualizations, as well as support for handling units of measurement. There are also methods for relevant analytic tools such as time spent in zones, work capacity above critical power (known as W 0 ), and distribution and concentration profiles. A case study illustrates how the latter can be used to summarize the information from training sessions and use it in more advanced statistical analyses.},
    issn = {1548-7660},
    pages = {1--29},
    doi = {10.18637/jss.v082.i07},
@@ -693,8 +686,7 @@ depth and optional speed data.},
   volume={16},
   number={2},
   pages={411--431},
-  year={2014},
-  publisher={Springer}
+  year={2014}
 }
 
 @article{niu2016modeling,
