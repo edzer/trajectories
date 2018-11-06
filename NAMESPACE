@@ -7,6 +7,7 @@ importFrom(stats, approx, as.formula, na.omit, quantile, rnorm, arima.sim,
 importFrom(utils, head, tail, stack, unstack)
 importFrom(graphics, arrows, box, lines, points, segments, legend, polygon, title)
 importFrom(grDevices, rainbow, heat.colors)
+importFrom(zoo, "index<-")
 # importFrom(rgl, open3d, plot3d, lines3d)
 
 exportClasses(
@@ -51,6 +52,7 @@ S3method(density, list)
 S3method(dim, Track)
 S3method(dim, Tracks)
 S3method(dim, TracksCollection)
+S3method("index<-", Track)
 S3method(plot, KTrack)
 S3method(plot, distrack)
 S3method(plot, gTrack)
