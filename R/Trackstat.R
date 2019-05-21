@@ -72,6 +72,9 @@ range.Track <- function(X,...) {
 # tsqtracks returns a sequance of time based on a list of tracks (or a single object of class Track) and an argument timestamp
 tsqTracks <- function(X, timestamp){
   
+  if(class(X)=="Tracks") X <- as.list.Tracks(X)
+  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  
   timerange = if (is.list(X)) 
     lapply(X, range.Track)
   else 
@@ -117,8 +120,8 @@ avedistTrack <- function(X,timestamp){
   attr(avedist,"tsq") <- attr(Y,"tsq")
   return(avedist)
 }
-print.distrack <- function(x, ...){
-  print(as.vector(x), ...)
+print.distrack <- function(x){
+  print(as.vector(x))
 }
 
 plot.distrack <- function(x,...){
@@ -141,7 +144,7 @@ as.Track.ppp <- function(X,timestamp){
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
-
+  
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   
@@ -170,9 +173,9 @@ as.Track.ppp <- function(X,timestamp){
   return(Tppp)
 }
 
-print.ppplist <- function(x,...){
+print.ppplist <- function(x){
   attributes(x) <- NULL 
-  print(x, ...) 
+  print(x) 
 }
 
 density.list <- function(x, timestamp, ...) {
@@ -196,7 +199,7 @@ density.list <- function(x, timestamp, ...) {
   return(out)
 }
 
-as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
+as.Track.arrow <- function(X,timestamp,epsilon=0){
   stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
   
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
@@ -237,12 +240,12 @@ as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
   return(Y)  
 }
 
-print.Trrow <- function(x, ...) { 
+print.Trrow <- function(x) { 
   attributes(x) <- NULL 
-  print(x, ...) 
+  print(x) 
 } 
 
-Track.idw <- function(X,timestamp,epsilon=epsilon,...){
+Track.idw <- function(X,timestamp,epsilon=0,...){
   stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
   
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
@@ -258,7 +261,7 @@ Track.idw <- function(X,timestamp,epsilon=epsilon,...){
   return(meanIDW)
 }
 
-avemove <- function(X,timestamp,epsilon=epsilon){
+avemove <- function(X,timestamp,epsilon=0){
   stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
   
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
@@ -281,8 +284,8 @@ avemove <- function(X,timestamp,epsilon=epsilon){
   return(out)
 }
 
-print.arwlen <- function(x, ...){
-  print(as.vector(x), ...)
+print.arwlen <- function(x){
+  print(as.vector(x))
 }
 
 plot.arwlen <- function(x,...){
@@ -325,8 +328,8 @@ chimaps <- function(X,timestamp,rank,...){
 }
 
 Kinhom.Track <- function(X,timestamp,
-                correction=c("border", "bord.modif", "isotropic", "translate"),q,
-                sigma=c("default","bw.diggle","bw.ppl"," bw.scott"),...){
+                         correction=c("border", "bord.modif", "isotropic", "translate"),q=0,
+                         sigma=c("default","bw.diggle","bw.ppl"," bw.scott"),...){
   
   stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
   
@@ -392,8 +395,8 @@ Kinhom.Track <- function(X,timestamp,
   attr(out,"out") <- out
   return(out)
 }
-print.KTrack <- function(x, ...){
-  print("variability area of K-function", ...)
+print.KTrack <- function(x){
+  print("variability area of K-function")
 }
 
 plot.KTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
@@ -454,7 +457,7 @@ pcfinhom.Track <- function(X,timestamp,
     
     Z <- attr(ZZ,"Tracksim")
     Y <- attr(ZZ,"ppps")
-      
+    
     g <- lapply(X=1:length(Y), function(i){
       gg <- spatstat::pcfinhom(Y[[i]],lambda = Z[[i]],correction=cor,...)
       return(as.data.frame(gg))
@@ -482,8 +485,8 @@ pcfinhom.Track <- function(X,timestamp,
 }
 
 
-print.gTrack <- function(x, ...){
-  print("variability area of pair correlatio function", ...)
+print.gTrack <- function(x){
+  print("variability area of pair correlatio function")
 }
 
 plot.gTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
@@ -506,7 +509,7 @@ plot.gTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
 auto.arima.Track <- function(X,...){
   if (! requireNamespace("forecast", quietly = TRUE))
     stop("package forecast required, please install it first")
-
+  
   stopifnot(class(X)=="Track")
   xseries <- coordinates(X)[,1]
   yseries <- coordinates(X)[,2]
@@ -520,7 +523,7 @@ auto.arima.Track <- function(X,...){
   return(out)
 }
 
-print.ArimaTrack <- function(x, ...){
+print.ArimaTrack <- function(x){
   attributes(x) <- NULL
   cat("Arima model fitted to x-coordinate: ");
   cat(paste0(x[[1]]),"\n")

@@ -1,38 +1,40 @@
 \name{density.list}
 \alias{density.list}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Kernel estimate of intensity of trajectory pattern
+Kernel estimate of intensity of a trajectory pattern
 }
+
 \description{
-Estimating the intensity of a list of tracks.
+Estimating the intensity of an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.
 }
+
 \usage{
 \method{density}{list}(x, timestamp,...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-a list of "Track" objects, an object of class "Tracks" or "TracksCollection"
-}
-\item{timestamp}{based on secs, mins, ...}
-\item{...}{passed to arguments of density.ppp}
-}
-\details{
-This estimate the average intensity function of moving objects over time. Bandwidth selection methods such as bw.diggle, bw.scott and bw.ppl can be passed to this density.list.
-}
-\value{
-an image of class "im".
-}
-\author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+\item{x}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
+\item{timestamp}{based on secs, mins, ... .}
+\item{...}{arguments passed to  the \link[spatstat]{density.ppp}.}
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\details{
+This function converts a trajectory pattern to a list of spatial point patterns and then it calclulates the intensity of each obtained point pattern using \link[spatstat]{density.ppp}. The average of resulted estimated intensity is considered as the intensity of X. Bandwidth selection methods such as \link[spatstat]{bw.diggle}, \link[spatstat]{bw.scott} and \link[spatstat]{bw.ppl} can be considered in \link[trajectories]{density.list}.
+
+Note that, tracks in X should overlap in time.
+}
+
+\value{
+an image of class \link[spatstat]{im}.
+}
+
+\author{
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+}
 
 \seealso{
-\link[trajectories]{rTrack}, \link[spatstat]{density.ppp}
+\link[trajectories]{rTrack}, \link[spatstat]{density.ppp}, \link[spatstat]{bw.diggle}, \link[spatstat]{bw.scott}, \link[spatstat]{bw.ppl}
 }
+
 \examples{
 X <- list()
 for(i in 1:10){
@@ -41,7 +43,3 @@ for(i in 1:10){
 }
 density(X, timestamp = "180 secs")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

@@ -1,36 +1,39 @@
 \name{as.Track.arrow}
 \alias{as.Track.arrow}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Convert trajectory pattern to a list of marked point patterns
+Convert a trajectory pattern to a list of marked point patterns
 }
+
 \description{
-Converting a list of Track objects to a list of marked point patterns. Each mark shows the length of movement.
+Convert objects of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects to a list of marked point patterns.
 }
+
 \usage{
-as.Track.arrow(X,timestamp,epsilon=epsilon)
+as.Track.arrow(X,timestamp,epsilon=0)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{X}{
-A list of Track objects
-}
+\item{X}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
 \item{timestamp}{based on secs, mins,...}
-\item{epsilon}{(optional) movements with length less than epsilon are not considered in the calculation}
+\item{epsilon}{(optional) movements with a length less than epsilon are not considered in the calculation.}
 }
 \details{
-Converting a list of Track objetcs to a list of marked point patterns. Marks show the length of movement with respect to the previous location.
+This function converts an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects to a list of marked point patterns. 
+The function first converts X to a list of spatial point patterns based on a given timestamp and using the function \link[trajectories]{as.Track.ppp}. Then each two consecutive (according to their corresponding time) point patterns make a segment pattern of class \link[spatstat]{psp}. Finally, each segment pattern will be converted to a marked point pattern according to which points represent the midpoints of segments and marks are the length of segments. The segment point patterns are kept as attributes.
+
+Dealing with real data, sometimes moving objects such as taxies and pedestrians are not moving while being recorded their location. In order to deal with such a situation, argument epsilon is implemented in \link[trajectories]{as.Track.arrow} to ignore the movements with a length less than epsilon. epsilon=0 does not ignore any movement.
+
+Note that, tracks in X should overlap in time.
 }
 \value{
 a list of marked point patterns.
 }
 \author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
 }
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\link[trajectories]{rTrack}, \link[trajectories]{as.Track.ppp}
+\link[trajectories]{rTrack}, \link[trajectories]{as.Track.ppp}, \link[spatstat]{psp}, \link[spatstat]{midpoints.psp}
 }
 \examples{
 X <- list()
@@ -40,7 +43,3 @@ for(i in 1:10){
 }
 Y <- as.Track.arrow(X,timestamp="120 secs")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

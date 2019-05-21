@@ -1,26 +1,18 @@
 \name{print.ArimaTrack}
 \alias{print.ArimaTrack}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Methods for class "ArimaTrack"
+Methods for class ArimaTrack
 }
 \description{
-print method.}
-\usage{
-\method{print}{ArimaTrack}(x, ...)
+print method.
 }
-%- maybe also 'usage' for other objects documented here.
+\usage{
+\method{print}{ArimaTrack}(x)
+}
+
 \arguments{
-  \item{x}{ an  object of class "ArimaTrack" }
-  \item{...}{ignored}
+  \item{x}{ an  object of class ArimaTrack.}
 }
 \author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

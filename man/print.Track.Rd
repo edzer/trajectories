@@ -1,22 +1,17 @@
 \name{print.Track}
 \alias{print.Track}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Methods for class "Track"
+Methods for class Track
 }
 \description{
-method to print an object of class "Track"}
-\usage{
-\method{print}{Track}(x,...)
+print method.
 }
-%- maybe also 'usage' for other objects documented here.
+\usage{
+\method{print}{Track}(x)
+}
 \arguments{
-  \item{x}{ an object of class "Track" }
-  \item{...}{ ignored}
+  \item{x}{ an object of class Track}
 }
 \author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-

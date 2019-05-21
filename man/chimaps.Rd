@@ -1,38 +1,45 @@
 \name{chimaps}
 \alias{chimaps}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Chimaps of tarjectory pattern.
+Chi-squared maps of a tarjectory pattern
 }
 \description{
-Computes the chimaps, corresponding to a list of objects of class "Track". chimaps are based on the discrepancy between computed and expected intensity in a given location.}
+Chi-squared maps of a tarjectory pattern.}
 \usage{
-chimaps(X,timestamp,rank,...)
-}
-%- maybe also 'usage' for other objects documented here.
-\arguments{
-   \item{X}{
-A list of Track objects
-}
-\item{timestamp}{based on secs,mins,...}
-\item{rank}{a number between one and the length of corresponding time sequance which is created based on given timestamp.}
-\item{...}{passed to arguments of density.Track}
-}
-\details{
-[estimated intensity - expected intensity] / sqrt(expected intensity).
-}
-\value{
-an image of class "im".
-}
-\author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+chimaps(X,timestamp,rank=1,...)
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\arguments{
+\item{X}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
+\item{timestamp}{based on secs, mins, ... .}
+\item{rank}{a number between one and the length of corresponding time sequance which is created based on a given timestamp.}
+\item{...}{arguments passed to the \link[trajectories]{density.list}.}
+}
+
+\details{
+This function converts a trajectory pattern to a list of spatial point patterns according to a given timestamp and calculates their intensities using \link[trajectories]{density.list}. Based on the estimated intensities, it calculates an expected intensity for a sequence of time which is already obtained based on a given timestamp. Having estimated and expected intensities, \link[trajectories]{chimaps} computes Chi-squared maps for a sequence of time as follows
+
+\eqn{\chi=[\lambda_o - \lambda_e]/\sqrt\lambda_e}
+
+where \eqn{\lambda_o} and \eqn{\lambda_e} are the estimated intensity and expected intensity respectively.
+
+According to a given timestamp, a time sequence will be created based on the range of times of tracks so that Chi-squared maps will be computed for this time sequence. Argument rank means which one to be represented as output, however, all Chi-squared maps are still stored as attributes.
+
+Note that, tracks in X should overlap in time.
+}
+ 
+\value{
+an image of class \link[spatstat]{im}.
+}
+
+\author{
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+}
 
 \seealso{
 \link[trajectories]{density.list}, \link[spatstat]{density.ppp}
 }
+
 \examples{
 X <- list()
 for(i in 1:10){
@@ -41,7 +48,3 @@ for(i in 1:10){
 }
 chimaps(X, timestamp = "180 secs",rank = 2)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

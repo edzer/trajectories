@@ -1,23 +1,19 @@
 \name{plot.distrack}
 \alias{plot.distrack}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Methods for class "distrack"
+Methods for class distrack
 }
 \description{
-The plot method for "distrack" objects.
+The plot method for class distrack.
 }
 \usage{
 \method{plot}{distrack}(x, ...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{ an object of class "distrack" }
-  \item{...}{ ignored }
+\item{x}{ an object of class distrack.}
+\item{...}{arguments passed to plot.}
 }
-\details{
-This plots an object of class "distrack".
-}
+
 \author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
 }

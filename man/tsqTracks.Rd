@@ -1,38 +1,34 @@
 \name{tsqTracks}
 \alias{tsqTracks}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-tsqTracks
+sequance generation of time of a trajectory pattern
 }
 \description{
-tsqtracks returns a sequance of time based on a list of tracks (or a single object of class "Track"") and an argument timestamp.
-
+sequance generation of time of a trajectory pattern based on a given timestamp.
 }
 \usage{
 tsqTracks(X,timestamp)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{X}{either an object of class "Track"" or a list of some objects of class "Track"
-%%     ~~Describe \code{x} here~~
-}
-\item{timestamp}{a timestamp to create the time sequence based on it}
+  \item{X}{an object of classes \link[trajectories]{Track}, \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
+\item{timestamp}{a timestamp to generate the time sequence based on it.}
 }
 \details{
-This creates a sequence of time based on a track or a list of tracks.
-%%  ~~ If necessary, more details than the description above ~~
+This function generates a sequence of time based on a given timestamp for an object of classes \link[trajectories]{Track}, \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.
 }
-\value{
-An object of class "POSIXct" or "POSIXt".
-}
-\author{
-Mohammad Mehdi Moradi <moradi@uji.es>}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\value{
+An object of class \link[base]{POSIXct} or \link[base]{POSIXt}.
+}
+
+\author{
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>}
 
 \seealso{
-rTrack
+\link[trajectories]{rTrack}, \link[base]{seq}
 }
+
 \examples{
 library(sp)
 library(spacetime)
@@ -49,7 +45,3 @@ stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
 A1 = Track(stidf)
 tsqTracks(A1,timestamp = "1 sec")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

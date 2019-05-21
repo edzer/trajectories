@@ -1,37 +1,43 @@
 \name{avedistTrack}
 \alias{avedistTrack}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
-Average pairwise distance of trajectory pattern over time
+Average pairwise distance of a trajectory pattern over time
 }
+
 \description{
 This measures the average of pairwise distances between tracks over time.
 }
+
 \usage{
 avedistTrack(X,timestamp)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{X}{a list of some objects of class "Track"
-%%     ~~Describe \code{x} here~~
-}
-\item{timestamp}{timestamp to calculate the pairwise distances between tarcks}
-}
-\details{
-This function calculates the average pairwise distance between a list of tracks according to a given timestamp.
-}
-\value{
-An object of class "distrack". It can be plotted over time.
-}
-\author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+\item{X}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
+\item{timestamp}{a timestamp to calculate the pairwise distances between tracks accordingly.}
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\details{
+This function calculates the average pairwise distance for an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects according to a given timestamp.
+
+The function first converts X to a list of spatial point patterns based on a given timestamp and using the function \link[trajectories]{as.Track.ppp}. For each obtained point pattern pairwise distances are calculated using \link[spatstat]{pairdist} and then their average is considered as "average pairwise distance" for their corresponding time. Distance from each point to itself is ignored.
+
+Note that, tracks in X should overlap in time.
+}
+
+\value{
+a numeric vector represents the average pairwise distances that can be plotted with respect to time.
+}
+
+\author{
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+}
 
 \seealso{
-\link[trajectories]{as.Track.ppp}
+\link[trajectories]{as.Track.ppp}, \link[spatstat]{pairdist}
 }
+
 \examples{
 X <- list()
 for(i in 1:10){
@@ -39,12 +45,6 @@ for(i in 1:10){
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 
-ave <- avedistTrack(X,timestamp = "120 secs")
-plot(ave,type="l")
-
-
+out <- avedistTrack(X,timestamp = "120 secs")
+plot(out,type="l")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

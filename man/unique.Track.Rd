@@ -1,30 +1,26 @@
 \name{unique.Track}
 \alias{unique.Track}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-unique.Track
+extract unique points from a trajectory pattern
 }
 \description{
-Removing duplicated points in a track}
+Removing duplicated points in a \link[trajectories]{Track}.}
 \usage{
 \method{unique}{Track}(x,...)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{x}{
-an object of class "Track"
-}
-\item{...}{passed to arguments of unique}
-}
-\details{
-This function removes duplicated points in an object of class "Track".}
-\value{
-An object of class Track with  no duplicated point.}
-\author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+\item{x}{an object of class \link[trajectories]{Track}.}
+\item{...}{arguments passed to \link[base]{unique}.}
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\details{
+This function removes duplicated points in an object of class \link[trajectories]{Track}.}
+\value{
+An object of class \link[trajectories]{Track} with  no duplicated point.}
+\author{
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+}
 
 \seealso{
 \link[trajectories]{rTrack}, \link[trajectories]{rTracks}, \link[trajectories]{rTracksCollection}, \link[base]{unique}
@@ -33,7 +29,3 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 x <-  rTrack()
 unique(x)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

@@ -1,34 +1,40 @@
 \name{as.Track.ppp}
 \alias{as.Track.ppp}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Conver trajectory pattern to a list of objects of class ppp
+Conver a trajectory pattern to a list of objects of class ppp
 }
+
 \description{
-This function converts a list of Tracks to a list of point patterns (class "ppp")}
+This function convert objects of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects to a list of spatial point patterns of class \link[spatstat]{ppp}.
+}
+
 \usage{
 as.Track.ppp(X,timestamp)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{X}{
-a list of Track objects
-}
+\item{X}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
 \item{timestamp}{based on secs, mins,...}
 }
-\details{
-as.Track.ppp converts a list of Track objetcs to a list of ppp objetcs.}
-\value{
-A list of point patterns, objects of class "ppp".
-}
-\author{
-Mohammad Mehdi Moradi <moradi@uji.es>}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\details{
+The function \link[trajectories]{as.Track.ppp} converts objects of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects to a list of spatial point patterns of class \link[spatstat]{ppp} according to a given timestamp. Each obtained spatial point pattern represents the locatoin of "moving objects" (e.g., taxis) in its corresponding time.
+
+Note that, tracks in X should overlap in time.
+}
+
+\value{
+A list of spatial point patterns as objects of class \link[spatstat]{ppp}.
+}
+
+\author{
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+}
 
 \seealso{
 \link[trajectories]{avedistTrack}, \link[spatstat]{as.ppp}
 }
+
 \examples{
 X <- list()
 for(i in 1:10){
@@ -37,7 +43,3 @@ for(i in 1:10){
 }
 Y <- as.Track.ppp(X,timestamp="120 secs")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

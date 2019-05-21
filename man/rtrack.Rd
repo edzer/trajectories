@@ -38,7 +38,7 @@ In case it has length 1 and value 0, random walk is created using \link[stats]{r
 \value{An object of class \code{Track}, \code{Tracks} or \code{TracksCollection}.}
 \author{
 Edzer Pebesma <edzer.pebesma@uni-muenster.de>,
-Mohammad Mehdi Moradi <moradi@uji.es>
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
 }
 \examples{
 x = rTrack()

@@ -1,20 +1,17 @@
 \name{print.TracksCollection}
 \alias{print.TracksCollection}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Methods for class "TracksCollection"
+Methods for class TracksCollection
 }
 \description{
-method to print an object of class "TracksCollection"}
+print method.
+}
 \usage{
-print.TracksCollection(X)
+\method{print}{TracksCollection}(X)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
-an object of class "TracksCollection"
-}
+  \item{X}{an object of class TracksCollection}
 }
 \author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
 }
