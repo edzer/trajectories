@@ -404,15 +404,19 @@ plot.KTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
     stop("spatstat required: install first?")
   ylim <- c(min(c(x$lowk,x$theo)),max(c(x$upk,x$theo)))
   plot(x$r,x$lowk,ylim=ylim,type=type,ylab="",xlab="r",...)
-  title(ylab=expression(K[inhom](r)),line = line,...)
+  title(ylab=expression(italic(K[inhom](r))),line = line,...)
   points(x$r,x$upk,type=type)
   polygon(c(x$r, rev(x$r)), c(x$upk, rev(x$lowk)),
           col = col, border = NA)
   points(x$r,x$theo,type=type,col=2)
   points(x$r,x$avek,type=type)
-  legend(0,max(c(x$upk,x$theo)),col = c(2,0,1),
-         legend=c(expression(K[inhom]^{pois}),"",expression(bar(K)[inhom])),
-         lty=c(1,1),cex = cex)
+  legend(0,max(c(x$upk,x$theo)),col = c(2,1,"grey70","grey70"),
+         legend=c(expression(italic(K[inhom]^{pois})),
+                  expression(italic(bar(K)[inhom])),
+                  expression(italic({hat(K)[inhom]^{high}}(r))),
+                  expression(italic({hat(K)[inhom]^{low}}(r)))
+         ),
+         lty=c(1,1,1,1),cex = cex)
 }
 
 pcfinhom.Track <- function(X,timestamp,
@@ -494,16 +498,19 @@ plot.gTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
     stop("spatstat required: install first?")
   ylim <- c(min(x$lowg),max(x$upg))
   plot(x$r,x$lowg,ylim=ylim,xlab="r",ylab="",type=type,...)
-  title(ylab=expression(g[inhom](r)),line = line,...)
+  title(ylab=expression(italic(g[inhom](r))),line = line,...)
   points(x$r,x$upg,type=type)
   polygon(c(x$r, rev(x$r)), c(x$upg, rev(x$lowg)),
           col = col, border = NA)
   points(x$r,x$theo,type=type,col=2)
   points(x$r,x$aveg,type=type)
-  legend(0.01*max(x$r),max(x$upg),col = c(2,0,1),
-         legend=c(expression(g[inhom]^{pois}),"",
-                  expression(bar(g)[inhom])),
-         lty=c(1,1),cex=cex)
+  legend(0.01*max(x$r),max(x$upg),col = c(2,1,"grey70","grey70"),
+         legend=c(expression(italic(g[inhom]^{pois})),
+                  expression(italic(bar(g)[inhom])),
+                  expression(italic({hat(g)[inhom]^{high}}(r))),
+                  expression(italic({hat(g)[inhom]^{low}}(r)))
+         ),
+         lty=c(1,1,1,1),cex=cex)
 }
 
 auto.arima.Track <- function(X,...){
