@@ -1,7 +1,7 @@
 \name{as.Track.ppp}
 \alias{as.Track.ppp}
 \title{
-Conver a trajectory pattern to a list of objects of class ppp
+Convert a trajectory pattern to a list of objects of class ppp
 }
 
 \description{
