@@ -88,18 +88,14 @@ range.TracksCollection <- function(X,...) {
 # tsqtracks returns a sequance of time based on a list of tracks (or a single object of class Track) and an argument timestamp
 tsqTracks <- function(X, timestamp){
   
-  if(class(X)=="Tracks") X <- as.list.Tracks(X)
-  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  if(class(X)=="Track" | class(X)=="Tracks" | class(X)=="TracksCollection") timerange <- range(X)
   
-  timerange = if (is.list(X)) 
-    lapply(X, range.Track)
-  else 
-    range.Track(X)
+  if(class(X)=="list") timerange <- lapply(X, range) ; timerange <- range(timerange)
   
-  Trackrg <- range(timerange)
-  class(Trackrg) <- c('POSIXt','POSIXct')
+  class(timerange) <- c('POSIXct','POSIXt')
   # a seq from the range has been created every timestamp
-  timeseq <- seq(from=as.POSIXct(strftime(Trackrg[1])),to=as.POSIXct(strftime(Trackrg[2])),by = timestamp)
+  if (missing(timestamp)) stop("set timestamp")
+  timeseq <- seq(from=as.POSIXct(strftime(timerange[1])),to=as.POSIXct(strftime(timerange[2])),by = timestamp)
   
   return(timeseq)
   
