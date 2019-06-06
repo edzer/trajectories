@@ -65,10 +65,26 @@ reTrack <- function(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL){
 
 # range.Track returns the timerange of an object of class Track
 range.Track <- function(X,...) {
-  Y <- cbind(as.data.frame(X)[c(coordnames(X), "time")])
-  return(range(Y$time,...)) 
+  out <- as.data.frame(X)
+  return(range(out$time,...)) 
 }
 
+range.Tracks <- function(X,...) {
+  out <- lapply(X@tracks,as.data.frame)
+  out <- do.call(rbind,out)
+  return(range(out$time,...))
+}
+
+range.TracksCollection <- function(X,...) {
+  outf <- list()
+  for (i in 1:length(X@tracksCollection)) {
+    out <- lapply(X@tracksCollection[[i]]@tracks,as.data.frame)
+    outf[[i]] <- do.call(rbind,out)
+  }
+  outf <- do.call(rbind,outf)
+  
+  return(range(outf$time,...))
+}
 # tsqtracks returns a sequance of time based on a list of tracks (or a single object of class Track) and an argument timestamp
 tsqTracks <- function(X, timestamp){
   

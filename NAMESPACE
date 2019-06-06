@@ -69,8 +69,9 @@ S3method("print", "ArimaTrack")
 S3method("as", "list.Tracks")
 S3method("as", "list.TracksCollection")
 S3method("unique", "Track")
-S3method("range", "Track")
-
+S3method(range, Track)
+S3method(range, Tracks)
+S3method(range, TracksCollection)
 S3method(stack, TracksCollection)
 
 S3method(unstack, TracksCollection)
