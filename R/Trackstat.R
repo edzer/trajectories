@@ -86,8 +86,11 @@ range.TracksCollection <- function(X,...) {
   return(range(outf$time,...))
 }
 # tsqtracks returns a sequance of time based on a list of tracks (or a single object of class Track) and an argument timestamp
-tsqTracks <- function(X, timestamp){
+tsqTracks <- function(X, timestamp,from=NULL,to=NULL){
   
+  if(!(is.null(from) & is.null(to))) {
+    return(seq(from=as.POSIXct(strftime(from)),to=as.POSIXct(strftime(to)),by = timestamp))
+  }
   if(class(X)=="Track" | class(X)=="Tracks" | class(X)=="TracksCollection") timerange <- range(X)
   
   if(class(X)=="list") timerange <- lapply(X, range) ; timerange <- range(timerange)
