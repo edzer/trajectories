@@ -1,5 +1,5 @@
-\name{Track.idw}
-\alias{Track.idw}
+\name{idw.Track}
+\alias{idw.Track}
 \title{
 Movement smoothing of a trajectory pattern
 }
@@ -7,7 +7,7 @@ Movement smoothing of a trajectory pattern
 Movement smoothing of an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.
 }
 \usage{
-Track.idw(X,timestamp,epsilon=0,...)
+\method{idw}{Track}(X,timestamp,epsilon=0,...)
 }
 
 \arguments{
@@ -40,5 +40,5 @@ for(i in 1:10){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
-Track.idw(X,timestamp="180 secs")
+idw.Track(X,timestamp="180 secs")
 }

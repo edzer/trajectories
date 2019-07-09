@@ -260,7 +260,7 @@ print.Trrow <- function(x) {
   print(x) 
 } 
 
-Track.idw <- function(X,timestamp,epsilon=0,...){
+idw.Track <- function(X,timestamp,epsilon=0,...){
   stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
   
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
