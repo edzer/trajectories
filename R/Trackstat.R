@@ -141,7 +141,7 @@ print.distrack <- function(x){
 
 plot.distrack <- function(x,...){
   x = unclass(x)
-  plot(attr(x,"tsq"), x, xlab="time",ylab="average distance",...)
+  plot(attr(x,"tsq"), x, xlab="time",ylab=expression(italic(bar(D))),...)
 }
 
 
