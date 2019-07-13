@@ -1,12 +1,11 @@
-%\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
+\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
 \documentclass[article]{jss}
 %\documentclass[nojss]{jss}
 
 %% -- LaTeX packages and custom commands ---------------------------------------
 
 \usepackage{thumbpdf,lmodern}
-%\usepackage[usenames,dvipsnames]{xcolor}
-\usepackage{xcolor}
+\usepackage[usenames,dvipsnames]{xcolor}
 \usepackage[textwidth=8em,textsize=small]{todonotes}
 \usepackage{amsmath}
 \usepackage{amssymb}

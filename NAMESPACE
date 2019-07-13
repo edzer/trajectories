@@ -25,18 +25,17 @@ export(
 	TracksSummary,
 	segPanel,
 	tracksPanel,
+	frechetDist,
 	approxTrack, approxTracks, approxTracksCollection,
 	rTrack, rTracks, rTracksCollection, as.Track, as.Track.arrow,
 	as.Track.ppp, auto.arima.Track, avedistTrack, avemove, chimaps,
-	Kinhom.Track, pcfinhom.Track, reTrack, Track.idw,
-	tsqTracks, unique.Track,as.list.Tracks,as.list.TracksCollection,range.Track
+	Kinhom.Track, pcfinhom.Track, reTrack, Track.idw, tsqTracks 
 )
 
 exportMethods(
 	compare,
 	dists,
 	downsample,
-	frechetDist,
 	generalize,
 	plot,
 	stbox,
@@ -45,6 +44,11 @@ exportMethods(
 	stplot
 )
 
+S3method(as.list, Tracks)
+S3method(as.list, TracksCollection)
+S3method(c, Track)
+S3method(c, Tracks)
+S3method(c, TracksCollection)
 S3method(cut, Track)
 S3method(cut, Tracks)
 S3method(cut, TracksCollection)
@@ -60,21 +64,14 @@ S3method(plot, arwlen)
 S3method(print, summary.Track)
 S3method(print, summary.Tracks)
 S3method(print, summary.TracksCollection)
-S3method("print", "arwlen")
-S3method("print", "distrack")
-S3method("print", "gTrack")
-S3method("print", "KTrack")
-S3method("print", "Trrow")
-S3method("print", "ArimaTrack")
-S3method("as", "list.Tracks")
-S3method("as", "list.TracksCollection")
-S3method("unique", "Track")
-S3method("range", "Track")
-
+S3method(print, arwlen)
+S3method(print, distrack)
+S3method(print, gTrack)
+S3method(print, KTrack)
+S3method(print, Trrow)
+S3method(print, ArimaTrack)
+S3method(range, Track)
+S3method(unique, Track)
+S3method(range, Track)
 S3method(stack, TracksCollection)
-
 S3method(unstack, TracksCollection)
-
-S3method(c, Track)
-S3method(c, Tracks)
-S3method(c, TracksCollection)
