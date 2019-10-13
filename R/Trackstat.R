@@ -193,7 +193,7 @@ print.ppplist <- function(x){
   print(x) 
 }
 
-density.list <- function(x, timestamp, ...) {
+density.list <- function(x, timestamp, method=c("kernel","Voronoi"), ...) {
   stopifnot(class(x)=="list" | class(x)=="Tracks" | class(x)=="TracksCollection")
   
   if(class(x)=="Tracks") x <- as.list.Tracks(x)
@@ -203,11 +203,18 @@ density.list <- function(x, timestamp, ...) {
   if (!requireNamespace("spatstat", quietly = TRUE))
     stop("spatstat required: install first?")
   
-  if (missing(timestamp)) stop("set timestamp") 
+  if (missing(timestamp)) stop("set timestamp")
+  if(missing(method)) method <- "kernel"
   
   p <- as.Track.ppp(x, timestamp)
   p <- p[!sapply(p, is.null)] 
-  imlist <- lapply(p, spatstat::density.ppp, ...)
+  if(any(method == "kernel")){
+    imlist <- lapply(p, spatstat::density.ppp, ...)  
+  }
+  else{
+    imlist <- lapply(p, spatstat::densityVoronoi, ...)  
+  }
+  
   out <- Reduce("+", imlist) / length(imlist)
   attr(out, "Tracksim") <- imlist
   attr(out, "ppps") <- p
