@@ -152,7 +152,7 @@ unique.Track <- function(x,...){
 }
 
 
-as.Track.ppp <- function(X,timestamp){
+as.Track.ppp <- function(X,timestamp,...){
   
   stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
   
@@ -169,14 +169,21 @@ as.Track.ppp <- function(X,timestamp){
   timeseq <- tsqTracks(X,timestamp = timestamp)
   
   # reconstruct tracks in sequance timeseq
-  Z <- lapply(X,reTrack,tsq = timeseq,at="dfrm")
+  Z <- lapply(X=1:length(X), function(j){
+    i <- index(X[[j]])
+    i1 <- max(i)
+    i2 <- min(i)
+    seq <- timeseq[timeseq<i1 & timeseq>i2]
+    cbind(as.data.frame(approxTrack(X[[j]],seq,...)@sp),t=seq)   
+  })
+  
   id <- rep(1:length(Z),sapply(Z, nrow))
   Z <- do.call("rbind",Z)
   Z <- cbind(Z,id)
   allZ <- split(Z,Z[,3])
-  dx <- (max(Z$xcoor)-min(Z$xcoor))/1000
-  dy <- (max(Z$ycoor)-min(Z$ycoor))/1000
-  w <- spatstat::owin(c(min(Z$xcoor)-dx,max(Z$xcoor)+dx),c(min(Z$ycoor)-dy,max(Z$ycoor)+dy))
+  dx <- (max(Z$x)-min(Z$x))/1000
+  dy <- (max(Z$y)-min(Z$y))/1000
+  w <- spatstat::owin(c(min(Z$x)-dx,max(Z$x)+dx),c(min(Z$y)-dy,max(Z$y)+dy))
   
   Tppp <- lapply(X=1:length(allZ), function(i){
     p <- spatstat::as.ppp(allZ[[i]][,-c(3,4)],W=w)
