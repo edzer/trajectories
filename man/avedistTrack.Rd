@@ -45,6 +45,14 @@ for(i in 1:10){
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 
+<<<<<<< HEAD
 out <- avedistTrack(X,timestamp = "120 secs")
 plot(out,type="l")
 }
+=======
+ave <- avedistTrack(X,timestamp = "120 secs")
+plot(ave,type="l")
+
+
+}
+>>>>>>> refs/remotes/edzer/master

@@ -1,4 +1,6 @@
+\PassOptionsToPackage{usenames,dvipsnames}{xcolor}
 \documentclass[article]{jss}
+%\documentclass[nojss]{jss}
 
 %% -- LaTeX packages and custom commands ---------------------------------------
 

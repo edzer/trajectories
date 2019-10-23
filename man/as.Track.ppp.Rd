@@ -42,4 +42,8 @@ for(i in 1:10){
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 Y <- as.Track.ppp(X,timestamp="120 secs")
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> refs/remotes/edzer/master

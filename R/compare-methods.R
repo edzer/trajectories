@@ -112,13 +112,8 @@ lineConnections <- function(conns, crs) {
 }
 
 
-## calculates the discrete frechet distance between two tracks
-setGeneric(
-  name = "frechetDist",
-  def = function(track1, track2, ...) standardGeneric("frechetDist")
-)
-
-frechetDist.track <- function(track1, track2) {
+frechetDist <- function(track1, track2) {
+  stopifnot(is(track1, "Track"), is(track2, "Track"))
   if (!requireNamespace("xts", quietly = TRUE))
     stop("package xts required for frechetDist comparison")
   if (!identicalCRS(track1, track2))
@@ -131,11 +126,8 @@ frechetDist.track <- function(track1, track2) {
       dists[i,j] <- max(dists[i,j], min(dists[i-1,j], dists[i-1,j-1], dists[i,j-1]))
     }
   }
-  xts::last(xts::last(dists))
+  max(xts::last(xts::last(dists)))
 }
-
-setMethod("frechetDist", signature("Track"), frechetDist.track)
-
 
 
 ## downsamples a track to the length of another one

@@ -44,4 +44,8 @@ crs = CRS("+proj=longlat +ellps=WGS84") # longlat
 stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
 A1 = Track(stidf)
 tsqTracks(A1,timestamp = "1 sec")
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> refs/remotes/edzer/master

@@ -47,6 +47,11 @@ for(i in 1:10){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
+<<<<<<< HEAD
 out <- avemove(X,timestamp = "30 secs")
 plot(out,type="l")
 }
+=======
+avemove(X,timestamp = "30 secs")
+}
+>>>>>>> refs/remotes/edzer/master

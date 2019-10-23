@@ -266,7 +266,7 @@ B3 = approxTrack(B2)
 plot(B3, type = 'p', col = 'red', add = TRUE)
 B4 = approxTrack(B2, FUN = spline)
 plot(B4, type = 'p', col = 'blue', add = TRUE)
-par(opar)
+# par(opar) # good to do, but would generate warnings
 smth = function(x,y,xout,...) predict(smooth.spline(as.numeric(x), y), as.numeric(xout))
 data(storms)
 plot(storms, type = 'p')
