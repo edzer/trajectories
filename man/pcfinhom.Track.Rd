@@ -45,8 +45,4 @@ for(i in 1:100){
 }
 g <- pcfinhom.Track(X,timestamp = "180 sec")
 plot(g)
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> refs/remotes/edzer/master

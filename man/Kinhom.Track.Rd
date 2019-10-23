@@ -51,12 +51,7 @@ for(i in 1:100){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
-<<<<<<< HEAD
 k <- Kinhom.Track(X,timestamp = "180 secs")
 plot(k)
-}
-=======
 Kinhom.Track(X,timestamp = "180 secs")
-
 }
->>>>>>> refs/remotes/edzer/master
