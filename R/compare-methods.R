@@ -126,7 +126,6 @@ frechetDist <- function(track1, track2) {
       dists[i,j] <- max(dists[i,j], min(dists[i-1,j], dists[i-1,j-1], dists[i,j-1]))
     }
   }
-  max(xts::last(xts::last(dists)))
 }
 
 
