@@ -200,7 +200,7 @@ print.ppplist <- function(x){
   print(x) 
 }
 
-density.list <- function(x, timestamp, method=c("kernel","Voronoi"), ...) {
+density.list <- function(x, timestamp, method=c("kernel","Voronoi"), Fun=mean, ...) {
   stopifnot(class(x)=="list" | class(x)=="Tracks" | class(x)=="TracksCollection")
   
   if(class(x)=="Tracks") x <- as.list.Tracks(x)
@@ -221,8 +221,11 @@ density.list <- function(x, timestamp, method=c("kernel","Voronoi"), ...) {
   else{
     imlist <- lapply(p, spatstat::densityVoronoi, ...)  
   }
+  out <- sapply(imlist,"[")
+  out <- apply(out,1,Fun)
+  out <- as.im(matrix(out,nrow=nrow(imlist[[1]]),ncol(imlist[[1]])))
   
-  out <- Reduce("+", imlist) / length(imlist)
+  # out <- Reduce("+", imlist) / length(imlist)
   attr(out, "Tracksim") <- imlist
   attr(out, "ppps") <- p
   return(out)
