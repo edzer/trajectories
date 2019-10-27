@@ -9,12 +9,12 @@ Estimating the intensity of an object of classes \link[trajectories]{Tracks}, \l
 }
 
 \usage{
-\method{density}{list}(x, timestamp,FUN=mean,...)
+\method{density}{list}(x, timestamp,Fun=mean,...)
 }
 \arguments{
 \item{x}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
 \item{timestamp}{based on secs, mins, ... .}
-\item{FUN}{a function to be applied to the values of each pixel, see details}
+\item{Fun}{a function to be applied to the values of each pixel, see details.}
 \item{...}{arguments passed to  the \link[spatstat]{density.ppp}.}
 }
 
