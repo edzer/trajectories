@@ -277,7 +277,7 @@ print.Trrow <- function(x) {
   print(x) 
 } 
 
-idw.Track <- function(X,timestamp,epsilon=0,...){
+idw.Track <- function(X,timestamp,epsilon=0,Fun=mean,...){
   stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
   
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
@@ -289,8 +289,15 @@ idw.Track <- function(X,timestamp,epsilon=0,...){
   
   Y <- as.Track.arrow(X,timestamp,epsilon=epsilon)
   Z <- lapply(Y, spatstat::idw, ...)
-  meanIDW <- Reduce("+",Z)/length(Z)
-  return(meanIDW)
+  
+  out <- sapply(Z,"[")
+  out <- apply(out,1,Fun)
+  out <- as.im(matrix(out,nrow=nrow(Z[[1]]),ncol(Z[[1]])))
+  
+  attr(out, "idws") <- Z
+  
+  # meanIDW <- Reduce("+",Z)/length(Z)
+  return(out)
 }
 
 avemove <- function(X,timestamp,epsilon=0){
