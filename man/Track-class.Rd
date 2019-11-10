@@ -7,9 +7,6 @@
 \alias{Track}
 \alias{Tracks}
 \alias{TracksCollection}
-\alias{TrackStats}
-\alias{TrackSummary}
-\alias{TracksSummary}
 \alias{[,Track-method} 
 \alias{[,Tracks-method} 
 \alias{[,TracksCollection-method}
@@ -51,8 +48,11 @@
 \alias{approxTracksCollection}
 
 \title{Classes "Track", "Tracks", and "TracksCollection"}
+
 \description{ Classes for representing sets of trajectory data, 
-with attributes, for different IDs (persons, objects, etc) }
+with attributes, for different IDs (persons, objects, etc)
+}
+
 \section{Objects from the Class}{ 
 Objects of class \code{Track} extend \link{STIDF-class} 
 and contain single trips or tracks, 
@@ -61,6 +61,7 @@ for a single ID (person, object or tracking device), objects of class
 \code{TracksCollection} contain multiple \code{Tracks} objects for
 different IDs.
 }
+
 \section{Slots of class "Track"}{
   \describe{
 	\item{\code{sp}:}{spatial locations of the track points, with length n}
@@ -72,6 +73,7 @@ different IDs.
 	attributes between the track points such as distance and speed }
   }
 }
+
 \section{Slots of class "Tracks"}{
   \describe{
     \item{\code{tracks}:}{\code{list} with \code{Track} objects, of length m}
@@ -79,6 +81,7 @@ different IDs.
 	summary data for each \code{Track} object}
   }
 }
+
 \section{Slots of class "TracksCollection"}{
   \describe{
     \item{\code{tracksCollection}:}{\code{list} \code{Tracks} objects, of
@@ -87,6 +90,7 @@ different IDs.
 	containing summary data for each \code{Tracks} object}
   }
 }
+
 \section{Methods}{
   \describe{
     \item{[[}{\code{signature(obj = "Track")}: retrieves the attribute element}
@@ -120,9 +124,6 @@ different IDs.
   		fn = TrackSummary)
   TracksCollection(tracksCollection, tracksCollectionData,
   		fn = TracksSummary)
-  TrackStats(track)
-  TrackSummary(track)
-  TracksSummary(tracksCollection)
   \S4method{[}{Track}(x, i, j, ..., drop = TRUE)
   \S4method{[}{TracksCollection}(x, i, j, ..., drop = TRUE)
   \S4method{coerce}{Track,data.frame}(from, to)
@@ -151,25 +152,14 @@ different IDs.
 \item{to}{target class}
 }
 
-\value{Functions \code{Track}, \code{Tracks} and
+\value{
+Functions \code{Track}, \code{Tracks} and
 \code{TracksCollection} are constructor functions that take the
 slots as arguments, check object validity, and compute summary
 statistics on the track and tracks sets.
-
-\code{TrackStats} returns a \code{data.frame} with for each track
-segment the distance, duration, speed, and direction. In case data are
-geographical coordinates (long/lat), distance is in m, and direction
-is initial bearing.
-
-\code{TrackSummary} reports for each track xmin, xmax, ymin, ymax,
-tmin, tmax, (number of points) n, (total) distance, and medspeed
-(median speed).
-
-\code{TracksSummary} reports for each Tracks of a TracksCollection
-(number of tracks) n, xmin, xmax, ymin, ymax, tmin, tmin, tmax.
 }
 
-\author{ Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de} }
+\author{Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de} }
 \references{ http://www.jstatsoft.org/v51/i07/ }
 
 \note{\code{segments} is a \code{data.frame} form in which track
