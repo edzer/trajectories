@@ -69,11 +69,11 @@ print.Track <- function(x){
 
 print.Tracks <- function(X){
   cat("An object of class Tracks" ,"\n");
-  cat(paste0(length(X@tracks)), "tracks followed by a single object")
+  cat(paste0(length(X@tracks)), "tracks followed by a single object","\n")
 }
 
 print.TracksCollection <- function(X){
   cat("An object of class TracksCollection" ,"\n");
   cat(paste0(length(X@tracksCollection))
-      , "collection of tracks followed by", paste0(length(X@tracksCollection)), " object")
+      , "collection of tracks followed by", paste0(length(X@tracksCollection)), " object","\n")
 }

@@ -100,7 +100,7 @@ TrackSummary = function(track) {
 	ix = index(track@time)
 	bb = bbox(track@sp)
 	conn = track@connections
-	data.frame(
+	d <- data.frame(
 		xmin = bb[1,1],
 		xmax = bb[1,2],
 		ymin = bb[2,1],
@@ -112,6 +112,8 @@ TrackSummary = function(track) {
 		medspeed = quantile(conn$speed, 0.5)
 		# TODO Compute some mean direction?
 	)
+	rownames(d) <- NULL
+	d
 }
 
 # Pre-computes elements of tracksData.
