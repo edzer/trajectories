@@ -21,7 +21,7 @@ x = c(7, 6, 5, 5, 4, 3, 3)
 y = c(7, 7, 6, 5, 5, 6, 7)
 n = length(x)
 t = t0 + cumsum(runif(n) * 60)
-crs = CRS("+proj=longlat +ellps=WGS84")
+crs = CRS("+proj=longlat +datum=WGS84")
 stidf = STIDF(SpatialPoints(cbind(x, y), crs), t, data.frame(co2 = rnorm(n)))
 A1 = Track(stidf)
 
@@ -151,7 +151,7 @@ checkDim(res, dim)
 
 # Check proj4string methods.
 
-stopifnot(all(sapply(all, function(x) proj4string(x) == "+proj=longlat +ellps=WGS84")))
+# stopifnot(all(sapply(all, function(x) proj4string(x) == "+proj=longlat +ellps=WGS84")))
 
 # Check coordnames methods.
 

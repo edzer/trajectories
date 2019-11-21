@@ -23,7 +23,7 @@ extract.track=function(year = 2012, p = TRUE) {
 		track$PR=as.numeric(as.character(track$PR))
 		track$year=year
 		pts = SpatialPoints(cbind(track$LON, track$LAT), 
-			CRS("+proj=longlat +datum=WGS84 +ellps=WGS84"))
+			CRS("+proj=longlat +datum=WGS84 +datum=WGS84"))
 		time = as.POSIXct(paste(year, track$TIME, sep="/"), format="%Y/ %m/%d/%HZ  ",tz="UTC")
 		tr = Track(STIDF(pts, time, track))
 		tracks[nstorms[i]] = tr

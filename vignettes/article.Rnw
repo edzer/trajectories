@@ -185,7 +185,7 @@ x = c(7,6,5,5,4,3,3)
 y = c(7,7,6,5,5,6,7)
 n = length(x)
 t = t0 + cumsum(runif(n) * 60)
-crs = CRS("+proj=longlat +ellps=WGS84") # longlat
+crs = CRS("+proj=longlat +datum=WGS84") # longlat
 stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, 
                 data.frame(co2 = rnorm(n,mean = 10)))
 A1 = Track(stidf)

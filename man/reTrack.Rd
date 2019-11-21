@@ -51,7 +51,7 @@ n = length(x)
 set.seed(131)
 t = t0 + cumsum(runif(n) * 60)
 require(rgdal)
-crs = CRS("+proj=longlat +ellps=WGS84") # longlat
+crs = CRS("+proj=longlat +datum=WGS84") # longlat
 stidf = STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n)))
 A1 = Track(stidf)
 reTrack(A1,timestamp = "1 sec")
