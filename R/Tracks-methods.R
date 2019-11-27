@@ -42,7 +42,7 @@ setAs("Track", "data.frame",
 
 setAs("Tracks", "data.frame", 
 	function(from) {
-		l = lapply(from@tracks, function(x) rbind(as(x, "data.frame"), NA))
+		l = lapply(from@tracks, function(x) as(x, "data.frame"))
 		d = do.call(rbind, l)
 		d$Track = rep(names(from@tracks), times = sapply(l, nrow))
 		d
@@ -230,6 +230,7 @@ plot.TracksCollection <- function(x, y, ..., xlim = stbox(x)[,1],
 		plot(as(x, "SpatialLines"), xlim = xlim, ylim = ylim, axes = axes, 
 			col = col, lwd = lwd, lty = lty, add = add, ...)
 }
+
 setMethod("plot", "TracksCollection", plot.TracksCollection)
 
 setMethod("plot", "Tracks", function(x, ...) plot(TracksCollection(list(x)), ...))
@@ -378,10 +379,6 @@ summary.Tracks = function(object, ...) {
 	obj
 }
 
-setMethod("show", "Track", function(object) print.Track(object))
-setMethod("show", "Tracks", function(object) print.Tracks(object))
-setMethod("show", "TracksCollection", function(object) print.TracksCollection(object))
-
 setMethod("summary", "Tracks", summary.Tracks)
 
 print.summary.Tracks = function(x, ...) {
@@ -439,14 +436,20 @@ print.summary.TracksCollection = function(x, ...) {
 	invisible(x)
 }
 
+# Provide show methods.
+
+setMethod("show", "Track", function(object) print.Track(object))
+setMethod("show", "Tracks", function(object) print.Tracks(object))
+setMethod("show", "TracksCollection", function(object) print.TracksCollection(object))
+
 # Provide selection methods.
-subs.Track <- function(x, i, j, ..., drop = TRUE) {
-	Track(as(x, "STIDF")[i, j, ..., drop = drop])
+subs.Track <- function(x, i, ..., drop = TRUE) {
+	Track(as(x, "STIDF")[i, ..., drop = drop])
 }
 
 setMethod("[", "Track", subs.Track)
 
-subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
+subs.Tracks <- function(x, i, ... , drop = TRUE) {
 	if (missing(i))
 		i = 1:length(x@tracks)
 	else if (is(i, "Spatial"))
@@ -461,34 +464,34 @@ subs.Tracks <- function(x, i, j, ... , drop = TRUE) {
 		if (!any(i))
 			NULL
 		else 
-			Tracks(x@tracks[i], x@tracksData[i, j, drop=FALSE])
+			Tracks(x@tracks[i])
 	}
 }
 
 setMethod("[", "Tracks", subs.Tracks)
 
-subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
-	if (!missing(j) && is.character(j)) {
-		for(tz in seq_along(x@tracksCollection)) {
-			for(t in seq_along(x[tz]@tracks)) {
-				data = x[tz][t]@data
-				connections = x[tz][t]@connections
-				if(j %in% names(data))
-					data = data[j]
-				else
-					# An empty data slot is returned if the passed attribute
-					# does not exist. The same applies to the connections slot.
-					data = data.frame(matrix(nrow = dim(x[tz][t])["geometries"], ncol = 0))
-				if(j %in% names(connections))
-					connections = connections[j]
-				else
-					connections = data.frame(matrix(nrow = dim(x[tz][t])["geometries"] - 1, ncol = 0))
-				# Write back the just processed data and connection slots.
-				x@tracksCollection[[tz]]@tracks[[t]]@data = data
-				x@tracksCollection[[tz]]@tracks[[t]]@connections = connections
-			}
-		}
-	}
+subs.TracksCollection <- function(x, i, ... , drop = TRUE) {
+	# if (!missing(j) && is.character(j)) {
+	# 	for(tz in seq_along(x@tracksCollection)) {
+	# 		for(t in seq_along(x[tz]@tracks)) {
+	# 			data = x[tz][t]@data
+	# 			connections = x[tz][t]@connections
+	# 			if(j %in% names(data))
+	# 				data = data[j]
+	# 			else
+	# 				# An empty data slot is returned if the passed attribute
+	# 				# does not exist. The same applies to the connections slot.
+	# 				data = data.frame(matrix(nrow = dim(x[tz][t])["geometries"], ncol = 0))
+	# 			if(j %in% names(connections))
+	# 				connections = connections[j]
+	# 			else
+	# 				connections = data.frame(matrix(nrow = dim(x[tz][t])["geometries"] - 1, ncol = 0))
+	# 			# Write back the just processed data and connection slots.
+	# 			x@tracksCollection[[tz]]@tracks[[t]]@data = data
+	# 			x@tracksCollection[[tz]]@tracks[[t]]@connections = connections
+	# 		}
+	# 	}
+	# }
 	if (missing(i))
 		s = 1:length(x@tracksCollection)
 	else if (is(i, "Spatial"))
@@ -531,8 +534,10 @@ subs.TracksCollection <- function(x, i, j, ... , drop = TRUE) {
 
 setMethod("[", "TracksCollection", subs.TracksCollection)
 
+
+
 setMethod("[[", c("Track", "ANY", "missing"), 
-	function(x, i, j, ...) {
+	function(x, i, ...) {
 		# TODO What if the attribute name coexists in both the data and
 		# connections slot? Returning a list is inconvenient in the way that it
 		# raises new design issues when making selections on objects of class
@@ -548,19 +553,19 @@ setMethod("[[", c("Track", "ANY", "missing"),
 )
 
 setMethod("[[", c("Tracks", "ANY", "missing"),
-	function(x, i, j, ...) {
-		do.call(c, lapply(x@tracks, function(t) t[[i]]))
+	function(x, i, ...) {
+		do.call(list, lapply(x@tracks, function(t) t[[i]]))
 	}
 )
 
 setMethod("[[", c("TracksCollection", "ANY", "missing"),
-	function(x, i, j, ...) {
-		do.call(c, lapply(x@tracksCollection, function(t) t[[i]]))
+	function(x, i, ...) {
+		do.call(list, lapply(x@tracksCollection, function(t) t[[i]]))
 	}
 )
 
 setReplaceMethod("[[", c("Track", "ANY", "missing", "ANY"), 
-	function(x, i, j, value) {
+	function(x, i, value) {
 		if (i %in% names(x@connections)) {
 			warning(paste("replacing", i, "in connections slot"))
 			x@connections[[i]] = value
@@ -571,7 +576,7 @@ setReplaceMethod("[[", c("Track", "ANY", "missing", "ANY"),
 )
 
 setReplaceMethod("[[", c("Tracks", "ANY", "missing", "ANY"), 
-	function(x, i, j, value) {
+	function(x, i,value) {
 		for(index in seq_along(x@tracks)) {
 			if(i %in% names(x[index]@data)) {
 				# "dim" (and with that "from" and "to") have to be reinitialized
@@ -594,7 +599,7 @@ setReplaceMethod("[[", c("Tracks", "ANY", "missing", "ANY"),
 )
 
 setReplaceMethod("[[", c("TracksCollection", "ANY", "missing", "ANY"), 
-	function(x, i, j, value) {
+	function(x, i,value) {
 		index = 1
 		for(tz in seq_along(x@tracksCollection)) {
 			for(t in seq_along(x[tz]@tracks)) {
