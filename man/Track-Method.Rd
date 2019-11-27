@@ -74,6 +74,10 @@ Methods for classes \link[trajectories]{Track}, \link[trajectories]{Tracks} and 
 \arguments{
   \item{X}{an object of class
 \link[trajectories]{Track}, \link[trajectories]{Tracks} or \link[trajectories]{TracksCollection}}
+\item{i}{selection of spatial entities}
+\item{...}{selection of attribute(s)}
+\item{drop}{logical}
+
 }
 \details{
 Methods.
