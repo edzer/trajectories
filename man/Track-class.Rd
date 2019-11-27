@@ -7,49 +7,16 @@
 \alias{Track}
 \alias{Tracks}
 \alias{TracksCollection}
-\alias{[,Track-method} 
-\alias{[,Tracks-method} 
-\alias{[,TracksCollection-method}
-\alias{[,Track,ANY,ANY,ANY-method} 
-\alias{[,Tracks,ANY,ANY,ANY-method} 
-\alias{[,TracksCollection,ANY,ANY,ANY-method}
-\alias{[[,Track,ANY,missing-method}
-\alias{[[,Tracks,ANY,missing-method}
-\alias{[[,TracksCollection,ANY,missing-method}
-\alias{[[<-,Track,ANY,missing-method}
-\alias{[[<-,Tracks,ANY,missing-method}
-\alias{[[<-,TracksCollection,ANY,missing-method}
-\alias{$,Track-method}
-\alias{$,Tracks-method}
-\alias{$,TracksCollection-method}
-\alias{$<-,Track-method}
-\alias{$<-,Tracks-method}
-\alias{$<-,TracksCollection-method}
 \alias{coerce,Track,data.frame-method} 
 \alias{coerce,Tracks,data.frame-method} 
 \alias{coerce,TracksCollection,data.frame-method}
-\alias{coordnames,Track-method} 
-\alias{coordnames,Tracks-method} 
-\alias{coordnames,TracksCollection-method}
-\alias{aggregate,Track-method}
-\alias{aggregate,Tracks-method}
-\alias{aggregate,TracksCollection-method}
-\alias{plot,TracksCollection,ANY-method}
-\alias{plot,Track,missing-method}
-\alias{plot,Tracks,ANY-method}
-\alias{stplot,TracksCollection-method}
-\alias{spTransform,Track,CRS-method}
-\alias{spTransform,Tracks,CRS-method}
-\alias{spTransform,TracksCollection,CRS-method}
-\alias{segPanel}
-\alias{tracksPanel}
-\alias{approxTrack}
-\alias{approxTracks}
-\alias{approxTracksCollection}
 
-\title{Classes "Track", "Tracks", and "TracksCollection"}
+\title{
+Classes Track, Tracks, and TracksCollection
+}
 
-\description{ Classes for representing sets of trajectory data, 
+\description{
+Classes for representing sets of trajectory data, 
 with attributes, for different IDs (persons, objects, etc)
 }
 
@@ -91,32 +58,6 @@ different IDs.
   }
 }
 
-\section{Methods}{
-  \describe{
-    \item{[[}{\code{signature(obj = "Track")}: retrieves the attribute element}
-    \item{[[}{\code{signature(obj = "Tracks")}: retrieves the attribute element}
-    \item{[[}{\code{signature(obj = "TracksCollection")}: retrieves the attribute element}
-    \item{[[<-}{\code{signature(obj = "Track")}: sets or replaces the attribute element}
-    \item{[[<-}{\code{signature(obj = "Tracks")}: sets or replaces the attribute element}
-    \item{[[<-}{\code{signature(obj = "TracksCollection")}: sets or replaces the attribute element}
-    \item{$}{\code{signature(obj = "Track")}: retrieves the attribute element}
-    \item{$}{\code{signature(obj = "Tracks")}: retrieves the attribute element}
-    \item{$}{\code{signature(obj = "TracksCollection")}: retrieves the attribute element}
-    \item{$<-}{\code{signature(obj = "Track")}: sets or replaces the attribute element}
-    \item{$<-}{\code{signature(obj = "Tracks")}: sets or replaces the attribute element}
-    \item{$<-}{\code{signature(obj = "TracksCollection")}: sets or replaces the attribute element}
-    \item{coerce}{Track,data.frame}{coerce to \code{data.frame}}
-    \item{coerce}{Tracks,data.frame}{coerce to \code{data.frame}}
-    \item{coerce}{TracksCollection,data.frame}{coerce to \code{data.frame}}
-    \item{plot}{\code{signature(x = "TracksCollection", y = "missing")}: 
-    plots sets of sets of tracks}
-    \item{stplot}{\code{signature(obj = "TracksCollection")}: 
-    plots sets of sets of tracks}
-	% for spatial objects; does nothing but setting up a plotting region choosing
-	% a suitable aspect if not given(see below), colouring the plot background using either a bg= argument or par("bg"), and possibly drawing axes.  }
-	% \item{summary}{\code{signature(object = "Spatial")}: summarize object}
-  }
-}
 
 \usage{
   Track(track, df = fn(track), fn = TrackStats)
@@ -124,8 +65,6 @@ different IDs.
   		fn = TrackSummary)
   TracksCollection(tracksCollection, tracksCollectionData,
   		fn = TracksSummary)
-  \S4method{[}{Track}(x, i, j, ..., drop = TRUE)
-  \S4method{[}{TracksCollection}(x, i, j, ..., drop = TRUE)
   \S4method{coerce}{Track,data.frame}(from, to)
   \S4method{coerce}{Tracks,data.frame}(from, to)
   \S4method{coerce}{TracksCollection,data.frame}(from, to)
@@ -136,18 +75,12 @@ different IDs.
 \arguments{
 \item{track}{object of class \link{STIDF-class}, representing a single trip}
 \item{df}{optional \code{data.frame} with information between track points}
+\item{fn}{function}
 \item{tracks}{named list with \code{Track} objects}
 \item{tracksData}{\code{data.frame} with summary data for each \code{Track}}
 \item{tracksCollection}{list, with \code{Tracks} objects}
 \item{tracksCollectionData}{data.frame, with summary data on
  \code{tracksCollection}}
-\item{fn}{function; }
-\item{x}{object of class \code{Track} etc}
-%\item{y}{object of class \code{Spatial}}
-\item{i}{selection of spatial entities}
-\item{j}{selection of temporal entities (see syntax in package xts) }
-\item{...}{selection of attribute(s)}
-\item{drop}{logical}
 \item{from}{from}
 \item{to}{target class}
 }
@@ -234,34 +167,6 @@ B2 = Track(stidf) # no longer longlat;
 B3 = Track(stidf, fn = MyStats)
 all.equal(B3$distance, B2$distance)
 
-# approxTrack:
-opar = par()
-par(mfrow = c(1, 2))
-plot(B2, ylim = c(.5, 6))
-plot(B2, pch = 16, add = TRUE)
-title("irregular time steps")
-i = index(B2)
-B3 = approxTrack(B2, seq(min(i), max(i), length.out = 50))
-plot(B3, col = 'red', type = 'p', add = TRUE)
-B4 = approxTrack(B2, seq(min(i), max(i), length.out = 50), FUN = spline)
-plot(B4, col = 'blue', type = 'b', add = TRUE)
-# regular time steps:
-t = max(t) + (1:n) * 60 # regular
-B2 = Track(STIDF(SpatialPoints(cbind(x,y),crs), t, data.frame(co2 = rnorm(n))))
-plot(B2, ylim = c(.5, 6))
-plot(B2, pch = 16, add = TRUE)
-title("constant time steps")
-i = index(B2)
-B3 = approxTrack(B2)
-plot(B3, type = 'p', col = 'red', add = TRUE)
-B4 = approxTrack(B2, FUN = spline)
-plot(B4, type = 'p', col = 'blue', add = TRUE)
-# par(opar) # good to do, but would generate warnings
-smth = function(x,y,xout,...) predict(smooth.spline(as.numeric(x), y), as.numeric(xout))
-data(storms)
-plot(storms, type = 'p')
-storms.smooth = approxTracksCollection(storms, FUN = smth, n = 200)
-plot(storms.smooth, add = TRUE, col = 'red')
 }
 
 \keyword{classes}
