@@ -223,7 +223,7 @@ density.list <- function(x, timestamp, method=c("kernel","Voronoi"), Fun=mean, .
   }
   out <- sapply(imlist,"[")
   out <- apply(out,1,Fun)
-  out <- as.im(matrix(out,nrow=nrow(imlist[[1]]),ncol(imlist[[1]])))
+  out <- spatstat::as.im(matrix(out,nrow=nrow(imlist[[1]]),ncol(imlist[[1]])))
   
   # out <- Reduce("+", imlist) / length(imlist)
   attr(out, "Tracksim") <- imlist
