@@ -43,8 +43,9 @@ TrackStats = function(track) {
 	stopifnot(!any(duration == 0))
 #	if (class(try(cc <- coordinates(track), silent=TRUE)) == "try-error" ||
 #			!is.matrix(cc))
-	if (!is(track@sp, "SpatialPoints"))
-		data.frame(matrix(nrow = length(track@sp) - 1, ncol = 0)) # empty
+	if (!is(track@sp, "SpatialPoints")){
+	  data.frame(matrix(nrow = length(track@sp) - 1, ncol = 0)) # empty 
+	  }
 	else {
 		cc = coordinates(track@sp)
 		ll = identical(is.projected(track), FALSE)
