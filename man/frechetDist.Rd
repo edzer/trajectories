@@ -17,7 +17,7 @@ Compute the discrete Frechet distance between two \code{Track} objects.
 }
 
 
-\value{Discrete Frechet distance.}
+\value{A numeric value representing the Frechet distance.}
 
 \references{ http://en.wikipedia.org/wiki/Fr\'echet_distance }
 
@@ -25,5 +25,10 @@ Compute the discrete Frechet distance between two \code{Track} objects.
 Nikolai Gorte <n.gorte@gmail.com>
 }
 
+\examples{
+x <- rTrack()
+y <- rTrack()
+frechetDist(x,y)
+}
 \keyword{methods}
 

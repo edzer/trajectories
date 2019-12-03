@@ -1,7 +1,7 @@
 \name{A3}
 \alias{A3}
-\title{Trajectory}
-\description{Trajectory, locally stored, from envirocar.org, see example below how it was imported}
+\title{Trajectory data}
+\description{Trajectory, locally stored, from envirocar.org.}
 \usage{
 data(A3)
 }

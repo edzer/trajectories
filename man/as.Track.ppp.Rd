@@ -1,7 +1,7 @@
 \name{as.Track.ppp}
 \alias{as.Track.ppp}
 \title{
-Convert a trajectory pattern to a list of objects of class ppp
+Convert a trajectory pattern to a list of spatial point patterns
 }
 
 \description{
@@ -18,7 +18,7 @@ as.Track.ppp(X,timestamp)
 }
 
 \details{
-The function \link[trajectories]{as.Track.ppp} converts objects of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects to a list of spatial point patterns of class \link[spatstat]{ppp} according to a given timestamp. Each obtained spatial point pattern represents the locatoin of "moving objects" (e.g., taxis) in its corresponding time.
+The function \link[trajectories]{as.Track.ppp} converts objects of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects to a list of spatial point patterns of class \link[spatstat]{ppp} according to a given timestamp. Each obtained spatial point pattern represents the locatoin of all "moving objects" (e.g., taxis) in a fixed time.
 
 Note that, tracks in X should overlap in time.
 }

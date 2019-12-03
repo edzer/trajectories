@@ -48,7 +48,8 @@
 
 \value{A space-time cube.}
 \examples{
-\dontrun{demo(stcube)}
+x <- rTrack()
+stcube(x)
 }
 
 \keyword{space-time cube}

@@ -4,7 +4,7 @@
 \alias{approxTracksCollection}
 
 \title{
-Interpolate Track, Tracks and TracksCollection
+Interpolate objects of classes \code{Track}, \code{Tracks} and \code{TracksCollection}
 }
 \description{
 Interpolating Track, Tracks and TracksCollection
@@ -40,7 +40,7 @@ warning if when has times outside the range of data
 }
 }
 \details{
-Interpolating Track, Tracks and TracksCollection.
+Interpolating Track, Tracks and TracksCollection based on a desirable function.
 }
 \value{
 an object of class Track, Tracks or TracksCollection.
