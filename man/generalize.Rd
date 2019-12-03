@@ -22,10 +22,22 @@
 \item{n}{ number of points to form segments }
 \item{tol}{ tolerance passed on to \link[rgeos]{gSimplify}, to generalize segments 
  using the Douglas-Peucker algorithm. }
-\item{toPoints}{ keep mid point rather than forming \link[sp]{SpatialLines} segments }
+\item{toPoints}{keep mid point rather than forming \link[sp]{SpatialLines} segments }
 \item{...}{Additional arguments passed to FUN}
 }
 
-\value{An object of class \code{Track}, \code{Tracks} or \code{TracksCollection}.}
+\value{A generalized object of class \code{Track}, \code{Tracks} or \code{TracksCollection}.}
+
+
+\details{
+Generalize object of classes \link[trajectories]{Track}, \link[trajectories]{Traks} or \link[trajectories]{TracksCollection} to \link[sp]{SpatialLines} based on number of spatial points, time or distance passed.
+}
+
+\examples{
+x <- rTrack()
+generalize(x,n=15)
+generalize(x,distance=40)
+generalize(x,timeInterval=50)
+}
 
 \keyword{generalize}
