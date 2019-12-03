@@ -36,7 +36,7 @@
 \alias{tracksPanel}
 
 \title{
-Methods for classes Track, Tracks, and TracksCollection
+Methods for classes \code{Track}, \code{Tracks} and \code{TracksCollection}
 }
 \description{
 Methods for classes \link[trajectories]{Track}, \link[trajectories]{Tracks} and \link[trajectories]{TracksCollection}
@@ -115,15 +115,14 @@ proj4string(x)
 plot(x)
 coordnames(x)
 dim(x)
-stbox(x)
 bbox(x)
+stbox(x)
 y <- rTrack(n=10)
 y <- as(y,"Spatial") 
 over(x,y)
 y <- rTrack(n=10)
 y <- as(y,"xts")
 over(x,y)
-dim(x)
 summary(x)
 x[1:4]
 names(x@connections)
@@ -132,19 +131,38 @@ x[[1]]
 x$distance
 stack(x)
 y <- as(x,"STIDF")
-proj4string(y) = CRS("+proj=longlat")
+proj4string(y) <- CRS("+proj=longlat")
 # transform to UTM 50N
-x.utm = spTransform(y, CRS("+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84
+x.utm <- spTransform(y, CRS("+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84
 +units=m +no_defs "))
 x.utm <- Track(x.utm)
+
+x.Tr <- TracksCollection(list(Tracks(list(x))))
+stplot(x.Tr,attr = "direction", arrows=TRUE, lwd = 3, by = "IDs")
+
 
 
 x.Tracks <- rTracks(n=100,m=4)
 c(x.Tracks@tracks$Track1,x.Tracks@tracks$Track2)
 c(x.Tracks[1:2],x.Tracks[3:4])
 
+x.Tracks.Tr <- TracksCollection(list(x.Tracks))
+stplot(x.Tracks.Tr,attr = "direction", arrows=TRUE, lwd = 3, by = "IDs")
+
+
 x.TracksCollection <- rTracksCollection(n=10,m=4,p=4)
 c(x.TracksCollection[1:2],x.TracksCollection[3:4])
+dim(x.TracksCollection)
+dim(x.TracksCollection[2])
+dim(x.TracksCollection[2][1])
 
+stplot(x.TracksCollection,attr = "direction", arrows=TRUE, lwd = 3, by = "IDs")
+plot(x.TracksCollection, col=2, axes=TRUE)
+
+
+u = stack(x.TracksCollection) # four IDs
+dim(u)
+dim(unstack(u, c(rep(1,4),rep(2,4),rep(3,4),rep(4,4)))) # regroups to original
+dim(unstack(u, c(rep(1,4),rep(2,4),rep(3,4),rep(4,2),rep(5,2)))) # regroups to five IDs
 
 }

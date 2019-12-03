@@ -12,7 +12,7 @@
 \alias{coerce,TracksCollection,data.frame-method}
 
 \title{
-Classes Track, Tracks, and TracksCollection
+Classes \code{Track}, \code{Tracks} and \code{TracksCollection}
 }
 
 \description{
@@ -139,23 +139,7 @@ B2 = Track(stidf)
 # Tracks for person A:
 B = Tracks(list(B1=B1,B2=B2))
 Tr = TracksCollection(list(A=A,B=B))
-stplot(Tr, scales = list(draw=TRUE))
-stplot(Tr, attr = "direction", arrows=TRUE, lwd = 3, by = "direction")
-stplot(Tr, attr = "direction", arrows=TRUE, lwd = 3, by = "IDs")
-plot(Tr, col=2, axes=TRUE)
-dim(Tr)
-dim(Tr[2])
-dim(Tr[2][1])
-u = stack(Tr) # four IDs
-dim(u)
-dim(unstack(u, c(1,1,2,2))) # regroups to original
-dim(unstack(u, c(1,1,2,3))) # regroups to three IDs
-dim(unstack(u, c(1,2,2,1))) # regroups differently
-as(Tr, "data.frame")[1:10,] # tracks separated by NA rows
-as(Tr, "segments")[1:10,]   # track segments as records
-Tr[["distance"]] = Tr[["distance"]] * 1000
-Tr$distance = Tr$distance / 1000
-Tr$distance
+
 # work with custum TrackStats function:
 MyStats = function(track) {
 	df = apply(coordinates(track@sp), 2, diff) # requires sp
