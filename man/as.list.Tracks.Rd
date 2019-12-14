@@ -1,23 +1,25 @@
 \name{as.list.Tracks}
 \alias{as.list.Tracks}
+\alias{as.list.TracksCollection}
 \title{
 Tracks methods
 }
 \description{
-Convert an object of class \link[trajectories]{Tracks} to a list of tracks.
+Convert an objects of classes \link[trajectories]{Tracks} and \link[trajectories]{TracksCollection} to a list of of objects of class \link[trajectories]{Track}.
 }
 
 \usage{
-\method{as.list}{Tracks}(x,...)
+\method{as.list}{Tracks}(tr,...)
+\method{as.list}{TracksCollection}(tc,...)
 }
 
 \arguments{
-\item{x}{an object of class "Tracks".}
-\item{...}{arguments passed on the \link[base]{as.list} fucntion.}
+\item{tr,tc}{objects of classes \link[trajectories]{Tracks} and \link[trajectories]{TracksCollection}}
+\item{...}{optional. Additional arguments passed on the \link[base]{as.list} fucntion.}
 }
 
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 
@@ -26,6 +28,8 @@ Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
 }
 
 \examples{
-x <-  rTracks()
-as.list(x)
+tr <-  rTracks(m=2,n=10)
+as.list(tr)
+tc <-  rTracksCollection(p=2,m=2,n=10)
+as.list(tc)
 }
