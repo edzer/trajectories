@@ -11,7 +11,7 @@ Imports: stats, utils, graphics, methods, lattice, sp (>= 1.1-0),
         spacetime (>= 1.0-0), zoo
 Suggests: rgdal, rgeos, OpenStreetMap, RCurl, rjson, adehabitatLT, xts,
         knitr, rgl, forecast, MASS, spatstat, taxidata
-Description: Classes and methods for trajectory data, with support for nesting individual Track objects in track sets (Tracks) and track sets for different entities in collections of Tracks. Methods include selection, generalization, aggregation, intersection, simulation, and plotting.
+Description: Classes and methods for trajectory data, with support for nesting individual Track objects in track sets (Tracks) and track sets for different entities in collections of Tracks. Methods include selection, generalization, aggregation, intersection, simulation, and plotting. It further includes exploratory methods such as Kernel smoothing, Voronoi tessellation, distance analysis, K- and pair correlation functions.
 License: GPL (>= 2)
 URL: http://github.com/edzer/trajectories
 Additional_repositories: http://pebesma.staff.ifgi.de
