@@ -4,10 +4,10 @@
 \alias{approxTracksCollection}
 
 \title{
-Interpolate objects of classes \code{Track}, \code{Tracks} and \code{TracksCollection}
+Interpolation for trajectories
 }
 \description{
-Interpolating Track, Tracks and TracksCollection
+Interpolating objects of classes \code{Track}, \code{Tracks} and \code{TracksCollection}.
 }
 \usage{
 approxTrack(track, when, ..., n = 50, by, FUN = stats::approx, warn.if.outside = TRUE)
@@ -16,31 +16,31 @@ approxTracksCollection(tc,...)
 
 }
 \arguments{
-  \item{track,tr,tc}{
+\item{track,tr,tc}{
 an object of class
-\link[trajectories]{Track}, \link[trajectories]{Tracks} or \link[trajectories]{TracksCollection}
+\link[trajectories]{Track}, \link[trajectories]{Tracks} or \link[trajectories]{TracksCollection}.
 }
-  \item{when}{
+\item{when}{
 a time sequance specifying where interpolation is to take place. 
 }
-  \item{n}{
+\item{n}{
 if when is not specified, interpolation takes place at n equally spaced times spanning the interval [min(index(track)), max(index(track))].
 }
-  \item{by}{
-if when is not specified, by can be used to create a sequance of equally spaced times spanning the interval [min(index(track)), max(index(track))]
+\item{by}{
+if when is not specified, by can be used to create a sequance of equally spaced times spanning the interval [min(index(track)), max(index(track))].
 }
-  \item{FUN}{
-a function to be used for interpolation 
+\item{FUN}{
+a function to be used for interpolation. 
 }
- \item{\dots}{
-passed to FUN
+\item{\dots}{
+passed to FUN.
 }
-  \item{warn.if.outside}{
-warning if when has times outside the range of data
+\item{warn.if.outside}{
+warning if when has times outside the range of data.
 }
 }
 \details{
-Interpolating Track, Tracks and TracksCollection based on a desirable function.
+Interpolating Track, Tracks, and TracksCollection based on a desirable function. Default is to use \link[stats]{approx} for a linear interpolation. See exapmle below for the use of other functions.
 }
 \value{
 an object of class Track, Tracks or TracksCollection.
