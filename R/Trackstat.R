@@ -1,12 +1,12 @@
-as.list.Tracks <- function(x,...){
-  stopifnot(class(x)=="Tracks")
-  return(as.list(x@tracks,...))
+as.list.Tracks <- function(tr,...){
+  stopifnot(class(tr)=="Tracks")
+  return(as.list(tr@tracks,...))
 }
 
-as.list.TracksCollection <- function(x,...){
-  stopifnot(class(x)=="TracksCollection")
-  out <-  lapply(X=1:length(x@tracksCollection), function(i){
-    as.list.Tracks(x@tracksCollection[[i]],...)
+as.list.TracksCollection <- function(tc,...){
+  stopifnot(class(tc)=="TracksCollection")
+  out <-  lapply(X=1:length(tc@tracksCollection), function(i){
+    as.list.Tracks(tc@tracksCollection[[i]],...)
   })
   return(unlist(out, recursive=FALSE))
 }
