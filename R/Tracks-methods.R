@@ -724,11 +724,11 @@ setMethod("spTransform", c("TracksCollection", "CRS"),
 #         include.lowest = FALSE, right = TRUE, dig.lab = 3,
 #         ordered_result = FALSE, ...)
  
-cut.Track = function(x, breaks, ..., include.lowest = TRUE, touch = TRUE) {
-	i = index(x)
+cut.Track = function(track, breaks, ..., include.lowest = TRUE, touch = TRUE) {
+	i = index(track)
 	f = cut(i, breaks, ..., include.lowest = include.lowest)
-	d = dim(x) # nr of pts
-	x = as(x, "STIDF")
+	d = dim(track) # nr of pts
+	x = as(track, "STIDF")
 	if (! touch)
 		spl = lapply(split(x = seq_len(d), f), function(ind) x[ind, , drop = FALSE])
 	else
@@ -741,10 +741,10 @@ cut.Track = function(x, breaks, ..., include.lowest = TRUE, touch = TRUE) {
 	Tracks(lapply(spl[sapply(spl, length) > 1], Track))
 }
 
-cut.Tracks = function(x, breaks, ...) do.call(c, lapply(x@tracks, cut, breaks = breaks, ...))
+cut.Tracks = function(tr, breaks, ...) do.call(c, lapply(tr@tracks, cut, breaks = breaks, ...))
 
-cut.TracksCollection = function(x, breaks, ...) 	
-	TracksCollection(lapply(x@tracksCollection, cut, breaks = breaks, ...))
+cut.TracksCollection = function(tc, breaks, ...) 	
+	TracksCollection(lapply(tc@tracksCollection, cut, breaks = breaks, ...))
 
 "index<-.Track" = function(x, value) {
 	index(x@time) = value

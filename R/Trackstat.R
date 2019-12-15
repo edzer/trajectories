@@ -292,7 +292,7 @@ idw.Track <- function(X,timestamp,epsilon=0,Fun=mean,...){
   
   out <- sapply(Z,"[")
   out <- apply(out,1,Fun)
-  out <- as.im(matrix(out,nrow=nrow(Z[[1]]),ncol(Z[[1]])))
+  out <- spatstat::as.im(matrix(out,nrow=nrow(Z[[1]]),ncol(Z[[1]])))
   
   attr(out, "idws") <- Z
   
@@ -552,13 +552,13 @@ plot.gTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
          lty=c(1,1,1,1),cex=cex)
 }
 
-auto.arima.Track <- function(X,...){
+auto.arima.Track <- function(track,...){
   if (! requireNamespace("forecast", quietly = TRUE))
     stop("package forecast required, please install it first")
   
-  stopifnot(class(X)=="Track")
-  xseries <- coordinates(X)[,1]
-  yseries <- coordinates(X)[,2]
+  stopifnot(class(track)=="Track")
+  xseries <- coordinates(track)[,1]
+  yseries <- coordinates(track)[,2]
   
   xfit <- forecast::auto.arima(xseries,...)
   yfit <- forecast::auto.arima(yseries,...)
