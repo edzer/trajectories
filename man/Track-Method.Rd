@@ -104,6 +104,7 @@ Mohammad Mehdi Moradi, \email{m2.moradi@yahoo.com}
 }
 
 \examples{
+library(sp)
 x <- rTrack(n=10)
 as(x,"segments")
 as(x,"data.frame")
