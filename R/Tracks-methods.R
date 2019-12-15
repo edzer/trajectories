@@ -20,7 +20,7 @@ setAs("Tracks", "segments", function(from) {
 		ret = do.call(rbind, lapply(from@tracks, 
 			function(x) as(x, "segments")))
 		ret$Track = rep(names(from@tracks), 
-			times = sapply(from@tracks, length) - 1)
+			times = sapply(from@tracks, dim) - 1)
 		ret
 	}
 )

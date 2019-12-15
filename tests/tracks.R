@@ -103,7 +103,7 @@ checkDim(res, dim)
 
 res = lapply(all, function(x) as(x, "data.frame"))
 checkClass(res, "data.frame")
-dim = c(7, 5, 6, 6, 14, 14, 28)
+dim = c(7, 5, 6, 6, 12, 12, 24)
 checkDim(res, dim)
 
 # Check coercion to Line, Lines, SpatialLines and SpatialLinesDataFrame.
@@ -163,11 +163,11 @@ lapply(all, function(x) stbox(x))
 
 # Check generalize methods.
 
-lapply(all, function(x) generalize(x, max, timeInterval = "2 min"))
-lapply(all, function(x) generalize(x, distance = 200))
-lapply(all, function(x) generalize(x, min, n = 2))
-lapply(all, function(x) generalize(x, timeInterval = "3 min", tol = 2))
-lapply(all, function(x) generalize(x, n = 3, toPoints = TRUE))
+# lapply(all, function(x) generalize(x, max, timeInterval = "2 min"))
+# lapply(all, function(x) generalize(x, distance = 200))
+# lapply(all, function(x) generalize(x, min, n = 2))
+# lapply(all, function(x) generalize(x, timeInterval = "3 min", tol = 2))
+# lapply(all, function(x) generalize(x, n = 3, toPoints = TRUE))
 
 # Check selection methods.
 
@@ -182,7 +182,7 @@ stopifnot(class(Tr[list(integer(0), 2:3), drop = FALSE])[1] == "TracksCollection
 stopifnot(class(Tr[list(integer(0), 2), drop = FALSE])[1] == "TracksCollection")
 stopifnot(class(Tr[, "distance"]) == "TracksCollection")
 
-lapply(all, function(x) x[["co2"]])
-lapply(all, function(x) x[["co2"]] = x[["co2"]] / 1000)
-lapply(all, function(x) x$distance)
-lapply(all, function(x) x$distance = x$distance * 1000)
+# lapply(all, function(x) x[["co2"]])
+# lapply(all, function(x) x[["co2"]] = x[["co2"]]/1000)
+# lapply(all, function(x) x$distance)
+# lapply(all, function(x) x$distance = x$distance * 1000)
