@@ -1,7 +1,7 @@
 \name{plot.arwlen}
 \alias{plot.arwlen}
 \title{
-Methods for class arwlen
+Plot Methods
 }
 \description{
 Methods for class arwlen.
@@ -17,7 +17,7 @@ Methods for class arwlen.
 a plot.
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 \seealso{
 \link[trajectories]{avemove}

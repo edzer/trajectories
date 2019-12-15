@@ -7,7 +7,7 @@
 Interpolation for trajectories
 }
 \description{
-Interpolating objects of classes \code{Track}, \code{Tracks} and \code{TracksCollection}.
+Interpolating objects of classes \link[trajectories]{Track}, \link[trajectories]{Tracks} or \link[trajectories]{TracksCollection}.
 }
 \usage{
 approxTrack(track, when, ..., n = 50, by, FUN = stats::approx, warn.if.outside = TRUE)

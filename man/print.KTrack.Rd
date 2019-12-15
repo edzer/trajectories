@@ -1,10 +1,10 @@
 \name{print.KTrack}
 \alias{print.KTrack}
 \title{
-Methods for class KTrack
+Print Methods 
 }
 \description{
-print method.
+Print method for class KTrack.
 }
 \usage{
 \method{print}{KTrack}(x)
@@ -13,7 +13,7 @@ print method.
   \item{x}{ an object of class KTrack.}
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 

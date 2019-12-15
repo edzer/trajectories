@@ -1,10 +1,10 @@
 \name{print.distrack}
 \alias{print.distrack}
 \title{
-Methods for class distrack
+Print Methods
 }
 \description{
-print method.
+Print method ffor class distrack.
 }
 
 \usage{
@@ -15,16 +15,5 @@ print method.
   \item{x}{ an object of class distrack.} 
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
-}
-
-\examples{
-X <- list()
-for(i in 1:10){
-  m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
-  X[[i]] <- rTrack(bbox = m,transform = TRUE)
-}
-
-ave <- avedistTrack(X,timestamp = "30 secs")
-plot(ave,type="l")
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }

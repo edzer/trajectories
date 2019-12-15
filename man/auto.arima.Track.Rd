@@ -8,16 +8,16 @@ Fit arima models to objects of class \link[trajectories]{Track}.
 }
 
 \usage{
-auto.arima.Track(X, ...)
+auto.arima.Track(track, ...)
 }
 
 \arguments{
-  \item{X}{an object of class \link[trajectories]{Track}.}
-  \item{...}{arguments passed to the \link[forecast]{auto.arima} function.}
+  \item{track}{an object of class \link[trajectories]{Track}.}
+  \item{...}{arguments passed to the \link[forecast]{auto.arima}.}
 }
 
 \details{
-This function considers objects of class \link[trajectories]{Track} as time series and fits arima models to their x,y locations separately.
+This function considers objects of class \link[trajectories]{Track} as time series and returns arima models to their x,y locations separately.
 }
 
 \value{
@@ -25,7 +25,7 @@ an object of class "ArimaTrack". Fitted arima models to coordinates x and y are 
 }
 
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 \seealso{

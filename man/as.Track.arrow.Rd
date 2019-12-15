@@ -15,11 +15,11 @@ as.Track.arrow(X,timestamp,epsilon=0)
 \arguments{
 \item{X}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
 \item{timestamp}{based on secs, mins,...}
-\item{epsilon}{(optional) movements with a length less than epsilon are not considered in the calculation.}
+\item{epsilon}{optional. movements with a length less than epsilon are not considered in the calculation.}
 }
 \details{
 This function converts an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects to a list of marked point patterns. 
-The function first converts X to a list of spatial point patterns based on a given timestamp and using the function \link[trajectories]{as.Track.ppp}. Then each two consecutive (according to their corresponding time) point patterns make a segment pattern of class \link[spatstat]{psp}. Finally, each segment pattern will be converted to a marked point pattern according to which points represent the midpoints of segments and marks are the length of segments. The segment point patterns are kept as attributes.
+The function first converts X to a list of spatial point patterns based on a given timestamp and using the function \link[trajectories]{as.Track.ppp}. Then each two consecutive (according to their corresponding time) point patterns make a segment pattern of class \link[spatstat]{psp}. Finally, each segment pattern will be converted to a marked point pattern according to which points represent the midpoints of segments and marks are the length of segments. The segment patterns are kept as attributes.
 
 Dealing with real data, sometimes moving objects such as taxies and pedestrians are not moving while being recorded their location. In order to deal with such a situation, argument epsilon is implemented in \link[trajectories]{as.Track.arrow} to ignore the movements with a length less than epsilon. epsilon=0 does not ignore any movement.
 
@@ -29,7 +29,7 @@ Note that, tracks in X should overlap in time.
 a list of marked point patterns.
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 \seealso{

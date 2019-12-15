@@ -12,16 +12,16 @@
 \alias{coerce,TracksCollection,data.frame-method}
 
 \title{
-Classes \code{Track}, \code{Tracks} and \code{TracksCollection}
+Classes Track, Tracks and TracksCollection
 }
 
 \description{
 Classes for representing sets of trajectory data, 
-with attributes, for different IDs (persons, objects, etc)
+with attributes, for different IDs (persons, objects, etc).
 }
 
 \section{Objects from the Class}{ 
-Objects of class \code{Track} extend \link{STIDF-class} 
+objects of class \code{Track} extend \link{STIDF-class} 
 and contain single trips or tracks, 
 objects of class \code{Tracks} contain multiple \code{Track} objects
 for a single ID (person, object or tracking device), objects of class
@@ -30,63 +30,88 @@ different IDs.
 }
 
 \section{Slots of class "Track"}{
-  \describe{
-	\item{\code{sp}:}{spatial locations of the track points, with length n}
-	\item{\code{time}:}{time stamps of the track points}
-	\item{\code{endTime}:}{end time stamps of the track points}
-	\item{\code{data}:}{\code{data.frame} with n rows, containing
-	attributes of the track points}
-    \item{\code{connections}:}{\code{data.frame}, with n-1 rows, containing
-	attributes between the track points such as distance and speed }
-  }
+\describe{
+\item{\code{sp}:}{
+spatial locations of the track points, with length n.
+}
+\item{\code{time}:}{
+time stamps of the track points.
+}
+\item{\code{endTime}:}{
+end time stamps of the track points.
+}
+\item{\code{data}:}{
+\code{data.frame} with n rows, containing	attributes of the track points.
+}
+\item{\code{connections}:}{
+\code{data.frame}, with n-1 rows, containing attributes between the track points such as distance and speed.
+}
+}
 }
 
 \section{Slots of class "Tracks"}{
-  \describe{
-    \item{\code{tracks}:}{\code{list} with \code{Track} objects, of length m}
-    \item{\code{tracksData}:}{\code{data.frame} with m rows, containing 
-	summary data for each \code{Track} object}
-  }
+\describe{
+\item{\code{tracks}:}{
+\code{list} with \code{Track} objects, of length m.
+}
+\item{\code{tracksData}:}{
+\code{data.frame} with m rows, containing	summary data for each \code{Track} object.
+}
+}
 }
 
 \section{Slots of class "TracksCollection"}{
-  \describe{
-    \item{\code{tracksCollection}:}{\code{list} \code{Tracks} objects, of
-		length p}
-    \item{\code{tracksCollectionData}:}{\code{data.frame} with p rows,
-	containing summary data for each \code{Tracks} object}
-  }
+\describe{
+\item{\code{tracksCollection}:}{
+\code{list} \code{Tracks} objects, of	length p.
+}
+\item{\code{tracksCollectionData}:}{
+\code{data.frame} with p rows, containing summary data for each \code{Tracks} object.
+}
+}
 }
 
 
 \usage{
-  Track(track, df = fn(track), fn = TrackStats)
-  Tracks(tracks, tracksData = data.frame(row.names=names(tracks)), 
-  		fn = TrackSummary)
-  TracksCollection(tracksCollection, tracksCollectionData,
-  		fn = TracksSummary)
-  \S4method{coerce}{Track,data.frame}(from, to)
-  \S4method{coerce}{Tracks,data.frame}(from, to)
-  \S4method{coerce}{TracksCollection,data.frame}(from, to)
+Track(track, df = fn(track), fn = TrackStats)
+Tracks(tracks, tracksData = data.frame(row.names=names(tracks)), fn = TrackSummary)
+TracksCollection(tracksCollection, tracksCollectionData,
+fn = TracksSummary)
+\S4method{coerce}{Track,data.frame}(from, to)
+\S4method{coerce}{Tracks,data.frame}(from, to)
+\S4method{coerce}{TracksCollection,data.frame}(from, to)
 %  \S4method{over}{Tracks,Spatial}(x, y, returnList = FALSE, fn = NULL, ...)
 %  \S4method{over}{TracksCollection,Spatial}(x, y, returnList = FALSE, 
 }
 
 \arguments{
-\item{track}{object of class \link{STIDF-class}, representing a single trip}
-\item{df}{optional \code{data.frame} with information between track points}
-\item{fn}{function}
-\item{tracks}{named list with \code{Track} objects}
-\item{tracksData}{\code{data.frame} with summary data for each \code{Track}}
-\item{tracksCollection}{list, with \code{Tracks} objects}
-\item{tracksCollectionData}{data.frame, with summary data on
- \code{tracksCollection}}
-\item{from}{from}
-\item{to}{target class}
+\item{track}{
+object of class \link{STIDF-class}, representing a single trip.
+}
+\item{df}{
+optional \code{data.frame} with information between track points.
+}
+\item{fn}{
+function.
+}
+\item{tracks}{
+named list with \code{Track} objects.
+}
+\item{tracksData}{
+\code{data.frame} with summary data for each \code{Track}.
+}
+\item{tracksCollection}{
+list, with \code{Tracks} objects.
+}
+\item{tracksCollectionData}{
+data.frame, with summary data on \code{tracksCollection}.
+}
+\item{from}{from.}
+\item{to}{target class.}
 }
 
 \value{
-Functions \code{Track}, \code{Tracks} and
+functions \code{Track}, \code{Tracks} and
 \code{TracksCollection} are constructor functions that take the
 slots as arguments, check object validity, and compute summary
 statistics on the track and tracks sets.

@@ -1,17 +1,23 @@
 \name{print.Track}
 \alias{print.Track}
+\alias{print.Tracks}
+\alias{print.TracksCollection}
+
 \title{
-Methods for class Track
+Print Methods
 }
 \description{
-print method.
+Print method for classes \link[trajectories]{Track}, \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection}.
 }
 \usage{
 \method{print}{Track}(x)
+\method{print}{Tracks}(x)
+\method{print}{TracksCollection}(x)
+
 }
 \arguments{
-  \item{x}{ an object of class Track}
+  \item{x}{ an object of classes \link[trajectories]{Track}, \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection}}
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }

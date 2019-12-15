@@ -1,7 +1,7 @@
 \name{print.arwlen}
 \alias{print.arwlen}
 \title{
-Methods for class arwlen
+Print Methods
 }
 \description{
 print method.
@@ -14,5 +14,5 @@ print method.
   \item{x}{an object of class arwlen.}
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }

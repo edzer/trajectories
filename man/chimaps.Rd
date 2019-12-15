@@ -13,7 +13,7 @@ chimaps(X,timestamp,rank=1,...)
 \item{X}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
 \item{timestamp}{based on secs, mins, ... .}
 \item{rank}{a number between one and the length of corresponding time sequance which is created based on a given timestamp.}
-\item{...}{arguments passed to the \link[trajectories]{density.list}.}
+\item{...}{arguments passed to \link[trajectories]{density.list}.}
 }
 
 \details{
@@ -33,7 +33,7 @@ an image of class \link[spatstat]{im}.
 }
 
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 \seealso{

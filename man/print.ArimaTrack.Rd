@@ -1,7 +1,7 @@
 \name{print.ArimaTrack}
 \alias{print.ArimaTrack}
 \title{
-Methods for class ArimaTrack
+Print Methods
 }
 \description{
 print method.
@@ -11,8 +11,8 @@ print method.
 }
 
 \arguments{
-  \item{x}{ an  object of class ArimaTrack.}
+  \item{x}{an  object of class ArimaTrack.}
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }

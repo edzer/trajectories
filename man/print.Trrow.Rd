@@ -1,17 +1,17 @@
 \name{print.Trrow}
 \alias{print.Trrow}
 \title{
-Methods for class Trrow
+Print Methods 
 }
 \description{
-print method.
+Print method for class Trrow.
 }
 \usage{
 \method{print}{Trrow}(x)
 }
 \arguments{
-  \item{x}{ an object of class Trrow.}
+  \item{x}{an object of class Trrow.}
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }

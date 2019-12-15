@@ -1,11 +1,10 @@
 \name{compare}
-
 \docType{methods}
 
 \alias{compare}
 \alias{compare,Track-method}
 
-\title{Compares objects of class \code{Track}}
+\title{Compares objects of class Track}
 
 \description{
 Calculates distances between two tracks for the overlapping time interval.   
@@ -16,8 +15,8 @@ Calculates distances between two tracks for the overlapping time interval.
 }
 
 \arguments{
-\item{tr1}{An object of class \code{Track}.}
-\item{tr2}{An object of class \code{Track}.}
+\item{tr1}{an object of class \code{Track}.}
+\item{tr2}{an object of class \code{Track}.}
 }
 
 \value{A difftrack object. Includes both tracks extended with additional points 

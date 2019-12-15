@@ -4,7 +4,7 @@
 Converts data to an object of class Track
 }
 \description{
-Function \link[trajectories]{as.Track} accepts x,y coordinates and thier corresponding time/date, and converts them to an object of class \link[trajectories]{Track}. It can also accepts covariates for the corresponding locations.
+This function accepts x,y coordinates and thier corresponding time/date, and converts them to an object of class \link[trajectories]{Track}. It can also accepts covariates for the corresponding locations.
 }
 \usage{
 as.Track(x,y,t,covariate)
@@ -28,7 +28,7 @@ An object of class \link[trajectories]{Track}.
 }
 
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 \seealso{

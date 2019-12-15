@@ -18,7 +18,7 @@ Retrieves the range of objects of classes \link[trajectories]{Track},\link[traje
 \item{...}{arguments passed to the \link[base]{range} function.}
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 

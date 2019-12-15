@@ -10,9 +10,4 @@ data(storms)
 data(storms)
 dim(storms)
 plot(storms)
-x = approxTracksCollection(storms, by = "30 min", FUN = spline)
-plot(x, col = 'red', add = TRUE)
-\dontrun{
-demo(storms) # regenerates these data from their source
-}
 }

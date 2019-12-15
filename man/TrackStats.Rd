@@ -4,7 +4,7 @@
 \alias{TracksSummary}
 
 \title{
-Statistics for objects of class Track, Tracks and TracksCollection
+Statistics for objects of classes \link[trajectories]{Track}, \link[trajectories]{Tracks} or \link[trajectories]{TracksCollection}.
 }
 \description{
 Some statistics for objects of class Track, Tracks and TracksCollection.}
@@ -14,7 +14,7 @@ TrackSummary(X)
 TracksSummary(X)
 }
 \arguments{
-  \item{X}{an object of class \link[trajectories]{Track} or a list of \link[trajectories]{Tracks} objects
+\item{X}{an object of class \link[trajectories]{Track} or a list of \link[trajectories]{Tracks} objects.
 }
 }
 \details{
@@ -27,7 +27,7 @@ TracksSummary(X)
 }
 
 \value{
-a data frame
+a data frame.
 }
 \author{
 Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de}

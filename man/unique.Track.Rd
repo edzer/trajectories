@@ -10,17 +10,24 @@ Removing duplicated points in a \link[trajectories]{Track}.}
 }
 
 \arguments{
-\item{x}{an object of class \link[trajectories]{Track}.}
-\item{...}{arguments passed to \link[base]{unique}.}
+\item{x}{
+an object of class \link[trajectories]{Track}.
+}
+\item{...}{
+arguments passed to \link[base]{unique}.
+}
 }
 
 \details{
-This function removes duplicated points in an object of class \link[trajectories]{Track}.}
-\value{
-An object of class \link[trajectories]{Track} with  no duplicated point.}
-\author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+this function removes duplicated points in an object of class \link[trajectories]{Track}.
 }
+\value{
+an object of class \link[trajectories]{Track} with  no duplicated point.
+}
+\author{
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
+}
+
 
 \seealso{
 \link[trajectories]{rTrack}, \link[trajectories]{rTracks}, \link[trajectories]{rTracksCollection}, \link[base]{unique}

@@ -1,7 +1,7 @@
 \name{plot.KTrack}
 \alias{plot.KTrack}
 \title{
-Methods for class KTrack
+Plot Methods
 }
 \description{
 plot the K-function for a trajectory pattern.
@@ -12,12 +12,12 @@ plot the K-function for a trajectory pattern.
 
 \arguments{
   \item{x}{an object of class KTrack.}
-  \item{type}{line type.}
-  \item{col}{line color.}
+  \item{type}{type.}
+  \item{col}{color.}
   \item{cex}{used for size of legend.}
   \item{line}{specifying a value for line overrides the default placement of labels, see \link[graphics]{title}.}
   \item{...}{arguments passed to plot.}
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }

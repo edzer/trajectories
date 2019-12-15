@@ -15,7 +15,7 @@ avemove(X,timestamp,epsilon=0)
 \arguments{
 \item{X}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
 \item{timestamp}{a timestamp to calculate the length of movements accordingly.}
-\item{epsilon}{(optional) movements with a length less than epsilon are not considered in the calculation.}
+\item{epsilon}{optional. movements with a length less than epsilon are not considered in the calculation.}
 }
 
 \details{
@@ -34,7 +34,7 @@ Note that, tracks in X should overlap in time.
 a numeric vector represents the average length of movements that can be plotted with respect to time.
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 \seealso{

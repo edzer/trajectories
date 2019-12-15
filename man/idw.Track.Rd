@@ -1,5 +1,8 @@
 \name{idw.Track}
 \alias{idw.Track}
+\alias{idw.Tracks}
+\alias{idw.TracksCollection}
+
 \title{
 Movement smoothing of a trajectory pattern
 }
@@ -8,14 +11,27 @@ Movement smoothing of an object of classes \link[trajectories]{Tracks}, \link[tr
 }
 \usage{
 \method{idw}{Track}(X,timestamp,epsilon=0,Fun=mean,...)
+\method{idw}{Tracks}(X,timestamp,epsilon=0,Fun=mean,...)
+\method{idw}{TrackCollection}(X,timestamp,epsilon=0,Fun=mean,...)
+
 }
 
 \arguments{
-  \item{X}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
-\item{timestamp}{based on secs,mins, ... .}
-\item{epsilon}{(optional) movements with a length less than epsilon are not considered in the calculation.}
-\item{Fun}{a function to be applied to the values of each pixel, see details}
-\item{...}{arguments passed to \link[spatstat]{idw} function.}
+\item{X}{
+an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.
+}
+\item{timestamp}{
+based on secs,mins, ... .
+}
+\item{epsilon}{
+optional. movements with a length less than epsilon are not considered in the calculation.
+}
+\item{Fun}{
+a function to be applied to the values of each pixel, see details.
+}
+\item{...}{
+arguments passed to \link[spatstat]{idw} function.
+}
 }
 \details{
 Performs spatial smoothing to an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.
@@ -28,7 +44,7 @@ Note that, tracks in X should overlap in time.
 an image of class \link[spatstat]{im}.
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 \seealso{

@@ -14,8 +14,9 @@ Convert an objects of classes \link[trajectories]{Tracks} and \link[trajectories
 }
 
 \arguments{
-\item{tr,tc}{objects of classes \link[trajectories]{Tracks} and \link[trajectories]{TracksCollection}}
-\item{...}{optional. Additional arguments passed on the \link[base]{as.list} fucntion.}
+\item{tr,tc}{objects of classes \link[trajectories]{Tracks} and \link[trajectories]{TracksCollection}.
+}
+\item{...}{optional. additional arguments passed on the \link[base]{as.list} fucntion.}
 }
 
 \author{

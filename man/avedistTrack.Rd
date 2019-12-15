@@ -31,7 +31,7 @@ a numeric vector represents the average pairwise distances that can be plotted w
 }
 
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 \seealso{

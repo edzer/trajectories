@@ -1,7 +1,7 @@
 \name{plot.distrack}
 \alias{plot.distrack}
 \title{
-Methods for class distrack
+Plot Methods
 }
 \description{
 The plot method for class distrack.
@@ -15,5 +15,8 @@ The plot method for class distrack.
 }
 
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
+}
+\seealso{
+\link[trajectories]{avedistTrack}
 }

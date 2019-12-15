@@ -1,13 +1,11 @@
 \name{downsample}
-
 \docType{methods}
-
 \alias{downsample}
 \alias{downsample,Track-method}
-\title{Downsample a \code{Track}}
+\title{Downsample a Track}
 
 \description{
-Downsamples a \code{Track} to the size (amount of points) of another \code{Track}.
+Downsamples a \link[trajectories]{Track} to the size (amount of points) of another Track.
 }
 
 \usage{%
@@ -15,14 +13,23 @@ Downsamples a \code{Track} to the size (amount of points) of another \code{Track
 }
 
 \arguments{
-\item{track1}{\code{Track} that will be downsampled.}
-\item{track2}{Reference \code{Track}.}
+\item{track1}{Track that will be downsampled.}
+\item{track2}{Reference Track.}
 }
 
-\value{A \code{Track} object. The downsampled track1.}
+\value{A Track object. The downsampled track1.}
 
 \author{
 Nikolai Gorte <n.gorte@gmail.com>
+}
+
+\examples{
+x <- rTrack(15)
+dim(x)
+y <- rTrack(20)
+dim(y)
+z <- downsample(y,x)
+dim(z)
 }
 
 \keyword{downsample}

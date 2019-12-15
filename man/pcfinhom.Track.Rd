@@ -12,12 +12,24 @@ pcfinhom.Track(X,timestamp,correction = c("translate", "Ripley"),q=0,
                 sigma=c("default","bw.diggle","bw.ppl","bw.scott"),...)
 }
 \arguments{
-\item{X}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
-\item{timestamp}{based on secs,mins,... .}
-\item{correction}{the type of correction to be used when computing pair correlation function.}
-\item{q}{(optional) a numeric value between 0 and 1. quantile to be applied to calculate the variability area.}
-\item{sigma}{method to be considered for bandwidth selection in computing intensity function.}
-\item{...}{arguments passed to the \link[spatstat]{pcfinhom}.}
+\item{X}{
+an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.
+}
+\item{timestamp}{
+based on secs,mins,... .
+}
+\item{correction}{
+the type of correction to be used when computing pair correlation function.
+}
+\item{q}{
+optional. a numeric value between 0 and 1. quantile to be applied to calculate the variability area.
+}
+\item{sigma}{
+method to be considered for bandwidth selection in computing intensity function.
+}
+\item{...}{
+arguments passed to the \link[spatstat]{pcfinhom}.
+}
 }
 \details{
 The type of interaction (clustering, repulsion, randomness) between tracks in X might vary over time. The function \link[trajectories]{pcfinhom.Track} calculates the variability area of \link[spatstat]{pcfinhom} over time. The variability area is calculated based on the pair correlation functions of all obtained point patterns when converting a trajectory pattern to a list of point patterns. 
@@ -32,11 +44,12 @@ Note that, tracks in X should overlap in time.
 an object of class gTrack.
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 \seealso{
-\link[trajectories]{rTrack}, \link[trajectories]{as.Track.ppp}, \link[spatstat]{pcfinhom}}
+\link[trajectories]{rTrack}, \link[trajectories]{as.Track.ppp}, \link[spatstat]{pcfinhom}
+}
 \examples{
 X <- list()
 for(i in 1:100){

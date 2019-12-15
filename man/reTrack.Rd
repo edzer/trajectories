@@ -13,7 +13,7 @@ reTrack(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL)
 \item{X}{an object of class \link[trajectories]{Track}.}
 \item{at}{to set the type of output as either an object of class \link[trajectories]{Track} or \link[base]{data.frame}.}
 \item{timestamp}{a timestamp which \link[trajectories]{Track} be reconstructed based on.}
-\item{tsq}{(optional) a time sequence to reconstruct X based on it. If this is not given, the function creates the time sequance based on timestamp.}
+\item{tsq}{optional. a time sequence to reconstruct X based on it. If this is not given, the function creates the time sequance based on timestamp.}
 }
 
 \details{
@@ -25,7 +25,7 @@ Time sequance can be given by user through argument tsq, if not \link[trajectori
 an object of class \link[trajectories]{Track} or \link[base]{data.frame}.
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 

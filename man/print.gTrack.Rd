@@ -1,10 +1,10 @@
 \name{print.gTrack}
 \alias{print.gTrack}
 \title{
-Methods for class gTrack
+Print Methods
 }
 \description{
-print method.
+Print method for class gTrack.
 }
 \usage{
 \method{print}{gTrack}(x)
@@ -13,7 +13,7 @@ print method.
   \item{x}{ an object of class gTrack.} 
 }
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 

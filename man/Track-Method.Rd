@@ -1,5 +1,4 @@
 \name{Track-Method}
-\docType{Method}
 \alias{Track-Method}
 \alias{[,Track-method} 
 \alias{[,Tracks-method} 
@@ -36,7 +35,7 @@
 \alias{tracksPanel}
 
 \title{
-Methods for classes \code{Track}, \code{Tracks} and \code{TracksCollection}
+Methods for classes \link[trajectories]{Track}, \link[trajectories]{Tracks} or \link[trajectories]{TracksCollection}.
 }
 \description{
 Methods for classes \link[trajectories]{Track}, \link[trajectories]{Tracks} and \link[trajectories]{TracksCollection}
@@ -72,15 +71,23 @@ Methods for classes \link[trajectories]{Track}, \link[trajectories]{Tracks} and 
 }
 
 \arguments{
-  \item{X}{an object of class
-\link[trajectories]{Track}, \link[trajectories]{Tracks} or \link[trajectories]{TracksCollection}}
-\item{i}{selection of spatial entities}
-\item{...}{selection of attribute(s)}
-\item{drop}{logical}
-
+\item{X}{
+an object of class
+\link[trajectories]{Track}, \link[trajectories]{Tracks} or \link[trajectories]{TracksCollection}.
 }
+\item{i}{
+selection of spatial entities.
+}
+\item{...}{
+selection of attribute(s).
+}
+\item{drop}{
+logical.
+}
+}
+
 \details{
-Methods.
+methods for classes \link[trajectories]{Track}, \link[trajectories]{Tracks} or \link[trajectories]{TracksCollection}. see examples below.
 }
 \value{
 
@@ -88,7 +95,7 @@ Methods.
 \author{
 Edzer Pebesma, \email{edzer.pebesma@uni-muenster.de}
 
-Mehdi Moradi, \email{m2.moradi@yahoo.com}
+Mohammad Mehdi Moradi, \email{m2.moradi@yahoo.com}
 }
 
 
@@ -103,13 +110,10 @@ as(x,"data.frame")
 as(x,"Line")
 as(x,"Lines")
 as(x,"SpatialLines")
-plot(.Last.value)
 as(x,"xts")
 as(x,"STIDF")
 as(x,"Spatial")
-plot(.Last.value)
 as(x,"SpatialPointsDataFrame")
-plot(.Last.value)
 coordinates(x)
 proj4string(x)
 plot(x)
@@ -134,7 +138,7 @@ y <- as(x,"STIDF")
 proj4string(y) <- CRS("+proj=longlat")
 # transform to UTM 50N
 x.utm <- spTransform(y, CRS("+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84
-+units=m +no_defs "))
+                            +units=m +no_defs "))
 x.utm <- Track(x.utm)
 
 x.Tr <- TracksCollection(list(Tracks(list(x))))

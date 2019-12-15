@@ -1,5 +1,8 @@
 \name{Kinhom.Track}
 \alias{Kinhom.Track}
+\alias{Kinhom.Tracks}
+\alias{Kinhom.TracksCollection}
+
 \title{
 Inhomogeneous K-function for a trajectory pattern
 }
@@ -14,12 +17,23 @@ Kinhom.Track(X,timestamp,
 }
 
 \arguments{
-\item{X}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
-\item{timestamp}{based on secs,mins,... .}
-\item{correction}{the type of correction to be used when computing K-function.}
-\item{q}{(optional) a numeric value between 0 and 1. quantile to be applied to calculate the variability area.}
-\item{sigma}{method to be considered for bandwidth selection in computing intensity function.}
-\item{...}{arguments passed to the \link[spatstat]{Kinhom}.}
+\item{X}{
+an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.
+}
+\item{timestamp}{
+based on secs,mins,... .
+}
+\item{correction}{
+the type of correction to be used when computing K-function.
+}
+\item{q}{optional. a numeric value between 0 and 1. quantile to be applied to calculate the variability area.
+}
+\item{sigma}{
+method to be considered for bandwidth selection in computing intensity function.
+}
+\item{...}{
+arguments passed to the \link[spatstat]{Kinhom}.
+}
 }
 
 \details{
@@ -37,7 +51,7 @@ an object of class KTrack.
 }
 
 \author{
-Mohammad Mehdi Moradi <m2.moradi@yahoo.com>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
 \seealso{
