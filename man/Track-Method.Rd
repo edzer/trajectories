@@ -138,9 +138,9 @@ stack(x)
 y <- as(x,"STIDF")
 proj4string(y) <- CRS("+proj=longlat")
 # transform to UTM 50N
-x.utm <- spTransform(y, CRS("+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84
-                            +units=m +no_defs "))
-x.utm <- Track(x.utm)
+# x.utm <- spTransform(y, CRS("+proj=utm +zone=50 +ellps=WGS84 +datum=WGS84
+#                             +units=m +no_defs "))
+# x.utm <- Track(x.utm)
 
 x.Tr <- TracksCollection(list(Tracks(list(x))))
 stplot(x.Tr,attr = "direction", arrows=TRUE, lwd = 3, by = "IDs")
