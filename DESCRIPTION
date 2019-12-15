@@ -19,7 +19,7 @@ BugReports: http://github.com/edzer/trajectories/issues
 VignetteBuilder: knitr
 Collate: Class-Tracks.R Tracks-methods.R generalize.R stcube.R stplot.R
         difftrack.R compare-methods.R rtracks.R Trackstat.R
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 NeedsCompilation: no
 Packaged: 2018-09-25 11:59:22 UTC; edzer
 Author: Edzer Pebesma [aut, cre] (<https://orcid.org/0000-0001-8049-7069>),
