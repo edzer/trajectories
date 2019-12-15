@@ -15,7 +15,7 @@ sel = IDS = c("079", "095", "111", "127", "143", "159", "175")
 i = j = 1
 # dirs = list.files("Data")
 dirs = sel
-crs = CRS("+proj=longlat +ellps=WGS84")
+crs = CRS("+proj=longlat +datum=WGS84")
 pb = txtProgressBar(style = 3, max = length(dirs))
 elev = numeric(0)
 tr = list()

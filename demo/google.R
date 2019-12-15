@@ -17,7 +17,7 @@ time = strptime(sub("([+\\-])(\\d\\d):(\\d\\d)$", "\\1\\2\\3",
 library(sp)
 library(spacetime)
 library(trajectories)
-track = Track(STI(SpatialPoints(coord, CRS("+proj=longlat +ellps=WGS84")), time))
+track = Track(STI(SpatialPoints(coord, CRS("+proj=longlat +datum=WGS84")), time))
 summary(track)
 head(as(track, "data.frame"))
 plot(track, axes = TRUE)

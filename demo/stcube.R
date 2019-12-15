@@ -29,7 +29,7 @@ if (!requireNamespace("enviroCaR", quietly = TRUE)) {
   	# Bind values together.
   	data = do.call(rbind, values)
   	sp = SpatialPoints(coords = coordinates(spdf),
-  		proj4string = CRS("+proj=longlat +ellps=WGS84"))
+  		proj4string = CRS("+proj=longlat +datum=WGS84"))
   	stidf = STIDF(sp = sp, time = time, data = data)
   	Track(track = stidf)
   }
