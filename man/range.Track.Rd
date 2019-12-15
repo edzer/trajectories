@@ -1,30 +1,26 @@
 \name{range.Track}
 \alias{range.Track}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\alias{range.Tracks}
+\alias{range.TracksCollection}
 \title{
-range.Track
-%%  ~~function to do ... ~~
+range
 }
 \description{
-Retrieves the range of a "Track" object
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Retrieves the range of objects of classes \link[trajectories]{Track},\link[trajectories]{Tracks} and \link[trajectories]{TracksCollection}.
 }
 \usage{
 \method{range}{Track}(X,...)
+\method{range}{Tracks}(X,...)
+\method{range}{TracksCollection}(X,...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
-  an object of class "Track"
-%%     ~~Describe \code{X} here~~
-}
-\item{...}{passed to arguments of range}
+\item{X}{an object of class \link[trajectories]{Track},\link[trajectories]{Tracks} or \link[trajectories]{TracksCollection}.}
+\item{...}{arguments passed to the \link[base]{range} function.}
 }
 \author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
 \link[trajectories]{rTrack}, \link[trajectories]{rTracks}, \link[trajectories]{rTracksCollection}, \link[base]{range}

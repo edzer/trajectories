@@ -1,36 +1,36 @@
 \name{as.list.Tracks}
 \alias{as.list.Tracks}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\alias{as.list.TracksCollection}
 \title{
-as.list.Tracks
-%%  ~~function to do ... ~~
+Tracks methods
 }
 \description{
-Convert a "Tracks" object to a list of tracks
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
-\usage{
-\method{as.list}{Tracks}(x,...)
-}
-%- maybe also 'usage' for other objects documented here.
-\arguments{
-  \item{x}{
-  an object of class "Tracks"
-%%     ~~Describe \code{X} here~~
-}
-\item{...}{passed to arguments of as.list}
-}
-\author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+Convert an objects of classes \link[trajectories]{Tracks} and \link[trajectories]{TracksCollection} to a list of of objects of class \link[trajectories]{Track}.
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\usage{
+\method{as.list}{Tracks}(tr,...)
+\method{as.list}{TracksCollection}(tc,...)
+}
+
+\arguments{
+\item{tr,tc}{objects of classes \link[trajectories]{Tracks} and \link[trajectories]{TracksCollection}.
+}
+\item{...}{optional. additional arguments passed on the \link[base]{as.list} fucntion.}
+}
+
+\author{
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
+}
+
 
 \seealso{
 \link[trajectories]{rTrack}, \link[trajectories]{rTracks}, \link[trajectories]{rTracksCollection}, \link[base]{as.list}
-%% ~~objects to See Also as \code{\link{help}}, ~~~
 }
+
 \examples{
-x <-  rTracks()
-as.list(x)
+tr <-  rTracks(m=2,n=10)
+as.list(tr)
+tc <-  rTracksCollection(p=2,m=2,n=10)
+as.list(tc)
 }

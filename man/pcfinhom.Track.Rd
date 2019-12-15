@@ -1,41 +1,55 @@
 \name{pcfinhom.Track}
 \alias{pcfinhom.Track}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Pair correlation funcrion of trajectory pattern
+Pair correlation funcrion of a trajectory pattern
 }
+
 \description{
-Pair correlation funcrion of trajectory pattern
+Estimate the variability area of the pair correlation funcrion for an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects over time.
 }
 \usage{
-pcfinhom.Track(X,timestamp,correction = c("translate", "Ripley"),q,
+pcfinhom.Track(X,timestamp,correction = c("translate", "Ripley"),q=0,
                 sigma=c("default","bw.diggle","bw.ppl","bw.scott"),...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
 \item{X}{
-A list of Track objects
+an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.
 }
-\item{timestamp}{based on secs,mins,...}
-\item{correction}{the type of correction to be used in computing pair correlation function}
-\item{q}{(optional) a numeric value between 0 and 1. quantile to be applied to calculate the variability area}
-\item{sigma}{method to be used in computing intensity function}
-\item{...}{passed to the arguments of pcfinhom}
+\item{timestamp}{
+based on secs,mins,... .
+}
+\item{correction}{
+the type of correction to be used when computing pair correlation function.
+}
+\item{q}{
+optional. a numeric value between 0 and 1. quantile to be applied to calculate the variability area.
+}
+\item{sigma}{
+method to be considered for bandwidth selection in computing intensity function.
+}
+\item{...}{
+arguments passed to the \link[spatstat]{pcfinhom}.
+}
 }
 \details{
-This calculates the variability area of  pair correlation function over time. If sigma=default, it calculates the variability area using the defaults of pcfinhom, otherwise it first estimate the intensity function using the given sigma as bandwidth selection method and then using the estimated intensity function, it estimates the variability area.
+The type of interaction (clustering, repulsion, randomness) between tracks in X might vary over time. The function \link[trajectories]{pcfinhom.Track} calculates the variability area of \link[spatstat]{pcfinhom} over time. The variability area is calculated based on the pair correlation functions of all obtained point patterns when converting a trajectory pattern to a list of point patterns. 
+
+If sigma=default, it calculates the variability area using the defaults of \link[spatstat]{pcfinhom}, otherwise it first estimates the intensity function using the given bandwidth selection method and then using the estimated intensity function it estimates the variability area.
+
+The lower and upper border of the variability area is calculated based on the \link[stats]{quantile} of values of all obtained pair correlation functions. q=0 means considering maximum and minimum.
+
+Note that, tracks in X should overlap in time.
 }
 \value{
-an object of class "gTrack"
+an object of class gTrack.
 }
 \author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
-\link[trajectories]{rTrack}, \link[trajectories]{as.Track.ppp}, \link[spatstat]{pcfinhom}}
+\link[trajectories]{rTrack}, \link[trajectories]{as.Track.ppp}, \link[spatstat]{pcfinhom}
+}
 \examples{
 X <- list()
 for(i in 1:100){

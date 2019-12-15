@@ -43,8 +43,9 @@ TrackStats = function(track) {
 	stopifnot(!any(duration == 0))
 #	if (class(try(cc <- coordinates(track), silent=TRUE)) == "try-error" ||
 #			!is.matrix(cc))
-	if (!is(track@sp, "SpatialPoints"))
-		data.frame(matrix(nrow = length(track@sp) - 1, ncol = 0)) # empty
+	if (!is(track@sp, "SpatialPoints")){
+	  data.frame(matrix(nrow = length(track@sp) - 1, ncol = 0)) # empty 
+	  }
 	else {
 		cc = coordinates(track@sp)
 		ll = identical(is.projected(track), FALSE)
@@ -100,7 +101,7 @@ TrackSummary = function(track) {
 	ix = index(track@time)
 	bb = bbox(track@sp)
 	conn = track@connections
-	data.frame(
+	d <- data.frame(
 		xmin = bb[1,1],
 		xmax = bb[1,2],
 		ymin = bb[2,1],
@@ -112,6 +113,8 @@ TrackSummary = function(track) {
 		medspeed = quantile(conn$speed, 0.5)
 		# TODO Compute some mean direction?
 	)
+	rownames(d) <- NULL
+	d
 }
 
 # Pre-computes elements of tracksData.

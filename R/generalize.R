@@ -78,8 +78,9 @@ generalize.Track <- function(t, FUN = mean, ..., timeInterval, distance, n, tol,
 	# in the "endTime" slot of STIDF objects does not work properly.
 	attr(endTime, "tzone") = tz
 	stidf@endTime = endTime
+	warning(paste("connections are only calculated for SpatialPoints"))
 	Track(stidf)
-}
+	}
 
 if(!isGeneric("generalize"))
 	setGeneric("generalize", function(t, FUN = mean, ...)

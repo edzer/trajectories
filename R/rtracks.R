@@ -1,5 +1,5 @@
 rTrack <- function (n = 100, origin = c(0, 0), start = as.POSIXct("1970-01-01"), 
-                    ar = 0.8, step = 60, sd0 = 1,bbox=bbox, transform=FALSE,nrandom=FALSE, ...){
+                    ar = 0.8, step = 60, sd0 = 1,bbox=bbox, transform=FALSE,nrandom=FALSE,...){
   
   if(nrandom)  repeat{n <- rpois(1,n);if(!n==0) break()}
   if (missing(bbox) & transform) {
@@ -14,12 +14,12 @@ rTrack <- function (n = 100, origin = c(0, 0), start = as.POSIXct("1970-01-01"),
   }
   if (length(ar) == 1 && ar == 0) 
     xy = cbind(x=cumsum(rnorm(n, sd = sd0)) + origin[1], y=cumsum(rnorm(n, 
-                                                                    sd = sd0)) + origin[2])
+                                                                        sd = sd0)) + origin[2])
   else {xy = cbind(x=origin[1] + cumsum(as.vector(arima.sim(list(ar = ar), 
-                                                          n, sd = sd0, ...))), 
+                                                            n, sd = sd0, ...))), 
                    y=origin[2] + cumsum(as.vector(arima.sim(list(ar = ar), 
-                                                          
-                                                          n, sd = sd0, ...))))}
+                                                            
+                                                            n, sd = sd0, ...))))}
   if(transform) {
     if(missing(bbox))  bbox <- matrix(c(0,1,0,1),nrow = 2,byrow = T); colnames(bbox) <- c("min","max");rownames(bbox) <- c("x","y")
     
@@ -52,28 +52,28 @@ rTracksCollection <- function (p = 10, sd2 = 0, ...)
                                                                   sd = sd2), ...)))
 
 
-print.Track <- function(x,...){
+print.Track <- function(x){
   X = x
   if (class(X@sp)=="SpatialPoints") {
     cat("An object of class Track \n");
     cat(paste0(nrow(as.data.frame(X@sp)), "points"),"\n");
-    }
+  }
   if (class(X@sp)=="SpatialLines") {
     cat("A generalized object of class Track \n");
     cat(paste0(length(X@sp@lines), "lines"),"\n"); 
   }
   cat(paste0("bbox:"),"\n");
   print(X@sp@bbox);
-  cat(paste0("Time period: [",range(X@endTime)[1],", ", range(X@endTime)[2],"]"))
+  cat(paste0("Time period: [",range(X@endTime)[1],", ", range(X@endTime)[2],"]"),"\n")
 }
 
 print.Tracks <- function(X){
   cat("An object of class Tracks" ,"\n");
-  cat(paste0(length(X@tracks)), "tracks followed by a single object")
+  cat(paste0(length(X@tracks)), "tracks followed by a single object","\n")
 }
 
 print.TracksCollection <- function(X){
   cat("An object of class TracksCollection" ,"\n");
   cat(paste0(length(X@tracksCollection))
-      , "collection of tracks followed by", paste0(length(X@tracksCollection)), " object")
+      , "collection of tracks followed by", paste0(length(X@tracksCollection)), " object","\n")
 }

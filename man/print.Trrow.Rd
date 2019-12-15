@@ -1,23 +1,17 @@
 \name{print.Trrow}
 \alias{print.Trrow}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Methods for class "Trrow"
+Print Methods 
 }
 \description{
-Print objetcs of class "Trrow"}
-\usage{
-\method{print}{Trrow}(x,...)
+Print method for class Trrow.
 }
-%- maybe also 'usage' for other objects documented here.
+\usage{
+\method{print}{Trrow}(x)
+}
 \arguments{
-  \item{x}{ an object of class "Trrow" }
-  \item{...}{ ignored }
+  \item{x}{an object of class Trrow.}
 }
 \author{
-Mohammad Mehdi Moradi <moradi@uji.es>
-}
-
-\seealso{
-as.Track.arrow
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }

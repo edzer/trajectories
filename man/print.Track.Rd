@@ -1,22 +1,23 @@
 \name{print.Track}
 \alias{print.Track}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\alias{print.Tracks}
+\alias{print.TracksCollection}
+
 \title{
-Methods for class "Track"
+Print Methods
 }
 \description{
-method to print an object of class "Track"}
-\usage{
-\method{print}{Track}(x,...)
+Print method for classes \link[trajectories]{Track}, \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection}.
 }
-%- maybe also 'usage' for other objects documented here.
+\usage{
+\method{print}{Track}(x)
+\method{print}{Tracks}(x)
+\method{print}{TracksCollection}(x)
+
+}
 \arguments{
-  \item{x}{ an object of class "Track" }
-  \item{...}{ ignored}
+  \item{x}{ an object of classes \link[trajectories]{Track}, \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection}}
 }
 \author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-

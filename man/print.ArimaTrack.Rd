@@ -1,22 +1,18 @@
 \name{print.ArimaTrack}
 \alias{print.ArimaTrack}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Methods for class "ArimaTrack"
+Print Methods
 }
 \description{
-print method.}
-\usage{
-\method{print}{ArimaTrack}(x, ...)
+print method.
 }
-%- maybe also 'usage' for other objects documented here.
+\usage{
+\method{print}{ArimaTrack}(x)
+}
+
 \arguments{
-  \item{x}{ an  object of class "ArimaTrack" }
-  \item{...}{ignored}
+  \item{x}{an  object of class ArimaTrack.}
 }
 \author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-

@@ -119,6 +119,7 @@ frechetDist <- function(track1, track2) {
   if (!identicalCRS(track1, track2))
     stop("CRS are not identical!")
   dists <- spDists(track1@sp, track2@sp) #dists between all points
+  if(all(diag(dists)==0)){return(0)}
   dists[,1] <- cummax(dists[,1]) # cases where one of the trajectories is a point 
   dists[1,] <- cummax(dists[1,])
   for (i in 2:nrow(dists)) { # build rest of frechet distance matrix
@@ -126,7 +127,8 @@ frechetDist <- function(track1, track2) {
       dists[i,j] <- max(dists[i,j], min(dists[i-1,j], dists[i-1,j-1], dists[i,j-1]))
     }
   }
-  max(xts::last(xts::last(dists)))
+  min(max(xts::last(xts::last(dists))),max(xts::last(xts::last(t(dists)))))
+  # max(xts::last(xts::last(dists)))
 }
 
 

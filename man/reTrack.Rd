@@ -1,40 +1,33 @@
 \name{reTrack}
 \alias{reTrack}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Reconstruct objects of class "Track"
+Reconstruct objects of class Track.
 }
 \description{
-Function reTrack accepts X as an object of class "Track". Output is a reconstructed Track (again an object of class Track), based on a regular "timestamp". It only returns the interpolated points.
+Reconstruct objects of class \link[trajectories]{Track} according to a given timestamp.
 }
 \usage{
 reTrack(X,at=c("track","dfrm"),timestamp=timestamp,tsq=NULL)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{X}{
-an object of class Track
+\item{X}{an object of class \link[trajectories]{Track}.}
+\item{at}{to set the type of output as either an object of class \link[trajectories]{Track} or \link[base]{data.frame}.}
+\item{timestamp}{a timestamp which \link[trajectories]{Track} be reconstructed based on.}
+\item{tsq}{optional. a time sequence to reconstruct X based on it. If this is not given, the function creates the time sequance based on timestamp.}
 }
-\item{at}{
-to set the type of output as either an object of class "Track" or data.frame
-}
-\item{timestamp}{
-timestamp which Track be reconstructed based on
-}
-\item{tsq}{
-a time sequence to reconstruct Track X based on it. This is optional. If this is not given, the function creates the time sequance based on timestamp.
-}
-}
+
 \details{
-Sometimes tracks data are not collected according to a regular timestamp. In order to compare different tracks which share some time intervals, we might need to be aware of the locations in a regular timestamp. Function reTrack unables us to reconstruct an object of class "Track" based on a regular timestamp. Time sequance can be given by user, if not reTrack creates a regulare time sequance based on the given timestamp. 
+Sometimes tracks data are not collected according to a regular timestamp. In order to compare different tracks which share some time intervals, we might need to be aware of the locations in a regular timestamp. The function \link[trajectories]{reTrack} unables us to reconstruct an object of class \link[trajectories]{Track} based on a regular timestamp.
+
+Time sequance can be given by user through argument tsq, if not \link[trajectories]{reTrack} first creates a regulare time sequance based on the given timestamp. 
 }
 \value{
-Either an object of class "Track" or a data.frame
+an object of class \link[trajectories]{Track} or \link[base]{data.frame}.
 }
 \author{
-Mohammad Mehdi Moradi <moradi@uji.es>}
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
+}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
 \link[trajectories]{rTrack}, \link[trajectories]{as.Track},

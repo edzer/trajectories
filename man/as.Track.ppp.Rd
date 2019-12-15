@@ -1,34 +1,40 @@
 \name{as.Track.ppp}
 \alias{as.Track.ppp}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Conver trajectory pattern to a list of objects of class ppp
+Convert a trajectory pattern to a list of spatial point patterns
 }
+
 \description{
-This function converts a list of Tracks to a list of point patterns (class "ppp")}
+This function convert objects of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects to a list of spatial point patterns.
+}
+
 \usage{
 as.Track.ppp(X,timestamp)
 }
-%- maybe also 'usage' for other objects documented here.
-\arguments{
-  \item{X}{
-a list of Track objects
-}
-\item{timestamp}{based on secs, mins,...}
-}
-\details{
-as.Track.ppp converts a list of Track objetcs to a list of ppp objetcs.}
-\value{
-A list of point patterns, objects of class "ppp".
-}
-\author{
-Mohammad Mehdi Moradi <moradi@uji.es>}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\arguments{
+\item{X}{an object of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects.}
+\item{timestamp}{based on secs, mins,... .}
+}
+
+\details{
+The function \link[trajectories]{as.Track.ppp} converts objects of classes \link[trajectories]{Tracks}, \link[trajectories]{TracksCollection} or any list of \link[trajectories]{Track} objects to a list of spatial point patterns of class \link[spatstat]{ppp} according to a given timestamp. Each obtained spatial point pattern represents the location of all moving objects in a fixed time. Since usually the location of different tracks are not recorded according to a single time sequence, this function first interpolates all tracks according to a regular time sequence and then convert them to a list of spatial point patterns. Note that, if we do not interpolate the location of all tracks according to a regular time sequence, the final point patterns can not contain the location of all objects.
+
+Note that, tracks in X should overlap in time.
+}
+
+\value{
+A list of spatial point patterns of class \link[spatstat]{ppp}.
+}
+
+\author{
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
+}
 
 \seealso{
 \link[trajectories]{avedistTrack}, \link[spatstat]{as.ppp}
 }
+
 \examples{
 X <- list()
 for(i in 1:10){

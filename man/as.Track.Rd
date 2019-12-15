@@ -1,41 +1,38 @@
 \name{as.Track}
 \alias{as.Track}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Converts data to an object of class "Track"
+Converts data to an object of class Track
 }
 \description{
-Function as.Track  accepts converts x,y coordinates and thier corresponding time/date to an object of class Track. It can also accepts covariates for the corresponding 
- locations, covariates must be a dataframe with some columns and length of each column is equal
- to length of x,y,t.
+This function accepts x,y coordinates and thier corresponding time/date, and converts them to an object of class \link[trajectories]{Track}. It can also accepts covariates for the corresponding locations.
 }
 \usage{
 as.Track(x,y,t,covariate)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{x}{ x coordinate.
-}
-\item{y}{ y coordinate.
-}
-\item{t}{ corresponding time and date of x,y.
-}
-\item{covariate}{ additional information.
-}
-}
-\details{
-An object of class "Track" can be created by some geographical locations and corresponding time/dates. Function as.Track converts locations and dates/times to an object of class "Track". time/date should be from class "POSIXct" "POSIXt". See example below.
-}
-\value{
-An object of class "Track".}
-\author{
-Mohammad Mehdi Moradi <moradi@uji.es>
+\item{x}{ x coordinate.}
+\item{y}{ y coordinate.}
+\item{t}{ corresponding time and date of x,y.}
+\item{covariate}{ additional information.}
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\details{
+An object of class \link[trajectories]{Track} can be created by some geographical locations and corresponding time/dates. The function \link[trajectories]{as.Track} converts locations and dates/times to an object of class \link[trajectories]{Track}. time/date should be  of classes \link[base]{POSIXct} or \link[base]{POSIXt}.
+
+The additional covariates must be a dataframe with some columns (each column is conisdered as a convariate), and the length of each column must be equal to length of x,y,t.
+}
+
+\value{
+An object of class \link[trajectories]{Track}.
+}
+
+\author{
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
+}
 
 \seealso{
-\link[trajectories]{Track}, \link[base]{as.POSIXct}
+\link[trajectories]{Track}, \link[base]{as.POSIXct}, \link[base]{as.POSIXlt}
 }
 \examples{
 x <- runif(10,0,1)

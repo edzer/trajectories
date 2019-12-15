@@ -1,19 +1,19 @@
 \name{print.gTrack}
 \alias{print.gTrack}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Methods for class "gTrack"
+Print Methods
 }
 \description{
-print method.}
+Print method for class gTrack.
+}
 \usage{
-\method{print}{gTrack}(x,...)
+\method{print}{gTrack}(x)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{ an object of class "gTrack"} 
-  \item{...}{ignored}
+  \item{x}{ an object of class gTrack.} 
 }
-\author{ Mohammad Mehdi Moradi <moradi@uji.es>}
+\author{
+Mohammad Mehdi Moradi \email{m2.moradi@yahoo.com}
+}
 
 
