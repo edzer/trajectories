@@ -63,11 +63,10 @@ plot(d1)
 d2 <- density(X, timestamp = "180 secs",method = "Voronoi")
 plot(d2)
 
-library(raster)
 library(sp)
 Ims <- attr(d1, "Tracksim")
-Ims_raster <- lapply(Ims,raster)
-Ims_raster_brick <- brick(Ims_raster)
+Ims_raster <- lapply(Ims,raster::raster)
+Ims_raster_brick <- raster::brick(Ims_raster)
 spplot(Ims_raster_brick[[1:12]])
 
 }
