@@ -31,7 +31,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\link[trajectories]{density.list}, \link[spatstat]{density.ppp}
+\link{density.list}, \link[spatstat]{density.ppp}
 }
 \examples{
 X <- list()

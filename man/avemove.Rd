@@ -30,7 +30,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\link[trajectories]{as.Track.arrow}
+\link{as.Track.arrow}
 }
 \examples{
 X <- list()

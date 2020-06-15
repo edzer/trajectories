@@ -25,16 +25,16 @@ rTracksCollection(p = 10, sd2 = 0, ...)
 \item{bbox}{bbox object FIXME:fill in}
 \item{transform}{logical; FIXME:fill in }
 \item{nrandom}{logical; if \code{TRUE}, draw \code{n} from \code{rpois(n)}}
-\item{...}{rTrack: arguments passed on to \link[stats]{arima.sim}, rTracks: arguments
+\item{...}{rTrack: arguments passed on to \link{arima.sim}, rTracks: arguments
 passed on to rTrack; rTracksCollection: arguments passed on to rTracks}
 \item{m}{ number of Track objects to simulate}
 \item{delta}{ time difference between consecutive Track start times}
 \item{p}{ number of IDs with Tracks to generate}
 }
-\details{\code{ar} is passed on to \link[stats]{arima.sim} as \code{ar}
+\details{\code{ar} is passed on to \link{arima.sim} as \code{ar}
 element, and may contain multiple AR coefficients. The generated
-track is a \link[base]{cumsum} over the simulated AR values, for each dimension.
-In case it has length 1 and value 0, random walk is created using \link[stats]{rnorm}. If bbox is given, the generated track will be transformed to bbox. If transform is TRUE and no bbox is given, it transforms the track to a unit box. If nrandom is TRUE, it generates a random number using \link[stats]{rpois} with parameter n as the number of locations per track.}
+track is a \link{cumsum} over the simulated AR values, for each dimension.
+In case it has length 1 and value 0, random walk is created using \link{rnorm}. If bbox is given, the generated track will be transformed to bbox. If transform is TRUE and no bbox is given, it transforms the track to a unit box. If nrandom is TRUE, it generates a random number using \link{rpois} with parameter n as the number of locations per track.}
 \value{An object of class \code{Track}, \code{Tracks} or \code{TracksCollection}.}
 \author{
 Edzer Pebesma <edzer.pebesma@uni-muenster.de>,

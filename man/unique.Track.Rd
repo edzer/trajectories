@@ -27,7 +27,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\link[trajectories]{rTrack}, \link[trajectories]{rTracks}, \link[trajectories]{rTracksCollection}, \link[base]{unique}
+\link{rTrack}, \link{rTracks}, \link{rTracksCollection}, \link{unique}
 }
 \examples{
 x <-  rTrack()

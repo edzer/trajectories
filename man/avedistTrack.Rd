@@ -30,7 +30,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\link[trajectories]{as.Track.ppp}
+\link{as.Track.ppp}
 }
 \examples{
 X <- list()

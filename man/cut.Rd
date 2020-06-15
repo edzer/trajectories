@@ -13,9 +13,9 @@
 }
 \arguments{
   \item{x}{ object of class \code{Track}, \code{Tracks} or \code{TracksCollection}}
-  \item{breaks}{ define the breaks; see \link[base]{cut}}
-  \item{...}{ passed down to Tracks and Track methods, then to \link[base]{cut}}
-  \item{include.lowest}{ see \link[base]{cut}}
+  \item{breaks}{ define the breaks; see \link{cut}}
+  \item{...}{ passed down to Tracks and Track methods, then to \link{cut}}
+  \item{include.lowest}{ see \link{cut}}
   \item{touch}{ logical; if FALSE, Track objects will be formed from
   unique sets of points, meaning that gaps between two consecutive
   Track objects will arise; if FALSE, the first point from each

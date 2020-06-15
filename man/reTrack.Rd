@@ -37,8 +37,8 @@ Mohammad Mehdi Moradi <moradi@uji.es>}
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\link[trajectories]{rTrack}, \link[trajectories]{as.Track},
- \link[base]{as.POSIXct}, \link[trajectories]{compare}
+\link{rTrack}, \link{as.Track},
+ \link{as.POSIXct}, \link{compare}
 }
 \examples{
 library(sp)

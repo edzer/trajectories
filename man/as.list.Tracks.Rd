@@ -27,8 +27,7 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\link[trajectories]{rTrack}, \link[trajectories]{rTracks}, \link[trajectories]{rTracksCollection}, \link[base]{as.list}
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\link{rTrack}, \link{rTracks}, \link{rTracksCollection}, \link{as.list}
 }
 \examples{
 x <-  rTracks()
