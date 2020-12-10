@@ -68,7 +68,7 @@ setAs("Track", "Lines",
 )
 
 setAs("Track", "SpatialLines",
-	function(from) SpatialLines(list(as(from, "Lines")), CRS(proj4string(from)))
+	function(from) SpatialLines(list(as(from, "Lines")), from@sp@proj4string)
 )
 
 setAs("Tracks", "Lines", 
@@ -85,7 +85,7 @@ setAsWithID <- function(from, ID=NA) {
 	l = lapply(from@tracks, function(x) as(x, "Lines"))
 	for (i in seq_along(l))
 		l[[i]]@ID = paste(switch(is.na(ID),"ID",ID), "_", i, sep="")
-	SpatialLines(l, CRS(proj4string(from)))
+	SpatialLines(l, from@tracks[[1]]@sp@proj4string)
 }
 
 setAs("Tracks", "SpatialLines", function(from) setAsWithID(from))
@@ -110,7 +110,8 @@ setAs("TracksCollection", "SpatialLines",
 			l[[i]]@ID <- paste(trackIDs[i], l[[i]]@ID, sep="_")
 		}
 		
-		SpatialLines(l, CRS(proj4string(from)))
+		#SpatialLines(l, from@sp@proj4string)
+		SpatialLines(l, from@tracksCollection[[1]]@tracks[[1]]@sp@proj4string)
 	}
 )
 
@@ -692,9 +693,9 @@ approxTrack = function(track, when, ..., n = 50, by, FUN = stats::approx, warn.i
 	d = data.frame(lapply(track@data, function(y) FUN(x, y, xout = when, n = n, ... )$y))
 	if (!is.matrix(p)) { # single point: return STIDF
 		p = matrix(p, ncol = ncol(cc))
-		STIDF(SpatialPoints(p, CRS(proj4string(track))), when, d)
+		STIDF(SpatialPoints(p, track@sp@proj4string), when, d)
 	} else
-		Track(STIDF(SpatialPoints(p, CRS(proj4string(track))), when, d))
+		Track(STIDF(SpatialPoints(p, track@sp@proj4string), when, d))
 }
 approxTracks = function(tr, ...) Tracks(lapply(tr@tracks, function(x) approxTrack(x,...)))
 approxTracksCollection = function(tc, ...)

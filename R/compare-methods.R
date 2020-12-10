@@ -15,7 +15,7 @@ compare.track <- function(tr1, tr2) {
       stop("Time itervals don't overlap!")
   if (!identicalCRS(tr1, tr2))
       stop("CRS are not identical!")
-  crs <- CRS(proj4string(tr1))
+  crs <- tr1@sp@proj4string
   track1.df <- cbind(as.data.frame(tr1)[c(coordnames(tr1), "time")])
   track2.df <- cbind(as.data.frame(tr2)[c(coordnames(tr2), "time")])  
   # intervals timestamps fall in
@@ -146,7 +146,7 @@ downsample.track <- function(track1, track2) {
   tr <- track1
   xy <- coordinates(track1)
   time <- index(track1@time)
-  crs <- CRS (proj4string(track1))
+  crs <- track1@sp@proj4string
   while(dim(track1) > dim(track2)) {
     d1 <- track1$distance # distances
     n <- length(d1) - 1 # number of segments between every second point

@@ -55,7 +55,7 @@ generalize.Track <- function(t, FUN = mean, ..., timeInterval, distance, n, tol,
 			sp = t@sp[(from+to)/2]
 		else {
 			l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
-			sp = SpatialLines(list(l), proj4string = CRS(proj4string(t)))
+			sp = SpatialLines(list(l), proj4string = t@sp@proj4string)
 			if(!missing(tol) && nrow(coordinates(sp)[[1]][[1]]) > 1) {
 				if (!requireNamespace("rgeos", quietly = TRUE))
 					stop("rgeos required for tolerance")
