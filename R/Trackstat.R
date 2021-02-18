@@ -88,6 +88,18 @@ tsqTracks <- function(X, timestamp){
 
 
 
+check_spatstat <- function(pkg){
+  if(!requireNamespace(pkg, quietly = TRUE)){
+    stop("package ", pkg, " required, please install it (or the full spatstat package) first")
+  } else{
+    spst_ver <- try(packageVersion("spatstat"), silent = TRUE)
+    if(!inherits(spst_ver, "try-error") && spst_ver < 2.0-0){
+      stop("You have an old version of spatstat installed which is incompatible with ", pkg, 
+           ". Please update spatstat (or uninstall it).")
+    }
+  }
+}
+
 # function avedistTrack accepts X as a list of tracks and reports the average distance between
 # tracks over time, output is an object of class "distrack"
 avedistTrack <- function(X,timestamp){
@@ -97,9 +109,8 @@ avedistTrack <- function(X,timestamp){
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   
   stopifnot(length(X)>1 & is.list(X))
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
-  
+  check_spatstat("spatstat.geom")
+
   if (missing(timestamp)) stop("set timestamp")  
   # calculate a sequance of time to interpolate tracks within this sequance
   timeseq <- tsqTracks(X,timestamp = timestamp)
@@ -107,7 +118,7 @@ avedistTrack <- function(X,timestamp){
   Y <- as.Track.ppp(X,timestamp)
   
   avedist <- lapply(X=1:length(Y), function(i){
-    pd <-  spatstat::pairdist(Y[[i]])
+    pd <-  spatstat.geom::pairdist(Y[[i]])
     mean(pd[pd>0])
   })
   
@@ -133,7 +144,6 @@ unique.Track <- function(x,...){
   return(as.Track(x[,1],x[,2],x[,3])) 
 }
 
-
 as.Track.ppp <- function(X,timestamp){
   
   stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
@@ -142,9 +152,7 @@ as.Track.ppp <- function(X,timestamp){
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
 
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
-  
+  check_spatstat("spatstat.geom")
   
   if (missing(timestamp)) stop("set timestamp") 
   # calculate a sequance of time to interpolate tracks within this sequance
@@ -158,11 +166,11 @@ as.Track.ppp <- function(X,timestamp){
   allZ <- split(Z,Z[,3])
   dx <- (max(Z$xcoor)-min(Z$xcoor))/1000
   dy <- (max(Z$ycoor)-min(Z$ycoor))/1000
-  w <- spatstat::owin(c(min(Z$xcoor)-dx,max(Z$xcoor)+dx),c(min(Z$ycoor)-dy,max(Z$ycoor)+dy))
+  w <- spatstat.geom::owin(c(min(Z$xcoor)-dx,max(Z$xcoor)+dx),c(min(Z$ycoor)-dy,max(Z$ycoor)+dy))
   
   Tppp <- lapply(X=1:length(allZ), function(i){
-    p <- spatstat::as.ppp(allZ[[i]][,-c(3,4)],W=w)
-    p <- spatstat::`marks<-`(p, value = allZ[[i]][,4])
+    p <- spatstat.geom::as.ppp(allZ[[i]][,-c(3,4)],W=w)
+    p <- spatstat.geom::`marks<-`(p, value = allZ[[i]][,4])
     return(p)
   })
   class(Tppp) <- c("list","ppplist")
@@ -182,14 +190,13 @@ density.list <- function(x, timestamp, ...) {
   if (class(x)=="TracksCollection") x <- as.list.TracksCollection(x)
   
   stopifnot(length(x)>1 & is.list(x))
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  check_spatstat("spatstat.core")
   
   if (missing(timestamp)) stop("set timestamp") 
   
   p <- as.Track.ppp(x, timestamp)
   p <- p[!sapply(p, is.null)] 
-  imlist <- lapply(p, spatstat::density.ppp, ...)
+  imlist <- lapply(p, spatstat.core::density.ppp, ...)
   out <- Reduce("+", imlist) / length(imlist)
   attr(out, "Tracksim") <- imlist
   attr(out, "ppps") <- p
@@ -202,8 +209,7 @@ as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  check_spatstat("spatstat.geom")
   
   if (missing(timestamp)) stop("set timestamp") 
   if(missing(epsilon))  epsilon <- 0
@@ -217,17 +223,17 @@ as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
   for (i in 1:length(Z)) {
     if(i==length(Z)) break()
     j <- i+1
-    m1 <- match(spatstat::marks(Z[[i]]),spatstat::marks(Z[[j]]))
-    m2 <- match(spatstat::marks(Z[[j]]),spatstat::marks(Z[[i]]))
+    m1 <- match(spatstat.geom::marks(Z[[i]]),spatstat.geom::marks(Z[[j]]))
+    m2 <- match(spatstat.geom::marks(Z[[j]]),spatstat.geom::marks(Z[[i]]))
     m1 <- m1[!is.na(m1)]
     m2 <- m2[!is.na(m2)]
     x <- Z[[j]][m1]
     y <- Z[[i]][m2]
-    l <- spatstat::psp(y$x,y$y,x$x,x$y,window = wind)
+    l <- spatstat.geom::psp(y$x,y$y,x$x,x$y,window = wind)
     arrows[[i]] <- l
-    center <- spatstat::midpoints.psp(l)
-    mark <- spatstat::lengths.psp(l)
-    center <- spatstat::`marks<-`(center, value = mark)
+    center <- spatstat.geom::midpoints.psp(l)
+    mark <- spatstat.geom::lengths_psp(l)
+    center <- spatstat.geom::`marks<-`(center, value = mark)
     if (missing(epsilon)) epsilon <- 0
     Y[[i]] <- center[mark>epsilon]
   }
@@ -253,7 +259,8 @@ Track.idw <- function(X,timestamp,epsilon=epsilon,...){
   if(missing(epsilon))  epsilon <- 0
   
   Y <- as.Track.arrow(X,timestamp,epsilon=epsilon)
-  Z <- lapply(Y, spatstat::idw, ...)
+  check_spatstat("spatstat.core")
+  Z <- lapply(Y, spatstat.core::idw, ...)
   meanIDW <- Reduce("+",Z)/length(Z)
   return(meanIDW)
 }
@@ -264,8 +271,7 @@ avemove <- function(X,timestamp,epsilon=epsilon){
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  check_spatstat("spatstat.geom")
   
   if (missing(timestamp)) stop("set timestamp") 
   timeseq <- tsqTracks(X,timestamp = timestamp)
@@ -273,7 +279,7 @@ avemove <- function(X,timestamp,epsilon=epsilon){
   Y <- as.Track.arrow(X,timestamp,epsilon=epsilon)
   Z <- attr(Y,"psp")
   preout <- lapply(X=1:length(Z), function(i){
-    mean(spatstat::lengths.psp(Z[[i]]))
+    mean(spatstat.geom::lengths_psp(Z[[i]]))
   })
   out <- unlist(preout)
   class(out) <- c("numeric", "arwlen")
@@ -286,8 +292,7 @@ print.arwlen <- function(x, ...){
 }
 
 plot.arwlen <- function(x,...){
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  check_spatstat("spatstat.core") ## ER: I don't see what spatstat is used for here
   x = unclass(x)
   tsq <- attr(x,"time")
   plot(tsq,x,xlab="time",ylab="average movement",...)
@@ -300,8 +305,7 @@ chimaps <- function(X,timestamp,rank,...){
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  check_spatstat("spatstat.geom") ## Looks like `Math.im` is used below for `*` etc.
   
   if(missing(rank)) rank <- 1
   if (!is.numeric(rank)) stop("rank must be numeric")
@@ -333,8 +337,7 @@ Kinhom.Track <- function(X,timestamp,
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  check_spatstat("spatstat.core")
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp") 
@@ -349,7 +352,7 @@ Kinhom.Track <- function(X,timestamp,
     rr <- seq(0,ripley,length.out = 513)
     
     K <- lapply(X=1:length(Y), function(i){
-      kk <- spatstat::Kinhom(Y[[i]],correction=cor,r=rr,...)
+      kk <- spatstat.core::Kinhom(Y[[i]],correction=cor,r=rr,...)
       return(as.data.frame(kk))
     })
     Kmat <- matrix(nrow = length(K[[1]]$theo),ncol = length(K))
@@ -368,7 +371,7 @@ Kinhom.Track <- function(X,timestamp,
     rr <- seq(0,ripley,length.out = 513)
     
     K <- lapply(X=1:length(Y), function(i){
-      kk <- spatstat::Kinhom(Y[[i]],lambda = Z[[i]],correction=cor,r=rr,...)
+      kk <- spatstat.core::Kinhom(Y[[i]],lambda = Z[[i]],correction=cor,r=rr,...)
       return(as.data.frame(kk))
     })
     Kmat <- matrix(nrow = length(K[[1]]$theo),ncol = length(K))
@@ -397,8 +400,7 @@ print.KTrack <- function(x, ...){
 }
 
 plot.KTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  check_spatstat("spatstat.core")  ## ER: I don't see what spatstat is used for here
   ylim <- c(min(c(x$lowk,x$theo)),max(c(x$upk,x$theo)))
   plot(x$r,x$lowk,ylim=ylim,type=type,ylab="",xlab="r",...)
   title(ylab=expression(K[inhom](r)),line = line,...)
@@ -421,8 +423,7 @@ pcfinhom.Track <- function(X,timestamp,
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  check_spatstat("spatstat.core")
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp") 
@@ -439,7 +440,7 @@ pcfinhom.Track <- function(X,timestamp,
     rr <- seq(0,ripley,length.out = 513)
     
     g <- lapply(X=1:length(Y), function(i){
-      gg <- spatstat::pcfinhom(Y[[i]],correction=cor,r=rr,...)
+      gg <- spatstat.core::pcfinhom(Y[[i]],correction=cor,r=rr,...)
       return(as.data.frame(gg))
     })
     gmat <- matrix(nrow = length(g[[1]]$theo),ncol = length(g))
@@ -456,7 +457,7 @@ pcfinhom.Track <- function(X,timestamp,
     Y <- attr(ZZ,"ppps")
       
     g <- lapply(X=1:length(Y), function(i){
-      gg <- spatstat::pcfinhom(Y[[i]],lambda = Z[[i]],correction=cor,...)
+      gg <- spatstat.core::pcfinhom(Y[[i]],lambda = Z[[i]],correction=cor,...)
       return(as.data.frame(gg))
     })
     gmat <- matrix(nrow = length(g[[1]]$theo),ncol = length(g))
@@ -487,8 +488,7 @@ print.gTrack <- function(x, ...){
 }
 
 plot.gTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  check_spatstat("spatstat.core")  ## ER: I don't see what spatstat is used for here
   ylim <- c(min(x$lowg),max(x$upg))
   plot(x$r,x$lowg,ylim=ylim,xlab="r",ylab="",type=type,...)
   title(ylab=expression(g[inhom](r)),line = line,...)
