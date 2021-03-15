@@ -6,13 +6,13 @@
 
 \usepackage{thumbpdf,lmodern}
 \usepackage[usenames,dvipsnames]{xcolor}
-\usepackage[textwidth=8em,textsize=small]{todonotes}
+%\usepackage[textwidth=8em,textsize=small]{todonotes}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{float}
 \usepackage{subfig}
 \usepackage[labelfont=bf]{caption}
-%\usepackage[demo]{graphicx}
+\usepackage{graphicx}
 %% another package (only for this demo article)
 \usepackage{framed}
 %% new custom commands
@@ -82,11 +82,7 @@ University of M\"{u}nster\\
 Weseler Strasse 253\\
 48151 M\"{u}nster, Germany\\
 E-mail: \email{edzer.pebesma@uni-muenster.de}\\
-URL: \url{http://ifgi.uni-muenster.de/} \\ \\
-52{\textdegree}North Initiative for Geospatial Open Source Software GmbH\\
-Martin-Luther-King-Weg 24\\
-48155 Muenster, Germany\\
-URL: \url{http://www.52north.org/}\\
+URL: \url{http://ifgi.uni-muenster.de/} \\
 
 \emph{and}\\
 
