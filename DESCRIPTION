@@ -1,5 +1,5 @@
 Package: trajectories
-Version: 0.2-3
+Version: 0.2-4
 Title: Classes and Methods for Trajectory Data
 Authors@R: c(person("Edzer", "Pebesma", role = c("aut", "cre"), email = "edzer.pebesma@uni-muenster.de", comment = c(ORCID = "0000-0001-8049-7069")),
 	person("Benedikt", "Klus", role = "aut"),
@@ -10,18 +10,17 @@ Depends: R (>= 3.0.0)
 Imports: stats, utils, graphics, methods, lattice, sp (>= 1.1-0),
         spacetime (>= 1.0-0), zoo
 Suggests: rgdal, rgeos, OpenStreetMap, RCurl, rjson, adehabitatLT, xts,
-        knitr, rgl, forecast, MASS, spatstat.core, spatstat.geom, taxidata
+        knitr, rgl, forecast, MASS, spatstat (>= 2.0-1), spatstat.core, spatstat.geom, taxidata
 Description: Classes and methods for trajectory data, with support for nesting individual Track objects in track sets (Tracks) and track sets for different entities in collections of Tracks. Methods include selection, generalization, aggregation, intersection, simulation, and plotting.
 License: GPL (>= 2)
-URL: http://github.com/edzer/trajectories
+URL: https://github.com/edzer/trajectories
 Additional_repositories: http://gis-bigdata.uni-muenster.de/pebesma/
-BugReports: http://github.com/edzer/trajectories/issues
+BugReports: https://github.com/edzer/trajectories/issues
 VignetteBuilder: knitr
 Collate: Class-Tracks.R Tracks-methods.R generalize.R stcube.R stplot.R
         difftrack.R compare-methods.R rtracks.R Trackstat.R
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2018-09-25 11:59:22 UTC; edzer
 Author: Edzer Pebesma [aut, cre] (<https://orcid.org/0000-0001-8049-7069>),
   Benedikt Klus [aut],
   Benedikt Graeler [ctb],

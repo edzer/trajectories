@@ -16,7 +16,7 @@ as.Track <- function(x,y,t,covariate){
   stopifnot(length(x)>0 |  length(y)>0 | length(t)>0)
   sp <- cbind(x,y)
   sp <- SpatialPoints(sp)
-  td <- as.POSIXct(paste(t))
+  td <- as.POSIXct(t)
   if(missing(covariate)) covariate <- data.frame(d=rep(1,length(x)))
   return(Track(STIDF(sp,time = td,data =covariate)))
 }
@@ -142,8 +142,8 @@ as.Track.ppp <- function(X,timestamp){
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
 
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  if (!requireNamespace("spatstat.geom", quietly = TRUE))
+    stop("spatstat.geom required: install first?")
   
   
   if (missing(timestamp)) stop("set timestamp") 
@@ -226,7 +226,7 @@ as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
     l <- spatstat.geom::psp(y$x,y$y,x$x,x$y,window = wind)
     arrows[[i]] <- l
     center <- spatstat.geom::midpoints.psp(l)
-    mark <- spatstat.geom::lengths.psp(l)
+    mark <- spatstat.geom::lengths_psp(l)
     center <- spatstat.geom::`marks<-`(center, value = mark)
     if (missing(epsilon)) epsilon <- 0
     Y[[i]] <- center[mark>epsilon]
@@ -264,8 +264,8 @@ avemove <- function(X,timestamp,epsilon=epsilon){
   if(class(X)=="Tracks") X <- as.list.Tracks(X)
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  if (!requireNamespace("spatstat.geom", quietly = TRUE))
+    stop("spatstat.geom required: install first?")
   
   if (missing(timestamp)) stop("set timestamp") 
   timeseq <- tsqTracks(X,timestamp = timestamp)
@@ -273,7 +273,7 @@ avemove <- function(X,timestamp,epsilon=epsilon){
   Y <- as.Track.arrow(X,timestamp,epsilon=epsilon)
   Z <- attr(Y,"psp")
   preout <- lapply(X=1:length(Z), function(i){
-    mean(spatstat.geom::lengths.psp(Z[[i]]))
+    mean(spatstat.geom::lengths_psp(Z[[i]]))
   })
   out <- unlist(preout)
   class(out) <- c("numeric", "arwlen")
@@ -286,8 +286,8 @@ print.arwlen <- function(x, ...){
 }
 
 plot.arwlen <- function(x,...){
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  if (!requireNamespace("spatstat.geom", quietly = TRUE))
+    stop("spatstat.geom required: install first?")
   x = unclass(x)
   tsq <- attr(x,"time")
   plot(tsq,x,xlab="time",ylab="average movement",...)
@@ -300,8 +300,8 @@ chimaps <- function(X,timestamp,rank,...){
   if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  if (!requireNamespace("spatstat.geom", quietly = TRUE))
+    stop("spatstat.geom required: install first?")
   
   if(missing(rank)) rank <- 1
   if (!is.numeric(rank)) stop("rank must be numeric")
@@ -397,8 +397,8 @@ print.KTrack <- function(x, ...){
 }
 
 plot.KTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  if (!requireNamespace("spatstat.geom", quietly = TRUE))
+    stop("spatstat.geom required: install first?")
   ylim <- c(min(c(x$lowk,x$theo)),max(c(x$upk,x$theo)))
   plot(x$r,x$lowk,ylim=ylim,type=type,ylab="",xlab="r",...)
   title(ylab=expression(K[inhom](r)),line = line,...)
@@ -487,8 +487,8 @@ print.gTrack <- function(x, ...){
 }
 
 plot.gTrack <- function(x,type="l",col= "grey70",cex=1,line=2.2,...){
-  if (!requireNamespace("spatstat", quietly = TRUE))
-    stop("spatstat required: install first?")
+  if (!requireNamespace("spatstat.geom", quietly = TRUE))
+    stop("spatstat.geom required: install first?")
   ylim <- c(min(x$lowg),max(x$upg))
   plot(x$r,x$lowg,ylim=ylim,xlab="r",ylab="",type=type,...)
   title(ylab=expression(g[inhom](r)),line = line,...)

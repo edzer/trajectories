@@ -31,10 +31,13 @@ sub-trajectories can be invalid, if they have only one point, and are ignored. T
 can happen at the start only if \code{touch=FALSE}, and at the end in any case.
 }
 \examples{
+\donttest{ 
+# example might take too long for CRAN checks
 data(storms)
 dim(storms)
 dim(cut(storms, "week", touches = FALSE)) # same number of geometries
 dim(cut(storms, "week")) # increase of geometries = increase of tracks
+}
 }
 
 \keyword{dplot}
