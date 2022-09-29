@@ -39,10 +39,10 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 \examples{
 library(spatstat)
 X <- list()
-for(i in 1:100){
+for(i in 1:50){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
-Kinhom.Track(X,timestamp = "180 secs")
+Kinhom.Track(X, timestamp = "180 secs")
 
 }
