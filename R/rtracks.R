@@ -54,11 +54,11 @@ rTracksCollection <- function (p = 10, sd2 = 0, ...)
 
 print.Track <- function(x,...){
   X = x
-  if (class(X@sp)=="SpatialPoints") {
+  if (inherits(X@sp, "SpatialPoints")) {
     cat("An object of class Track \n");
     cat(paste0(nrow(as.data.frame(X@sp)), "points"),"\n");
     }
-  if (class(X@sp)=="SpatialLines") {
+  if (inherits(X@sp, "SpatialLines")) {
     cat("A generalized object of class Track \n");
     cat(paste0(length(X@sp@lines), "lines"),"\n"); 
   }

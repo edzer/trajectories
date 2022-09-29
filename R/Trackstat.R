@@ -1,10 +1,10 @@
 as.list.Tracks <- function(x,...){
-  stopifnot(class(x)=="Tracks")
+  stopifnot(inherits(x, "Tracks"))
   return(as.list(x@tracks,...))
 }
 
 as.list.TracksCollection <- function(x,...){
-  stopifnot(class(x)=="TracksCollection")
+  stopifnot(inherits(x, "TracksCollection"))
   out <-  lapply(X=1:length(x@tracksCollection), function(i){
     as.list.Tracks(x@tracksCollection[[i]],...)
   })
@@ -91,10 +91,10 @@ tsqTracks <- function(X, timestamp){
 # function avedistTrack accepts X as a list of tracks and reports the average distance between
 # tracks over time, output is an object of class "distrack"
 avedistTrack <- function(X,timestamp){
-  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  stopifnot(is.list(X) || inherits(X, c("Tracks", "TracksCollection")))
   
-  if(class(X)=="Tracks") X <- as.list.Tracks(X)
-  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  if(inherits(X, "Tracks")) X <- as.list.Tracks(X)
+  if (inherits(X, "TracksCollection")) X <- as.list.TracksCollection(X)
   
   stopifnot(length(X)>1 & is.list(X))
   if (!requireNamespace("spatstat.geom", quietly = TRUE))
@@ -136,10 +136,10 @@ unique.Track <- function(x,...){
 
 as.Track.ppp <- function(X,timestamp){
   
-  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  stopifnot(is.list(X) || inherits(X, c("Tracks", "TracksCollection")))
   
-  if(class(X)=="Tracks") X <- as.list.Tracks(X)
-  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  if(inherits(X, "Tracks")) X <- as.list.Tracks(X)
+  if (inherits(X, "TracksCollection")) X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
 
   if (!requireNamespace("spatstat.geom", quietly = TRUE))
@@ -176,10 +176,10 @@ print.ppplist <- function(x,...){
 }
 
 density.list <- function(x, timestamp, ...) {
-  stopifnot(class(x)=="list" | class(x)=="Tracks" | class(x)=="TracksCollection")
+  stopifnot(is.list(x) || inherits(x, c("Tracks", "TracksCollection")))
   
-  if(class(x)=="Tracks") x <- as.list.Tracks(x)
-  if (class(x)=="TracksCollection") x <- as.list.TracksCollection(x)
+  if (inherits(x, "Tracks")) x <- as.list.Tracks(x)
+  if (inherits(x, "TracksCollection")) x <- as.list.TracksCollection(x)
   
   stopifnot(length(x)>1 & is.list(x))
   if (!requireNamespace("spatstat.core", quietly = TRUE))
@@ -197,10 +197,10 @@ density.list <- function(x, timestamp, ...) {
 }
 
 as.Track.arrow <- function(X,timestamp,epsilon=epsilon){
-  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  stopifnot(is.list(X) || inherits(X, c("Tracks", "TracksCollection")))
   
-  if(class(X)=="Tracks") X <- as.list.Tracks(X)
-  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  if(inherits(X, "Tracks")) X <- as.list.Tracks(X)
+  if (inherits(X, "TracksCollection")) X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   if (!requireNamespace("spatstat.geom", quietly = TRUE))
     stop("spatstat.geom required: install first?")
@@ -243,10 +243,10 @@ print.Trrow <- function(x, ...) {
 } 
 
 Track.idw <- function(X,timestamp,epsilon=epsilon,...){
-  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  stopifnot(is.list(X) || inherits(X, c("Tracks", "TracksCollection")))
   
-  if(class(X)=="Tracks") X <- as.list.Tracks(X)
-  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  if(inherits(X, "Tracks")) X <- as.list.Tracks(X)
+  if (inherits(X, "TracksCollection")) X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp")
@@ -259,10 +259,10 @@ Track.idw <- function(X,timestamp,epsilon=epsilon,...){
 }
 
 avemove <- function(X,timestamp,epsilon=epsilon){
-  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  stopifnot(is.list(X) || inherits(X, c("Tracks", "TracksCollection")))
   
-  if(class(X)=="Tracks") X <- as.list.Tracks(X)
-  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  if (inherits(X, "Tracks")) X <- as.list.Tracks(X)
+  if (inherits(X, "TracksCollection")) X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   if (!requireNamespace("spatstat.geom", quietly = TRUE))
     stop("spatstat.geom required: install first?")
@@ -294,10 +294,10 @@ plot.arwlen <- function(x,...){
 }
 
 chimaps <- function(X,timestamp,rank,...){
-  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  stopifnot(is.list(X) || inherits(X, c("Tracks","TracksCollection")))
   
-  if(class(X)=="Tracks") X <- as.list.Tracks(X)
-  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  if(inherits(X, "Tracks")) X <- as.list.Tracks(X)
+  if (inherits(X, "TracksCollection")) X <- as.list.TracksCollection(X)
   stopifnot(length(X)>1 & is.list(X))
   
   if (!requireNamespace("spatstat.geom", quietly = TRUE))
@@ -328,10 +328,10 @@ Kinhom.Track <- function(X,timestamp,
                 correction=c("border", "bord.modif", "isotropic", "translate"),q,
                 sigma=c("default","bw.diggle","bw.ppl"," bw.scott"),...){
   
-  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  stopifnot(is.list(X) || inherits(X, c("Tracks", "TracksCollection")))
   
-  if(class(X)=="Tracks") X <- as.list.Tracks(X)
-  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  if (inherits(X, "Tracks")) X <- as.list.Tracks(X)
+  if (inherits(X, "TracksCollection")) X <- as.list.TracksCollection(X)
   
   if (!requireNamespace("spatstat.core", quietly = TRUE))
     stop("spatstat.core required: install first?")
@@ -416,10 +416,10 @@ pcfinhom.Track <- function(X,timestamp,
                            correction = c("translate", "Ripley"), q,
                            sigma=c("default", "bw.diggle", "bw.ppl", "bw.scott"), ...) {
   
-  stopifnot(class(X)=="list" | class(X)=="Tracks" | class(X)=="TracksCollection")
+  stopifnot(is.list(X) || inherits(X, c("Tracks", "TracksCollection")))
   
-  if(class(X)=="Tracks") X <- as.list.Tracks(X)
-  if (class(X)=="TracksCollection") X <- as.list.TracksCollection(X)
+  if (inherits(X, "Tracks")) X <- as.list.Tracks(X)
+  if (inherits(X, "TracksCollection")) X <- as.list.TracksCollection(X)
   
   if (!requireNamespace("spatstat.core", quietly = TRUE))
     stop("spatstat.core required: install first?")
@@ -507,7 +507,7 @@ auto.arima.Track <- function(X,...){
   if (! requireNamespace("forecast", quietly = TRUE))
     stop("package forecast required, please install it first")
 
-  stopifnot(class(X)=="Track")
+  stopifnot(inherits(X, "Track"))
   xseries <- coordinates(X)[,1]
   yseries <- coordinates(X)[,2]
   

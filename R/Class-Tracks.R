@@ -41,8 +41,6 @@ directions_ll = function(cc, ll) {
 TrackStats = function(track) {
 	duration = diff(as.numeric(index(track@time))) # seconds
 	stopifnot(!any(duration == 0))
-#	if (class(try(cc <- coordinates(track), silent=TRUE)) == "try-error" ||
-#			!is.matrix(cc))
 	if (!is(track@sp, "SpatialPoints"))
 		data.frame(matrix(nrow = length(track@sp) - 1, ncol = 0)) # empty
 	else {
@@ -132,7 +130,7 @@ setClass("TracksCollection",
 	representation(tracksCollection = "list", 
 		tracksCollectionData = "data.frame"),
 	validity = function(object) {
-		stopifnot(all(sapply(object@tracksCollection, class) == "Tracks"))
+		stopifnot(all(sapply(object@tracksCollection, inherits, "Tracks")))
 		stopifnot(length(object@tracksCollection) == 
 			nrow(object@tracksCollectionData))
 		stopifnot(length(object@tracksCollection) > 0)

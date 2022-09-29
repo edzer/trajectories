@@ -180,8 +180,8 @@ setAs("TracksCollection", "SpatialPointsDataFrame", function(from) as(from, "Spa
 # Provide coordinates methods.
 
 setMethod("coordinates", "Track",
-          function(obj) { if(class(obj@sp)=="SpatialPoints") {return(as.data.frame(obj@sp))}
-            if (class(obj@sp)=="SpatialLines") {do.call(rbind,lapply(coordinates(obj@sp), as.data.frame))}
+          function(obj) { if(inherits(obj@sp, "SpatialPoints")) {return(as.data.frame(obj@sp))}
+            if (inherits(obj@sp, "SpatialLines")) {do.call(rbind,lapply(coordinates(obj@sp), as.data.frame))}
           }
 )
 
