@@ -182,14 +182,14 @@ density.list <- function(x, timestamp, ...) {
   if (inherits(x, "TracksCollection")) x <- as.list.TracksCollection(x)
   
   stopifnot(length(x)>1 & is.list(x))
-  if (!requireNamespace("spatstat.core", quietly = TRUE))
-    stop("spatstat.core required: install first?")
+  if (!requireNamespace("spatstat.explore", quietly = TRUE))
+    stop("spatstat.explore required: install first?")
   
   if (missing(timestamp)) stop("set timestamp") 
   
   p <- as.Track.ppp(x, timestamp)
   p <- p[!sapply(p, is.null)] 
-  imlist <- lapply(p, spatstat.core::density.ppp, ...)
+  imlist <- lapply(p, spatstat.explore::density.ppp, ...)
   out <- Reduce("+", imlist) / length(imlist)
   attr(out, "Tracksim") <- imlist
   attr(out, "ppps") <- p
@@ -253,7 +253,7 @@ Track.idw <- function(X,timestamp,epsilon=epsilon,...){
   if(missing(epsilon))  epsilon <- 0
   
   Y <- as.Track.arrow(X,timestamp,epsilon=epsilon)
-  Z <- lapply(Y, spatstat.core::idw, ...)
+  Z <- lapply(Y, spatstat.explore::idw, ...)
   meanIDW <- Reduce("+",Z)/length(Z)
   return(meanIDW)
 }
@@ -333,8 +333,8 @@ Kinhom.Track <- function(X,timestamp,
   if (inherits(X, "Tracks")) X <- as.list.Tracks(X)
   if (inherits(X, "TracksCollection")) X <- as.list.TracksCollection(X)
   
-  if (!requireNamespace("spatstat.core", quietly = TRUE))
-    stop("spatstat.core required: install first?")
+  if (!requireNamespace("spatstat.explore", quietly = TRUE))
+    stop("spatstat.explore required: install first?")
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp") 
@@ -349,7 +349,7 @@ Kinhom.Track <- function(X,timestamp,
     rr <- seq(0,ripley,length.out = 513)
     
     K <- lapply(X=1:length(Y), function(i){
-      kk <- spatstat.core::Kinhom(Y[[i]],correction=cor,r=rr,...)
+      kk <- spatstat.explore::Kinhom(Y[[i]],correction=cor,r=rr,...)
       return(as.data.frame(kk))
     })
     Kmat <- matrix(nrow = length(K[[1]]$theo),ncol = length(K))
@@ -368,7 +368,7 @@ Kinhom.Track <- function(X,timestamp,
     rr <- seq(0,ripley,length.out = 513)
     
     K <- lapply(X=1:length(Y), function(i){
-      kk <- spatstat.core::Kinhom(Y[[i]],lambda = Z[[i]],correction=cor,r=rr,...)
+      kk <- spatstat.explore::Kinhom(Y[[i]],lambda = Z[[i]],correction=cor,r=rr,...)
       return(as.data.frame(kk))
     })
     Kmat <- matrix(nrow = length(K[[1]]$theo),ncol = length(K))
@@ -421,8 +421,8 @@ pcfinhom.Track <- function(X,timestamp,
   if (inherits(X, "Tracks")) X <- as.list.Tracks(X)
   if (inherits(X, "TracksCollection")) X <- as.list.TracksCollection(X)
   
-  if (!requireNamespace("spatstat.core", quietly = TRUE))
-    stop("spatstat.core required: install first?")
+  if (!requireNamespace("spatstat.explore", quietly = TRUE))
+    stop("spatstat.explore required: install first?")
   stopifnot(length(X)>1 & is.list(X))
   
   if (missing(timestamp)) stop("set timestamp") 
@@ -439,7 +439,7 @@ pcfinhom.Track <- function(X,timestamp,
     rr <- seq(0,ripley,length.out = 513)
     
     g <- lapply(X=1:length(Y), function(i){
-      gg <- spatstat.core::pcfinhom(Y[[i]],correction=cor,r=rr,...)
+      gg <- spatstat.explore::pcfinhom(Y[[i]],correction=cor,r=rr,...)
       return(as.data.frame(gg))
     })
     gmat <- matrix(nrow = length(g[[1]]$theo),ncol = length(g))
@@ -456,7 +456,7 @@ pcfinhom.Track <- function(X,timestamp,
     Y <- attr(ZZ,"ppps")
       
     g <- lapply(X=1:length(Y), function(i){
-      gg <- spatstat.core::pcfinhom(Y[[i]],lambda = Z[[i]],correction=cor,...)
+      gg <- spatstat.explore::pcfinhom(Y[[i]],lambda = Z[[i]],correction=cor,...)
       return(as.data.frame(gg))
     })
     gmat <- matrix(nrow = length(g[[1]]$theo),ncol = length(g))
