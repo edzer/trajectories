@@ -37,12 +37,12 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 \seealso{
 \link{rTrack}, \link{as.Track.ppp}, \link[spatstat.explore]{Kinhom}}
 \examples{
-library(spatstat)
+if (require(spatstat)) {
 X <- list()
 for(i in 1:50){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 Kinhom.Track(X, timestamp = "180 secs")
-
+}
 }

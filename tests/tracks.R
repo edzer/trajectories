@@ -4,7 +4,6 @@ Sys.setenv(TZ = "Europe/Berlin")
 library(sp)
 library(spacetime)
 library(trajectories)
-library(rgdal)
 
 # Create test objects. Do not change! Changes to the test objects are likely to
 # have an impact on the test results. It is primarily validated against class
@@ -12,7 +11,9 @@ library(rgdal)
 # since, in the majority of cases, a deviation of the second is not necessarily
 # associated with a regression.
 
-t0 = as.POSIXct(as.Date("2013-09-30", tz = "CET"))
+# t0 = as.POSIXct(as.Date("2013-09-30", tz = "CET"))
+t0 = as.POSIXct("2013-09-30 02:00:00", tz = "Europe/Berlin")
+
 set.seed(13531) # make sure rbind generates identical sequences on reproduction
 
 # Person A, track 1.

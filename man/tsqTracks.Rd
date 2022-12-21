@@ -36,7 +36,8 @@ rTrack
 \examples{
 library(sp)
 library(spacetime)
-t0 = as.POSIXct(as.Date("2013-09-30",tz="CET"))
+# t0 = as.POSIXct(as.Date("2013-09-30",tz="CET"))
+t0 = as.POSIXct("2013-09-30 02:00:00", tz = "Europe/Berlin")
 # person A, track 1:
 x = c(7,6,5,5,4,3,3)
 y = c(7,7,6,5,5,6,7)
