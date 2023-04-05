@@ -29,6 +29,8 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 \link{rTrack}, \link[forecast]{auto.arima}
 }
 \examples{
-X <- rTrack()
-auto.arima.Track(X)
+if (require(forecast)) {
+ X <- rTrack()
+ auto.arima.Track(X)
+}
 }

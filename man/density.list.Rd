@@ -34,10 +34,12 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 \link{rTrack}, \link[spatstat.explore]{density.ppp}
 }
 \examples{
-X <- list()
-for(i in 1:10){
+if (require(spatstat.explore)) {
+ X <- list()
+ for(i in 1:10){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
+ }
+ density(X, timestamp = "180 secs")
 }
-density(X, timestamp = "180 secs")
 }

@@ -33,10 +33,12 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 \link{as.Track.arrow}
 }
 \examples{
-X <- list()
-for(i in 1:10){
+if (require(spatstat.geom)) {
+ X <- list()
+ for(i in 1:10){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
+ }
+ avemove(X,timestamp = "30 secs")
 }
-avemove(X,timestamp = "30 secs")
 }

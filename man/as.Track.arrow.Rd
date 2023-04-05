@@ -33,10 +33,12 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 \link{rTrack}, \link{as.Track.ppp}
 }
 \examples{
+if (require(spatstat.geom)) {
 X <- list()
 for(i in 1:10){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 Y <- as.Track.arrow(X,timestamp="120 secs")
+}
 }

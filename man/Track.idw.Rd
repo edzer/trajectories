@@ -36,10 +36,12 @@ Mohammad Mehdi Moradi <moradi@uji.es>
 \seealso{
 \link{as.Track.arrow}, \link[spatstat.explore]{idw}}
 \examples{
+if (require(spatstat.geom)) {
 X <- list()
 for(i in 1:10){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 Track.idw(X,timestamp="180 secs")
+}
 }

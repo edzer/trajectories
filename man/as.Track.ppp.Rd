@@ -30,10 +30,12 @@ Mohammad Mehdi Moradi <moradi@uji.es>}
 \link{avedistTrack}, \link[spatstat.geom]{as.ppp}
 }
 \examples{
+if (require(spatstat.geom)) {
 X <- list()
 for(i in 1:10){
   m <- matrix(c(0,10,0,10),nrow=2,byrow = TRUE)
   X[[i]] <- rTrack(bbox = m,transform = TRUE)
 }
 Y <- as.Track.ppp(X,timestamp="120 secs")
+}
 }

@@ -343,9 +343,10 @@ Figure~\ref{randomtracks} shows four different random tracks: \code{x} is a rand
   \pkg{trajectories} can fit ARIMA models to movement data. Using \proglang{R} package \pkg{forecast}, the function \code{auto.arima.Track} fits arima models to the spatial coordinates of an object of class \class{Track}. Note this is applicable to individuals. See example below.
 
 <<warning=FALSE, message=FALSE>>=
-library("forecast")
-data("A3")
-auto.arima.Track(A3)
+if (require("forecast")) {
+  data("A3")
+  auto.arima.Track(A3)
+}
 @
 
 \section{Exploratory data analysis} \label{sec:explo}

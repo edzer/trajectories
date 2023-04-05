@@ -164,11 +164,13 @@ lapply(all, function(x) stbox(x))
 
 # Check generalize methods.
 
+if (require(sf)) {
 lapply(all, function(x) generalize(x, max, timeInterval = "2 min"))
 lapply(all, function(x) generalize(x, distance = 200))
 lapply(all, function(x) generalize(x, min, n = 2))
 lapply(all, function(x) generalize(x, timeInterval = "3 min", tol = 2))
 lapply(all, function(x) generalize(x, n = 3, toPoints = TRUE))
+}
 
 # Check selection methods.
 
