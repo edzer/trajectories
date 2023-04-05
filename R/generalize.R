@@ -57,10 +57,11 @@ generalize.Track <- function(t, FUN = mean, ..., timeInterval, distance, n, tol,
 			l = Lines(list(Line(t@sp[from:to])), paste("L", i, sep = ""))
 			sp = SpatialLines(list(l), proj4string = t@sp@proj4string)
 			if(!missing(tol) && nrow(coordinates(sp)[[1]][[1]]) > 1) {
-				if (!requireNamespace("rgeos", quietly = TRUE))
-					stop("rgeos required for tolerance")
-				sp = rgeos::gSimplify(spgeom = sp, tol = tol, 
-					topologyPreserve = TRUE)
+				if (!requireNamespace("sf", quietly = TRUE))
+					stop("sf required for tolerance")
+				sfc = sf::st_simplify(sf::st_as_sfc(sp), preserveTopology = TRUE, dTolerance = tol)
+				sp = as(sfc, "Spatial")
+				# sp = rgeos::gSimplify(spgeom = sp, tol = tol, topologyPreserve = TRUE)
 			}
 		}
 		time = t@time[from]

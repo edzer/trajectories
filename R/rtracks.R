@@ -67,12 +67,14 @@ print.Track <- function(x,...){
   cat(paste0("Time period: [",range(X@endTime)[1],", ", range(X@endTime)[2],"]"))
 }
 
-print.Tracks <- function(X){
+print.Tracks <- function(x, ...){
+  X = x
   cat("An object of class Tracks" ,"\n");
   cat(paste0(length(X@tracks)), "tracks followed by a single object")
 }
 
-print.TracksCollection <- function(X){
+print.TracksCollection <- function(x, ...){
+  X = x
   cat("An object of class TracksCollection" ,"\n");
   cat(paste0(length(X@tracksCollection))
       , "collection of tracks followed by", paste0(length(X@tracksCollection)), " object")

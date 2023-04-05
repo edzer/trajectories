@@ -1,6 +1,6 @@
 
-R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
-Copyright (C) 2022 The R Foundation for Statistical Computing
+R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
+Copyright (C) 2023 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -21,22 +21,6 @@ Type 'q()' to quit R.
 > library(sp)
 > library(spacetime)
 > library(trajectories)
-> library(rgdal)
-Please note that rgdal will be retired by the end of 2023,
-plan transition to sf/stars/terra functions using GDAL and PROJ
-at your earliest convenience.
-
-rgdal: version: 1.5-32, (SVN revision 1176)
-Geospatial Data Abstraction Library extensions to R successfully loaded
-Loaded GDAL runtime: GDAL 3.4.3, released 2022/04/22
-Path to GDAL shared files: /usr/share/gdal
-GDAL binary built with GEOS: TRUE 
-Loaded PROJ runtime: Rel. 8.2.1, January 1st, 2022, [PJ_VERSION: 821]
-Path to PROJ shared files: /home/edzer/.local/share/proj:/usr/share/proj
-PROJ CDN enabled: FALSE
-Linking to sp version:1.5-0
-To mute warnings of possible GDAL/OSR exportToProj4() degradation,
-use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgdal.
 > 
 > # Create test objects. Do not change! Changes to the test objects are likely to
 > # have an impact on the test results. It is primarily validated against class
@@ -44,7 +28,9 @@ use options("rgdal_show_exportToProj4_warnings"="none") before loading sp or rgd
 > # since, in the majority of cases, a deviation of the second is not necessarily
 > # associated with a regression.
 > 
-> t0 = as.POSIXct(as.Date("2013-09-30", tz = "CET"))
+> # t0 = as.POSIXct(as.Date("2013-09-30", tz = "CET"))
+> t0 = as.POSIXct("2013-09-30 02:00:00", tz = "Europe/Berlin")
+> 
 > set.seed(13531) # make sure rbind generates identical sequences on reproduction
 > 
 > # Person A, track 1.
@@ -363,14 +349,14 @@ A generalized object of class Track
 bbox: 
   min max
 x   3   7
-y   6   7
+y   5   7
 Time period: [2013-09-30 02:03:14, 2013-09-30 02:03:48]
 [[2]]
 A generalized object of class Track 
 1lines 
 bbox: 
   min max
-x   7   7
+x   6   7
 y   3   6
 Time period: [2013-09-30 02:05:56, 2013-09-30 02:05:56]
 [[3]]
@@ -398,10 +384,6 @@ An object of class Tracks
 [[7]]
 An object of class TracksCollection 
 2 collection of tracks followed by 2  object
-Warning message:
-In fun(libname, pkgname) :
-  rgeos: versions of GEOS runtime 3.10.2-CAPI-1.16.0
-and GEOS at installation 3.10.1-CAPI-1.16.0differ
 > lapply(all, function(x) generalize(x, n = 3, toPoints = TRUE))
 [[1]]
 An object of class Track 
@@ -616,4 +598,4 @@ Warning messages:
 > 
 > proc.time()
    user  system elapsed 
-  2.778   0.819   2.705 
+  3.815   0.858   3.778 
