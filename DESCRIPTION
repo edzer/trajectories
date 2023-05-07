@@ -13,7 +13,7 @@ Suggests: OpenStreetMap, RCurl, rjson, adehabitatLT, xts,
 Description: Classes and methods for trajectory data, with support for nesting individual Track objects in track sets (Tracks) and track sets for different entities in collections of Tracks. Methods include selection, generalization, aggregation, intersection, simulation, and plotting.
 License: GPL (>= 2)
 URL: https://github.com/edzer/trajectories
-Additional_repositories: http://gis-bigdata.uni-muenster.de/pebesma/
+Additional_repositories: http://cran.uni-muenster.de/pebesma/
 BugReports: https://github.com/edzer/trajectories/issues
 VignetteBuilder: knitr
 Collate: Class-Tracks.R Tracks-methods.R generalize.R stcube.R stplot.R

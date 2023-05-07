@@ -104,9 +104,9 @@ Modern data collection techniques allow tracking objects continuously. This mean
 However, to the best of our knowledge, \proglang{R} is still missing a complete set of generic data structures and methods to effectively analyse trajectories without being limited to a particular domain. Figure~\ref{taxitracks} shows routes passed by 5 different taxis on the 4th of Feb 2008 in Beijing, China. Each taxi has a different start/end time. To avoid having a complicated plot, we have only displayed 5 tracks; the entire dataset will be analysed in Section \ref{sec:explo}.
 
 The entire dataset is stored in the \proglang{R} package  \pkg{taxidata}  and can be installed through the following code.
-<<warning=FALSE, message=FALSE>>=
- # install.packages("taxidata", 
- #  repos = "http://pebesma.staff.ifgi.de",type = "source") 
+<<warning=FALSE, message=FALSE, eval=FALSE>>=
+install.packages("taxidata", 
+  repos = "https://cran.uni-muenster.de/pebesma", type = "source") 
 @
 
 Figure~\ref{taxitracks} is generated using the following lines of code.
