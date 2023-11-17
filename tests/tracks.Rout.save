@@ -1,5 +1,5 @@
 
-R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
+R version 4.3.2 (2023-10-31) -- "Eye Holes"
 Copyright (C) 2023 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -224,9 +224,48 @@ max 7 7 2013-09-30 02:12:59
 + lapply(all, function(x) generalize(x, n = 3, toPoints = TRUE))
 + }
 Loading required package: sf
-Warning message:
-In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
-  there is no package called 'sf'
+Linking to GEOS 3.11.1, GDAL 3.6.4, PROJ 9.1.1; sf_use_s2() is TRUE
+[[1]]
+An object of class Track 
+3points 
+bbox: 
+  min max
+x   3   6
+y   5   7
+Time period: [2013-09-30 02:01:49.743664, 2013-09-30 02:03:48.804025]
+[[2]]
+An object of class Track 
+2points 
+bbox: 
+  min max
+x   6   7
+y   4   5
+Time period: [2013-09-30 02:04:33.462773, 2013-09-30 02:05:56.054574]
+[[3]]
+An object of class Track 
+3points 
+bbox: 
+  min max
+x   1   2
+y   2   4
+Time period: [2013-09-30 02:08:20.897476, 2013-09-30 02:09:27.381415]
+[[4]]
+An object of class Track 
+3points 
+bbox: 
+  min max
+x   3   3
+y   1   4
+Time period: [2013-09-30 02:11:29.97318, 2013-09-30 02:12:59.06224]
+[[5]]
+An object of class Tracks 
+2 tracks followed by a single object
+[[6]]
+An object of class Tracks 
+2 tracks followed by a single object
+[[7]]
+An object of class TracksCollection 
+2 collection of tracks followed by 2  object
 > 
 > # Check selection methods.
 > 
@@ -399,4 +438,4 @@ Warning messages:
 > 
 > proc.time()
    user  system elapsed 
-  1.505   0.798   1.400 
+  2.628   1.278   2.574 
