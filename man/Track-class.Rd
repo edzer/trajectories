@@ -101,9 +101,9 @@ different IDs.
     \item{$<-}{\code{signature(obj = "Track")}: sets or replaces the attribute element}
     \item{$<-}{\code{signature(obj = "Tracks")}: sets or replaces the attribute element}
     \item{$<-}{\code{signature(obj = "TracksCollection")}: sets or replaces the attribute element}
-    \item{coerce}{Track,data.frame}{coerce to \code{data.frame}}
-    \item{coerce}{Tracks,data.frame}{coerce to \code{data.frame}}
-    \item{coerce}{TracksCollection,data.frame}{coerce to \code{data.frame}}
+    \item{coerce}{\code{signature(from = Track, to = data.frame)} coerce to \code{data.frame}}
+    \item{coerce}{\code{signature(from = Tracks, to = data.frame)} coerce to \code{data.frame}}
+    \item{coerce}{\code{signature(form = TracksCollection, to = data.frame)} coerce to \code{data.frame}}
     \item{plot}{\code{signature(x = "TracksCollection", y = "missing")}: 
     plots sets of sets of tracks}
     \item{stplot}{\code{signature(obj = "TracksCollection")}: 
