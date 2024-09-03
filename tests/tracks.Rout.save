@@ -1,7 +1,7 @@
 
-R version 4.3.2 (2023-10-31) -- "Eye Holes"
-Copyright (C) 2023 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -216,6 +216,7 @@ max 7 7 2013-09-30 02:12:59
 > 
 > # Check generalize methods.
 > 
+> ## IGNORE_RDIFF_BEGIN
 > if (require(sf)) {
 + lapply(all, function(x) generalize(x, max, timeInterval = "2 min"))
 + lapply(all, function(x) generalize(x, distance = 200))
@@ -224,7 +225,7 @@ max 7 7 2013-09-30 02:12:59
 + lapply(all, function(x) generalize(x, n = 3, toPoints = TRUE))
 + }
 Loading required package: sf
-Linking to GEOS 3.11.1, GDAL 3.6.4, PROJ 9.1.1; sf_use_s2() is TRUE
+Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE
 [[1]]
 An object of class Track 
 3points 
@@ -266,6 +267,7 @@ An object of class Tracks
 [[7]]
 An object of class TracksCollection 
 2 collection of tracks followed by 2  object
+> ## IGNORE_RDIFF_END
 > 
 > # Check selection methods.
 > 
@@ -438,4 +440,4 @@ Warning messages:
 > 
 > proc.time()
    user  system elapsed 
-  2.628   1.278   2.574 
+  2.469   1.471   2.432 
