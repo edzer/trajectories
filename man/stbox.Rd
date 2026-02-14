@@ -18,7 +18,6 @@ stbox(obj)
 }
 \value{ \code{stbox} returns a \code{data.frame}, with three columns
 representing x-, y- and time-coordinates, and two rows containing min
-and max values. \code{bbox} gives a matrix with coordinate min/max values,
-compatible to \link{bbox}}
+and max values. }
 
 \keyword{dplot}

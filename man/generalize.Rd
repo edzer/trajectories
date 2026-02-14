@@ -22,7 +22,7 @@
 \item{n}{ number of points to form segments }
 \item{tol}{ tolerance passed on to \link[sf:geos_unary]{st_simplify}, to generalize segments 
  using the Douglas-Peucker algorithm. }
-\item{toPoints}{ keep mid point rather than forming \link{SpatialLines} segments }
+\item{toPoints}{ keep mid point rather than forming \link[sp]{SpatialLines} segments }
 \item{...}{Additional arguments passed to FUN}
 }
 

@@ -14,7 +14,7 @@ Class that represents differences between two \link{Track} objects.
 Objects can be created by calls of the form \code{new("difftrack", ...)}.
 Objects of class \code{difftrack} contain 2 objects of class \link{Track} 
 extended with points for timestamps of the other track and 2 
-\link{SpatialLinesDataFrame} conataining the the lines and distances between tracks.
+\link[sp]{SpatialLinesDataFrame} conataining the the lines and distances between tracks.
 }
 \section{Slots}{
   \describe{

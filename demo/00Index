@@ -3,5 +3,4 @@ Geolife		read Geolife 1.3 data (not supplied)
 stcube		stcube demo
 citibikenyc	citibikenyc
 storms		storms
-enviroCaR	enviroCaR demo
 google		read google history track, https://maps.google.com/locationhistory/

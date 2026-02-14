@@ -54,7 +54,7 @@
 \description{ Classes for representing sets of trajectory data, 
 with attributes, for different IDs (persons, objects, etc) }
 \section{Objects from the Class}{ 
-Objects of class \code{Track} extend \link{STIDF-class} 
+Objects of class \code{Track} extend \link[spacetime]{STIDF-class} 
 and contain single trips or tracks, 
 objects of class \code{Tracks} contain multiple \code{Track} objects
 for a single ID (person, object or tracking device), objects of class
@@ -133,7 +133,7 @@ different IDs.
 }
 
 \arguments{
-\item{track}{object of class \link{STIDF-class}, representing a single trip}
+\item{track}{object of class \link[spacetime]{STIDF-class}, representing a single trip}
 \item{df}{optional \code{data.frame} with information between track points}
 \item{tracks}{named list with \code{Track} objects}
 \item{tracksData}{\code{data.frame} with summary data for each \code{Track}}
